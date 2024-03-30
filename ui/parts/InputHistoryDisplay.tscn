@@ -1,0 +1,30 @@
+[gd_scene load_steps=11 format=3 uid="uid://dnkyecls7oil6"]
+
+[ext_resource type="Script" path="res://ui/parts/InputHistoryDisplay.gd" id="1_4ntep"]
+[ext_resource type="Texture2D" uid="uid://sd07n4uts3ic" path="res://img/icon/arrowDown.png" id="2_ewqe0"]
+[ext_resource type="Texture2D" uid="uid://bmsep7l0mgr27" path="res://img/icon/arrowLeft.png" id="3_etgyb"]
+[ext_resource type="Texture2D" uid="uid://c2kp6y6vbo5fb" path="res://img/icon/arrowRight.png" id="4_40356"]
+[ext_resource type="Texture2D" uid="uid://ba6ai84onkiyx" path="res://img/icon/arrowUp.png" id="5_0mrfc"]
+[ext_resource type="Texture2D" uid="uid://vo7ajo23scq8" path="res://img/icon/downLeft.png" id="6_75m2y"]
+[ext_resource type="Texture2D" uid="uid://camo5585x3d4x" path="res://img/icon/downRight.png" id="7_avj0a"]
+[ext_resource type="Texture2D" uid="uid://cg11h0jj32t6g" path="res://img/icon/upLeft.png" id="8_rdh8i"]
+[ext_resource type="Texture2D" uid="uid://bkj15iv03dya4" path="res://img/icon/upRight.png" id="9_kx4at"]
+[ext_resource type="Texture2D" uid="uid://bsgp03cahu7rb" path="res://img/icon/star.png" id="10_wy528"]
+
+[node name="InputHistoryDisplay" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4ntep")
+di_icons = [ExtResource("2_ewqe0"), ExtResource("3_etgyb"), ExtResource("4_40356"), ExtResource("5_0mrfc"), ExtResource("6_75m2y"), ExtResource("7_avj0a"), ExtResource("8_rdh8i"), ExtResource("9_kx4at"), ExtResource("10_wy528")]
+
+[node name="DI" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("10_wy528")
+expand_mode = 3
+
+[node name="FrameCount" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "999"

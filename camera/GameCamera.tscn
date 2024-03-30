@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dip4omawevgwd"]
+
+[ext_resource type="Script" path="res://camera/GameCamera.gd" id="1_q3t33"]
+
+[node name="GameCamera" type="Node3D"]
+script = ExtResource("1_q3t33")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+current = true
+fov = 40.0
+
+[node name="ref1" type="Node3D" parent="."]
+
+[node name="ref2" type="Node3D" parent="."]

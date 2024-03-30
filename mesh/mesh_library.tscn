@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcbxku08ci4v"]
+
+[ext_resource type="Shader" path="res://shader/ps1.gdshader" id="1_ywxqw"]
+[ext_resource type="Texture2D" uid="uid://vq11orckifub" path="res://icon.svg" id="2_eyw6p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1x1xh"]
+render_priority = 0
+shader = ExtResource("1_ywxqw")
+shader_parameter/jitter = 0.5
+shader_parameter/jitter_z_coordinate = true
+shader_parameter/jitter_depth_independent = true
+shader_parameter/affine_texture_mapping = true
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/albedo = ExtResource("2_eyw6p")
+shader_parameter/specular = ExtResource("2_eyw6p")
+shader_parameter/emission = ExtResource("2_eyw6p")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nk5yj"]
+material = SubResource("ShaderMaterial_1x1xh")
+
+[node name="mesh_library" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_nk5yj")

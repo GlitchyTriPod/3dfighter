@@ -1,0 +1,270 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbbhore3lsp1i"]
+
+[ext_resource type="PackedScene" uid="uid://dnkyecls7oil6" path="res://ui/parts/InputHistoryDisplay.tscn" id="1_8vvsn"]
+[ext_resource type="Script" path="res://ui/MatchUI.gd" id="1_m40do"]
+[ext_resource type="PackedScene" uid="uid://3nasqljy0y06" path="res://stage/node_3d.tscn" id="2_olrry"]
+
+[sub_resource type="Gradient" id="Gradient_h0dl0"]
+offsets = PackedFloat32Array(0, 0.0935252, 0.910345, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dpbyj"]
+gradient = SubResource("Gradient_h0dl0")
+
+[node name="MatchUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_m40do")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Stage" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_olrry")]
+unique_name_in_owner = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.372549)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_dpbyj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Left" type="VBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Header" type="HBoxContainer" parent="HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Left"]
+layout_mode = 2
+
+[node name="InputHistoryDisplay" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay2" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay3" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay4" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay5" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay6" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay7" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay8" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay9" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay10" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay11" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay12" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay13" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay14" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay15" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay16" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay17" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay18" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay19" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay20" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay21" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay22" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay23" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay24" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay25" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay26" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="InputHistoryDisplay27" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+
+[node name="Right" type="VBoxContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Header" type="HBoxContainer" parent="HBoxContainer/Right"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Right"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="InputHistoryDisplay" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay2" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay3" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay4" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay5" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay6" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay7" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay8" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay9" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay10" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay11" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay12" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay13" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay14" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay15" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay16" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay17" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay18" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay19" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay20" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay21" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay22" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay23" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay24" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay25" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay26" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InputHistoryDisplay27" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+layout_mode = 2
+size_flags_horizontal = 8

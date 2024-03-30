@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c2xjydi74gyjf"]
+
+[ext_resource type="Shader" path="res://shader/ps1.gdshader" id="1_lqjvh"]
+[ext_resource type="Texture2D" uid="uid://dvvjaiucbr5y2" path="res://models/killer_robot/killer_robot_tex2.png" id="2_xsy4o"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_lqjvh")
+shader_parameter/jitter = 0.5
+shader_parameter/jitter_z_coordinate = true
+shader_parameter/jitter_depth_independent = true
+shader_parameter/affine_texture_mapping = true
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/albedo = ExtResource("2_xsy4o")
+shader_parameter/specular = ExtResource("2_xsy4o")
+shader_parameter/emission = ExtResource("2_xsy4o")
