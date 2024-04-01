@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://6dnmb1ewqg5r"]
+
+[ext_resource type="Script" path="res://nodes/collision/FixedCollisionShape3D.gd" id="1_3iyai"]
+[ext_resource type="Script" path="res://classes/FixedVector3.gd" id="2_gjdea"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hbmqi"]
+
+[sub_resource type="Resource" id="Resource_hyytv"]
+script = ExtResource("2_gjdea")
+x = 0
+y = 0
+z = 0
+
+[sub_resource type="Resource" id="Resource_ofr7y"]
+script = ExtResource("2_gjdea")
+x = 0
+y = 0
+z = 0
+
+[node name="FixedCollisionShape3d" type="CollisionShape3D"]
+shape = SubResource("SphereShape3D_hbmqi")
+script = ExtResource("1_3iyai")
+fixed_position = SubResource("Resource_hyytv")
+fixed_rotation = SubResource("Resource_ofr7y")

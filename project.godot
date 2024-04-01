@@ -148,6 +148,7 @@ INPUT_RIGHT_P2={
 [physics]
 
 common/physics_jitter_fix=0.0
+3d/default_gravity=642252.0
 
 [rendering]
 

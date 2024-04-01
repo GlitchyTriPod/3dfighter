@@ -6,15 +6,20 @@ class_name Fighter
 @export var disable_control: bool = false
 @export var actionable: bool = true
 
-@export var walk_speed: float = 3
-@export var back_walk_speed: float = 3
-@export var side_walk_speed: float = 3
-@export var crouch_walk_speed: float = 1.75
-@export var dash_strength: float = 3
+@export var walk_speed: int = 196608
+@export var back_walk_speed: int = 196608
+@export var side_walk_speed: int = 196608
+@export var crouch_walk_speed: int = 114688
+@export var dash_strength: int = 196608
 
 @export_enum("1","2") var player = 0
 
 @export var face_opponent: bool= true
+
+# @export var fixed_position := FixedVector3.new()
+# @export var fixed_rotation := FixedVector3.new()
+
+var stage: Stage
 
 # tracks basic stances for the fighter -- extend if character has multiple stances
 enum STANCE {
@@ -66,15 +71,12 @@ var button_state = BUTTON_STATE.NONE
 var counter_hit := true
 
 # velocity imparted on the fighter by the enemy pushing them
-var impart_velocity := Vector3(0,0,0)
+var impart_velocity := FixedVector3.new()
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-@onready var grounded:
-	get:
-		return self.char_controller.is_on_floor()
 
-@onready var char_controller: CharacterBody3D = %CharacterBody3D
+@onready var char_controller: CharacterController3D = %CharacterBody3D
 @onready var mesh = %Mesh
 
 @onready var input_interpreter = %InputInterpreter
@@ -99,10 +101,15 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var animation_player: AnimationNodeStateMachinePlayback = %CharacterBody3D/AnimationTree["parameters/playback"]
 
+@onready var grounded:
+	get:
+		return self.char_controller.is_on_floor(self.stage)
 
 @onready var stance_label: Label3D = %Label3D
 
-func _process(_delta):
+func _process(_delta: float):
+
+	_delta = int(_delta * 65536)
 
 	self.stance_label.text = STANCE.keys()[self.stance] + " " + str(self.grounded) 
 
@@ -115,7 +122,8 @@ func _process(_delta):
 
 	face_opponent = true
 
-	var opponent_dir = self.char_controller.global_position.direction_to(self.opponent_position)
+
+	var opponent_dir = self.char_controller.position.direction_to(self.opponent_position)
 
 
 	var neutral = func neutral():
@@ -309,8 +317,6 @@ func _process(_delta):
 			_:
 				neutral.call()
 
-	
-
 	# handle button presses here -- but ignore button presses for right now
 
 	# Add the gravity.
@@ -323,7 +329,7 @@ func _process(_delta):
 	# add velocity imparted by the oppoenent
 	self.char_controller.velocity += self.impart_velocity
 
-	self.impart_velocity = Vector3()
+	self.impart_velocity = FixedVector3.new()
 
 	# self.char_controller.velocity = self.char_controller.velocity.rotated(Vector3.UP, \
 	# 	self.char_controller.global_rotation.y)
