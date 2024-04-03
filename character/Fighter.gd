@@ -74,14 +74,14 @@ var counter_hit := true
 var impart_velocity := FixedVector3.new()
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # should be 9.8 * 65536
 
 @onready var char_controller: CharacterController3D = %CharacterBody3D
 @onready var mesh = %Mesh
 
 @onready var input_interpreter = %InputInterpreter
 
-@onready var opponent_position: Vector3:
+@onready var opponent_position: FixedVector3:
 	get:
 		var oppo: Fighter
 		for i in get_parent().get_children():
@@ -89,7 +89,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 				continue
 			oppo = i
 			break
-		return oppo.mesh.global_position
+		return oppo.char_controller.fixed_position
 
 
 @onready var screen_position: String:
@@ -109,7 +109,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _process(_delta: float):
 
-	_delta = int(_delta * 65536)
+	var delta_int = int(_delta * 65536)
 
 	self.stance_label.text = STANCE.keys()[self.stance] + " " + str(self.grounded) 
 
@@ -123,32 +123,50 @@ func _process(_delta: float):
 	face_opponent = true
 
 
-	var opponent_dir = self.char_controller.position.direction_to(self.opponent_position)
+	var opponent_dir: FixedVector3 = self.char_controller.fixed_position.direction_to(self.opponent_position)
 
 
 	var neutral = func neutral():
 		if self.stance == STANCE.SIDESTEP || (self.stance == STANCE.F_DASH || self.stance == STANCE.B_DASH): 
 			return
-		self.char_controller.velocity = Vector3(0,0,0)
+		self.char_controller.velocity = FixedVector3.new()
 		face_opponent = false
 	
 	var handle_dash = func handle_dash(dir: String):
 		if dir == "f":
 			self.animation_player.travel("f_dash")
-			self.char_controller.velocity = (opponent_dir * self.walk_speed) * \
-			lerpf(self.dash_strength, 0, self.animation_player.get_current_play_position() / 0.3333)
+			# self.char_controller.velocity = (opponent_dir * self.walk_speed) * \
+			# lerpf(self.dash_strength, 0, self.animation_player.get_current_play_position() / 0.3333)
+
+			self.char_controller.velocity = FixedVector3.mul( \
+				FixedVector3.mul(opponent_dir, self.walk_speed), \
+				lerp(self.dash_strength, 0, \
+					FixedInt.div( \
+						(int(self.animation_player.get_current_play_position()) * 65536), 21843 \
+				)) \
+			)
 		else:
 			self.animation_player.travel("b_dash")
-			self.char_controller.velocity = (opponent_dir * -self.back_walk_speed) * \
-				clampf(lerpf(self.dash_strength, 0, \
-				self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
+			# self.char_controller.velocity = (opponent_dir * -self.back_walk_speed) * \
+				# clamp(lerp(self.dash_strength, 0, \
+				# self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
+
+			self.char_controller.velocity = FixedVector3.mul( \
+				FixedVector3.mul(opponent_dir, -self.back_walk_speed), \
+				clamp(lerp(self.dash_strength, 0, \
+					FixedInt.div( \
+						(int(self.animation_player.get_current_play_position()) * 65536), 14416 \
+				)), 0, self.dash_strength) \
+			)
 
 	var handle_run = func handle_run():
-		if self.char_controller.global_position.distance_to(self.opponent_position) < 1:
+		if self.char_controller.fixed_position.distance_to(self.opponent_position) < 65536:
 			self.animation_player.travel("f_walk")
 			return
 		self.animation_player.travel("run")
-		self.char_controller.velocity = opponent_dir * (self.walk_speed * 2)
+		# self.char_controller.velocity = opponent_dir * (self.walk_speed * 2)
+
+		self.char_controller.velocity = FixedVector3.mul(opponent_dir, FixedInt.mul(self.walk_speed, 131072))
 
 	var handle_sidestep = func handle_sidestep(dir: String = "iunno"):
 		if dir == "RIGHT" || self.animation_player.get_current_node() == "r_sidestep":
@@ -319,8 +337,11 @@ func _process(_delta: float):
 
 	# handle button presses here -- but ignore button presses for right now
 
-	# Add the gravity.
-	self.char_controller.velocity.y -= 30 * _delta
+	# Add the gravity. if the fighter is not on the floor
+	if self.grounded:											# 30
+		self.char_controller.velocity.y -= FixedVector3.mul_int(1966080, delta_int)
+
+	#
 	
 	# face opponent if necessary
 	if self.grounded && face_opponent:
@@ -330,9 +351,6 @@ func _process(_delta: float):
 	self.char_controller.velocity += self.impart_velocity
 
 	self.impart_velocity = FixedVector3.new()
-
-	# self.char_controller.velocity = self.char_controller.velocity.rotated(Vector3.UP, \
-	# 	self.char_controller.global_rotation.y)
 
 	self.char_controller.move_and_slide()
 

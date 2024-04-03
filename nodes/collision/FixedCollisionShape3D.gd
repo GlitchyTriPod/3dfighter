@@ -44,3 +44,7 @@ func _notification(what: int):
 		self.fixed_rotation.y = int(self.rotation.y * 65536)
 		self.fixed_rotation.z = int(self.rotation.z * 65536)
 
+# called by charactercontroller3d
+func is_on_floor(floor_height: int) -> bool:
+	var rem = self.fixed_position.y - self.sphere_radius
+	return true if rem <= floor_height else false

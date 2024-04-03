@@ -43,56 +43,6 @@ func _init(x_inc: int = 0, y_inc: int = 0, z_inc: int = 0):
     self.y = y_inc
     self.z = z_inc
 
-# also copied from SGPhysics2D, which copied from wikipedia. theft is an art
-# https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Binary_numeral_system_.28base_2.29
-# ALSO also; woulda really like to prototype this onto int but OH WELL
-func sqrt_64(num: int) -> int:
-    if num == 0:
-        return 0
-
-    var neg: bool = num < 0
-    if neg:
-        num = -num
-
-    var res: int = 0
-    var bit: int = 1 << 62
-
-    # start at highest power of four thats less than or equal to num
-    while bit > num:
-        bit >>= 2
-
-    while bit != 0:
-        if num >= res + bit:
-            num -= res + bit
-            res = (res >> 1) + bit
-        else:
-            res >>= 1
-        bit >>= 2
-
-    return -res if neg else res
-
-
-func length() -> int:
-    var length_sqrd := self.length_squared()
-
-    if length_sqrd == 0:
-        return 0
-
-    var lgth = sqrt_64(length_sqrd)
-    if lgth == 0:
-        return 1
-
-    return lgth
-
-func length_squared() -> int:
-    var ret := (self.x * self.x) + (self.y * self.y) + (self.z * self.z) ## <<--- WRITE MULTIPLICATION AND DIVISION METHODS YOU FUCKHEAD
-                                                                        #           THIS WONT WORK LIKE THIS <IDIOT>
-    # squaring a fixed point number smaller than 15 will be 0
-    # which means ret can be 0
-    if (ret == 0) && (self.x != 0 || self.y != 0 || self.z != 0):
-        return 1 # gotta return something
-    return ret
-
 static func from_vec3(val: Vector3) -> FixedVector3:
     var ret_vec = FixedVector3.new()
 
@@ -120,13 +70,101 @@ static func add(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
 
     return ret_vec
 
-func distance_to(vec2: FixedVector3) -> FixedVector3:
+static func sub(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
+    var ret_vec = FixedVector3.new()
+
+    ret_vec.x = vec1.x - vec2.x
+    ret_vec.y = vec1.y - vec2.y
+    ret_vec.z = vec1.z - vec2.z
+
+    return ret_vec
+
+static func mul(vec: FixedVector3, num: int) -> FixedVector3:
+    var ret_vec = FixedVector3.new()
+
+    ret_vec.x = FixedInt.mul(vec.x, num)
+    ret_vec.y = FixedInt.mul(vec.y, num)
+    ret_vec.z = FixedInt.mul(vec.z, num)
+
+    return ret_vec
+
+static func div(vec: FixedVector3, num: int) -> FixedVector3:
+    var ret_vec = FixedVector3.new()
+
+    ret_vec.x = FixedInt.div(vec.x, num)
+    ret_vec.y = FixedInt.div(vec.y, num)
+    ret_vec.z = FixedInt.div(vec.z, num)
+
+    return ret_vec
+
+func length() -> int:
+    var length_sqrd := self.length_squared()
+
+    if length_sqrd == 0:
+        return 0
+
+    var lgth = FixedInt.sqrt_64(length_sqrd)
+    if lgth == 0:
+        return 1
+
+    return lgth
+
+func length_squared() -> int:
+    var ret := FixedInt.mul(self.x, self.x) \
+        + FixedInt.mul(self.y, self.y) \
+        + FixedInt.mul(self.z, self.z)
+                                              
+    # squaring a fixed point number smaller than 15 will be 0
+    # which means ret can be 0
+    if (ret == 0) && (self.x != 0 || self.y != 0 || self.z != 0):
+        return 1 # gotta return something
+    return ret
+
+func distance_to(vec: FixedVector3) -> int:
+    return FixedVector3.sub(vec, self).length()
+
+func distance_squared_to(vec: FixedVector3) -> int:
+    return FixedVector3.sub(vec, self).length_squared()
+
+func direction_to(vec2: FixedVector3) -> FixedVector3:
     var ret := FixedVector3.new()
     ret.x = vec2.x - self.x
     ret.y = vec2.y - self.y
     ret.z = vec2.z - self.z
     ret.normalize()
     return ret
+
+func angle(axis: Vector3) -> int:
+    match axis:
+        Vector3.UP, Vector3.DOWN:
+            return FixedInt.atan2(self.z, self.x)
+        Vector3.LEFT, Vector3.RIGHT:
+            return FixedInt.atan2(self.y, self.z)
+        Vector3.FORWARD, Vector3.BACK:
+            return FixedInt.atan2(self.y, self.x)
+    return 0
+
+func rotated(axis: Vector3, p_rotation: int) -> FixedVector3:
+    var v = FixedVector3.new()
+    v.rotate(axis, self.angle(axis) + p_rotation)
+    v = FixedVector3.mul(v, v.length())
+    return v
+
+func rotate(axis: Vector3, ang: int) -> FixedVector3:
+    match axis:
+        Vector3.UP, Vector3.DOWN:
+            # return FixedInt.atan2(self.x, self.z)
+            self.x = FixedInt.cos(ang)
+            self.z = FixedInt.sin(ang)
+        Vector3.LEFT, Vector3.RIGHT:
+            # return FixedInt.atan2(self.y, self.z)
+            self.y = FixedInt.cos(ang)
+            self.z = FixedInt.sin(ang)
+        Vector3.FORWARD, Vector3.BACK:
+            # return FixedInt.atan2(self.x, self.y)
+            self.x = FixedInt.cos(ang)
+            self.y = FixedInt.sin(ang)
+    return self
 
 # based on snopek games' SGPysics2D implementation, translated into 3d
 func normalize():
@@ -158,18 +196,24 @@ func normalize():
 
         else:
             # multiply xyz by 2048
-            var x_big = self.x << 11 # bit shifting is much faster than regular multiplication
-            var y_big = self.y << 11
-            var z_big = self.z << 11
+            var x_big: int = self.x << 11 # bit shifting is much faster than regular multiplication
+            var y_big: int = self.y << 11
+            var z_big: int = self.z << 11
 
-            var lgth = FixedVector3.new(
+            var lgth := FixedVector3.new(
                     x_big, 
                     y_big, 
                     z_big
                 ).length()
 
             if lgth != 0:
-                self.x = x_big / lgth
+                self.x = FixedInt.div(x_big, lgth)
+                self.y = FixedInt.div(y_big, lgth)
+                self.z = FixedInt.div(z_big, lgth)
 
     else:
-        pass
+        var lgth = self.length()
+        if lgth != 0:
+            self.x = FixedInt.div(self.x, lgth)
+            self.y = FixedInt.div(self.y, lgth)
+            self.z = FixedInt.div(self.z, lgth)
