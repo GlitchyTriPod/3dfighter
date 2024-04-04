@@ -135,36 +135,87 @@ func direction_to(vec2: FixedVector3) -> FixedVector3:
     return ret
 
 func angle(axis: Vector3) -> int:
+    var yaw := func() -> int: 
+        return FixedInt.atan2(self.y, self.x)
+
     match axis:
         Vector3.UP, Vector3.DOWN:
-            return FixedInt.atan2(self.z, self.x)
+            return FixedInt.atan2(-self.z, 
+            FixedInt.sqrt_64(
+                FixedInt.mul(self.x, self.x) + FixedInt.mul(self.y, self.y)
+                )
+            )   
         Vector3.LEFT, Vector3.RIGHT:
-            return FixedInt.atan2(self.y, self.z)
+            var _yaw = yaw.call()
+            return FixedInt.atan2(
+                FixedInt.mul(
+                    self.y, FixedInt.cos(_yaw)
+                ) + FixedInt.mul(
+                    x, FixedInt.sin(_yaw)
+                ), self.z
+            )
         Vector3.FORWARD, Vector3.BACK:
-            return FixedInt.atan2(self.y, self.x)
+            return yaw.call()
     return 0
 
 func rotated(axis: Vector3, p_rotation: int) -> FixedVector3:
-    var v = FixedVector3.new()
-    v.rotate(axis, self.angle(axis) + p_rotation)
-    v = FixedVector3.mul(v, v.length())
+    var v := FixedVector3.new()
+    v.rotate(axis, self.angle(axis) + p_rotation) # <-- i think this might cause problems but im not sure.
+    v = FixedVector3.mul(v, v.length())            # should i really be adding rotation to the -current- angle?
     return v
 
 func rotate(axis: Vector3, ang: int) -> FixedVector3:
-    match axis:
-        Vector3.UP, Vector3.DOWN:
-            # return FixedInt.atan2(self.x, self.z)
-            self.x = FixedInt.cos(ang)
-            self.z = FixedInt.sin(ang)
-        Vector3.LEFT, Vector3.RIGHT:
-            # return FixedInt.atan2(self.y, self.z)
-            self.y = FixedInt.cos(ang)
-            self.z = FixedInt.sin(ang)
-        Vector3.FORWARD, Vector3.BACK:
-            # return FixedInt.atan2(self.x, self.y)
-            self.x = FixedInt.cos(ang)
-            self.y = FixedInt.sin(ang)
+
+    var c := FixedInt.cos(ang)
+    var s := FixedInt.sin(ang)
+    var t : = 65536 - c
+
+    var x_ax := int(axis.x * 65536)
+    var y_ax := int(axis.y * 65536)
+    var z_ax := int(axis.z * 65536)
+
+    var x_old := int(self.x)
+    var y_old := int(self.y)
+    var z_old := int(self.z)
+
+    # god this is so ugly
+    self.x = \
+        FixedInt.mul(FixedInt.mul(t, FixedInt.mul(x_ax, x_ax)) + c, x_old) + \
+        FixedInt.mul(FixedInt.mul(FixedInt.mul(t, x_ax), y_ax) - FixedInt.mul(s, z_ax), y_old) + \
+        FixedInt.mul(FixedInt.mul(FixedInt.mul(t, x_ax), z_ax) + FixedInt.mul(s, y_ax), z_old)
+
+    self.y = \
+        FixedInt.mul(FixedInt.mul(FixedInt.mul(t, x_ax), y_ax) + FixedInt.mul(s, z_ax), x_old) + \
+        FixedInt.mul(FixedInt.mul(t, FixedInt.mul(y_ax, y_ax)) + c, y_old) + \
+        FixedInt.mul(FixedInt.mul(FixedInt.mul(t, y_ax), z_ax) - FixedInt.mul(s, x_ax), z_old)
+
+    self.z = \
+        FixedInt.mul(FixedInt.mul(FixedInt.mul(t, x_ax), z_ax) - FixedInt.mul(s, y_ax), x_old) + \
+        FixedInt.mul(FixedInt.mul(FixedInt.mul(t, y_ax), z_ax) + FixedInt.mul(s, x_ax), y_old) + \
+        FixedInt.mul(FixedInt.mul(t, FixedInt.mul(z_ax, z_ax)) + c, z_old)
+
     return self
+
+    # rotated_vector = [
+    #     (t * x**2 + c) * vector[0] + (t * x * y - s * z) * vector[1] + (t * x * z + s * y) * vector[2],
+    #     (t * x * y + s * z) * vector[0] + (t * y**2 + c) * vector[1] + (t * y * z - s * x) * vector[2],
+    #     (t * x * z - s * y) * vector[0] + (t * y * z + s * x) * vector[1] + (t * z**2 + c) * vector[2]
+    # ]
+
+    # match axis:
+    #     Vector3.UP, Vector3.DOWN:
+    #         # return FixedInt.atan2(self.x, self.z)
+    #         self.x = FixedInt.cos(ang)
+    #         self.z = FixedInt.sin(ang)
+    #     Vector3.LEFT, Vector3.RIGHT:
+    #         # return FixedInt.atan2(self.y, self.z)
+    #         self.y = FixedInt.cos(ang)
+    #         self.z = FixedInt.sin(ang)
+    #     Vector3.FORWARD, Vector3.BACK:
+    #         # return FixedInt.atan2(self.x, self.y)
+    #         self.x = FixedInt.cos(ang)
+    #         self.y = FixedInt.sin(ang)
+    # return self
 
 # based on snopek games' SGPysics2D implementation, translated into 3d
 func normalize():

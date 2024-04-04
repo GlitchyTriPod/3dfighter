@@ -1,6 +1,6 @@
 @tool
 extends CollisionShape3D
-class_name FixedCollisionShape3d
+class_name FixedCollisionShape3D
 
 @export var fixed_position := FixedVector3.new()
 @export var fixed_rotation := FixedVector3.new()

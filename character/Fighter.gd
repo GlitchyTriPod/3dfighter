@@ -76,7 +76,7 @@ var impart_velocity := FixedVector3.new()
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # should be 9.8 * 65536
 
-@onready var char_controller: CharacterController3D = %CharacterBody3D
+@onready var char_controller: FixedCharacterController3D = %CharacterBody3D
 @onready var mesh = %Mesh
 
 @onready var input_interpreter = %InputInterpreter
@@ -103,7 +103,7 @@ var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # 
 
 @onready var grounded:
 	get:
-		return self.char_controller.is_on_floor(self.stage)
+		return self.char_controller.is_on_floor(self.stage.floor_height)
 
 @onready var stance_label: Label3D = %Label3D
 
@@ -373,7 +373,8 @@ func _process(_delta: float):
 	
 	# face opponent if necessary
 	if self.grounded && face_opponent:
-		self.char_controller.look_at(self.opponent_position)
+		# Vector3.look_at()
+		self.char_controller.fixed_look_at(self.opponent_position)
 
 	# add velocity imparted by the oppoenent
 	self.char_controller.velocity = FixedVector3.add(self.char_controller.velocity, self.impart_velocity)
