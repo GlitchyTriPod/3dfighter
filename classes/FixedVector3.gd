@@ -97,6 +97,13 @@ static func div(vec: FixedVector3, num: int) -> FixedVector3:
 
     return ret_vec
 
+func dot(vec2: FixedVector3) -> int:
+    var res := 0
+    res += FixedInt.mul(self.x, vec2.x)
+    res += FixedInt.mul(self.y, vec2.y)
+    res += FixedInt.mul(self.z, vec2.z)
+    return res
+
 func length() -> int:
     var length_sqrd := self.length_squared()
 
@@ -158,14 +165,45 @@ func angle(axis: Vector3) -> int:
             return yaw.call()
     return 0
 
+func angle_to(target: FixedVector3, axis: Vector3 = Vector3.UP) -> int: # << CONVERT THIS 
+    var s := FixedVector3.new()
+    var t := FixedVector3.new()
+    match axis:
+        Vector3.FORWARD, Vector3.BACK:
+            s.x = self.x
+            s.y = self.y
+            t.x = target.x
+            t.y = target.y        
+        Vector3.UP, Vector3.DOWN:
+            s.x = self.x
+            s.z = self.z
+            t.x = target.x
+            t.z = target.z        
+        Vector3.LEFT, Vector3.RIGHT:
+            s.y = self.y
+            s.z = self.z
+            t.y = target.y
+            t.z = target.z
+        
+    var dot_val := s.dot(t)
+    var mag1 := s.length()
+    var mag2 := t.length()
+
+    var mag_prod := FixedInt.mul(mag1, mag2)
+
+    var cos_angle := 0
+    if mag_prod != 0:
+        cos_angle = FixedInt.div(dot_val, FixedInt.mul(mag1, mag2))
+
+    return FixedInt.acos(clamp(cos_angle, -65536, 65536))
+    
 func rotated(axis: Vector3, p_rotation: int) -> FixedVector3:
-    var v := FixedVector3.new()
-    v.rotate(axis, self.angle(axis) + p_rotation) # <-- i think this might cause problems but im not sure.
-    v = FixedVector3.mul(v, v.length())            # should i really be adding rotation to the -current- angle?
+    var v := FixedVector3.new(self.z, self.y, self.z)
+    v.rotate(axis, p_rotation) #self.angle(axis) + p_rotation) # <-- i think this might cause problems but im not sure.
+    # v = FixedVector3.mul(v, v.length())            # should i really be adding rotation to the -current- angle?
     return v
 
 func rotate(axis: Vector3, ang: int) -> FixedVector3:
-
     var c := FixedInt.cos(ang)
     var s := FixedInt.sin(ang)
     var t : = 65536 - c
@@ -216,6 +254,13 @@ func rotate(axis: Vector3, ang: int) -> FixedVector3:
     #         self.x = FixedInt.cos(ang)
     #         self.y = FixedInt.sin(ang)
     # return self
+
+# func looking_at():
+
+func normalized() -> FixedVector3:
+    var v := FixedVector3.new(self.x, self.y, self.z)
+    v.normalize()
+    return v
 
 # based on snopek games' SGPysics2D implementation, translated into 3d
 func normalize():

@@ -12,6 +12,11 @@ class_name FixedCollisionShape3D
 		sphere_radius = val
 		self.shape.radius = float(sphere_radius) / 65536.0
 
+@export var margin: int = 2621: # 0.04 * 65536
+	set(val):
+		margin = val
+		self.shape.margin = float(margin) / 65536.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.shape = SphereShape3D.new()

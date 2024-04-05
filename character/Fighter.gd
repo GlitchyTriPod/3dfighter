@@ -76,12 +76,12 @@ var impart_velocity := FixedVector3.new()
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # should be 9.8 * 65536
 
-@onready var char_controller: FixedCharacterController3D = %CharacterBody3D
+@onready var char_controller: CharacterController3D = %CharacterBody3D
 @onready var mesh = %Mesh
 
 @onready var input_interpreter = %InputInterpreter
 
-@onready var opponent_position: FixedVector3:
+var opponent_position: FixedVector3:
 	get:
 		var oppo: Fighter
 		for i in get_parent().get_children():
@@ -89,21 +89,25 @@ var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # 
 				continue
 			oppo = i
 			break
-		return oppo.char_controller.fixed_position
+		if oppo.char_controller.collision_body == null:
+			return FixedVector3.new()
+		return oppo.char_controller.collision_body.fixed_position
 
 
-@onready var screen_position: String:
+var screen_position: String:
 	get:
 		return get_parent() \
 			.get_parent() \
 			.get_node("GameCamera") \
-			.get_char_position(self.mesh.global_position)
+			.get_char_position( \
+				self.char_controller.collision_body.position if self.char_controller.collision_body != null else self.global_position
+			)
 
 @onready var animation_player: AnimationNodeStateMachinePlayback = %CharacterBody3D/AnimationTree["parameters/playback"]
 
-@onready var grounded:
+var grounded:
 	get:
-		return self.char_controller.is_on_floor(self.stage.floor_height)
+		return self.char_controller.is_on_floor(self.stage)
 
 @onready var stance_label: Label3D = %Label3D
 
@@ -123,7 +127,11 @@ func _process(_delta: float):
 	face_opponent = true
 
 
-	var opponent_dir: FixedVector3 = self.char_controller.fixed_position.direction_to(self.opponent_position)
+	var opponent_dir : FixedVector3
+	if self.char_controller.collision_body == null:
+		opponent_dir = FixedVector3.new()
+	else:
+		opponent_dir = self.char_controller.collision_body.fixed_position.direction_to(self.opponent_position)
 
 
 	var neutral = func neutral():
@@ -368,34 +376,39 @@ func _process(_delta: float):
 	# handle button presses here -- but ignore button presses for right now
 
 	# Add the gravity. if the fighter is not on the floor
-	if self.grounded:									# 30
+	if !self.grounded:									# 30
 		self.char_controller.velocity.y -= FixedInt.mul(1966080, delta_int)
 	
 	# face opponent if necessary
 	if self.grounded && face_opponent:
 		# Vector3.look_at()
-		self.char_controller.fixed_look_at(self.opponent_position)
+		self.char_controller.collision_body.fixed_look_at(self.opponent_position)
 
 	# add velocity imparted by the oppoenent
 	self.char_controller.velocity = FixedVector3.add(self.char_controller.velocity, self.impart_velocity)
 
 	self.impart_velocity = FixedVector3.new()
 
-	self.char_controller.move_and_slide()
+	self.char_controller.collide_and_slide(delta_int)
 
+	if self.char_controller.collision_body != null:
+		self.mesh.global_position = self.char_controller.collision_body.position
+		self.mesh.global_position.z += -0.156
+		self.mesh.global_rotation = self.char_controller.collision_body.rotation
+		self.mesh.global_rotation.y += 0.5
 
 	# impart velocity onto the opponent if pushing them
 
 	# first, check how many collisions were found, if the chape owner is CharacterBody3D, that is the opponent fighter.
-	for i in range(0, self.char_controller.get_slide_collision_count()):
-		var collision = self.char_controller.get_slide_collision(i).get_collider()
-		if collision.name == "CharacterBody3D":
-			match self.di_state:
-				DI_STATE.FORWARD:
-					collision.get_parent().impart_velocity = FixedVector3.mul(opponent_dir, FixedInt.div(self.walk_speed, 49152))
-				DI_STATE.DOWN_FORWARD:
-					collision.get_parent().impart_velocity = FixedVector3.mul(opponent_dir, FixedInt.div(self.crouch_walk_speed, 49152))
-			break
+	# for i in range(0, self.char_controller.get_slide_collision_count()):
+	# 	var collision = self.char_controller.get_slide_collision(i).get_collider()
+	# 	if collision.name == "CharacterBody3D":
+	# 		match self.di_state:
+	# 			DI_STATE.FORWARD:
+	# 				collision.get_parent().impart_velocity = FixedVector3.mul(opponent_dir, FixedInt.div(self.walk_speed, 49152))
+	# 			DI_STATE.DOWN_FORWARD:
+	# 				collision.get_parent().impart_velocity = FixedVector3.mul(opponent_dir, FixedInt.div(self.crouch_walk_speed, 49152))
+	# 		break
 
 
 # takes input information from the InputListener and hands it to the InputInterpreter.
