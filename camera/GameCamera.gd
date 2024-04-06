@@ -47,11 +47,7 @@ func _process(_delta):
 		dist = 11
 	
 	self.global_position = (chars[0].mesh.global_position + chars[1].mesh.global_position) / 2
-
-	self.look_at(chars[0].mesh.global_position)
-	# self.rotation.x = 0 # we do not want the camera's parent to rotate vertically
-	# self.rotation.z = 0
-
+	
 	# assign positions to reference nodes
 	self.cam_ref1.position.x = dist
 	self.cam_ref2.position.x = -dist

@@ -1,25 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm7fpj0s4sckk"]
+[gd_scene load_steps=7 format=3 uid="uid://dm7fpj0s4sckk"]
 
 [ext_resource type="Script" path="res://nodes/controller/FixedCharacterController3D.gd" id="1_1j7lo"]
 [ext_resource type="Script" path="res://classes/FixedVector3.gd" id="2_42gxp"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_r1bam"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_pspja"]
 
-[sub_resource type="Resource" id="Resource_w6px8"]
+[sub_resource type="Resource" id="Resource_gbak4"]
 script = ExtResource("2_42gxp")
 x = 0
 y = 0
 z = 0
 
-[sub_resource type="Resource" id="Resource_s55oj"]
+[sub_resource type="Resource" id="Resource_b4sea"]
 script = ExtResource("2_42gxp")
 x = 0
 y = 0
 z = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_uq7ml"]
 
 [node name="FixedCharacterController3d" type="CollisionShape3D"]
 top_level = true
-shape = SubResource("SphereShape3D_r1bam")
+shape = SubResource("SphereShape3D_pspja")
 script = ExtResource("1_1j7lo")
-fixed_position = SubResource("Resource_w6px8")
-fixed_rotation = SubResource("Resource_s55oj")
+exp_fixed_position = SubResource("Resource_gbak4")
+exp_fixed_rotation = SubResource("Resource_b4sea")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_uq7ml")

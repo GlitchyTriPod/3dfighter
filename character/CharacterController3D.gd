@@ -26,8 +26,6 @@ func is_on_floor(stage: Stage) -> bool:
 func collide_and_slide(delta:int):
     #worry about collision later, just focus on motion
 
-    self.fixed_position.x = FixedInt.mul(self.velocity.x, delta)
-    self.fixed_position.y = FixedInt.mul(self.velocity.y, delta)
-    self.fixed_position.z = FixedInt.mul(self.velocity.z, delta)
-
-    pass
+    self.fixed_position.x += FixedInt.mul(self.velocity.x, delta)
+    self.fixed_position.y += FixedInt.mul(self.velocity.y, delta)
+    self.fixed_position.z += FixedInt.mul(self.velocity.z, delta)

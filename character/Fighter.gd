@@ -126,7 +126,6 @@ func _process(_delta: float):
 
 	face_opponent = true
 
-
 	var opponent_dir : FixedVector3
 	if self.char_controller.collision_body == null:
 		opponent_dir = FixedVector3.new()
