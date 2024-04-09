@@ -6,11 +6,11 @@ class_name Fighter
 @export var disable_control: bool = false
 @export var actionable: bool = true
 
-@export var walk_speed: int = 196608
-@export var back_walk_speed: int = 196608
-@export var side_walk_speed: int = 196608
-@export var crouch_walk_speed: int = 114688
-@export var dash_strength: int = 196608
+@export var walk_speed: int = 1500 #196608
+@export var back_walk_speed: int = 1500 #196608
+@export var side_walk_speed: int = 1500
+@export var crouch_walk_speed: int = 600
+@export var dash_strength: int = 30000
 
 @export_enum("1","2") var player = 0
 
@@ -182,8 +182,8 @@ func _process(_delta: float):
 			# 	clampf(lerpf(self.dash_strength, 0, \
 			# 	self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
 																							
-			self.char_controller.velocity = FixedVector3.mul(   # vvv -85 deg 
-				FixedVector3.mul(opponent_dir.rotated(Vector3.UP, -97224), self.side_walk_speed), \
+			self.char_controller.velocity = FixedVector3.mul(   					# vvv -85 deg 
+				FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed), \
 					clamp( \
 						lerp(self.dash_strength, \
 							0, 																			# vvv 0.3333 * 0.66
@@ -200,8 +200,9 @@ func _process(_delta: float):
 			# 	clampf(lerpf(self.dash_strength, 0, \
 			# 	self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
 
-			self.char_controller.velocity = FixedVector3.mul(   # vvv 85 deg 
-				FixedVector3.mul(opponent_dir.rotated(Vector3.UP, 97224), self.side_walk_speed), \
+			self.char_controller.velocity = FixedVector3.mul(   					# vvv 85 deg 
+				FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224),
+				 self.side_walk_speed), \
 					clamp( \
 						lerp(self.dash_strength, \
 							0, 																			# vvv 0.3333 * 0.66
@@ -217,13 +218,13 @@ func _process(_delta: float):
 			self.animation_player.travel("l_sidewalk")
 			# self.char_controller.velocity = opponent_dir.rotated(Vector3.UP, deg_to_rad(85)) * self.side_walk_speed
 
-			self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(Vector3.UP, 97224), self.side_walk_speed)
+			self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224), self.side_walk_speed)
 
 		else:
 			self.animation_player.travel("r_sidewalk")
 			# self.char_controller.velocity = opponent_dir.rotated(Vector3.UP, deg_to_rad(-85)) * self.side_walk_speed
 
-			self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(Vector3.UP, -97224), self.side_walk_speed)
+			self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed)
 
 
 	# set stance state based on current animation
@@ -386,15 +387,18 @@ func _process(_delta: float):
 	# add velocity imparted by the oppoenent
 	self.char_controller.velocity = FixedVector3.add(self.char_controller.velocity, self.impart_velocity)
 
-	self.impart_velocity = FixedVector3.new()
+	self.impart_velocity.x = 0
+	self.impart_velocity.y = 0
+	self.impart_velocity.z = 0
 
 	self.char_controller.collide_and_slide(delta_int)
 
 	if self.char_controller.collision_body != null:
-		self.mesh.global_position = self.char_controller.collision_body.position
-		self.mesh.global_position.z += -0.156
-		self.mesh.global_rotation = self.char_controller.collision_body.rotation
-		self.mesh.global_rotation.y += 0.5
+		self.mesh.position = self.char_controller.collision_body.position
+		self.mesh.position.z += -0.156
+		self.mesh.position.y += -0.449
+		self.mesh.rotation = self.char_controller.collision_body.rotation
+		# self.mesh.rotation.y += 1
 
 	# impart velocity onto the opponent if pushing them
 

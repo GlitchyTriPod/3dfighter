@@ -8,6 +8,8 @@ class_name Stage
 # use fixed-point math. change this value if needed, but default should be fine unless youre doing something fancy
 @export var floor_height: int = 0
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if self.post_processing_node != null:

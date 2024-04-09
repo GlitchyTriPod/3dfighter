@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://nodes/controller/FixedCharacterController3D.gd" id="1_1j7lo"]
 [ext_resource type="Script" path="res://classes/FixedVector3.gd" id="2_42gxp"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_pspja"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_oq8x7"]
 
 [sub_resource type="Resource" id="Resource_gbak4"]
 script = ExtResource("2_42gxp")
@@ -21,7 +21,7 @@ z = 0
 
 [node name="FixedCharacterController3d" type="CollisionShape3D"]
 top_level = true
-shape = SubResource("SphereShape3D_pspja")
+shape = SubResource("SphereShape3D_oq8x7")
 script = ExtResource("1_1j7lo")
 exp_fixed_position = SubResource("Resource_gbak4")
 exp_fixed_rotation = SubResource("Resource_b4sea")

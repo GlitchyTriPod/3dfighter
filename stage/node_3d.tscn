@@ -22,13 +22,13 @@ shader_parameter/color_depth = 3
 shader_parameter/dithering = true
 shader_parameter/resolution_scale = 3
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_3qmh5"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_2l8by"]
 
 [sub_resource type="Resource" id="Resource_5uup2"]
 script = ExtResource("7_xb3ta")
 x = 0
 y = 0
-z = 0
+z = -152758
 
 [sub_resource type="Resource" id="Resource_iaiua"]
 script = ExtResource("7_xb3ta")
@@ -4638,13 +4638,13 @@ _data = {
 "standing": SubResource("Animation_30gj3")
 }
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_4j8hi"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_o2chp"]
 
 [sub_resource type="Resource" id="Resource_fd7wt"]
 script = ExtResource("7_xb3ta")
 x = 0
 y = 0
-z = 0
+z = 102488
 
 [sub_resource type="Resource" id="Resource_sn2c7"]
 script = ExtResource("7_xb3ta")
@@ -4688,18 +4688,34 @@ surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 unique_name_in_owner = true
 
 [node name="Character" parent="Chars" instance=ExtResource("5_iu8nb")]
+character_name = "Fighter"
+disable_control = false
+actionable = true
+walk_speed = 1500
+back_walk_speed = 1500
+side_walk_speed = 1500
+crouch_walk_speed = 600
+dash_strength = 30000
+player = 0
+face_opponent = true
 
 [node name="FixedCharacterController3D" parent="Chars/Character/CharacterBody3D/Collision" index="0"]
-shape = SubResource("SphereShape3D_3qmh5")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.3309)
+shape = SubResource("SphereShape3D_2l8by")
 exp_fixed_position = SubResource("Resource_5uup2")
 exp_fixed_rotation = SubResource("Resource_iaiua")
 
+[node name="Mesh" parent="Chars/Character/CharacterBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1746)
+
 [node name="Skeleton3D" parent="Chars/Character/CharacterBody3D/Mesh/Armature" index="0"]
+bones/1/position = Vector3(3.06526e-17, 0.138047, 1.15734)
 bones/1/rotation = Quaternion(0.682093, -7.57275e-17, -8.11868e-17, 0.731265)
 bones/2/rotation = Quaternion(0.245687, 1.15555e-07, 2.92882e-08, 0.969349)
 bones/3/rotation = Quaternion(-0.282429, 1.75916e-14, -6.73364e-08, 0.959288)
 bones/4/rotation = Quaternion(0.0105346, -0.00209815, -0.660743, 0.750535)
 bones/5/rotation = Quaternion(0.0243576, -0.0763232, -0.597534, 0.797831)
+bones/6/rotation = Quaternion(0.0437611, -0.0184039, -0.0776077, 0.995853)
 bones/7/rotation = Quaternion(0.0195596, -0.000995658, -0.0244744, 0.999509)
 bones/8/rotation = Quaternion(-0.0313582, 0.0107931, -0.0196468, 0.999257)
 bones/9/rotation = Quaternion(-0.00601755, 0.00164355, -0.0144067, 0.999877)
@@ -4709,6 +4725,7 @@ bones/17/rotation = Quaternion(0.0441861, -3.5423e-15, 1.05348e-08, 0.999023)
 bones/18/rotation = Quaternion(-0.0249766, 7.08682e-15, -5.95488e-09, 0.999688)
 bones/22/rotation = Quaternion(0.0105344, 0.00209799, 0.660743, 0.750535)
 bones/23/rotation = Quaternion(0.0243576, 0.0763232, 0.597534, 0.797831)
+bones/24/rotation = Quaternion(0.0437611, 0.0184039, 0.0776077, 0.995853)
 bones/25/rotation = Quaternion(0.0195597, 0.000995668, 0.0244744, 0.999509)
 bones/26/rotation = Quaternion(-0.0430583, -0.011024, 0.0271404, 0.998643)
 bones/27/rotation = Quaternion(0.0129117, -0.00140388, 0.00400481, 0.999908)
@@ -4719,11 +4736,19 @@ bones/38/rotation = Quaternion(0.0427973, 0.00981425, -0.549072, 0.834621)
 bones/42/rotation = Quaternion(0.0424185, -0.0447541, 0.996872, 0.0494428)
 bones/43/rotation = Quaternion(-0.0348282, 0.733523, 0.00378916, 0.678761)
 bones/44/rotation = Quaternion(0.0427973, -0.00981425, 0.549072, 0.834621)
+bones/49/position = Vector3(0.396742, 0.23627, 1.44453)
 bones/49/rotation = Quaternion(0.218983, 0.867871, -0.102567, 0.433965)
+bones/50/position = Vector3(0.16041, -0.062883, 0.695464)
+bones/51/position = Vector3(0.379337, -0.0455596, 1.15642)
 bones/51/rotation = Quaternion(-0.0508066, -0.54054, 0.834718, -0.0920881)
+bones/52/position = Vector3(0.188009, 0.194744, 0.0783486)
 bones/52/rotation = Quaternion(0.642138, -0.144944, 0.730292, -0.182549)
+bones/53/position = Vector3(-0.396742, 0.23627, 1.44453)
 bones/53/rotation = Quaternion(-0.218983, 0.867871, -0.102567, -0.433965)
+bones/54/position = Vector3(-0.16041, -0.062883, 0.695464)
+bones/55/position = Vector3(-0.379337, -0.0455596, 1.15642)
 bones/55/rotation = Quaternion(0.0508066, -0.54054, 0.834718, 0.0920881)
+bones/56/position = Vector3(-0.188009, 0.194744, 0.0783486)
 bones/56/rotation = Quaternion(-0.642138, -0.144944, 0.730292, 0.182549)
 
 [node name="finger_001" parent="Chars/Character/CharacterBody3D/Mesh/Armature/Skeleton3D" index="0"]
@@ -4798,19 +4823,34 @@ libraries = {
 }
 
 [node name="Character2" parent="Chars" instance=ExtResource("5_iu8nb")]
+character_name = "Fighter"
+disable_control = false
+actionable = true
+walk_speed = 1500
+back_walk_speed = 1500
+side_walk_speed = 1500
+crouch_walk_speed = 600
+dash_strength = 30000
 player = 1
+face_opponent = true
 
 [node name="FixedCharacterController3D" parent="Chars/Character2/CharacterBody3D/Collision" index="0"]
-shape = SubResource("SphereShape3D_4j8hi")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.56384)
+shape = SubResource("SphereShape3D_o2chp")
 exp_fixed_position = SubResource("Resource_fd7wt")
 exp_fixed_rotation = SubResource("Resource_sn2c7")
 
+[node name="Mesh" parent="Chars/Character2/CharacterBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.72015)
+
 [node name="Skeleton3D" parent="Chars/Character2/CharacterBody3D/Mesh/Armature" index="0"]
+bones/1/position = Vector3(3.06526e-17, 0.138047, 1.15734)
 bones/1/rotation = Quaternion(0.682093, -7.57275e-17, -8.11868e-17, 0.731265)
 bones/2/rotation = Quaternion(0.245687, 1.15555e-07, 2.92882e-08, 0.969349)
 bones/3/rotation = Quaternion(-0.282429, 1.75916e-14, -6.73364e-08, 0.959288)
 bones/4/rotation = Quaternion(0.0105346, -0.00209815, -0.660743, 0.750535)
 bones/5/rotation = Quaternion(0.0243576, -0.0763232, -0.597534, 0.797831)
+bones/6/rotation = Quaternion(0.0437611, -0.0184039, -0.0776077, 0.995853)
 bones/7/rotation = Quaternion(0.0195596, -0.000995658, -0.0244744, 0.999509)
 bones/8/rotation = Quaternion(-0.0313582, 0.0107931, -0.0196468, 0.999257)
 bones/9/rotation = Quaternion(-0.00601755, 0.00164355, -0.0144067, 0.999877)
@@ -4820,6 +4860,7 @@ bones/17/rotation = Quaternion(0.0441861, -3.5423e-15, 1.05348e-08, 0.999023)
 bones/18/rotation = Quaternion(-0.0249766, 7.08682e-15, -5.95488e-09, 0.999688)
 bones/22/rotation = Quaternion(0.0105344, 0.00209799, 0.660743, 0.750535)
 bones/23/rotation = Quaternion(0.0243576, 0.0763232, 0.597534, 0.797831)
+bones/24/rotation = Quaternion(0.0437611, 0.0184039, 0.0776077, 0.995853)
 bones/25/rotation = Quaternion(0.0195597, 0.000995668, 0.0244744, 0.999509)
 bones/26/rotation = Quaternion(-0.0430583, -0.011024, 0.0271404, 0.998643)
 bones/27/rotation = Quaternion(0.0129117, -0.00140388, 0.00400481, 0.999908)
@@ -4830,11 +4871,19 @@ bones/38/rotation = Quaternion(0.0427973, 0.00981425, -0.549072, 0.834621)
 bones/42/rotation = Quaternion(0.0424185, -0.0447541, 0.996872, 0.0494428)
 bones/43/rotation = Quaternion(-0.0348282, 0.733523, 0.00378916, 0.678761)
 bones/44/rotation = Quaternion(0.0427973, -0.00981425, 0.549072, 0.834621)
+bones/49/position = Vector3(0.396742, 0.23627, 1.44453)
 bones/49/rotation = Quaternion(0.218983, 0.867871, -0.102567, 0.433965)
+bones/50/position = Vector3(0.16041, -0.062883, 0.695464)
+bones/51/position = Vector3(0.379337, -0.0455596, 1.15642)
 bones/51/rotation = Quaternion(-0.0508066, -0.54054, 0.834718, -0.0920881)
+bones/52/position = Vector3(0.188009, 0.194744, 0.0783486)
 bones/52/rotation = Quaternion(0.642138, -0.144944, 0.730292, -0.182549)
+bones/53/position = Vector3(-0.396742, 0.23627, 1.44453)
 bones/53/rotation = Quaternion(-0.218983, 0.867871, -0.102567, -0.433965)
+bones/54/position = Vector3(-0.16041, -0.062883, 0.695464)
+bones/55/position = Vector3(-0.379337, -0.0455596, 1.15642)
 bones/55/rotation = Quaternion(0.0508066, -0.54054, 0.834718, 0.0920881)
+bones/56/position = Vector3(-0.188009, 0.194744, 0.0783486)
 bones/56/rotation = Quaternion(-0.642138, -0.144944, 0.730292, 0.182549)
 
 [node name="finger_001" parent="Chars/Character2/CharacterBody3D/Mesh/Armature/Skeleton3D" index="0"]

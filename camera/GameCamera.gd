@@ -28,8 +28,8 @@ class_name GameCamera
 var camera_last_g_position: Vector3
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+# func _ready():
+# 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,7 +47,11 @@ func _process(_delta):
 		dist = 11
 	
 	self.global_position = (chars[0].mesh.global_position + chars[1].mesh.global_position) / 2
-	
+
+	self.look_at(chars[0].mesh.global_position)
+	# self.rotation.x = 0 # we do not want the camera's parent to rotate vertically
+	# self.rotation.z = 0
+
 	# assign positions to reference nodes
 	self.cam_ref1.position.x = dist
 	self.cam_ref2.position.x = -dist
@@ -56,12 +60,6 @@ func _process(_delta):
 
 	if abs(self.rotation_degrees.x) < 75:
 
-		# if abs(self.rotation_degrees.x) > 90.0 || abs(self.rotation_degrees.z) > 90.0:
-		# 	if self.camera_target == self.cam_ref1:
-		# 		self.camera_target = self.cam_ref2
-		# 	else:
-		# 		self.camera_target = self.cam_ref1
-
 		if self.camera.global_position.distance_to(self.cam_ref1.global_position) \
 			< self.camera.global_position.distance_to(self.cam_ref2.global_position):
 			self.camera.global_position = \
@@ -69,21 +67,12 @@ func _process(_delta):
 		else:
 			self.camera.global_position = \
 				lerp(self.camera.global_position, self.cam_ref2.global_position, self.smoothing_speed * _delta)
-
-		# self.camera.global_position = \
-		# 		lerp( \
-		# 			self.camera.global_position, \
-		# 			self.camera_target.global_position, \
-		# 			self.smoothing_speed * _delta \
-		# 			)
+				
 	else:
 		self.camera.global_position = self.camera_last_g_position
 
 	self.camera.global_rotation = Vector3(0,0,0)
 	self.camera.look_at(Vector3(self.global_position.x, self.global_position.y +1.2, self.global_position.z))
-
-
-	pass
 
 func get_char_position(char_position: Vector3):
 

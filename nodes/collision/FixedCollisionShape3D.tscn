@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://nodes/collision/FixedCollisionShape3D.gd" id="1_3iyai"]
 [ext_resource type="Script" path="res://classes/FixedVector3.gd" id="2_gjdea"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_x8s5s"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_11lqo"]
 
 [sub_resource type="Resource" id="Resource_if2bk"]
 script = ExtResource("2_gjdea")
@@ -18,7 +18,7 @@ y = 0
 z = 0
 
 [node name="FixedCollisionShape3d" type="CollisionShape3D"]
-shape = SubResource("SphereShape3D_x8s5s")
+shape = SubResource("SphereShape3D_11lqo")
 script = ExtResource("1_3iyai")
 exp_fixed_position = SubResource("Resource_if2bk")
 exp_fixed_rotation = SubResource("Resource_0y4ak")

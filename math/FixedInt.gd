@@ -23,7 +23,7 @@ static func sqrt_64(num: int) -> int:
 
 	# start at highest power of four thats less than or equal to num
 	while bit > num:
-		bit >>= 2
+		bit = bit >> 2
 
 	while bit != 0:
 		if num >= res + bit:
@@ -44,6 +44,7 @@ static func mul(val1: int, val2: int) -> int:
 	return (val1 * val2) >> 16
 
 static func div(num: int, den: int) -> int:
+	if den == 0: return 0
 	return (num << 16) / den
 
 # // Adapted from the fpm library: https://github.com/MikeLankamp/fpm
@@ -134,3 +135,7 @@ static func atan_sanitized(p_x: int) -> int:
 
 	var xx = FixedInt.mul(p_x, p_x)
 	return FixedInt.mul(FixedInt.mul(FixedInt.mul(a, xx + b), xx + c), p_x)
+
+static func deg2rads(deg: int) -> int: 				# 180
+	return FixedInt.mul(deg, FixedInt.div(FIXED_PI, 11796480)) 
+	# return FixedInt.div(FixedInt.mul(deg, FIXED_PI), 11796480)

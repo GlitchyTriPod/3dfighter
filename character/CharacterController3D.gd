@@ -1,7 +1,11 @@
 extends Node3D
 class_name CharacterController3D
 
-var velocity := FixedVector3.new()
+var velocity := FixedVector3.new():
+    set(val):
+        velocity.x = val.x
+        velocity.y = val.y
+        velocity.z = val.z
 
 @onready var collision_body: FixedCharacterController3D = self.get_node("Collision/FixedCharacterController3D")
 
