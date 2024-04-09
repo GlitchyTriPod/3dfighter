@@ -251,41 +251,6 @@ func rotate(_axis, ang: int) -> FixedVector3: # <-- simplify this; focus on just
 	self.z = FixedInt.mul(c, z_old) - FixedInt.mul(s, x_old)
 	self.x = FixedInt.mul(s, z_old) + FixedInt.mul(c, x_old)
 
-	# var matrix: Array[Array]
-
-	# match axis:
-	# 	Vector3.FORWARD, Vector3.BACK:
-	# 		matrix = [
-	# 			[FixedInt.cos(ang), -FixedInt.sin(ang), 0],
-	# 			[FixedInt.sin(ang), FixedInt.cos(ang), 0],
-	# 			[0, 0 , 65536]
-	# 		]
-		
-	# 	Vector3.UP, Vector3.DOWN:
-	# 		matrix = [
-	# 			[FixedInt.cos(ang), 0 , FixedInt.sin(ang)],
-	# 			[0, 65536, 0],
-	# 			[-FixedInt.sin(ang), 0 , FixedInt.cos(ang)],
-	# 		]
-		
-	# 	Vector3.LEFT, Vector3.RIGHT:
-	# 		matrix = [
-	# 			[65536, 0, 0],
-	# 			[0, FixedInt.cos(ang), -FixedInt.sin(ang)],
-	# 			[0, FixedInt.sin(ang), FixedInt.cos(ang)],
-	# 		]
-
-	# self.x = \
-	# 	FixedInt.mul(matrix[0][0], x_old) + FixedInt.mul(matrix[0][1], y_old) + FixedInt.mul(matrix[0][2], z_old)
-
-	# self.y = \
-	# 	FixedInt.mul(matrix[1][0], x_old) + FixedInt.mul(matrix[1][1], y_old) + FixedInt.mul(matrix[1][2], z_old)
-
-	# self.x = \
-	# 	FixedInt.mul(matrix[2][0], x_old) + FixedInt.mul(matrix[2][1], y_old) + FixedInt.mul(matrix[2][2], z_old)
-		
-	print(self.x, self.y, self.z)
-
 	return self
 
 func normalized() -> FixedVector3:

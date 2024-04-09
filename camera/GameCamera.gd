@@ -2,7 +2,7 @@ extends Node3D
 class_name GameCamera
 
 # used when determining starting position of camera
-@export_enum("Player 1", "Player 2") var default_pos = 0
+@export_enum("Player 1", "Player 2") var default_pos := 0
 
 # used for camera smoothing
 @export var smoothing_speed: float = 1.0
@@ -67,7 +67,7 @@ func _process(_delta):
 		else:
 			self.camera.global_position = \
 				lerp(self.camera.global_position, self.cam_ref2.global_position, self.smoothing_speed * _delta)
-				
+
 	else:
 		self.camera.global_position = self.camera_last_g_position
 
@@ -80,12 +80,12 @@ func get_char_position(char_position: Vector3):
 
 	if inc_position == self.p1_screen_pos:
 		if self.p1_screen_pos.x < self.p2_screen_pos.x:
-			return "LEFT"
-		else: return "RIGHT"
+			return "RIGHT"
+		else: return "LEFT"
 	else:
 		if self.p2_screen_pos.x < self.p1_screen_pos.x:
-			return "LEFT"
-		else: return "RIGHT"
+			return "RIGHT"
+		else: return "LEFT"
 
 
 

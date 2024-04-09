@@ -182,7 +182,7 @@ func _process(_delta: float):
 			# 	clampf(lerpf(self.dash_strength, 0, \
 			# 	self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
 																							
-			self.char_controller.velocity = FixedVector3.mul(   					# vvv -85 deg 
+			self.char_controller.velocity = FixedVector3.mul(   		# vvv -85 deg 
 				FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed), \
 					clamp( \
 						lerp(self.dash_strength, \
@@ -200,7 +200,7 @@ func _process(_delta: float):
 			# 	clampf(lerpf(self.dash_strength, 0, \
 			# 	self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
 
-			self.char_controller.velocity = FixedVector3.mul(   					# vvv 85 deg 
+			self.char_controller.velocity = FixedVector3.mul(   		# vvv 85 deg 
 				FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224),
 				 self.side_walk_speed), \
 					clamp( \
