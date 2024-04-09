@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://rig3atksreq0"]
+[gd_scene load_steps=107 format=3 uid="uid://rig3atksreq0"]
 
 [ext_resource type="Script" path="res://character/Fighter.gd" id="1_mbbs0"]
 [ext_resource type="Script" path="res://character/CharacterController3D.gd" id="2_yu0b2"]
@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://br0sn82bypbsp" path="res://models/killer_robot/killer_robot.blend" id="4_kuspu"]
 [ext_resource type="Script" path="res://character/InputInterpreter.gd" id="4_tuh18"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_lx4ps"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_4s6jp"]
 
 [sub_resource type="Resource" id="Resource_p4avv"]
 script = ExtResource("4_b7q0s")
 x = 0
-y = 0
+y = 32112
 z = 0
 
 [sub_resource type="Resource" id="Resource_00ouh"]
@@ -20,8 +20,6 @@ script = ExtResource("4_b7q0s")
 x = 0
 y = 0
 z = 0
-
-[sub_resource type="SphereMesh" id="SphereMesh_otsi3"]
 
 [sub_resource type="Animation" id="Animation_2b5d5"]
 resource_name = "b_dash"
@@ -5019,18 +5017,16 @@ script = ExtResource("2_yu0b2")
 [node name="Collision" type="Node3D" parent="CharacterBody3D"]
 
 [node name="FixedCharacterController3D" type="CollisionShape3D" parent="CharacterBody3D/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, 0)
 top_level = true
-shape = SubResource("SphereShape3D_lx4ps")
+shape = SubResource("SphereShape3D_4s6jp")
 script = ExtResource("3_vh0wb")
 exp_fixed_position = SubResource("Resource_p4avv")
 exp_fixed_rotation = SubResource("Resource_00ouh")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D"]
-mesh = SubResource("SphereMesh_otsi3")
-
 [node name="Mesh" parent="CharacterBody3D" instance=ExtResource("4_kuspu")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15631)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="CharacterBody3D/Mesh/Armature" index="0"]
 bones/0/rotation = Quaternion(-0.707107, 7.85046e-17, 7.85046e-17, 0.707107)

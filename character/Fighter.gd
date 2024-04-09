@@ -384,7 +384,7 @@ func _process(_delta: float):
 		# Vector3.look_at()
 		self.char_controller.collision_body.fixed_look_at(self.opponent_position)
 
-	# add velocity imparted by the oppoenent
+	# add velocity imparted by the opponent
 	self.char_controller.velocity = FixedVector3.add(self.char_controller.velocity, self.impart_velocity)
 
 	self.impart_velocity.x = 0
@@ -395,7 +395,7 @@ func _process(_delta: float):
 
 	if self.char_controller.collision_body != null:
 		self.mesh.position = self.char_controller.collision_body.position
-		self.mesh.position.z += -0.156
+		# self.mesh.position.z += -0.156
 		self.mesh.position.y += -0.449
 		self.mesh.rotation = self.char_controller.collision_body.rotation
 		# self.mesh.rotation.y += 1

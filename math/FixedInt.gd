@@ -95,6 +95,17 @@ static func acos(num: int) -> int:
 # // Adapted from the fpm library: https://github.com/MikeLankamp/fpm
 # // Copyright 2019 Mike Lankamp
 # // License: MIT
+static func atan(this: int) -> int:
+	if this < FIXED_ZERO:
+		return -FixedInt.atan(-this)
+	if this > FIXED_ONE:
+		return FIXED_PI_DIV_2 - FixedInt.atan_sanitized(FixedInt.div(FIXED_ONE, this))
+
+	return FixedInt.atan_sanitized(this)
+
+# // Adapted from the fpm library: https://github.com/MikeLankamp/fpm
+# // Copyright 2019 Mike Lankamp
+# // License: MIT
 static func atan2(this: int, num: int) -> int:
 	if this == FIXED_ZERO:
 		return FIXED_PI if num > FIXED_ZERO else -FIXED_PI_DIV_2
@@ -134,8 +145,12 @@ static func atan_sanitized(p_x: int) -> int:
 	var c := 65220  #  0.999755859375 (PI_DIV_4 - A - B)
 
 	var xx = FixedInt.mul(p_x, p_x)
-	return FixedInt.mul(FixedInt.mul(FixedInt.mul(a, xx + b), xx + c), p_x)
+	return FixedInt.mul(FixedInt.mul(FixedInt.mul(a, xx) + b, xx) + c, p_x)
 
 static func deg2rads(deg: int) -> int: 				# 180
 	return FixedInt.mul(deg, FixedInt.div(FIXED_PI, 11796480)) 
+	# return FixedInt.div(FixedInt.mul(deg, FIXED_PI), 11796480)
+
+static func rads2deg(rad: int) -> int: 				# 180
+	return FixedInt.mul(rad, FixedInt.div(11796480, FIXED_PI )) 
 	# return FixedInt.div(FixedInt.mul(deg, FIXED_PI), 11796480)

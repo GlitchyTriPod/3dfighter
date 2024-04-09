@@ -103,8 +103,15 @@ func dot(vec2: FixedVector3) -> int:
 	res += FixedInt.mul(self.z, vec2.z)
 	return res
 
-# func cross(vec2: FixedVector3) -> int:
-# 	pass
+func dot_2d(vec2: FixedVector3) -> int:
+	var res := 0
+	res += FixedInt.mul(self.x, vec2.x)
+	# res += FixedInt.mul(self.y, vec2.y)
+	res += FixedInt.mul(self.z, vec2.z)
+	return res
+
+func cross(vec2: FixedVector3) -> int:
+	return FixedInt.mul(self.z, vec2.x) - FixedInt.mul(self.x, vec2.z)
 
 func length() -> int:
 	var length_sqrd := self.length_squared()
@@ -178,64 +185,22 @@ func angle(axis: Vector3) -> int:
 	return 0
 
 func angle_to(target: FixedVector3, _axis: Vector3 = Vector3.UP) -> int: # << CONVERT THIS 
+	var del_x = self.x - target.x
+	var del_z = self.z - target.z
 
-	var dist = self.distance_to_2d(target)
+	var slope = FixedInt.div(del_x, del_z)
 
-	# print( dist)
+	var ang = FixedInt.atan(slope)
 
-	var divd = FixedInt.div(self.x - target.x,dist)
+	if self.z > target.z:
+		ang += FixedInt.FIXED_PI
 
-	# print (str(divd) + " " + str(dist))
-
-	var an = FixedInt.div(self.x - target.x, self.distance_to_2d(target))
-
-	# print(an)
-	return FixedInt.acos(an)
-	# return FixedInt.atan2((self.x - target.x), self.z - target.z)
-
-	# var dot_prod = self.dot(target)
-	# var mag1 = self.length()
-	# var mag2 = target.length()
-
-	# var cos_theta = clamp(FixedInt.div(dot_prod, FixedInt.mul(mag1, mag2)), -65536, 65536)
-
-	# return FixedInt.acos(cos_theta)
-
-	# var s := FixedVector3.new()
-	# var t := FixedVector3.new()
-	# match axis:
-	#     Vector3.FORWARD, Vector3.BACK:
-	#         s.x = self.x
-	#         s.y = self.y
-	#         t.x = target.x
-	#         t.y = target.y        
-	#     Vector3.UP, Vector3.DOWN:
-	#         s.x = self.x
-	#         s.z = self.z
-	#         t.x = target.x
-	#         t.z = target.z        
-	#     Vector3.LEFT, Vector3.RIGHT:
-	#         s.y = self.y
-	#         s.z = self.z
-	#         t.y = target.y
-	#         t.z = target.z
-		
-	# var dot_val := s.dot(t)
-	# var mag1 := s.length()
-	# var mag2 := t.length()
-
-	# var mag_prod := FixedInt.mul(mag1, mag2)
-
-	# var cos_angle := 0
-	# if mag_prod != 0:
-	#     cos_angle = FixedInt.div(dot_val, FixedInt.mul(mag1, mag2))
-
-	# return FixedInt.acos(clamp(cos_angle, -65536, 65536))
 	
+	return ang
+
 func rotated(axis: FixedVector3, p_rotation: int) -> FixedVector3:
 	var v := FixedVector3.new(self.x, self.y, self.z)
-	v.rotate(axis,  p_rotation) # <-- i think this might cause problems but im not sure.
-	# v = FixedVector3.mul(v, self.length())            # should i really be adding rotation to the -current- angle?
+	v.rotate(axis,  p_rotation) 
 	return v
 
 func rotate(_axis, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
