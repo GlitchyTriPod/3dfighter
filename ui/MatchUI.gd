@@ -1,8 +1,8 @@
 extends Control
 class_name MatchUI
 
-@onready var player_1 : Fighter = %Stage.char_container.get_node("Character")
-@onready var player_2 : Fighter = %Stage.char_container.get_node("Character2")
+@onready var player_1 : Fighter = %Stage.char_container.get_node("Fighter")
+@onready var player_2 : Fighter = %Stage.char_container.get_node("Fighter2")
 @onready var left_side = %Left
 @onready var right_side = %Right
 

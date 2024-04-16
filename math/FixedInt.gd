@@ -154,3 +154,6 @@ static func deg2rads(deg: int) -> int: 				# 180
 static func rads2deg(rad: int) -> int: 				# 180
 	return FixedInt.mul(rad, FixedInt.div(11796480, FIXED_PI )) 
 	# return FixedInt.div(FixedInt.mul(deg, FIXED_PI), 11796480)
+
+static func lerp(from: int, to: int, weight: int):
+	return FixedInt.mul(from, (FIXED_ONE - weight)) + FixedInt.mul(to, weight)

@@ -10,7 +10,6 @@ class_name FixedCharacterController3D
 
 func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP):
 	var ang := self.fixed_position.angle_to(target)
-	print(float(FixedInt.rads2deg(ang)) / 65536.0)
 	match axis:
 		Vector3.FORWARD, Vector3.BACK:
 			self.fixed_rotation.z = ang

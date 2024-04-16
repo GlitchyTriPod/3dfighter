@@ -6,11 +6,11 @@ class_name Fighter
 @export var disable_control: bool = false
 @export var actionable: bool = true
 
-@export var walk_speed: int = 1500 #196608
-@export var back_walk_speed: int = 1500 #196608
-@export var side_walk_speed: int = 1500
+@export var walk_speed: int = 1000 #196608
+@export var back_walk_speed: int = 1000 #196608
+@export var side_walk_speed: int = 1000
 @export var crouch_walk_speed: int = 600
-@export var dash_strength: int = 30000
+@export var dash_strength: int = 196608
 
 @export_enum("1","2") var player = 0
 
@@ -147,11 +147,11 @@ func _process(_delta: float):
 
 			self.char_controller.velocity = FixedVector3.mul( \
 				FixedVector3.mul(opponent_dir, self.walk_speed), \
-				lerp(self.dash_strength, 0, \
+				clamp(FixedInt.lerp(self.dash_strength, 0, \
 					FixedInt.div( \
-						(int(self.animation_player.get_current_play_position()) * 65536), 21843 \
-				)) \
-			)
+						int(self.animation_player.get_current_play_position() * 65536), 21843 \
+				)), 0, self.dash_strength))
+
 		else:
 			self.animation_player.travel("b_dash")
 			# self.char_controller.velocity = (opponent_dir * -self.back_walk_speed) * \
@@ -160,14 +160,15 @@ func _process(_delta: float):
 
 			self.char_controller.velocity = FixedVector3.mul( \
 				FixedVector3.mul(opponent_dir, -self.back_walk_speed), \
-				clamp(lerp(self.dash_strength, 0, \
+				clamp(FixedInt.lerp(self.dash_strength, 0, \
 					FixedInt.div( 													    # vvv 0.3333 * 0.66
-						(int(self.animation_player.get_current_play_position()) * 65536), 14416 \
+						int(self.animation_player.get_current_play_position() * 65536), 14416 \
 				)), 0, self.dash_strength) \
 			)
 
 	var handle_run = func handle_run():
-		if self.char_controller.fixed_position.distance_to(self.opponent_position) < 65536:
+		var dist = self.char_controller.fixed_position.distance_to(self.opponent_position)
+		if self.char_controller.fixed_position.distance_to(self.opponent_position) < 300:
 			self.animation_player.travel("f_walk")
 			return
 		self.animation_player.travel("run")
@@ -185,7 +186,7 @@ func _process(_delta: float):
 			self.char_controller.velocity = FixedVector3.mul(   		# vvv -85 deg 
 				FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed), \
 					clamp( \
-						lerp(self.dash_strength, \
+						FixedInt.lerp(self.dash_strength, \
 							0, 																			# vvv 0.3333 * 0.66
 							FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
 						), \
@@ -204,7 +205,7 @@ func _process(_delta: float):
 				FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224),
 				 self.side_walk_speed), \
 					clamp( \
-						lerp(self.dash_strength, \
+						FixedInt.lerp(self.dash_strength, \
 							0, 																			# vvv 0.3333 * 0.66
 							FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
 						), \
@@ -268,7 +269,7 @@ func _process(_delta: float):
 						handle_dash.call("f")
 				elif self.stance == STANCE.RUN: 
 					handle_run.call()
-				else:
+				else: # this is dashing stance
 					var inputs = self.input_interpreter.read_input(2)
 					if (inputs[0].frame_count < 2 && \
 						inputs[1].di == DI_STATE.NEUTRAL && \
@@ -393,12 +394,12 @@ func _process(_delta: float):
 
 	self.char_controller.collide_and_slide(delta_int)
 
-	if self.char_controller.collision_body != null:
-		self.mesh.position = self.char_controller.collision_body.position
-		# self.mesh.position.z += -0.156
-		self.mesh.position.y += -0.449
-		self.mesh.rotation = self.char_controller.collision_body.rotation
-		# self.mesh.rotation.y += 1
+	# if self.char_controller.collision_body != null:
+		# self.mesh.position = self.char_controller.collision_body.position
+	# 	# self.mesh.position.z += -0.156
+	# 	self.mesh.position.y += -0.449
+	# 	self.mesh.rotation = self.char_controller.collision_body.rotation
+		# self.mesh.rotation.y = FixedInt.FIXED_PI
 
 	# impart velocity onto the opponent if pushing them
 
