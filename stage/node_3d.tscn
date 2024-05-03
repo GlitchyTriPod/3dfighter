@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://3nasqljy0y06"]
+[gd_scene load_steps=19 format=3 uid="uid://3nasqljy0y06"]
 
 [ext_resource type="Environment" uid="uid://dalka1ns5gnl0" path="res://test_env.tres" id="1_cutdu"]
 [ext_resource type="Script" path="res://stage/Stage.gd" id="1_u2wdh"]
@@ -22,7 +22,7 @@ shader_parameter/color_depth = 3
 shader_parameter/dithering = true
 shader_parameter/resolution_scale = 3
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_1bcfd"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_aegjy"]
 
 [sub_resource type="Resource" id="Resource_jnv63"]
 script = ExtResource("7_tnr10")
@@ -36,9 +36,7 @@ x = 0
 y = 0
 z = 0
 
-[sub_resource type="SphereMesh" id="SphereMesh_dlawv"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_n37lx"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_nljki"]
 
 [sub_resource type="Resource" id="Resource_5mavj"]
 script = ExtResource("7_tnr10")
@@ -91,7 +89,7 @@ unique_name_in_owner = true
 
 [node name="FixedCharacterController3D" parent="Chars/Fighter/CharacterBody3D/Collision" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, -2.26083)
-shape = SubResource("SphereShape3D_1bcfd")
+shape = SubResource("SphereShape3D_aegjy")
 exp_fixed_position = SubResource("Resource_jnv63")
 exp_fixed_rotation = SubResource("Resource_oody7")
 
@@ -204,14 +202,11 @@ transform = Transform3D(0.999991, -0.000125928, 0.00326995, 0.000126695, 1, -0.0
 [node name="waist" parent="Chars/Fighter/CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/Skeleton3D" index="21"]
 transform = Transform3D(1, 4.05741e-09, 9.41646e-09, -4.05741e-09, 1, 5.96046e-08, -9.41646e-09, -5.96046e-08, 1, -1.16415e-08, 0.00736044, 0.02051)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Chars/Fighter/CharacterBody3D/Collision/FixedCharacterController3D" index="1"]
-mesh = SubResource("SphereMesh_dlawv")
-
 [node name="Fighter2" parent="Chars" instance=ExtResource("6_7vpyq")]
 
 [node name="FixedCharacterController3D" parent="Chars/Fighter2/CharacterBody3D/Collision" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, 1.51935)
-shape = SubResource("SphereShape3D_n37lx")
+shape = SubResource("SphereShape3D_nljki")
 exp_fixed_position = SubResource("Resource_5mavj")
 exp_fixed_rotation = SubResource("Resource_lvcdv")
 
@@ -323,9 +318,6 @@ transform = Transform3D(0.999991, -0.000125928, 0.00326995, 0.000126695, 1, -0.0
 
 [node name="waist" parent="Chars/Fighter2/CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/Skeleton3D" index="21"]
 transform = Transform3D(1, 4.05741e-09, 9.41646e-09, -4.05741e-09, 1, 5.96046e-08, -9.41646e-09, -5.96046e-08, 1, -1.16415e-08, 0.00736044, 0.02051)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Chars/Fighter2/CharacterBody3D/Collision/FixedCharacterController3D" index="1"]
-mesh = SubResource("SphereMesh_dlawv")
 
 [node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
 smoothing_speed = 5.0

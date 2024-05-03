@@ -149,7 +149,7 @@ func _process(_delta: float):
 				FixedVector3.mul(opponent_dir, self.walk_speed), \
 				clamp(FixedInt.lerp(self.dash_strength, 0, \
 					FixedInt.div( \
-						int(self.animation_player.get_current_play_position() * 65536), 21843 \
+						int(self.animation_player.get_current_play_position() * 65536), 10921 \
 				)), 0, self.dash_strength))
 
 		else:
@@ -160,9 +160,9 @@ func _process(_delta: float):
 
 			self.char_controller.velocity = FixedVector3.mul( \
 				FixedVector3.mul(opponent_dir, -self.back_walk_speed), \
-				clamp(FixedInt.lerp(self.dash_strength, 0, \
+				clamp(FixedInt.lerp(FixedInt.mul(self.dash_strength, 58982), 0, \
 					FixedInt.div( 													    # vvv 0.3333 * 0.66
-						int(self.animation_player.get_current_play_position() * 65536), 14416 \
+						int(self.animation_player.get_current_play_position() * 65536), 7208 \
 				)), 0, self.dash_strength) \
 			)
 
