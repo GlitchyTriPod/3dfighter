@@ -2,12 +2,6 @@
 extends FixedCollisionShape3D
 class_name FixedCharacterController3D
 
-
-# Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	super._ready()
-
-
 func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP):
 	var ang := self.fixed_position.angle_to(target)
 	match axis:

@@ -15,8 +15,10 @@ func _ready():
 	if self.post_processing_node != null:
 		self.post_processing_node.visible = true
 
-	for c in char_container.get_children():
+	for c: Fighter in char_container.get_children():
 		c.stage = self
+		if c.name == "Fighter2":
+			c.player = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # func _process(_delta):

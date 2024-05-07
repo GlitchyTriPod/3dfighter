@@ -68,3 +68,11 @@ func _notification(what: int):
 func is_on_floor(floor_height: int) -> bool:
 	var rem = self.fixed_position.y - self.sphere_radius
 	return true if rem <= floor_height else false
+
+# Returns false if shapes are not overlapping. returns overlap distance if they are.
+func fixed_is_overlapping_with(inc_shape: FixedCollisionShape3D) -> Variant:
+	var comb_rad := FixedInt.mul((self.sphere_radius + inc_shape.sphere_radius), (self.sphere_radius + inc_shape.sphere_radius))
+	var dist := self.fixed_position.distance_squared_to(inc_shape.fixed_position)
+	if dist < comb_rad:
+		return FixedInt.sqrt_64(comb_rad - dist)
+	return false

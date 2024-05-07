@@ -167,7 +167,7 @@ func _process(_delta: float):
 			)
 
 	var handle_run = func handle_run():
-		var dist = self.char_controller.fixed_position.distance_to(self.opponent_position)
+		# var dist = self.char_controller.fixed_position.distance_to(self.opponent_position)
 		if self.char_controller.fixed_position.distance_to(self.opponent_position) < 300:
 			self.animation_player.travel("f_walk")
 			return
