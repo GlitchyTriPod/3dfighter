@@ -22,7 +22,7 @@ shader_parameter/color_depth = 3
 shader_parameter/dithering = true
 shader_parameter/resolution_scale = 3
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_gbpuj"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_1aiwd"]
 
 [sub_resource type="Resource" id="Resource_jnv63"]
 script = ExtResource("7_tnr10")
@@ -36,7 +36,7 @@ x = 0
 y = 0
 z = 0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_32yth"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_5uxiy"]
 
 [sub_resource type="Resource" id="Resource_5mavj"]
 script = ExtResource("7_tnr10")
@@ -89,18 +89,32 @@ unique_name_in_owner = true
 
 [node name="FixedCharacterController3D" parent="Chars/Fighter/CharacterBody3D/Collision" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, -2.26083)
-shape = SubResource("SphereShape3D_gbpuj")
+shape = SubResource("SphereShape3D_1aiwd")
 exp_fixed_position = SubResource("Resource_jnv63")
 exp_fixed_rotation = SubResource("Resource_oody7")
+
+[node name="Mesh" parent="Chars/Fighter/CharacterBody3D/Collision/FixedCharacterController3D" index="1"]
+unique_name_in_owner = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="AnimationTree" parent="Chars/Fighter/CharacterBody3D" index="2"]
+root_node = NodePath("../Collision/FixedCharacterController3D/Mesh")
 
 [node name="Fighter2" parent="Chars" instance=ExtResource("6_7vpyq")]
 player = 1
 
 [node name="FixedCharacterController3D" parent="Chars/Fighter2/CharacterBody3D/Collision" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, 1.51935)
-shape = SubResource("SphereShape3D_32yth")
+shape = SubResource("SphereShape3D_5uxiy")
 exp_fixed_position = SubResource("Resource_5mavj")
 exp_fixed_rotation = SubResource("Resource_lvcdv")
+
+[node name="Mesh" parent="Chars/Fighter2/CharacterBody3D/Collision/FixedCharacterController3D" index="1"]
+unique_name_in_owner = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="AnimationTree" parent="Chars/Fighter2/CharacterBody3D" index="2"]
+root_node = NodePath("../Collision/FixedCharacterController3D/Mesh")
 
 [node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
 smoothing_speed = 5.0
@@ -109,6 +123,4 @@ smoothing_speed = 5.0
 script = ExtResource("9_cqpjc")
 
 [editable path="Chars/Fighter"]
-[editable path="Chars/Fighter/CharacterBody3D/Collision/FixedCharacterController3D/Mesh"]
 [editable path="Chars/Fighter2"]
-[editable path="Chars/Fighter2/CharacterBody3D/Collision/FixedCharacterController3D/Mesh"]

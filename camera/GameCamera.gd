@@ -15,12 +15,18 @@ class_name GameCamera
 
 @onready var p1_screen_pos: Vector2:
 	get:
-		var world_pos = self.get_parent().char_container.get_children()[0].mesh.global_position
+		var world_pos = Vector2()
+		var char1 = self.get_parent().char_container.get_children()[0]
+		if char1 != null:
+			world_pos = char1.mesh.global_position
 		return self.camera.unproject_position(world_pos)
 
 @onready var p2_screen_pos: Vector2:
 	get:
-		var world_pos = self.get_parent().char_container.get_children()[1].mesh.global_position
+		var world_pos = Vector2()
+		var char1 = self.get_parent().char_container.get_children()[1]
+		if char1 != null:
+			world_pos = char1.mesh.global_position
 		return self.camera.unproject_position(world_pos)
 
 @onready var camera_target = self.cam_ref1 if self.default_pos == 0 else self.cam_ref2

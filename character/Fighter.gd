@@ -77,7 +77,7 @@ var impart_velocity := FixedVector3.new()
 var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # should be 9.8 * 65536
 
 @onready var char_controller: CharacterController3D = %CharacterBody3D
-@onready var mesh = %Mesh
+@onready var mesh: Node3D = get_node("CharacterBody3D/Collision/FixedCharacterController3D/Mesh")
 
 @onready var input_interpreter = %InputInterpreter
 
@@ -260,7 +260,7 @@ func _process(_delta: float):
 		match self.di_state:
 			DI_STATE.FORWARD:
 				if self.stance != STANCE.F_DASH && self.stance != STANCE.RUN:
-					self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.walk_speed)
+					# self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.walk_speed)
 					var inputs = self.input_interpreter.read_input(3)
 					if (inputs[0].frame_count < 2 && \
 						inputs[1].di == DI_STATE.NEUTRAL && \
