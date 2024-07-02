@@ -2,6 +2,7 @@ class_name FixedInt
 
 const FIXED_ZERO := 0
 const FIXED_ONE := 65536
+const FIXED_HALF := 32768
 const FIXED_TWO := 131072
 const FIXED_PI := 205887
 const FIXED_TAU := 411774

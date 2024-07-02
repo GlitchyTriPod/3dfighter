@@ -96,6 +96,15 @@ static func div(vec: FixedVector3, num: int) -> FixedVector3:
 
 	return ret_vec
 
+static func lerp(from: FixedVector3, to: FixedVector3, weight: int) -> FixedVector3:
+	var ret = FixedVector3.new()
+
+	ret.x = FixedInt.lerp(from.x, to.x, weight)
+	ret.y = FixedInt.lerp(from.y, to.y, weight)
+	ret.z = FixedInt.lerp(from.z, to.z, weight)
+
+	return ret
+
 func dot(vec2: FixedVector3) -> int:
 	var res := 0
 	res += FixedInt.mul(self.x, vec2.x)

@@ -77,7 +77,9 @@ var impart_velocity := FixedVector3.new()
 var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # should be 9.8 * 65536
 
 @onready var char_controller: CharacterController3D = %CharacterBody3D
-@onready var mesh: Node3D = get_node("CharacterBody3D/Collision/FixedCharacterController3D/Mesh")
+@onready var mesh: Node3D = get_node("CharacterBody3D/Mesh")
+
+@onready var root_bone: BoneAttachment3D = %root
 
 @onready var input_interpreter = %InputInterpreter
 
@@ -133,99 +135,85 @@ func _process(_delta: float):
 		opponent_dir = self.char_controller.collision_body.fixed_position.direction_to(self.opponent_position)
 
 
-	var neutral = func neutral():
+	var neutral = func neutral(crouching: bool = false):
 		if self.stance == STANCE.SIDESTEP || (self.stance == STANCE.F_DASH || self.stance == STANCE.B_DASH): 
 			return
 		self.char_controller.velocity = FixedVector3.new()
+		self.animation_player.travel("standing" if !crouching else "crouching")
 		face_opponent = false
 	
 	var handle_dash = func handle_dash(dir: String):
 		if dir == "f":
 			self.animation_player.travel("f_dash")
-			# self.char_controller.velocity = (opponent_dir * self.walk_speed) * \
-			# lerpf(self.dash_strength, 0, self.animation_player.get_current_play_position() / 0.3333)
 
-			self.char_controller.velocity = FixedVector3.mul( \
-				FixedVector3.mul(opponent_dir, self.walk_speed), \
-				clamp(FixedInt.lerp(self.dash_strength, 0, \
-					FixedInt.div( \
-						int(self.animation_player.get_current_play_position() * 65536), 10921 \
-				)), 0, self.dash_strength))
+			# self.char_controller.velocity = FixedVector3.mul( \
+			# 	FixedVector3.mul(opponent_dir, self.walk_speed), \
+			# 	clamp(FixedInt.lerp(self.dash_strength, 0, \
+			# 		FixedInt.div( \
+			# 			int(self.animation_player.get_current_play_position() * 65536), 10921 \
+			# 	)), 0, self.dash_strength))
 
 		else:
 			self.animation_player.travel("b_dash")
-			# self.char_controller.velocity = (opponent_dir * -self.back_walk_speed) * \
-				# clamp(lerp(self.dash_strength, 0, \
-				# self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
 
-			self.char_controller.velocity = FixedVector3.mul( \
-				FixedVector3.mul(opponent_dir, -self.back_walk_speed), \
-				clamp(FixedInt.lerp(FixedInt.mul(self.dash_strength, 58982), 0, \
-					FixedInt.div( 													    # vvv 0.3333 * 0.66
-						int(self.animation_player.get_current_play_position() * 65536), 7208 \
-				)), 0, self.dash_strength) \
-			)
+			# self.char_controller.velocity = FixedVector3.mul( \
+			# 	FixedVector3.mul(opponent_dir, -self.back_walk_speed), \
+			# 	clamp(FixedInt.lerp(FixedInt.mul(self.dash_strength, 58982), 0, \
+			# 		FixedInt.div( 													    # vvv 0.3333 * 0.66
+			# 			int(self.animation_player.get_current_play_position() * 65536), 7208 \
+			# 	)), 0, self.dash_strength) \
+			# )
 
 	var handle_run = func handle_run():
-		# var dist = self.char_controller.fixed_position.distance_to(self.opponent_position)
 		if self.char_controller.fixed_position.distance_to(self.opponent_position) < 300:
 			self.animation_player.travel("f_walk")
 			return
 		self.animation_player.travel("run")
-		# self.char_controller.velocity = opponent_dir * (self.walk_speed * 2)
 
-		self.char_controller.velocity = FixedVector3.mul(opponent_dir, FixedInt.mul(self.walk_speed, 131072))
+		# self.char_controller.velocity = FixedVector3.mul(opponent_dir, FixedInt.mul(self.walk_speed, 131072))
 
 	var handle_sidestep = func handle_sidestep(dir: String = "iunno"):
 		if dir == "RIGHT" || self.animation_player.get_current_node() == "r_sidestep":
 			self.animation_player.travel("r_sidestep")
-			# self.char_controller.velocity = (opponent_dir.rotated(Vector3.UP, deg_to_rad(-85)) * self.side_walk_speed) * \
-			# 	clampf(lerpf(self.dash_strength, 0, \
-			# 	self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
 																							
-			self.char_controller.velocity = FixedVector3.mul(   		# vvv -85 deg 
-				FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed), \
-					clamp( \
-						FixedInt.lerp(self.dash_strength, \
-							0, 																			# vvv 0.3333 * 0.66
-							FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
-						), \
-						0, \
-						self.dash_strength
-					)
-			)
+			# self.char_controller.velocity = FixedVector3.mul(   		# vvv -85 deg 
+			# 	FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed), \
+			# 		clamp( \
+			# 			FixedInt.lerp(self.dash_strength, \
+			# 				0, 																			# vvv 0.3333 * 0.66
+			# 				FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
+			# 			), \
+			# 			0, \
+			# 			self.dash_strength
+			# 		)
+			# )
 
 		else:
 			self.animation_player.travel("l_sidestep")
-			# self.char_controller.velocity = (opponent_dir.rotated(Vector3.UP, deg_to_rad(85)) * self.side_walk_speed) * \
-			# 	clampf(lerpf(self.dash_strength, 0, \
-			# 	self.animation_player.get_current_play_position() / (0.3333*0.66)), 0, self.dash_strength)
 
-			self.char_controller.velocity = FixedVector3.mul(   		# vvv 85 deg 
-				FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224),
-				 self.side_walk_speed), \
-					clamp( \
-						FixedInt.lerp(self.dash_strength, \
-							0, 																			# vvv 0.3333 * 0.66
-							FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
-						), \
-						0, \
-						self.dash_strength
-					)
-			)
+			# self.char_controller.velocity = FixedVector3.mul(   		# vvv 85 deg 
+			# 	FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224),
+			# 	 self.side_walk_speed), \
+			# 		clamp( \
+			# 			FixedInt.lerp(self.dash_strength, \
+			# 				0, 																			# vvv 0.3333 * 0.66
+			# 				FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
+			# 			), \
+			# 			0, \
+			# 			self.dash_strength
+			# 		)
+			# )
 
 	var handle_sidewalk = func handle_sidewalk(dir: String= "lol"):
 		if dir == "LEFT":
 			self.animation_player.travel("l_sidewalk")
-			# self.char_controller.velocity = opponent_dir.rotated(Vector3.UP, deg_to_rad(85)) * self.side_walk_speed
 
-			self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224), self.side_walk_speed)
+			# self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224), self.side_walk_speed)
 
 		else:
 			self.animation_player.travel("r_sidewalk")
-			# self.char_controller.velocity = opponent_dir.rotated(Vector3.UP, deg_to_rad(-85)) * self.side_walk_speed
 
-			self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed)
+			# self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed)
 
 
 	# set stance state based on current animation
@@ -259,7 +247,7 @@ func _process(_delta: float):
 	else:
 		match self.di_state:
 			DI_STATE.FORWARD:
-				if self.stance != STANCE.F_DASH && self.stance != STANCE.RUN:
+				if self.stance != STANCE.F_DASH && self.stance != STANCE.RUN: # walking
 					# self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.walk_speed)
 					var inputs = self.input_interpreter.read_input(3)
 					if (inputs[0].frame_count < 2 && \
@@ -267,8 +255,10 @@ func _process(_delta: float):
 						inputs[1].frame_count <= 5 && \
 						inputs[2].di == DI_STATE.FORWARD):
 						handle_dash.call("f")
-				elif self.stance == STANCE.RUN: 
+
+				elif self.stance == STANCE.RUN: # running
 					handle_run.call()
+
 				else: # this is dashing stance
 					var inputs = self.input_interpreter.read_input(2)
 					if (inputs[0].frame_count < 2 && \
@@ -279,22 +269,24 @@ func _process(_delta: float):
 						handle_dash.call("f")
 						
 			DI_STATE.BACK:
-				if self.stance != STANCE.B_DASH:
-					self.char_controller.velocity = FixedVector3.mul(opponent_dir, -self.back_walk_speed)
+				if self.stance != STANCE.B_DASH: # back walk
+					# self.char_controller.velocity = FixedVector3.mul(opponent_dir, -self.back_walk_speed)
 					var inputs = self.input_interpreter.read_input(3)
 					if inputs[0].frame_count < 2 && \
 						inputs[1].di == DI_STATE.NEUTRAL && \
 						inputs[1].frame_count <= 5 && \
 						inputs[2].di == DI_STATE.BACK:
 						handle_dash.call("b")
-				else:
+
+				else: # back dash
 					handle_dash.call("b")
 						
-			DI_STATE.DOWN_FORWARD:
-				self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.crouch_walk_speed)
+			DI_STATE.DOWN_FORWARD: # croucvh walk
+				# self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.crouch_walk_speed)
+				pass
 
 			DI_STATE.DOWN:
-				if self.stance == STANCE.SIDESTEP || self.stance == STANCE.SIDEWALK:
+				if self.stance == STANCE.SIDESTEP || self.stance == STANCE.SIDEWALK: # side walk
 					if self.screen_position == "LEFT" && \
 						(self.animation_player.get_current_node() == "r_sidestep" || \
 						self.animation_player.get_current_node() == "r_sidewalk"):
@@ -304,9 +296,9 @@ func _process(_delta: float):
 						self.animation_player.get_current_node() == "l_sidewalk"):
 						handle_sidewalk.call("LEFT")
 					else:
-						neutral.call()
+						neutral.call(true)
 				else:
-					neutral.call()
+					neutral.call(true)
 
 			DI_STATE.UP:
 				if self.stance == STANCE.SIDESTEP || self.stance == STANCE.SIDEWALK:
@@ -319,7 +311,7 @@ func _process(_delta: float):
 						self.animation_player.get_current_node() == "r_sidewalk"):
 						handle_sidewalk.call("RIGHT")
 					else:
-						neutral.call()
+						neutral.call(true)
 				else:
 					if inp.frame_count > 2:
 						self.animation_player.travel("jump_1")
@@ -346,7 +338,7 @@ func _process(_delta: float):
 
 			DI_STATE.NEUTRAL:
 				var inputs = self.input_interpreter.read_input(2)
-				if inputs[0].frame_count < 2 && inputs[1].di == DI_STATE.DOWN && inputs[1].frame_count <= 5:
+				if inputs[0].frame_count < 5 && inputs[1].di == DI_STATE.DOWN && inputs[1].frame_count <= 8:
 					# sidestep to direction DOWN points
 					if self.screen_position == "LEFT":
 						handle_sidestep.call("RIGHT")
@@ -375,6 +367,12 @@ func _process(_delta: float):
 				neutral.call()
 
 	# handle button presses here -- but ignore button presses for right now
+	# need to add a check if the player is actively in control of the fighter here
+
+	# update collision shape to match current mesh position
+	self.char_controller.move_to_position(
+		FixedVector3.from_vec3(self.root_bone.global_position), 
+		self.char_controller.collision_body.sphere_radius)
 
 	# Add the gravity. if the fighter is not on the floor
 	if !self.grounded:									# 30

@@ -1,10 +1,14 @@
-- UPDATE character controller
-    - movement should be relative to position to opponent
-    - inputs need to be taken using multiple levels of interpretation
-        - read inputs from player 1 controller
-        - read inputs from player 2 controller
-        - inputs are read, they must be interpreted based on camera position on local client end
-            - inputs are then sent to proper character controller
-        - inputs are read on chara_controller level
-        - based on character moveset, movement and attacks are performed
-            - in coordination with camera position !!!!!
+- make collision shape follow armature
+- base floor detection off of root bone position
+    - base all collision detection off of float positions -- convert to int64 before calc
+- update collide_and_slide to update root bone position instead of collision shape
+- update animation library to have basic root motion
+    - pre bake animations
+- check if this shit work !!!!!!!
+
+0. check if player is in control of character position
+1. animation dictates character mesh position
+2. update collision shape to match mesh position
+3. check collisions, update collision shape position
+4. re-update mesh position to match collision shape
+5. rotate mesh to match collision shape

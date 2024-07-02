@@ -7,7 +7,8 @@ class_name GameCamera
 # used for camera smoothing
 @export var smoothing_speed: float = 1.0
 
-@onready var camera = $Camera3D
+@export var camera_node: NodePath
+var camera: Camera3D
 
 # nodes used as reference positions for the camera
 @onready var cam_ref1: Node3D = $ref1
@@ -32,11 +33,12 @@ class_name GameCamera
 @onready var camera_target = self.cam_ref1 if self.default_pos == 0 else self.cam_ref2
 
 var camera_last_g_position: Vector3
+var camera_last_target: Vector3
 
-# Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	pass # Replace with function body.
-
+func _ready():
+	self.camera = get_node(self.camera_node)
+	self.camera.global_position.x = 15.0 if self.default_pos == 0 else -15.0
+	# pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -45,29 +47,23 @@ func _process(_delta):
 
 	var chars = self.get_parent().char_container.get_children()
 
-	var dist = chars[0].mesh.global_position.distance_to(chars[1].mesh.global_position) * 1.25
-
-	if dist < 4.0:
-		dist = 4.0
-	elif dist > 11:
-		dist = 11
+	var dist = clampf(chars[0].char_controller.collision_body.global_position
+		.distance_to(chars[1].char_controller.collision_body.global_position) * 1.25, 4.0, 11.0)
 	
-	self.global_position = (chars[0].mesh.global_position + chars[1].mesh.global_position) / 2
+	self.global_position = (chars[0].char_controller.collision_body.global_position + chars[1].char_controller.collision_body.global_position) / 2
 
-	self.look_at(chars[0].mesh.global_position)
-	# self.rotation.x = 0 # we do not want the camera's parent to rotate vertically
-	# self.rotation.z = 0
+	self.look_at(chars[0].char_controller.collision_body.global_position)
 
 	# assign positions to reference nodes
 	self.cam_ref1.position.x = dist
 	self.cam_ref2.position.x = -dist
-	self.cam_ref1.position.y = self.global_position.y + 1.5
-	self.cam_ref2.position.y = self.global_position.y + 1.5
+	self.cam_ref1.position.y = self.global_position.y + 0.5
+	self.cam_ref2.position.y = self.global_position.y + 0.5
 
 	if abs(self.rotation_degrees.x) < 75:
 
 		if self.camera.global_position.distance_to(self.cam_ref1.global_position) \
-			< self.camera.global_position.distance_to(self.cam_ref2.global_position):
+			<= self.camera.global_position.distance_to(self.cam_ref2.global_position):
 			self.camera.global_position = \
 				lerp(self.camera.global_position, self.cam_ref1.global_position, self.smoothing_speed * _delta)
 		else:
@@ -78,7 +74,7 @@ func _process(_delta):
 		self.camera.global_position = self.camera_last_g_position
 
 	self.camera.global_rotation = Vector3(0,0,0)
-	self.camera.look_at(Vector3(self.global_position.x, self.global_position.y +1.2, self.global_position.z))
+	self.camera.look_at(Vector3(self.global_position.x, self.global_position.y + 0.5, self.global_position.z))
 
 func get_char_position(char_position: Vector3):
 
@@ -92,8 +88,6 @@ func get_char_position(char_position: Vector3):
 		if self.p2_screen_pos.x < self.p1_screen_pos.x:
 			return "RIGHT"
 		else: return "LEFT"
-
-
 
 func is_player_airborne():
 	# get:

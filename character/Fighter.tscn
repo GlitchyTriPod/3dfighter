@@ -1,4 +1,4 @@
-[gd_scene load_steps=156 format=3 uid="uid://rig3atksreq0"]
+[gd_scene load_steps=157 format=3 uid="uid://rig3atksreq0"]
 
 [ext_resource type="Script" path="res://character/Fighter.gd" id="1_mbbs0"]
 [ext_resource type="Script" path="res://character/CharacterController3D.gd" id="2_yu0b2"]
@@ -11,19 +11,24 @@
 [ext_resource type="Material" uid="uid://ch2actovmpu6o" path="res://models/killer_robot/killer_robot_tex_leg.tres" id="8_i0dst"]
 [ext_resource type="Material" uid="uid://1d0aoxl0ifvh" path="res://models/killer_robot/killer_robot_tex_waist.tres" id="9_0wigw"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_i3hqg"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_e66n2"]
 
-[sub_resource type="Resource" id="Resource_kp6t8"]
+[sub_resource type="Resource" id="Resource_p1uxv"]
+resource_local_to_scene = true
 script = ExtResource("4_b7q0s")
 x = 0
-y = 32112
-z = 0
+y = 32964
+z = 72212
 
-[sub_resource type="Resource" id="Resource_00ouh"]
+[sub_resource type="Resource" id="Resource_hshb2"]
+resource_local_to_scene = true
 script = ExtResource("4_b7q0s")
 x = 0
-y = 0
+y = -205887
 z = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_1s73o"]
+resource_local_to_scene = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_y67rk"]
 _surfaces = [{
@@ -757,13 +762,6 @@ shadow_mesh = SubResource("ArrayMesh_3t75g")
 
 [sub_resource type="Animation" id="Animation_inr3y"]
 length = 0.001
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%GeneralSkeleton:Root")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, -183.634, 26.7846)
 
 [sub_resource type="Animation" id="Animation_f7l1b"]
 resource_name = "b_dash"
@@ -2724,7 +2722,7 @@ tracks/45/interp = 1
 tracks/45/loop_wrap = true
 tracks/45/keys = PackedFloat32Array(0, 1, -5.26836e-09, 1, 2.98023e-08, 3.68785e-08)
 
-[sub_resource type="Animation" id="Animation_xupmx"]
+[sub_resource type="Animation" id="Animation_ykvr5"]
 resource_name = "f_walk"
 length = 0.433333
 loop_mode = 1
@@ -3030,33 +3028,19 @@ tracks/42/interp = 1
 tracks/42/loop_wrap = true
 tracks/42/keys = PackedFloat32Array(0, 1, 5.96046e-08, 5.96046e-08, 5.96046e-08, 1)
 tracks/43/type = "rotation_3d"
-tracks/43/imported = false
+tracks/43/imported = true
 tracks/43/enabled = true
-tracks/43/path = NodePath("%GeneralSkeleton:Root")
+tracks/43/path = NodePath("%GeneralSkeleton:LeftToes")
 tracks/43/interp = 1
 tracks/43/loop_wrap = true
-tracks/43/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/43/keys = PackedFloat32Array(0, 1, -2.10734e-08, 1, -5.96046e-08, 1.05367e-08)
 tracks/44/type = "rotation_3d"
 tracks/44/imported = true
 tracks/44/enabled = true
-tracks/44/path = NodePath("%GeneralSkeleton:LeftToes")
+tracks/44/path = NodePath("%GeneralSkeleton:RightToes")
 tracks/44/interp = 1
 tracks/44/loop_wrap = true
-tracks/44/keys = PackedFloat32Array(0, 1, -2.10734e-08, 1, -5.96046e-08, 1.05367e-08)
-tracks/45/type = "rotation_3d"
-tracks/45/imported = true
-tracks/45/enabled = true
-tracks/45/path = NodePath("%GeneralSkeleton:RightToes")
-tracks/45/interp = 1
-tracks/45/loop_wrap = true
-tracks/45/keys = PackedFloat32Array(0, 1, -5.26836e-09, 1, 2.98023e-08, 3.68785e-08)
-tracks/46/type = "position_3d"
-tracks/46/imported = false
-tracks/46/enabled = true
-tracks/46/path = NodePath("%GeneralSkeleton:Root")
-tracks/46/interp = 1
-tracks/46/loop_wrap = true
-tracks/46/keys = PackedFloat32Array(0, 1, 0, -183.634, 26.7846, 0.4, 1, 0, -183.634, 191.834)
+tracks/44/keys = PackedFloat32Array(0, 1, -5.26836e-09, 1, 2.98023e-08, 3.68785e-08)
 
 [sub_resource type="Animation" id="Animation_kiytw"]
 resource_name = "jump_1"
@@ -5679,7 +5663,7 @@ _data = {
 "crouch_walk": SubResource("Animation_bpt8t"),
 "crouching": SubResource("Animation_um882"),
 "f_dash": SubResource("Animation_cnvqg"),
-"f_walk": SubResource("Animation_xupmx"),
+"f_walk": SubResource("Animation_ykvr5"),
 "jump_1": SubResource("Animation_kiytw"),
 "jump_2": SubResource("Animation_exxwe"),
 "l_sidestep": SubResource("Animation_7mwxo"),
@@ -6072,7 +6056,7 @@ states/run/position = Vector2(751.324, 144.269)
 states/standing/node = SubResource("AnimationNodeAnimation_kfuqc")
 states/standing/position = Vector2(267, 120)
 transitions = ["Start", "standing", SubResource("AnimationNodeStateMachineTransition_yk30b"), "standing", "f_walk", SubResource("AnimationNodeStateMachineTransition_acg5c"), "f_walk", "standing", SubResource("AnimationNodeStateMachineTransition_d2bkx"), "standing", "crouching", SubResource("AnimationNodeStateMachineTransition_wxemv"), "crouching", "standing", SubResource("AnimationNodeStateMachineTransition_b6f1i"), "crouching", "crouch_walk", SubResource("AnimationNodeStateMachineTransition_sdpgv"), "crouch_walk", "crouching", SubResource("AnimationNodeStateMachineTransition_qbf6n"), "standing", "b_walk", SubResource("AnimationNodeStateMachineTransition_r8dk3"), "b_walk", "standing", SubResource("AnimationNodeStateMachineTransition_xnsjo"), "b_walk", "b_dash", SubResource("AnimationNodeStateMachineTransition_8g727"), "b_dash", "standing", SubResource("AnimationNodeStateMachineTransition_8sl1y"), "b_dash", "crouching", SubResource("AnimationNodeStateMachineTransition_n30aa"), "f_walk", "crouching", SubResource("AnimationNodeStateMachineTransition_651ti"), "b_walk", "crouching", SubResource("AnimationNodeStateMachineTransition_3cmbm"), "f_walk", "f_dash", SubResource("AnimationNodeStateMachineTransition_txxad"), "f_dash", "standing", SubResource("AnimationNodeStateMachineTransition_ifnb2"), "f_dash", "crouching", SubResource("AnimationNodeStateMachineTransition_fief2"), "standing", "r_sidestep", SubResource("AnimationNodeStateMachineTransition_xss6m"), "r_sidestep", "standing", SubResource("AnimationNodeStateMachineTransition_hf1wu"), "r_sidestep", "crouching", SubResource("AnimationNodeStateMachineTransition_ffl7s"), "r_sidestep", "b_walk", SubResource("AnimationNodeStateMachineTransition_tyfmb"), "r_sidestep", "f_walk", SubResource("AnimationNodeStateMachineTransition_rf2er"), "r_sidestep", "r_sidewalk", SubResource("AnimationNodeStateMachineTransition_fcryv"), "crouching", "b_walk", SubResource("AnimationNodeStateMachineTransition_pk3cr"), "crouching", "f_walk", SubResource("AnimationNodeStateMachineTransition_cffqi"), "r_sidewalk", "crouching", SubResource("AnimationNodeStateMachineTransition_epjhr"), "f_dash", "run", SubResource("AnimationNodeStateMachineTransition_nyhxx"), "run", "crouching", SubResource("AnimationNodeStateMachineTransition_u1hhq"), "standing", "l_sidestep", SubResource("AnimationNodeStateMachineTransition_tnh1m"), "l_sidestep", "standing", SubResource("AnimationNodeStateMachineTransition_s8uh6"), "l_sidestep", "l_sidewalk", SubResource("AnimationNodeStateMachineTransition_p52ef"), "l_sidestep", "crouching", SubResource("AnimationNodeStateMachineTransition_6xlsi"), "l_sidestep", "b_walk", SubResource("AnimationNodeStateMachineTransition_huchr"), "l_sidestep", "f_walk", SubResource("AnimationNodeStateMachineTransition_symgb"), "f_walk", "crouch_walk", SubResource("AnimationNodeStateMachineTransition_j1bey"), "crouch_walk", "f_walk", SubResource("AnimationNodeStateMachineTransition_ejfo1"), "f_walk", "b_walk", SubResource("AnimationNodeStateMachineTransition_3x3c7"), "b_walk", "f_walk", SubResource("AnimationNodeStateMachineTransition_bc528"), "standing", "crouch_walk", SubResource("AnimationNodeStateMachineTransition_2h0fl"), "crouch_walk", "standing", SubResource("AnimationNodeStateMachineTransition_xx33i"), "f_dash", "f_walk", SubResource("AnimationNodeStateMachineTransition_v713j"), "f_dash", "crouch_walk", SubResource("AnimationNodeStateMachineTransition_8sgnb"), "b_dash", "b_walk", SubResource("AnimationNodeStateMachineTransition_8acey"), "b_dash", "f_walk", SubResource("AnimationNodeStateMachineTransition_n4lpx"), "f_dash", "b_walk", SubResource("AnimationNodeStateMachineTransition_iuih1"), "f_dash", "r_sidestep", SubResource("AnimationNodeStateMachineTransition_r7h7p"), "f_dash", "l_sidestep", SubResource("AnimationNodeStateMachineTransition_sey62"), "crouching", "r_sidestep", SubResource("AnimationNodeStateMachineTransition_tv50p"), "b_dash", "r_sidestep", SubResource("AnimationNodeStateMachineTransition_g6ydl"), "b_dash", "l_sidestep", SubResource("AnimationNodeStateMachineTransition_o6552"), "run", "b_walk", SubResource("AnimationNodeStateMachineTransition_omibg"), "run", "f_walk", SubResource("AnimationNodeStateMachineTransition_puyyb"), "run", "r_sidestep", SubResource("AnimationNodeStateMachineTransition_saim5"), "run", "l_sidestep", SubResource("AnimationNodeStateMachineTransition_8sq48"), "run", "standing", SubResource("AnimationNodeStateMachineTransition_whd2r"), "r_sidewalk", "standing", SubResource("AnimationNodeStateMachineTransition_5ore7"), "l_sidewalk", "standing", SubResource("AnimationNodeStateMachineTransition_dq7q6"), "l_sidewalk", "crouching", SubResource("AnimationNodeStateMachineTransition_0xv0v"), "l_sidewalk", "b_walk", SubResource("AnimationNodeStateMachineTransition_lw7jb"), "l_sidewalk", "f_walk", SubResource("AnimationNodeStateMachineTransition_vcv02"), "r_sidewalk", "f_walk", SubResource("AnimationNodeStateMachineTransition_w6v4p"), "r_sidewalk", "b_walk", SubResource("AnimationNodeStateMachineTransition_6qyqq"), "jump_1", "jump_2", SubResource("AnimationNodeStateMachineTransition_ivjcq"), "jump_2", "crouching", SubResource("AnimationNodeStateMachineTransition_wouyq"), "crouching", "jump_1", SubResource("AnimationNodeStateMachineTransition_fxiea"), "crouching", "l_sidestep", SubResource("AnimationNodeStateMachineTransition_3536c")]
-graph_offset = Vector2(-162, -17.474)
+graph_offset = Vector2(-271, -119.474)
 
 [node name="Fighter" type="Node3D"]
 script = ExtResource("1_mbbs0")
@@ -6081,34 +6065,32 @@ script = ExtResource("1_mbbs0")
 unique_name_in_owner = true
 script = ExtResource("2_yu0b2")
 
-[node name="Collision" type="Node3D" parent="CharacterBody3D"]
-
-[node name="FixedCharacterController3D" type="CollisionShape3D" parent="CharacterBody3D/Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, 0)
+[node name="FixedCharacterController3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(-1, 0, -6.34988e-06, 0, 1, 0, 6.34988e-06, 0, -1, 0, 0.502991, 1.10187)
 top_level = true
-shape = SubResource("SphereShape3D_i3hqg")
+shape = SubResource("SphereShape3D_e66n2")
 script = ExtResource("3_vh0wb")
-exp_fixed_position = SubResource("Resource_kp6t8")
-exp_fixed_rotation = SubResource("Resource_00ouh")
+fixed_position = SubResource("Resource_p1uxv")
+fixed_rotation = SubResource("Resource_hshb2")
 
-[node name="RootMotionView" type="RootMotionView" parent="CharacterBody3D/Collision/FixedCharacterController3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.48999, 0)
-animation_path = NodePath("../Mesh/AnimationPlayer")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/FixedCharacterController3D"]
+mesh = SubResource("SphereMesh_1s73o")
 
-[node name="Mesh" type="Node3D" parent="CharacterBody3D/Collision/FixedCharacterController3D"]
+[node name="Mesh" type="Node3D" parent="CharacterBody3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.032, 0.685, -0.196)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17809, -0.159165)
+top_level = true
 
-[node name="Armature" type="Node3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh"]
+[node name="Armature" type="Node3D" parent="CharacterBody3D/Mesh"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="CharacterBody3D/Mesh/Armature"]
 unique_name_in_owner = true
 motion_scale = 0.00633693
 bones/0/name = "Root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16367, 0.169732)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -1.16368, 0.169732)
+bones/0/position = Vector3(0, -1.16367, 0.169732)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Hips"
@@ -6504,251 +6486,257 @@ bones/56/position = Vector3(-0.188009, 0.0783486, -0.194744)
 bones/56/rotation = Quaternion(0, 0, 0, 1)
 bones/56/scale = Vector3(1, 1, 1)
 
-[node name="finger_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="finger_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -0.000762939, 0.373535, 0.0165629)
 bone_name = "finger.001"
 bone_idx = 11
 
-[node name="finger_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/finger_001"]
+[node name="finger_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/finger_001"]
 transform = Transform3D(-0.000299389, 0.0057596, -0.999983, 0.999999, -0.00128696, -0.0003068, -0.00128866, -0.999982, -0.00575915, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_vd2vf")
 skeleton = NodePath("")
 
-[node name="palm_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="palm_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, -0.0057494, 0.365064, 0.0343555)
 bone_name = "palm.001"
 bone_idx = 12
 
-[node name="palm_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/palm_001"]
+[node name="palm_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/palm_001"]
 transform = Transform3D(0.00799208, -0.0166406, -0.999829, 0.999882, -0.0129924, 0.00820873, -0.0131268, -0.999776, 0.0165348, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_q6ljb")
 skeleton = NodePath("")
 
-[node name="forearm_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="forearm_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -0.072925, -0.203583, 0.336926)
 bone_name = "forearm.001"
 bone_idx = 13
 
-[node name="forearm_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/forearm_001"]
+[node name="forearm_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/forearm_001"]
 transform = Transform3D(0.254815, -0.954925, -0.152273, 0.805473, 0.122473, 0.579838, -0.535053, -0.270403, 0.800375, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_u00yk")
 skeleton = NodePath("")
 
-[node name="bicep_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="bicep_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.00776699, 0.425568, 0.158771)
 bone_name = "bicep.001"
 bone_idx = 14
 
-[node name="bicep_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/bicep_001"]
+[node name="bicep_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/bicep_001"]
 transform = Transform3D(0.53505, 0.270405, -0.800376, 0.805473, 0.122478, 0.579836, 0.25482, -0.954924, -0.152272, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_a0fsp")
 skeleton = NodePath("")
 
-[node name="shoulder_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="shoulder_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, 1, 0, 0, 0, 1, 1, 0, 0, -8.76316e-08, 0.375833, 0.0205102)
 bone_name = "shoulder.001"
 bone_idx = 15
 
-[node name="shoulder_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/shoulder_001"]
+[node name="shoulder_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/shoulder_001"]
 transform = Transform3D(2.42144e-08, -2.98023e-08, 1, 1, 2.50759e-07, -1.86265e-08, -2.4261e-07, 1, 2.98023e-08, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_muxct")
 skeleton = NodePath("")
 
-[node name="hair" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="hair" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.14977e-09, 0.893919, 0.0351964)
 bone_name = "hair"
 bone_idx = 19
 
-[node name="hair" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/hair"]
+[node name="hair" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/hair"]
 transform = Transform3D(1, -1.02445e-08, -2.91038e-11, -1.02445e-08, -1, -1.04774e-07, -2.91465e-11, 9.73232e-08, -1, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_0a37j")
 skeleton = NodePath("")
 
-[node name="head_2" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="head_2" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.99462e-09, 0.863707, 0.0205102)
 bone_name = "head_2"
 bone_idx = 20
 
-[node name="head_2" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/head_2"]
+[node name="head_2" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/head_2"]
 transform = Transform3D(1, -1.02445e-08, -2.91038e-11, -1.02445e-08, -1, -1.04774e-07, -2.91465e-11, 9.73232e-08, -1, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_g7qok")
 skeleton = NodePath("")
 
-[node name="neck_2" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="neck_2" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57502e-09, 0.760519, 0.0205102)
 bone_name = "neck_2"
 bone_idx = 21
 
-[node name="neck_2" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/neck_2"]
+[node name="neck_2" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/neck_2"]
 transform = Transform3D(1, -9.72487e-10, 4.48634e-09, 9.72487e-10, 1, 4.09782e-08, -4.48638e-09, -3.72529e-08, 1, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_xuq3w")
 skeleton = NodePath("")
 
-[node name="finger" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="finger" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, 0.0102028, 0.36131, 0.00395602)
 bone_name = "finger"
 bone_idx = 29
 
-[node name="finger" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/finger"]
+[node name="finger" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/finger"]
 transform = Transform3D(0.00188812, -0.0263037, 0.999652, -0.99989, -0.0147539, 0.00150037, 0.0147092, -0.999545, -0.0263287, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_5h4k8")
 skeleton = NodePath("")
 
-[node name="palm" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="palm" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.00220349, 0.371012, 0.0450724)
 bone_name = "palm"
 bone_idx = 30
 
-[node name="palm" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/palm"]
+[node name="palm" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/palm"]
 transform = Transform3D(0.00574027, 0.0395519, 0.999201, -0.999981, 0.0025448, 0.00564403, -0.00231961, -0.999214, 0.0395657, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_lyd85")
 skeleton = NodePath("")
 
-[node name="forearm" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="forearm" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.072926, -0.203583, 0.336926)
 bone_name = "forearm"
 bone_idx = 31
 
-[node name="forearm" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/forearm"]
+[node name="forearm" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/forearm"]
 transform = Transform3D(0.254816, 0.954925, 0.152273, -0.805474, 0.122474, 0.579837, 0.535052, -0.270404, 0.800375, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_lqyqi")
 skeleton = NodePath("")
 
-[node name="bicep" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="bicep" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.00776699, 0.425568, 0.15877)
 bone_name = "bicep"
 bone_idx = 32
 
-[node name="bicep" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/bicep"]
+[node name="bicep" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/bicep"]
 transform = Transform3D(0.535051, -0.270405, 0.800376, -0.805474, 0.122477, 0.579837, -0.254818, -0.954925, -0.152273, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_rugrr")
 skeleton = NodePath("")
 
-[node name="shoulder" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="shoulder" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(0, -1, 0, 0, 0, 1, -1, 0, 0, 4.27826e-08, 0.375833, 0.0205102)
 bone_name = "shoulder"
 bone_idx = 33
 
-[node name="shoulder" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/shoulder"]
+[node name="shoulder" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/shoulder"]
 transform = Transform3D(5.58794e-09, 0, -1, -1, 2.51457e-08, -7.45058e-09, -1.0943e-08, 1, -5.96046e-08, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_l2g5h")
 skeleton = NodePath("")
 
-[node name="thrusters" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="thrusters" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.39872e-09, 0.530986, -0.0976864)
 bone_name = "thrusters"
 bone_idx = 34
 
-[node name="thrusters" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/thrusters"]
+[node name="thrusters" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/thrusters"]
 transform = Transform3D(1, 2.26192e-09, 4.18191e-09, -2.26192e-09, 1, 0, -4.1819e-09, 0, 1, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_omw25")
 skeleton = NodePath("")
 
-[node name="torso" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="torso" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16037e-08, 0.453246, 0.618113)
 bone_name = "torso"
 bone_idx = 35
 
-[node name="torso" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/torso"]
+[node name="torso" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/torso"]
 transform = Transform3D(1, 2.26192e-09, 4.18191e-09, -2.26192e-09, 1, 0, -4.1819e-09, 0, 1, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_ycj2t")
 skeleton = NodePath("")
 
-[node name="foot_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="foot_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -8.9407e-08, -1.18129, 0.0205098)
 bone_name = "LeftToes"
 bone_idx = 39
 
-[node name="foot_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/foot_001"]
+[node name="foot_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/foot_001"]
 transform = Transform3D(0.999999, 1.63913e-07, -7.41333e-07, 7.45058e-07, 1.61817e-07, 0.999998, -8.9407e-08, -1, 2.43774e-07, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_7472m")
 skeleton = NodePath("")
 
-[node name="shin_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="shin_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, 5.65052e-05, 0.375848, 0.0202596)
 bone_name = "shin.001"
 bone_idx = 40
 
-[node name="shin_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/shin_001"]
+[node name="shin_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/shin_001"]
 transform = Transform3D(0.999992, 0.000139922, -0.00326861, 0.000140421, -1, 0.000248266, -0.00326857, -0.000248682, -0.999992, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_fa6kq")
 skeleton = NodePath("")
 
-[node name="thigh_001" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="thigh_001" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, 1, 8.00192e-06, 0.0826232, 0.0201799)
 bone_name = "thigh.001"
 bone_idx = 41
 
-[node name="thigh_001" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/thigh_001"]
+[node name="thigh_001" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/thigh_001"]
 transform = Transform3D(-0.999993, -0.000126101, 0.0032701, 0.000126592, -1, 0.000236193, 0.00327017, 0.000236584, 0.999992, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_mxlw1")
 skeleton = NodePath("")
 
-[node name="foot" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="foot" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 8.9407e-08, -1.18129, 0.0205097)
 bone_name = "RightToes"
 bone_idx = 45
 
-[node name="foot" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/foot"]
+[node name="foot" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/foot"]
 transform = Transform3D(0.999998, -1.78814e-07, 7.41333e-07, -7.37607e-07, 1.32713e-07, 0.999998, 7.45058e-08, -0.999999, 2.43774e-07, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_xe1xk")
 skeleton = NodePath("")
 
-[node name="shin" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="shin" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, -1, -5.65052e-05, 0.375849, 0.0202597)
 bone_name = "shin"
 bone_idx = 46
 
-[node name="shin" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/shin"]
+[node name="shin" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/shin"]
 transform = Transform3D(0.999992, -0.000140008, 0.00326838, -0.000140518, -1, 0.000248247, 0.00326851, -0.000248663, -0.999992, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_dle7x")
 skeleton = NodePath("")
 
-[node name="thigh" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="thigh" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(-1, 0, 0, 0, -1, 0, 0, 0, 1, -8.00192e-06, 0.0826233, 0.0201799)
 bone_name = "thigh"
 bone_idx = 47
 
-[node name="thigh" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/thigh"]
+[node name="thigh" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/thigh"]
 transform = Transform3D(-0.999993, 0.000126076, -0.00326996, -0.000126552, -1, 0.000236129, -0.00327003, 0.000236522, 0.999992, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_drkys")
 skeleton = NodePath("")
 
-[node name="waist" type="BoneAttachment3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton"]
+[node name="waist" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16415e-08, 0.00736751, 0.0205103)
 bone_name = "waist"
 bone_idx = 48
 
-[node name="waist" type="MeshInstance3D" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh/Armature/GeneralSkeleton/waist"]
+[node name="waist" type="MeshInstance3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton/waist"]
 transform = Transform3D(1, 4.05741e-09, 9.41645e-09, -4.05741e-09, 1, 3.72529e-08, -9.41645e-09, -3.72529e-08, 1, 0, 0, 0)
 gi_mode = 0
 mesh = SubResource("ArrayMesh_82hql")
 skeleton = NodePath("")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D/Collision/FixedCharacterController3D/Mesh"]
+[node name="root" type="BoneAttachment3D" parent="CharacterBody3D/Mesh/Armature/GeneralSkeleton"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16367, 0.169732)
+bone_name = "Root"
+bone_idx = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D/Mesh"]
 deterministic = true
-root_motion_track = NodePath("%GeneralSkeleton:Root")
+root_motion_track = NodePath("../Armature/GeneralSkeleton")
 libraries = {
 "": SubResource("AnimationLibrary_j12u8")
 }
@@ -6756,16 +6744,20 @@ libraries = {
 [node name="Label3D" type="Label3D" parent="CharacterBody3D"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0065221, 2.08734, 0.151769)
+visible = false
 billboard = 1
 text = "# STANCE #"
 
 [node name="AnimationTree" type="AnimationTree" parent="CharacterBody3D"]
 root_node = NodePath("%Mesh")
-root_motion_track = NodePath("%GeneralSkeleton:Root")
+root_motion_track = NodePath("../Mesh/Armature/GeneralSkeleton")
 tree_root = SubResource("AnimationNodeStateMachine_410uu")
 advance_expression_base_node = NodePath("../..")
-anim_player = NodePath("../Collision/FixedCharacterController3D/Mesh/AnimationPlayer")
+anim_player = NodePath("../Mesh/AnimationPlayer")
 
 [node name="InputInterpreter" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_tuh18")
+
+[node name="RootMotionView" type="RootMotionView" parent="."]
+animation_path = NodePath("../CharacterBody3D/Mesh/AnimationPlayer")

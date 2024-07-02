@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://3nasqljy0y06"]
+[gd_scene load_steps=21 format=3 uid="uid://3nasqljy0y06"]
 
 [ext_resource type="Environment" uid="uid://dalka1ns5gnl0" path="res://test_env.tres" id="1_cutdu"]
 [ext_resource type="Script" path="res://stage/Stage.gd" id="1_u2wdh"]
@@ -7,7 +7,7 @@
 [ext_resource type="Shader" path="res://shader/ps1_post.gdshader" id="4_8xacr"]
 [ext_resource type="PackedScene" uid="uid://rig3atksreq0" path="res://character/Fighter.tscn" id="6_7vpyq"]
 [ext_resource type="PackedScene" uid="uid://dip4omawevgwd" path="res://camera/GameCamera.tscn" id="7_6gy14"]
-[ext_resource type="Script" path="res://classes/FixedVector3.gd" id="7_tnr10"]
+[ext_resource type="Script" path="res://classes/FixedVector3.gd" id="8_0tvlj"]
 [ext_resource type="Script" path="res://addons/camera.gd" id="9_cqpjc"]
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1pahf"]
@@ -22,39 +22,56 @@ shader_parameter/color_depth = 3
 shader_parameter/dithering = true
 shader_parameter/resolution_scale = 3
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_1aiwd"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_dhk5l"]
 
-[sub_resource type="Resource" id="Resource_jnv63"]
-script = ExtResource("7_tnr10")
+[sub_resource type="Resource" id="Resource_mjoh5"]
+resource_local_to_scene = true
+script = ExtResource("8_0tvlj")
 x = 0
-y = 32112
-z = -148166
+y = 32964
+z = 72212
 
-[sub_resource type="Resource" id="Resource_oody7"]
-script = ExtResource("7_tnr10")
+[sub_resource type="Resource" id="Resource_8gdfs"]
+resource_local_to_scene = true
+script = ExtResource("8_0tvlj")
 x = 0
-y = 0
+y = -205887
 z = 0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_5uxiy"]
+[sub_resource type="SphereMesh" id="SphereMesh_edmri"]
+resource_local_to_scene = true
 
-[sub_resource type="Resource" id="Resource_5mavj"]
-script = ExtResource("7_tnr10")
-x = 0
-y = 32112
-z = 99572
+[sub_resource type="SphereShape3D" id="SphereShape3D_fo05o"]
 
-[sub_resource type="Resource" id="Resource_lvcdv"]
-script = ExtResource("7_tnr10")
+[sub_resource type="Resource" id="Resource_2lx6x"]
+resource_local_to_scene = true
+script = ExtResource("8_0tvlj")
 x = 0
-y = 0
+y = 32964
+z = -81239
+
+[sub_resource type="Resource" id="Resource_44ptf"]
+resource_local_to_scene = true
+script = ExtResource("8_0tvlj")
+x = 0
+y = -205887
 z = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_o2no2"]
+resource_local_to_scene = true
 
 [node name="Stage" type="Node3D"]
 script = ExtResource("1_u2wdh")
 
 [node name="InputListener" type="Node" parent="."]
 script = ExtResource("2_a83cb")
+
+[node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
+camera_node = NodePath("../Camera3D2")
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+current = true
+fov = 40.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_cutdu")
@@ -87,39 +104,34 @@ unique_name_in_owner = true
 
 [node name="Fighter" parent="Chars" instance=ExtResource("6_7vpyq")]
 
-[node name="FixedCharacterController3D" parent="Chars/Fighter/CharacterBody3D/Collision" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, -2.26083)
-shape = SubResource("SphereShape3D_1aiwd")
-exp_fixed_position = SubResource("Resource_jnv63")
-exp_fixed_rotation = SubResource("Resource_oody7")
+[node name="FixedCharacterController3D" parent="Chars/Fighter/CharacterBody3D" index="0"]
+shape = SubResource("SphereShape3D_dhk5l")
+fixed_position = SubResource("Resource_mjoh5")
+fixed_rotation = SubResource("Resource_8gdfs")
 
-[node name="Mesh" parent="Chars/Fighter/CharacterBody3D/Collision/FixedCharacterController3D" index="1"]
-unique_name_in_owner = false
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="MeshInstance3D" parent="Chars/Fighter/CharacterBody3D/FixedCharacterController3D" index="0"]
+mesh = SubResource("SphereMesh_edmri")
 
-[node name="AnimationTree" parent="Chars/Fighter/CharacterBody3D" index="2"]
-root_node = NodePath("../Collision/FixedCharacterController3D/Mesh")
+[node name="Mesh" parent="Chars/Fighter/CharacterBody3D" index="1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -5.08245e-08, 1.17809, 1.2605)
 
 [node name="Fighter2" parent="Chars" instance=ExtResource("6_7vpyq")]
 player = 1
 
-[node name="FixedCharacterController3D" parent="Chars/Fighter2/CharacterBody3D/Collision" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48999, 1.51935)
-shape = SubResource("SphereShape3D_5uxiy")
-exp_fixed_position = SubResource("Resource_5mavj")
-exp_fixed_rotation = SubResource("Resource_lvcdv")
+[node name="FixedCharacterController3D" parent="Chars/Fighter2/CharacterBody3D" index="0"]
+transform = Transform3D(-1, 0, -6.34988e-06, 0, 1, 0, 6.34988e-06, 0, -1, 0, 0.502991, -1.23961)
+shape = SubResource("SphereShape3D_fo05o")
+fixed_position = SubResource("Resource_2lx6x")
+fixed_rotation = SubResource("Resource_44ptf")
 
-[node name="Mesh" parent="Chars/Fighter2/CharacterBody3D/Collision/FixedCharacterController3D" index="1"]
-unique_name_in_owner = false
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="MeshInstance3D" parent="Chars/Fighter2/CharacterBody3D/FixedCharacterController3D" index="0"]
+mesh = SubResource("SphereMesh_o2no2")
 
-[node name="AnimationTree" parent="Chars/Fighter2/CharacterBody3D" index="2"]
-root_node = NodePath("../Collision/FixedCharacterController3D/Mesh")
-
-[node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
-smoothing_speed = 5.0
+[node name="Mesh" parent="Chars/Fighter2/CharacterBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17809, -1.39183)
 
 [node name="debugCamera" type="Camera3D" parent="."]
+visible = false
 script = ExtResource("9_cqpjc")
 
 [editable path="Chars/Fighter"]

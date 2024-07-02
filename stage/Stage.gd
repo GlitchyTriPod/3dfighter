@@ -1,7 +1,7 @@
 extends Node3D
 class_name Stage
 
-@onready var char_container: Node3D = %Chars
+@onready var char_container: Node3D = get_node("Chars")
 
 @onready var post_processing_node = $PostProcessing
 
