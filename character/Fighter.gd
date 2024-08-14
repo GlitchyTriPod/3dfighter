@@ -81,7 +81,7 @@ var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # 
 
 @onready var root_bone: BoneAttachment3D = %root
 
-@onready var input_interpreter = %InputInterpreter
+@onready var input_interpreter: InputInterpreter = %InputInterpreter
 
 var opponent_position: FixedVector3:
 	get:
@@ -232,7 +232,7 @@ func _process(_delta: float):
 			self.stance = STANCE.RUN
 		"jump_1", "jump_2":
 			self.stance = STANCE.JUMP
-		_:
+		"standing":
 			self.stance = STANCE.STANDING
 
 	# Handles movement
@@ -243,6 +243,7 @@ func _process(_delta: float):
 			"jump_1":
 				if self.char_controller.velocity.y <= 0.0 && self.grounded:
 					self.char_controller.velocity.y += 425984 # 6.5
+					pass
 
 	else:
 		match self.di_state:
@@ -252,7 +253,7 @@ func _process(_delta: float):
 					var inputs = self.input_interpreter.read_input(3)
 					if (inputs[0].frame_count < 2 && \
 						inputs[1].di == DI_STATE.NEUTRAL && \
-						inputs[1].frame_count <= 5 && \
+						inputs[1].frame_count <= 8 && \
 						inputs[2].di == DI_STATE.FORWARD):
 						handle_dash.call("f")
 
@@ -284,6 +285,9 @@ func _process(_delta: float):
 			DI_STATE.DOWN_FORWARD: # croucvh walk
 				# self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.crouch_walk_speed)
 				pass
+			
+			DI_STATE.DOWN_BACK:
+				neutral.call(true)
 
 			DI_STATE.DOWN:
 				if self.stance == STANCE.SIDESTEP || self.stance == STANCE.SIDEWALK: # side walk
@@ -370,9 +374,11 @@ func _process(_delta: float):
 	# need to add a check if the player is actively in control of the fighter here
 
 	# update collision shape to match current mesh position
-	self.char_controller.move_to_position(
-		FixedVector3.from_vec3(self.root_bone.global_position), 
-		self.char_controller.collision_body.sphere_radius)
+	# self.char_controller.move_to_position(
+	# 	FixedVector3.from_vec3(self.root_bone.global_position), 
+	# 	self.char_controller.collision_body.sphere_radius)
+
+	
 
 	# Add the gravity. if the fighter is not on the floor
 	if !self.grounded:									# 30

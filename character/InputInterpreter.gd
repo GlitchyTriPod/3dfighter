@@ -1,12 +1,13 @@
 extends Node
+class_name InputInterpreter
 
-@onready var fighter: Fighter = get_parent()
+@onready var fighter = get_parent()
 
 var input_history: Array = []
 
-func read_input(history = 0):
+func read_input(history := 0) -> Array:
 	if history == 0:
-		return self.input_history.back() # temp
+		return [self.input_history.back()] # temp
 	var inputs = []
 	for i in range(self.input_history.size() - history, self.input_history.size()):
 		inputs.push_front(self.input_history[i])
@@ -43,8 +44,6 @@ func interpret_input(input: Array[String]):
 	if input.has("k"): button += "K"
 	if input.has("a"): button += "A"
 	elif button == "": button += "N"
-
-		
 
 	match di:
 		"N":

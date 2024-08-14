@@ -7,7 +7,7 @@ var velocity := FixedVector3.new():
 		velocity.y = val.y
 		velocity.z = val.z
 
-@onready var collision_body: FixedCharacterController3D = self.get_node("FixedCharacterController3D")
+@onready var collision_body: FixedCharacterController3D = self.get_node("%FixedCharacterController3D")
 
 var fixed_position: FixedVector3:
 	get:

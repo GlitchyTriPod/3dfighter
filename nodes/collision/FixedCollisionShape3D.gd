@@ -25,7 +25,6 @@ func _ready():
 	self.fixed_position = self.fixed_position.duplicate()
 	self.fixed_rotation = self.fixed_rotation.duplicate()
 
-
 	self.shape = SphereShape3D.new()
 	self.sphere_radius = self.sphere_radius
 
