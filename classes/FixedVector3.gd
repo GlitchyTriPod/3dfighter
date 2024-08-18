@@ -87,6 +87,15 @@ static func mul(vec: FixedVector3, num: int) -> FixedVector3:
 
 	return ret_vec
 
+static func vec_mul(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
+	var ret_vec = FixedVector3.new()
+
+	ret_vec.x = FixedInt.mul(vec1.x, vec2.x)
+	ret_vec.y = FixedInt.mul(vec1.y, vec2.y)
+	ret_vec.z = FixedInt.mul(vec1.z, vec2.z)
+
+	return ret_vec
+
 static func div(vec: FixedVector3, num: int) -> FixedVector3:
 	var ret_vec = FixedVector3.new()
 

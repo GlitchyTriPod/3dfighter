@@ -19,7 +19,7 @@ var camera: Camera3D
 		var world_pos = Vector2()
 		var char1 = self.get_parent().char_container.get_children()[0]
 		if char1 != null:
-			world_pos = char1.mesh.global_position
+			world_pos = FixedVector3.to_vec3(char1.collision_body.fixed_position)
 		return self.camera.unproject_position(world_pos)
 
 @onready var p2_screen_pos: Vector2:
@@ -27,7 +27,7 @@ var camera: Camera3D
 		var world_pos = Vector2()
 		var char1 = self.get_parent().char_container.get_children()[1]
 		if char1 != null:
-			world_pos = char1.mesh.global_position
+			world_pos = FixedVector3.to_vec3(char1.collision_body.fixed_position)
 		return self.camera.unproject_position(world_pos)
 
 @onready var camera_target = self.cam_ref1 if self.default_pos == 0 else self.cam_ref2
@@ -47,12 +47,12 @@ func _process(_delta):
 
 	var chars = self.get_parent().char_container.get_children()
 
-	var dist = clampf(chars[0].char_controller.collision_body.global_position
-		.distance_to(chars[1].char_controller.collision_body.global_position) * 1.25, 4.0, 11.0)
+	var dist = clampf(chars[0].collision_body.global_position
+		.distance_to(chars[1].collision_body.global_position) * 1.25, 4.0, 11.0)
 	
-	self.global_position = (chars[0].char_controller.collision_body.global_position + chars[1].char_controller.collision_body.global_position) / 2
+	self.global_position = (chars[0].collision_body.global_position + chars[1].collision_body.global_position) / 2
 
-	self.look_at(chars[0].char_controller.collision_body.global_position)
+	self.look_at(chars[0].collision_body.global_position)
 
 	# assign positions to reference nodes
 	self.cam_ref1.position.x = dist
@@ -90,9 +90,8 @@ func get_char_position(char_position: Vector3):
 		else: return "LEFT"
 
 func is_player_airborne():
-	# get:
-		var chars = get_parent().get_node("Chars").get_children()
-		for i in chars:
-			if !i.char_controller.is_on_floor():
-				return true
-		return false
+	var chars = get_parent().get_node("Chars").get_children()
+	for i in chars:
+		if !i.collision_body.is_on_floor():
+			return true
+	return false

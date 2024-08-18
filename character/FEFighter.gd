@@ -64,7 +64,7 @@ var opponent_position: FixedVector3:
 			break
 		if oppo.collision_body == null:
 			return FixedVector3.new()
-		return oppo.collision_body.fixed_position
+		return oppo.fixed_position
 
 var screen_position: String:
 	get:
@@ -72,26 +72,43 @@ var screen_position: String:
 			.get_parent() \
 			.get_node("GameCamera") \
 			.get_char_position( \
-				self.char_controller.collision_body.position if \
-					self.char_controller.collision_body != null else self.global_position
+				self.collision_body.position if \
+					self.collision_body != null else self.global_position
 			)
 
 var tracking := Vector2(0,0)
 
 var velocity := FixedVector3.new()
 
+var fixed_position: FixedVector3:
+	set(val):
+		fixed_position = val
+		self.global_position = FixedVector3.to_vec3(fixed_position)
+	get:
+		return FixedVector3.from_vec3(self.global_position)
+
+var fixed_rotation: FixedVector3:
+	set(val):
+		fixed_rotation = val
+		self.global_rotation = FixedVector3.to_vec3(fixed_rotation)
+	get:
+		return FixedVector3.from_vec3(self.global_rotation)
+
 @onready var anim_player: AnimationNodeStateMachinePlayback = %AnimationTree["parameters/playback"]
 @onready var collision_body: FEFighterCollisionBody = %CollisionBody
 @onready var input_interpreter: InputInterpreter = %InputInterpreter
 
 # Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	pass # Replace with function body.
-
+func _ready():
+	%AnimationTree.callback_mode_process = 2
+	# pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
-	var _delta_int = int(_delta * 65536)
+	var delta_int = int(_delta * 65536)
+	self.velocity = FixedVector3.new()
+
+	# --detect if player is in contact with enemy hitbox HERE--
 
 	if !self.states["actionable"]: # if player is not actionable they are stuck in a currently playing animation
 		return					   # and are unable to cancel.
@@ -121,7 +138,11 @@ func _process(_delta: float):
 
 	self.anim_player.travel(next_animation)
 
-func process_base_movement(opponent_dir: FixedVector3) -> String:
+	%AnimationTree.advance()
+
+	handle_movement_animation_driven(delta_int)
+
+func process_base_movement(_opponent_dir: FixedVector3) -> String:
 	var current_anim = self.anim_player.get_current_node()
 
 	var inputs := self.input_interpreter.read_input(3)
@@ -220,7 +241,25 @@ func process_base_movement(opponent_dir: FixedVector3) -> String:
 
 	return return_val
 
-func process_command_inputs(_opponent_dir: FixedVector3) -> String:
+func handle_movement_animation_driven(delta: int):
+
+	# var tree : AnimationTree = %AnimationTree
+
+	# var root_motion = tree.get_root_motion_position()
+
+	var root_position_delta := FixedVector3.from_vec3(%AnimationTree.get_root_motion_position())
+
+	self.velocity = FixedVector3.div(FixedVector3.vec_mul(self.fixed_rotation.normalized(), root_position_delta), delta)
+
+	### 
+	# For time being, only position is animation driven.
+	# This may change if i decide to implement moves that end with player in back-turn.
+	###
+	# var root_rotation_delta = %AnimationTree.get_root_motion_rotation()
+
+	collide_and_slide(delta)
+
+func process_command_inputs(_delta: int) -> String:
 
 	# dashing
 	# sidestepping
@@ -231,3 +270,7 @@ func process_command_inputs(_opponent_dir: FixedVector3) -> String:
 # takes input information from the InputListener and hands it to the InputInterpreter.
 func input(input_data: Array[String]):
 	self.input_interpreter.interpret_input(input_data)
+
+func collide_and_slide(delta: int):
+	
+	pass

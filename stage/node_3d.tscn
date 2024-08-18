@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://stage/InputListener.gd" id="2_a83cb"]
 [ext_resource type="MeshLibrary" uid="uid://cjirshw7x7jtr" path="res://mesh/mesh_lib.tres" id="3_yjwoe"]
 [ext_resource type="Shader" path="res://shader/ps1_post.gdshader" id="4_8xacr"]
-[ext_resource type="PackedScene" uid="uid://rig3atksreq0" path="res://character/Fighter.tscn" id="6_7vpyq"]
 [ext_resource type="PackedScene" uid="uid://dip4omawevgwd" path="res://camera/GameCamera.tscn" id="7_6gy14"]
+[ext_resource type="PackedScene" uid="uid://dx5c5kfxn2rmk" path="res://character/TempFighter.tscn" id="7_jnte4"]
 [ext_resource type="Script" path="res://addons/camera.gd" id="9_cqpjc"]
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1pahf"]
@@ -63,11 +63,11 @@ surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 [node name="Chars" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Fighter" parent="Chars" instance=ExtResource("6_7vpyq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.34073)
+[node name="killer_robot" parent="Chars" instance=ExtResource("7_jnte4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.29611)
 
-[node name="Fighter2" parent="Chars" instance=ExtResource("6_7vpyq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.34461)
+[node name="killer_robot2" parent="Chars" instance=ExtResource("7_jnte4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.65835)
 
 [node name="debugCamera" type="Camera3D" parent="."]
 visible = false
