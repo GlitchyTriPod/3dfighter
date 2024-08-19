@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 class_name FEFighter
 
@@ -100,11 +101,16 @@ var fixed_rotation: FixedVector3:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	%AnimationTree.callback_mode_process = 2
+	if Engine.is_editor_hint():
+		%AnimationTree.callback_mode_process = 1
+	else:
+		%AnimationTree.callback_mode_process = 2
 	# pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
+	if Engine.is_editor_hint(): return
+
 	var delta_int = int(_delta * 65536)
 	self.velocity = FixedVector3.new()
 
@@ -132,7 +138,7 @@ func _process(_delta: float):
 	# check for character-specific stances
 
 	# check for command/button inputs
-	var cmd = process_command_inputs(opponent_dir)
+	var cmd = process_command_inputs(delta_int)
 	if cmd != "":
 		next_animation = cmd
 
@@ -272,5 +278,30 @@ func input(input_data: Array[String]):
 	self.input_interpreter.interpret_input(input_data)
 
 func collide_and_slide(delta: int):
+
+	# TODO: Collision with walls
+
+	var new_position: FixedVector3 = self.fixed_position.duplicate()
+
+	new_position.x += FixedInt.mul(self.velocity.x, delta)
+	new_position.y += FixedInt.mul(self.velocity.y, delta)
+	new_position.x += FixedInt.mul(self.velocity.z, delta)
+
+	var oppo_collision_body : FEFighterCollisionBody = get_tree().get_nodes_in_group(
+		"Player2MainCollisionBody" if self.player == 1 \
+		else "Player1MainCollisionBody"
+	)[0] # this group should never be empty, and should only have 1 member
+
+	var overlap = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 	
-	pass
+	if overlap is int:
+		var change := FixedVector3.mul(
+			self.fixed_position.direction_to(oppo_collision_body.fixed_position),
+			FixedInt.div(overlap, FixedInt.FIXED_TWO)
+		)
+
+		new_position.x -= change.x
+		# new_position.y -= change.y
+		new_position.z -= change.z
+	
+	self.fixed_position = new_position

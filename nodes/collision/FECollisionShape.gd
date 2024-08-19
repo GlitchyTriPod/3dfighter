@@ -26,3 +26,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # func _process(delta):
 # 	pass
+
+# Returns false if shapes are not overlapping. returns overlap distance if they are.
+func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> Variant:
+	var combined_radius := FixedInt.mul(
+		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius), 
+		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius)
+	)
+	var dist := self.fixed_position.distance_squared_to(inc_shape.fixed_position)
+	if dist < combined_radius:
+		return FixedInt.sqrt_64(combined_radius - dist)
+	return false
