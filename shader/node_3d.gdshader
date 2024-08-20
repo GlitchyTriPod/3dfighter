@@ -7,10 +7,10 @@ uniform int pixelate : hint_range(1, 10);
 uniform sampler2D dither_texture : filter_nearest;
 
 float dither(float raw, float dither, int depth) {
-	
+
 	float div = 1.0 / float(depth);
 	float val = 0.0;
-	
+
 	for (int i = 0; i < depth; i++) {
 		if (raw <= div * (float(i + 1))) {
 			if ((raw * float(depth)) - float(i) <= dither * 0.999) {
@@ -36,7 +36,7 @@ void fragment()
 	// Map the dither texture onto the screen pixels with tiling and repeating
 	vec2 dither_size = vec2(textureSize(dither_texture, 0));
 	vec2 dither_uv = mod(UV * screen_size, dither_size) / dither_size;
-	
+
 	// Sample the screen pixel
 	vec3 screen_col = texture(TEXTURE, screen_sample_uv).rgb;
 
@@ -51,7 +51,7 @@ void fragment()
         float quantized_channel = dither(raw_channel, dither_amount, levels);
         quantized_col[i] = floor(quantized_channel * float(colors)) / float(colors - 1);
     }
-	
+
 	// Apply the dithered color
 	COLOR.rgb = quantized_col;
 }

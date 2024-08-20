@@ -15,7 +15,7 @@ func _ready():
 	if self.post_processing_node != null:
 		self.post_processing_node.visible = true
 
-	for c: Fighter in char_container.get_children():
+	for c: FEFighter in char_container.get_children():
 		c.stage = self
 		if c.name == "Fighter2":
 			c.player = 1

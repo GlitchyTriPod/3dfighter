@@ -84,14 +84,14 @@ var velocity := FixedVector3.new()
 var fixed_position: FixedVector3:
 	set(val):
 		fixed_position = val
-		self.global_position = FixedVector3.to_vec3(fixed_position)
+		self.global_position = FixedVector3.to_vec3(val)
 	get:
 		return FixedVector3.from_vec3(self.global_position)
 
 var fixed_rotation: FixedVector3:
 	set(val):
 		fixed_rotation = val
-		self.global_rotation = FixedVector3.to_vec3(fixed_rotation)
+		self.global_rotation = FixedVector3.to_vec3(val)
 	get:
 		return FixedVector3.from_vec3(self.global_rotation)
 
@@ -104,12 +104,14 @@ func _ready():
 	if Engine.is_editor_hint():
 		%AnimationTree.callback_mode_process = 1
 	else:
+		%RootMotionView.visible = false
 		%AnimationTree.callback_mode_process = 2
 	# pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
-	if Engine.is_editor_hint(): return
+	if Engine.is_editor_hint():
+		return
 
 	var delta_int = int(_delta * 65536)
 	self.velocity = FixedVector3.new()
@@ -121,8 +123,8 @@ func _process(_delta: float):
 	
 	var inp = self.input_interpreter.read_input()
 
-	self.button_state = inp.button
-	self.di_state = inp.di
+	self.button_state = inp[0].button
+	self.di_state = inp[0].di
 
 	var opponent_dir: FixedVector3
 	if self.collision_body == null:
@@ -144,7 +146,7 @@ func _process(_delta: float):
 
 	self.anim_player.travel(next_animation)
 
-	%AnimationTree.advance()
+	%AnimationTree.advance(_delta)
 
 	handle_movement_animation_driven(delta_int)
 
@@ -161,17 +163,17 @@ func process_base_movement(_opponent_dir: FixedVector3) -> String:
 		match self.di_state:
 			DI_STATE.DOWN || \
 			DI_STATE.DOWN_BACK:
-				return "crouching"
+				return "BaseMovement/crouching"
 			_:
-				return "standing"
+				return "BaseMovement/standing"
 
 	# checking current animation state to determine which movement option the player is using
 	# handle mid-jump animations (still actionable, so it wouldnt get caught earlier)
 	if current_anim.contains("jump"):
 		match current_anim:
-			"jump_2":
+			"BaseMovement/jump_2":
 				return_val = neutral_input.call()
-			"jump_1":
+			"BaseMovement/jump_1":
 				if self.velocity.y <= 0 && self.is_on_ground: # idk if this is really necessary
 					self.velocity.y += 425984
 
@@ -185,54 +187,54 @@ func process_base_movement(_opponent_dir: FixedVector3) -> String:
 					return_val = neutral_input.call()
 
 			DI_STATE.FORWARD:
-				if current_anim == "f_dash":
+				if current_anim == "BaseMovement/f_dash":
 					return_val = current_anim
 				else:
-					return_val = "f_walk"
+					return_val = "BaseMovement/f_walk"
 
 			DI_STATE.BACK:
-				if current_anim == "b_dash":
+				if current_anim == "BaseMovement/b_dash":
 					return_val = current_anim
 				else:
-					return_val = "b_walk"
+					return_val = "BaseMovement/b_walk"
 
 			DI_STATE.UP:
 				if current_anim.contains("side"):
 					if self.screen_position == "LEFT" && \
-						(current_anim == "l_sidestep" || \
-						current_anim == "l_sidewalk"):
-						return_val = "l_sidewalk"
+						(current_anim == "BaseMovement/l_sidestep" || \
+						current_anim == "BaseMovement/l_sidewalk"):
+						return_val = "BaseMovement/l_sidewalk"
 					elif self.screen_position == "RIGHT" && \
-						(current_anim == "r_sidestep" || \
-						current_anim == "r_sidewalk"):
-						return_val = "r_sidewalk"
+						(current_anim == "BaseMovement/r_sidestep" || \
+						current_anim == "BaseMovement/r_sidewalk"):
+						return_val = "BaseMovement/r_sidewalk"
 					else:
 						return_val = neutral_input.call()
 						
 				else:
 					if inputs[0].frame_count > 2:
-						return_val = "jump_1"					
+						return_val = "BaseMovement/jump_1"					
 					else:
 						return_val = neutral_input.call()
 
 			DI_STATE.UP_BACK:
 				if !current_anim.contains("jump"): # maybe something with velocity manipulation????
-					return_val = "jump_1"
+					return_val = "BaseMovement/jump_1"
 
 			DI_STATE.UP_FORWARD:
 				if !current_anim.contains("jump"): # maybe something with velocity manipulation????
-					return_val = "jump_1"
+					return_val = "BaseMovement/jump_1"
 
 			DI_STATE.DOWN:
 				if current_anim.contains("side"):
 					if self.screen_position == "LEFT" && \
-						(current_anim == "r_sidestep" || \
-						current_anim == "r_sidewalk"):
-						return_val = "r_sidewalk"
+						(current_anim == "BaseMovement/r_sidestep" || \
+						current_anim == "BaseMovement/r_sidewalk"):
+						return_val = "BaseMovement/r_sidewalk"
 					elif self.screen_position == "RIGHT" && \
-						(current_anim == "l_sidestep" || \
-						current_anim == "l_sidewalk"):
-						return_val = "l_sidewalk"
+						(current_anim == "BaseMovement/l_sidestep" || \
+						current_anim == "BaseMovement/l_sidewalk"):
+						return_val = "BaseMovement/l_sidewalk"
 					else:
 						return_val = neutral_input.call()
 						
@@ -243,7 +245,7 @@ func process_base_movement(_opponent_dir: FixedVector3) -> String:
 				return_val = neutral_input.call()
 
 			DI_STATE.DOWN_FORWARD:
-				return_val = "crouch_walk"
+				return_val = "BaseMovement/crouch_walk"
 
 	return return_val
 
@@ -253,9 +255,16 @@ func handle_movement_animation_driven(delta: int):
 
 	# var root_motion = tree.get_root_motion_position()
 
-	var root_position_delta := FixedVector3.from_vec3(%AnimationTree.get_root_motion_position())
+	# var root_position_delta := FixedVector3.from_vec3(%AnimationTree.get_root_motion_position())
 
-	self.velocity = FixedVector3.div(FixedVector3.vec_mul(self.fixed_rotation.normalized(), root_position_delta), delta)
+	# self.velocity =FixedVector3.vec_mul(self.fixed_rotation.normalized(), root_position_delta)
+
+	var curr_rotation = self.transform.basis.get_rotation_quaternion()
+
+	self.velocity = FixedVector3.div(
+		FixedVector3.from_vec3(
+				curr_rotation * %AnimationTree.get_root_motion_position()
+		), delta)
 
 	### 
 	# For time being, only position is animation driven.
@@ -281,11 +290,12 @@ func collide_and_slide(delta: int):
 
 	# TODO: Collision with walls
 
-	var new_position: FixedVector3 = self.fixed_position.duplicate()
+	var new_position: FixedVector3 = self.fixed_position
+
 
 	new_position.x += FixedInt.mul(self.velocity.x, delta)
 	new_position.y += FixedInt.mul(self.velocity.y, delta)
-	new_position.x += FixedInt.mul(self.velocity.z, delta)
+	new_position.z += FixedInt.mul(self.velocity.z, delta)
 
 	var oppo_collision_body : FEFighterCollisionBody = get_tree().get_nodes_in_group(
 		"Player2MainCollisionBody" if self.player == 1 \
@@ -304,4 +314,7 @@ func collide_and_slide(delta: int):
 		# new_position.y -= change.y
 		new_position.z -= change.z
 	
-	self.fixed_position = new_position
+	if self.player == 0:
+		print(self.velocity.x," ", self.velocity.y," ", self.velocity.z)
+
+	self.position = FixedVector3.to_vec3(new_position)

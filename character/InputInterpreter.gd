@@ -9,7 +9,7 @@ func read_input(history := 0) -> Array:
 	if history == 0:
 		return [self.input_history.back()] # temp
 	var inputs = []
-	for i in range(self.input_history.size() - history, self.input_history.size()):
+	for i in range(clamp(self.input_history.size() - history, 0, 100), self.input_history.size()):
 		inputs.push_front(self.input_history[i])
 	return inputs
 
@@ -47,41 +47,41 @@ func interpret_input(input: Array[String]):
 
 	match di:
 		"N":
-			di = Fighter.DI_STATE.NEUTRAL
+			di = FEFighter.DI_STATE.NEUTRAL
 		"U":
-			di = Fighter.DI_STATE.UP
+			di = FEFighter.DI_STATE.UP
 		"UF":
-			di = Fighter.DI_STATE.UP_FORWARD
+			di = FEFighter.DI_STATE.UP_FORWARD
 		"F":
-			di = Fighter.DI_STATE.FORWARD
+			di = FEFighter.DI_STATE.FORWARD
 		"DF":
-			di = Fighter.DI_STATE.DOWN_FORWARD
+			di = FEFighter.DI_STATE.DOWN_FORWARD
 		"D":
-			di = Fighter.DI_STATE.DOWN
+			di = FEFighter.DI_STATE.DOWN
 		"DB":
-			di = Fighter.DI_STATE.DOWN_BACK
+			di = FEFighter.DI_STATE.DOWN_BACK
 		"B":
-			di = Fighter.DI_STATE.BACK
+			di = FEFighter.DI_STATE.BACK
 		"UB":
-			di = Fighter.DI_STATE.UP_BACK
+			di = FEFighter.DI_STATE.UP_BACK
 
 	match button:
 		"N":			
-			button = Fighter.BUTTON_STATE.NONE
+			button = FEFighter.BUTTON_STATE.NONE
 		"P":
-			button = Fighter.BUTTON_STATE.P
+			button = FEFighter.BUTTON_STATE.P
 		"K":
-			button = Fighter.BUTTON_STATE.K
+			button = FEFighter.BUTTON_STATE.K
 		"A":
-			button = Fighter.BUTTON_STATE.A
+			button = FEFighter.BUTTON_STATE.A
 		"PK":
-			button = Fighter.BUTTON_STATE.PK
+			button = FEFighter.BUTTON_STATE.PK
 		"PA":
-			button = Fighter.BUTTON_STATE.PA
+			button = FEFighter.BUTTON_STATE.PA
 		"KA":
-			button = Fighter.BUTTON_STATE.KA
+			button = FEFighter.BUTTON_STATE.KA
 		"PKA":
-			button = Fighter.BUTTON_STATE.PKA
+			button = FEFighter.BUTTON_STATE.PKA
 
 	# if input history is empty, enter current frame in.
 	if self.input_history.is_empty():

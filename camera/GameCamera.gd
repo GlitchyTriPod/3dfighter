@@ -5,7 +5,7 @@ class_name GameCamera
 @export_enum("Player 1", "Player 2") var default_pos := 0
 
 # used for camera smoothing
-@export var smoothing_speed: float = 1.0
+@export var smoothing_speed: float = 3.0
 
 @export var camera_node: NodePath
 var camera: Camera3D
@@ -37,7 +37,7 @@ var camera_last_target: Vector3
 
 func _ready():
 	self.camera = get_node(self.camera_node)
-	self.camera.global_position.x = 15.0 if self.default_pos == 0 else -15.0
+	self.camera.global_position.x = -15.0 if self.default_pos == 0 else 15.0
 	# pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

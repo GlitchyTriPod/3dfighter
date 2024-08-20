@@ -67,7 +67,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.29611)
 
 [node name="killer_robot2" parent="Chars" instance=ExtResource("7_jnte4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.65835)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.65835)
 
 [node name="debugCamera" type="Camera3D" parent="."]
 visible = false

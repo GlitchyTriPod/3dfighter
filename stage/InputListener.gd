@@ -1,7 +1,7 @@
 extends Node
 
-@onready var player_1: Fighter = get_node("../Chars").get_child(0)
-@onready var player_2: Fighter = get_node("../Chars").get_child(1)
+@onready var player_1: FEFighter = get_node("../Chars").get_child(0)
+@onready var player_2: FEFighter = get_node("../Chars").get_child(1)
 
 # Called when the node enters the scene tree for the first time.
 # func _ready():
@@ -45,4 +45,3 @@ func _process(_delta):
 	
 	self.player_1.input(p1_input)
 	self.player_2.input(p2_input)
-
