@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://6dnmb1ewqg5r"]
 
-[ext_resource type="Script" path="res://nodes/collision/FixedCollisionShape3D.gd" id="1_3iyai"]
-[ext_resource type="Script" path="res://classes/FixedVector3.gd" id="2_gjdea"]
+[ext_resource type="Script" uid="uid://813oqgd1t6au" path="res://nodes/collision/FixedCollisionShape3D.gd" id="1_3iyai"]
+[ext_resource type="Script" uid="uid://b3mr44oha4bir" path="res://classes/FixedVector3.gd" id="2_gjdea"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pgu4e"]
 

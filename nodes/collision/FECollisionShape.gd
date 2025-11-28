@@ -10,9 +10,21 @@ extends ShapeCast3D
 			sph.radius = float(val / 65536.0)
 			self.shape = sph
 
+var velocity := FixedVector3.new()
+
 var fixed_position: FixedVector3:
 	get:
 		return FixedVector3.from_vec3(self.global_position)
+	set(val):
+		fixed_position = val
+		self.global_position = FixedVector3.to_vec3(val)
+
+var fixed_rotation: FixedVector3:
+	get:
+		return FixedVector3.from_vec3(self.global_rotation)
+	set(val):
+		fixed_rotation = val
+		self.global_rotation = FixedVector3.to_vec3(val)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

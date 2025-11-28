@@ -1,47 +1,55 @@
 extends Node
 
-@onready var player_1: FEFighter = get_node("../Chars").get_child(0)
-@onready var player_2: FEFighter = get_node("../Chars").get_child(1)
+@onready var player_1: Fighter = get_node("../Chars").get_child(0)
+@onready var player_2: Fighter = get_node("../Chars").get_child(1)
+
+var process_ready := false
 
 # Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	pass # Replace with function body.
+func _ready():
+	self.process_ready = true
 
 
 # # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	var p1_input : Array[String] = []
-	var p2_input : Array[String] = []
+# delta will change with rollback implementation
+func _process(_delta: float):
 
-	if Input.is_action_pressed("INPUT_UP_P1"):
-		p1_input.append("up")
-	if Input.is_action_pressed("INPUT_DOWN_P1"):
-		p1_input.append("down")
-	if Input.is_action_pressed("INPUT_LEFT_P1"):
-		p1_input.append("left")
-	if Input.is_action_pressed("INPUT_RIGHT_P1"):
-		p1_input.append("right")
-	if Input.is_action_pressed("INPUT_PUNCH_P1"):
-		p1_input.append("p")
-	if Input.is_action_pressed("INPUT_KICK_P1"):
-		p1_input.append("k")
-	if Input.is_action_pressed("INPUT_ABILITY_P1"):
-		p1_input.append("a")
+	var _delta_int = int(_delta * 65536)
 
-	if Input.is_action_pressed("INPUT_UP_P2"):
-		p2_input.append("up")
-	if Input.is_action_pressed("INPUT_DOWN_P2"):
-		p2_input.append("down")
-	if Input.is_action_pressed("INPUT_LEFT_P2"):
-		p2_input.append("left")
-	if Input.is_action_pressed("INPUT_RIGHT_P2"):
-		p2_input.append("right")
-	if Input.is_action_pressed("INPUT_PUNCH_P2"):
-		p2_input.append("p")
-	if Input.is_action_pressed("INPUT_KICK_P2"):
-		p2_input.append("k")
-	if Input.is_action_pressed("INPUT_ABILITY_P2"):
-		p2_input.append("a")
+	# first, poll for inputs
+	var p1_input := _poll_player_input(1)
+	var p2_input := _poll_player_input(2)
 	
 	self.player_1.input(p1_input)
 	self.player_2.input(p2_input)
+
+	if !self.process_ready: return
+
+	# second, detect hitbox & hurtbox collisions
+	
+
+	# last, advance player animations based on inputs & game state
+	self.player_1.process_movement(_delta_int)
+	self.player_2.process_movement(_delta_int)
+
+# polls inputs from players
+# TODO: Add networked inputs
+func _poll_player_input(player: int = 0) -> Array[String]:
+	var player_input : Array[String] = []
+
+	if Input.is_action_pressed("INPUT_UP_P" + str(player)):
+		player_input.append("up")
+	if Input.is_action_pressed("INPUT_DOWN_P" + str(player)):
+		player_input.append("down")
+	if Input.is_action_pressed("INPUT_LEFT_P" + str(player)):
+		player_input.append("left")
+	if Input.is_action_pressed("INPUT_RIGHT_P" + str(player)):
+		player_input.append("right")
+	if Input.is_action_pressed("INPUT_PUNCH_P" + str(player)):
+		player_input.append("p")
+	if Input.is_action_pressed("INPUT_KICK_P" + str(player)):
+		player_input.append("k")
+	if Input.is_action_pressed("INPUT_ABILITY_P" + str(player)):
+		player_input.append("a")
+
+	return player_input

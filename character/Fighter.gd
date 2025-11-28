@@ -1,25 +1,22 @@
+@tool
 extends Node3D
 class_name Fighter
 
-@export var character_name := "Fighter"
+@export_enum("1", "2") var player := 0
 
-@export var disable_control: bool = false
-@export var actionable: bool = true
-
-@export var walk_speed: int = 1000 #196608
-@export var back_walk_speed: int = 1000 #196608
-@export var side_walk_speed: int = 1000
-@export var crouch_walk_speed: int = 600
-@export var dash_strength: int = 196608
-
-@export_enum("1","2") var player = 0
-
-@export var face_opponent: bool= true
-
-# @export var fixed_position := FixedVector3.new()
-# @export var fixed_rotation := FixedVector3.new()
-
-var stage: Stage
+@export var states := {
+	"crouching": false,
+	"rising": false,
+	"airborne": false,
+	"grounded": false,
+	"wall": false,
+	"running": false,
+	"counterhit": false,
+	"invincible": false,
+	"invisible": false,
+	"actionable": true,
+	"face_opponent": false,
+}
 
 # tracks basic stances for the fighter -- extend if character has multiple stances
 enum STANCE {
@@ -35,10 +32,8 @@ enum STANCE {
 	RUN,
 	JUMP
 }
-var stance = STANCE.STANDING #:
-	# set(val):
-	# 	stance = val
-	# 	self.stance_label.text = STANCE.keys()[val]
+
+var stance = STANCE.STANDING
 
 enum DI_STATE {
 	NEUTRAL,
@@ -67,363 +62,287 @@ enum BUTTON_STATE {
 # tracks the buttons that the player is pressing/holding down
 var button_state = BUTTON_STATE.NONE
 
-# incoming attacks are counter hits if this is TRUE
-var counter_hit := true
+var message_bus: FighterMessageBus
 
-# velocity imparted on the fighter by the enemy pushing them
-var impart_velocity := FixedVector3.new()
+var floor_height : int = 0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity := int(ProjectSettings.get_setting("physics/3d/default_gravity")) # should be 9.8 * 65536
-
-@onready var char_controller: CharacterController3D = %CharacterBody3D
-@onready var mesh: Node3D = get_node("CharacterBody3D/Mesh")
-
-@onready var root_bone: BoneAttachment3D = %root
-
-@onready var input_interpreter: InputInterpreter = %InputInterpreter
+var is_on_ground: bool:
+	get:
+		return self.collision_body.is_on_floor(self.floor_height)
 
 var opponent_position: FixedVector3:
 	get:
-		var oppo: Fighter
-		for i in get_parent().get_children():
-			if i == self:
-				continue
-			oppo = i
-			break
-		if oppo.char_controller.collision_body == null:
-			return FixedVector3.new()
-		return oppo.char_controller.collision_body.fixed_position
-
+		return self.message_bus.get_oppo_fixed_position(self)
 
 var screen_position: String:
 	get:
-		return get_parent() \
-			.get_parent() \
-			.get_node("GameCamera") \
+		return self.message_bus \
 			.get_char_position( \
-				self.char_controller.collision_body.position if self.char_controller.collision_body != null else self.global_position
+				FixedVector3.to_vec3(self.collision_body.fixed_position if \
+					self.collision_body != null else self.collision_body.fixed_position
+				)
 			)
 
-@onready var animation_player: AnimationNodeStateMachinePlayback = %CharacterBody3D/AnimationTree["parameters/playback"]
+# var velocity := FixedVector3.new()
 
-var grounded:
-	get:
-		return self.char_controller.is_on_floor(self.stage)
+# var fixed_position: FixedVector3:
+# 	set(val):
+# 		fixed_position = val
+# 		self.global_position = FixedVector3.to_vec3(val)
+# 	get:
+# 		return FixedVector3.from_vec3(self.global_position)
 
-@onready var stance_label: Label3D = %Label3D
+# var fixed_rotation: FixedVector3:
+# 	set(val):
+# 		fixed_rotation = val
+# 		self.global_rotation = FixedVector3.to_vec3(val)
+# 	get:
+# 		return FixedVector3.from_vec3(self.global_rotation)
 
-func _process(_delta: float):
+@onready var collision_body : FEFighterCollisionBody = %CollisionBody
+var input_interpreter = InputInterpreter.new()
+@onready var anim_player : AnimationPlayer = %AnimationPlayer
 
-	var delta_int = int(_delta * 65536)
+var collision_body_offset : Vector3
+# ======= METHODS =====================
 
-	self.stance_label.text = STANCE.keys()[self.stance] + " " + str(self.grounded) 
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		%AnimationPlayer.callback_mode_process = 1
+	else:
+		%AnimationPlayer.callback_mode_process = 2
+		self.collision_body_offset = self.collision_body.position
+		self.collision_body.top_level = true
 
-	if self.disable_control: return
+# Passes player input onto input interpreter
+func input(player_input: Array[String]):
+	self.input_interpreter.interpret_input(player_input, self.screen_position)
+
+# processes movement for player
+func process_movement(delta: int):
+	# self.collision_body.velocity = FixedVector3.new()
+
+	if !self.states["actionable"]: # if player is not actionable they are stuck in a currently playing animation
+		return                     # and are unable to cancel. [MAY NEED FRAME TIMER HERE]
+
+	# check if player has been hit by opponent & needs to transition to hitstun anim
+	#       --> will return early in this case
 
 	var inp = self.input_interpreter.read_input()
 
-	self.button_state = inp.button
-	self.di_state = inp.di
+	self.button_state = inp[0].button
+	self.di_state = inp[0].di
 
-	face_opponent = true
+	# var opponent_dir: FixedVector3
+	# if self.collision_body == null:
+	# 	opponent_dir = FixedVector3.new()
+	# else:
+	# 	opponent_dir = self.collision_body.fixed_position.direction_to(self.opponent_position)
 
-	var opponent_dir : FixedVector3
-	if self.char_controller.collision_body == null:
-		opponent_dir = FixedVector3.new()
-	else:
-		opponent_dir = self.char_controller.collision_body.fixed_position.direction_to(self.opponent_position)
+	# determine animation to play
+	var next_anim := self.check_animation_from_input()
 
+	if next_anim != self.anim_player.current_animation:
+		self.anim_player.play(next_anim)
 
-	var neutral = func neutral(crouching: bool = false):
-		if self.stance == STANCE.SIDESTEP || (self.stance == STANCE.F_DASH || self.stance == STANCE.B_DASH): 
-			return
-		self.char_controller.velocity = FixedVector3.new()
-		self.animation_player.travel("standing" if !crouching else "crouching")
-		face_opponent = false
-	
-	var handle_dash = func handle_dash(dir: String):
-		if dir == "f":
-			self.animation_player.travel("f_dash")
+	self.set_stance_state()
 
-			# self.char_controller.velocity = FixedVector3.mul( \
-			# 	FixedVector3.mul(opponent_dir, self.walk_speed), \
-			# 	clamp(FixedInt.lerp(self.dash_strength, 0, \
-			# 		FixedInt.div( \
-			# 			int(self.animation_player.get_current_play_position() * 65536), 10921 \
-			# 	)), 0, self.dash_strength))
+	self.anim_player.advance(float(delta / 65536.0)) # <-- maybe this should be 1 frame length??? (1/60th sec?)
 
-		else:
-			self.animation_player.travel("b_dash")
+	self.process_root_motion(delta)
 
-			# self.char_controller.velocity = FixedVector3.mul( \
-			# 	FixedVector3.mul(opponent_dir, -self.back_walk_speed), \
-			# 	clamp(FixedInt.lerp(FixedInt.mul(self.dash_strength, 58982), 0, \
-			# 		FixedInt.div( 													    # vvv 0.3333 * 0.66
-			# 			int(self.animation_player.get_current_play_position() * 65536), 7208 \
-			# 	)), 0, self.dash_strength) \
-			# )
-
-	var handle_run = func handle_run():
-		if self.char_controller.fixed_position.distance_to(self.opponent_position) < 300:
-			self.animation_player.travel("f_walk")
-			return
-		self.animation_player.travel("run")
-
-		# self.char_controller.velocity = FixedVector3.mul(opponent_dir, FixedInt.mul(self.walk_speed, 131072))
-
-	var handle_sidestep = func handle_sidestep(dir: String = "iunno"):
-		if dir == "RIGHT" || self.animation_player.get_current_node() == "r_sidestep":
-			self.animation_player.travel("r_sidestep")
-																							
-			# self.char_controller.velocity = FixedVector3.mul(   		# vvv -85 deg 
-			# 	FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed), \
-			# 		clamp( \
-			# 			FixedInt.lerp(self.dash_strength, \
-			# 				0, 																			# vvv 0.3333 * 0.66
-			# 				FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
-			# 			), \
-			# 			0, \
-			# 			self.dash_strength
-			# 		)
-			# )
-
-		else:
-			self.animation_player.travel("l_sidestep")
-
-			# self.char_controller.velocity = FixedVector3.mul(   		# vvv 85 deg 
-			# 	FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224),
-			# 	 self.side_walk_speed), \
-			# 		clamp( \
-			# 			FixedInt.lerp(self.dash_strength, \
-			# 				0, 																			# vvv 0.3333 * 0.66
-			# 				FixedInt.div(int(self.animation_player.get_current_play_position() * 65536), 14416)
-			# 			), \
-			# 			0, \
-			# 			self.dash_strength
-			# 		)
-			# )
-
-	var handle_sidewalk = func handle_sidewalk(dir: String= "lol"):
-		if dir == "LEFT":
-			self.animation_player.travel("l_sidewalk")
-
-			# self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, 97224), self.side_walk_speed)
-
-		else:
-			self.animation_player.travel("r_sidewalk")
-
-			# self.char_controller.velocity = FixedVector3.mul(opponent_dir.rotated(opponent_position, -97224), self.side_walk_speed)
-
-
-	# set stance state based on current animation
-	match self.animation_player.get_current_node():
-		"f_dash":
+# sets player stance -- extend if character has extra stances
+func set_stance_state():
+	match self.anim_player.current_animation:
+		"dash_f_BAKED":
 			self.stance = STANCE.F_DASH
-		"b_dash":
+		"dash_b_BAKED":
 			self.stance = STANCE.B_DASH
-		"crouching", "crouch_walk":
+		"idle_crouching_BAKED", "walk_fc_BAKED":
 			self.stance = STANCE.CROUCHING
-		"l_sidestep", "r_sidestep":
+		"step_l_BAKED", "step_r_BAKED":
 			self.stance = STANCE.SIDESTEP
-		"l_sidewalk", "r_sidewalk":
+		"walk_r_BAKED", "walk_l_BAKED":
 			self.stance = STANCE.SIDEWALK
-		"run":
+		"run_f_BAKED":
 			self.stance = STANCE.RUN
-		"jump_1", "jump_2":
-			self.stance = STANCE.JUMP
-		"standing":
+		"idle_standing_BAKED":
 			self.stance = STANCE.STANDING
 
-	# Handles movement
-	if self.stance == STANCE.JUMP:
-		match self.animation_player.get_current_node():
-			"jump_2":
-				neutral.call()
-			"jump_1":
-				if self.char_controller.velocity.y <= 0.0 && self.grounded:
-					self.char_controller.velocity.y += 425984 # 6.5
-					pass
+func check_animation_from_input() -> String:
+	var current_anim := self.anim_player.current_animation
 
-	else:
-		match self.di_state:
-			DI_STATE.FORWARD:
-				if self.stance != STANCE.F_DASH && self.stance != STANCE.RUN: # walking
-					# self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.walk_speed)
-					var inputs = self.input_interpreter.read_input(3)
-					if (inputs[0].frame_count < 2 && \
-						inputs[1].di == DI_STATE.NEUTRAL && \
-						inputs[1].frame_count <= 8 && \
-						inputs[2].di == DI_STATE.FORWARD):
-						handle_dash.call("f")
+	var inputs := self.input_interpreter.read_input(3)
 
-				elif self.stance == STANCE.RUN: # running
-					handle_run.call()
+	var return_val := "neutral"
 
-				else: # this is dashing stance
-					var inputs = self.input_interpreter.read_input(2)
-					if (inputs[0].frame_count < 2 && \
-						inputs[1].di == DI_STATE.NEUTRAL && \
-						inputs[1].frame_count <= 13):
-						handle_run.call()
+	# check if an attack button was pressed here, different procedure is needed
+
+	var back_input := func():
+		if current_anim == "dash_b":
+			return current_anim
+		return "walk_b"
+
+	var forward_input := func():
+		if current_anim == "dash_f":
+			return current_anim
+		return "walk_f"
+
+	match self.di_state:
+		DI_STATE.NEUTRAL:   
+			if inputs.size() > 1:
+				# handle sidestep to DOWN dir
+				if inputs[0].frame_count < 5 && \
+					inputs[1].di == DI_STATE.DOWN && \
+					inputs[1].frame_count <= 8:
+					if self.screen_position == "LEFT":
+						return_val = "step_r"
 					else:
-						handle_dash.call("f")
-						
-			DI_STATE.BACK:
-				if self.stance != STANCE.B_DASH: # back walk
-					# self.char_controller.velocity = FixedVector3.mul(opponent_dir, -self.back_walk_speed)
-					var inputs = self.input_interpreter.read_input(3)
-					if inputs[0].frame_count < 2 && \
-						inputs[1].di == DI_STATE.NEUTRAL && \
-						inputs[1].frame_count <= 5 && \
-						inputs[2].di == DI_STATE.BACK:
-						handle_dash.call("b")
+						return_val = "step_l"
 
-				else: # back dash
-					handle_dash.call("b")
+				# handle sidestep to UP dir
+				elif inputs[0].frame_count < 5 && \
+					inputs[1].di == DI_STATE.UP && \
+					inputs[1].frame_count <= 8:
+					if self.screen_position == "LEFT":
+						return_val = "step_l"
+					else:
+						return_val = "step_r"
 						
-			DI_STATE.DOWN_FORWARD: # croucvh walk
-				# self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.crouch_walk_speed)
-				pass
+			if return_val == "neutral":
+				if current_anim.contains("dash") || \
+					current_anim.contains("run") || \
+					current_anim.contains("step"):
+					return_val = current_anim
+				else:
+					return_val = "idle_standing"
+		
+		DI_STATE.FORWARD:
+			if current_anim == "dash_f_BAKED":
+				if inputs[0].frame_count < 2 && \
+					inputs[1].di == DI_STATE.NEUTRAL && \
+					inputs[1].frame_count <= 13:
+					return_val = "run_f"
+				else:
+					return_val = current_anim
+			elif self.stance != STANCE.F_DASH && self.stance != STANCE.RUN:
+				if inputs[0].frame_count < 2 && \
+					inputs[1].di == DI_STATE.NEUTRAL && \
+					inputs[1].frame_count <= 8 && \
+					inputs[2].di == DI_STATE.FORWARD:
+						return_val = "dash_f"
+				else:
+					return_val = "walk_f"
+			else: # running state
+				return_val = current_anim
+		
+		DI_STATE.BACK:
+			if current_anim == "dash_b_BAKED":
+				return_val = current_anim
+			elif self.stance != STANCE.B_DASH:
+				if inputs[0].frame_count < 2 && \
+					inputs[1].di == DI_STATE.NEUTRAL && \
+					inputs[1].frame_count <= 8 && \
+					inputs[2].di == DI_STATE.BACK:
+						return_val = "dash_b"
+				else:
+					return_val = "walk_b"
+
+		DI_STATE.UP:
+			if current_anim.contains("step") || \
+				current_anim.contains("walk"):
+				if self.screen_position == "LEFT" && \
+					(current_anim == "walk_l_BAKED" || \
+					current_anim == "step_l_BAKED"):
+					return_val = "walk_l"
+				elif self.screen_position == "RIGHT" && \
+					(current_anim == "walk_r_BAKED" || \
+					current_anim == "step_r_BAKED"):
+					return_val = "walk_r"
+				else:
+					return_val = "idle_standing"
+			else:
+				return_val = "idle_standing"
 			
-			DI_STATE.DOWN_BACK:
-				neutral.call(true)
+		DI_STATE.UP_BACK:
+			return_val = back_input.call()
 
-			DI_STATE.DOWN:
-				if self.stance == STANCE.SIDESTEP || self.stance == STANCE.SIDEWALK: # side walk
-					if self.screen_position == "LEFT" && \
-						(self.animation_player.get_current_node() == "r_sidestep" || \
-						self.animation_player.get_current_node() == "r_sidewalk"):
-						handle_sidewalk.call("RIGHT")
-					elif self.screen_position == "RIGHT" && \
-						(self.animation_player.get_current_node() == "l_sidestep" || \
-						self.animation_player.get_current_node() == "l_sidewalk"):
-						handle_sidewalk.call("LEFT")
-					else:
-						neutral.call(true)
+		DI_STATE.UP_FORWARD:
+			return_val = forward_input.call()
+
+		DI_STATE.DOWN:
+			if current_anim.contains("step") || \
+				current_anim.contains("walk"):
+				if self.screen_position == "LEFT" && \
+					(current_anim == "walk_r_BAKED" || \
+					current_anim == "step_r_BAKED"):
+					return_val = "walk_r"
+				elif self.screen_position == "RIGHT" && \
+					(current_anim == "walk_l_BAKED" || \
+					current_anim == "step_l_BAKED"):
+					return_val = "walk_l"
 				else:
-					neutral.call(true)
+					return_val = "idle_crouching"
+			else:
+				return_val = "idle_crouching"
 
-			DI_STATE.UP:
-				if self.stance == STANCE.SIDESTEP || self.stance == STANCE.SIDEWALK:
-					if self.screen_position == "LEFT" && \
-						(self.animation_player.get_current_node() == "l_sidestep" || \
-						self.animation_player.get_current_node() == "l_sidewalk"):
-						handle_sidewalk.call("LEFT")
-					elif self.screen_position == "RIGHT" && \
-						(self.animation_player.get_current_node() == "r_sidestep" || \
-						self.animation_player.get_current_node() == "r_sidewalk"):
-						handle_sidewalk.call("RIGHT")
-					else:
-						neutral.call(true)
-				else:
-					if inp.frame_count > 2:
-						self.animation_player.travel("jump_1")
+		DI_STATE.DOWN_BACK:
+			return_val = "idle_crouching"
 
-					neutral.call()
+		DI_STATE.DOWN_FORWARD:
+			return_val = "walk_fc"
 
-			DI_STATE.UP_FORWARD:
-				if self.stance != STANCE.JUMP:
-					self.animation_player.travel("jump_1")
-					var vel = FixedVector3.mul(opponent_dir, self.walk_speed)
-					self.char_controller.velocity = vel
-					self.stance = STANCE.JUMP
-				else:
-					self.char_controller.velocity = FixedVector3.mul(opponent_dir, self.walk_speed)
+	return return_val + "_BAKED" if !return_val.ends_with("_BAKED") else return_val
 
-			DI_STATE.UP_BACK:
-				if self.stance != STANCE.JUMP:
-					self.animation_player.travel("jump_1")
-					var vel = FixedVector3.mul(opponent_dir, -self.back_walk_speed)
-					self.char_controller.velocity = vel
-					self.stance = STANCE.JUMP
-				else:
-					self.char_controller.velocity = FixedVector3.mul(opponent_dir, -self.back_walk_speed)
+func process_root_motion(delta: int):
+	# self.collision_body.fixed_look_at(self.opponent_position)
 
-			DI_STATE.NEUTRAL:
-				var inputs = self.input_interpreter.read_input(2)
-				if inputs[0].frame_count < 5 && inputs[1].di == DI_STATE.DOWN && inputs[1].frame_count <= 8:
-					# sidestep to direction DOWN points
-					if self.screen_position == "LEFT":
-						handle_sidestep.call("RIGHT")
-					else:
-						handle_sidestep.call("LEFT")				
-				
-				elif inputs[0].frame_count < 2 && inputs[1].di == DI_STATE.UP && inputs[1].frame_count <= 8:
-					# sidestep to direction DOWN points
-					if self.screen_position == "LEFT":
-						handle_sidestep.call("LEFT")
-					else:
-						handle_sidestep.call("RIGHT")
-				
-				elif self.stance == STANCE.F_DASH:
-					handle_dash.call("f")
-				elif self.stance == STANCE.B_DASH:
-					handle_dash.call("b")
-				elif self.stance == STANCE.RUN:
-					handle_run.call()
-				elif self.stance == STANCE.SIDESTEP:
-					handle_sidestep.call()
+	var curr_rotation = self.collision_body.transform.basis.get_rotation_quaternion()
 
-				else:
-					neutral.call()
-			_:
-				neutral.call()
+	self.collision_body.velocity = FixedVector3.mul(FixedVector3.div(
+		FixedVector3.from_vec3(
+			curr_rotation * self.anim_player.get_root_motion_position()
+	), delta), 98304)
 
-	# handle button presses here -- but ignore button presses for right now
-	# need to add a check if the player is actively in control of the fighter here
+	collide_and_slide(delta)
 
-	# update collision shape to match current mesh position
-	# self.char_controller.move_to_position(
-	# 	FixedVector3.from_vec3(self.root_bone.global_position), 
-	# 	self.char_controller.collision_body.sphere_radius)
+func collide_and_slide(delta: int):
 
+	# TODO: Collision with walls & opponent
+
+	var new_position: FixedVector3 = self.collision_body.fixed_position
+
+	new_position.x += FixedInt.mul(self.collision_body.velocity.x, delta)
+	new_position.y += FixedInt.mul(self.collision_body.velocity.y, delta)
+	new_position.z += FixedInt.mul(self.collision_body.velocity.z, delta)
+
+	var oppo_collision_body : FEFighterCollisionBody = get_tree().get_nodes_in_group(
+		"Player2MainCollisionBody" if self.player == 0 \
+		else "Player1MainCollisionBody"
+	)[0] # this group should never be empty, and should only have 1 member
+
+	var overlap = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
+
+	if overlap is int:
+		var change := FixedVector3.mul(
+			self.collision_body.fixed_position.direction_to(oppo_collision_body.fixed_position),
+			FixedInt.div(overlap, FixedInt.FIXED_TWO)
+		)
+
+		new_position.x -= change.x
+		# new_position.y -= change.y
+		new_position.z -= change.z
+
+	self.collision_body.fixed_position = new_position
+
+	self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
 	
+	self.position = FixedVector3.to_vec3( \
+		FixedVector3.sub(self.collision_body.fixed_position, \
+			FixedVector3.from_vec3(self.collision_body_offset) \
+	))
 
-	# Add the gravity. if the fighter is not on the floor
-	if !self.grounded:									# 30
-		self.char_controller.velocity.y -= FixedInt.mul(1966080, delta_int)
-	
-	# face opponent if necessary
-	if self.grounded && face_opponent:
-		# Vector3.look_at()
-		self.char_controller.collision_body.fixed_look_at(self.opponent_position)
+	self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
 
-	# add velocity imparted by the opponent
-	self.char_controller.velocity = FixedVector3.add(self.char_controller.velocity, self.impart_velocity)
-
-	self.impart_velocity.x = 0
-	self.impart_velocity.y = 0
-	self.impart_velocity.z = 0
-
-	self.char_controller.collide_and_slide(delta_int)
-
-	# if self.char_controller.collision_body != null:
-		# self.mesh.position = self.char_controller.collision_body.position
-	# 	# self.mesh.position.z += -0.156
-	# 	self.mesh.position.y += -0.449
-	# 	self.mesh.rotation = self.char_controller.collision_body.rotation
-		# self.mesh.rotation.y = FixedInt.FIXED_PI
-
-	# impart velocity onto the opponent if pushing them
-
-	# first, check how many collisions were found, if the chape owner is CharacterBody3D, that is the opponent fighter.
-	# for i in range(0, self.char_controller.get_slide_collision_count()):
-	# 	var collision = self.char_controller.get_slide_collision(i).get_collider()
-	# 	if collision.name == "CharacterBody3D":
-	# 		match self.di_state:
-	# 			DI_STATE.FORWARD:
-	# 				collision.get_parent().impart_velocity = FixedVector3.mul(opponent_dir, FixedInt.div(self.walk_speed, 49152))
-	# 			DI_STATE.DOWN_FORWARD:
-	# 				collision.get_parent().impart_velocity = FixedVector3.mul(opponent_dir, FixedInt.div(self.crouch_walk_speed, 49152))
-	# 		break
-
-
-# takes input information from the InputListener and hands it to the InputInterpreter.
-func input(input_data: Array[String]):
-	self.input_interpreter.interpret_input(input_data)
-
-# used to set stance information from animationtree advance expressions
-func set_stance(inc_stance):
-	self.stance = inc_stance
-	return true
+	# self.position = FixedVector3.to_vec3(new_position)
+	# self.look_at(FixedVector3.to_vec3(self.opponent_position), Vector3.UP, true) # <--- needs "fixing" ???

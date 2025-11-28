@@ -1,10 +1,10 @@
 [gd_scene load_steps=91 format=3 uid="uid://rig3atksreq0"]
 
-[ext_resource type="Script" path="res://character/Fighter.gd" id="1_mbbs0"]
-[ext_resource type="Script" path="res://character/CharacterController3D.gd" id="2_yu0b2"]
-[ext_resource type="Script" path="res://nodes/controller/FixedCharacterController3D.gd" id="3_vh0wb"]
-[ext_resource type="Script" path="res://classes/FixedVector3.gd" id="4_b7q0s"]
-[ext_resource type="Script" path="res://character/InputInterpreter.gd" id="4_tuh18"]
+[ext_resource type="Script" uid="uid://dwul3cv22mw7l" path="res://character/Fighter.gd" id="1_mbbs0"]
+[ext_resource type="Script" uid="uid://l0ex230sge3e" path="res://character/CharacterController3D.gd" id="2_yu0b2"]
+[ext_resource type="Script" uid="uid://bq34n0rerddci" path="res://nodes/controller/FixedCharacterController3D.gd" id="3_vh0wb"]
+[ext_resource type="Script" uid="uid://b3mr44oha4bir" path="res://classes/FixedVector3.gd" id="4_b7q0s"]
+[ext_resource type="Script" uid="uid://b08h7s53cr5el" path="res://character/InputInterpreter.gd" id="4_tuh18"]
 [ext_resource type="PackedScene" uid="uid://3a7n2tg47iw" path="res://models/killer_robot/killer_robot.blend" id="5_wb0i5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pt4gp"]

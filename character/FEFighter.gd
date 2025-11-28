@@ -97,7 +97,7 @@ var fixed_rotation: FixedVector3:
 
 @onready var anim_player: AnimationNodeStateMachinePlayback = %AnimationTree["parameters/playback"]
 @onready var collision_body: FEFighterCollisionBody = %CollisionBody
-@onready var input_interpreter: InputInterpreter = %InputInterpreter
+@onready var input_interpreter: InputInterpreter_old = %InputInterpreter
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -249,6 +249,7 @@ func process_base_movement(_opponent_dir: FixedVector3) -> String:
 
 	return return_val
 
+									# will change with rollback addon imp
 func handle_movement_animation_driven(delta: int):
 
 	# var tree : AnimationTree = %AnimationTree
@@ -261,10 +262,10 @@ func handle_movement_animation_driven(delta: int):
 
 	var curr_rotation = self.transform.basis.get_rotation_quaternion()
 
-	self.velocity = FixedVector3.div(
+	self.velocity = FixedVector3.mul(FixedVector3.div(
 		FixedVector3.from_vec3(
 				curr_rotation * %AnimationTree.get_root_motion_position()
-		), delta)
+		), delta), 98304)
 
 	### 
 	# For time being, only position is animation driven.

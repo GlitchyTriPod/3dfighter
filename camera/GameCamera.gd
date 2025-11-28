@@ -76,18 +76,19 @@ func _process(_delta):
 	self.camera.global_rotation = Vector3(0,0,0)
 	self.camera.look_at(Vector3(self.global_position.x, self.global_position.y + 0.5, self.global_position.z))
 
+# needs conversion to fixedint
 func get_char_position(char_position: Vector3):
 
 	var inc_position: Vector2 = self.camera.unproject_position(char_position)
 
 	if inc_position == self.p1_screen_pos:
 		if self.p1_screen_pos.x < self.p2_screen_pos.x:
-			return "RIGHT"
-		else: return "LEFT"
+			return "LEFT"
+		else: return "RIGHT"
 	else:
 		if self.p2_screen_pos.x < self.p1_screen_pos.x:
-			return "RIGHT"
-		else: return "LEFT"
+			return "LEFT"
+		else: return "RIGHT"
 
 func is_player_airborne():
 	var chars = get_parent().get_node("Chars").get_children()

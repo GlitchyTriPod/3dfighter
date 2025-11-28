@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dtxmearlw3kq4"]
 
-[ext_resource type="Script" path="res://nodes/collision/FECollisionShape.gd" id="1_3dsoh"]
+[ext_resource type="Script" uid="uid://devworm8bt0ih" path="res://nodes/collision/FECollisionShape.gd" id="1_3dsoh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_m1obp"]
 

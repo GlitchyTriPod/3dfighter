@@ -114,6 +114,32 @@ static func lerp(from: FixedVector3, to: FixedVector3, weight: int) -> FixedVect
 
 	return ret
 
+static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP, use_model_front: bool = false) -> Basis:
+	var v_z = target.normalized()
+	if !use_model_front:
+		v_z.x = -v_z.x
+		v_z.y = -v_z.y
+		v_z.z = -v_z.z
+
+	var v_x := FixedVector3.from_vec3(up_axis).cross(v_z)
+	if v_x.is_zero_approx():
+		v_x = FixedVector3.from_vec3(
+			up_axis.cross( \
+				Vector3.RIGHT if \
+					(abs(up_axis.x) <= abs(up_axis.y) && abs(up_axis.x) <= abs(up_axis.z)) \
+					else Vector3.UP
+			))
+
+	v_x.normalize()
+
+	var v_y := v_z.cross(v_x)
+
+	return Basis(
+		FixedVector3.to_vec3(v_x),
+		FixedVector3.to_vec3(v_y),
+		FixedVector3.to_vec3(v_z)
+	)
+
 func dot(vec2: FixedVector3) -> int:
 	var res := 0
 	res += FixedInt.mul(self.x, vec2.x)
@@ -128,8 +154,14 @@ func dot_2d(vec2: FixedVector3) -> int:
 	res += FixedInt.mul(self.z, vec2.z)
 	return res
 
-func cross(vec2: FixedVector3) -> int:
-	return FixedInt.mul(self.z, vec2.x) - FixedInt.mul(self.x, vec2.z)
+func cross(vec2: FixedVector3) -> FixedVector3:
+	return FixedVector3.new(
+		FixedInt.mul(self.y, vec2.z) - FixedInt.mul(self.z, vec2.y),
+		FixedInt.mul(self.z, vec2.x) - FixedInt.mul(self.x, vec2.z),
+		FixedInt.mul(self.x, vec2.y) - FixedInt.mul(self.y, vec2.x)
+	)
+
+	# return FixedInt.mul(self.z, vec2.x) - FixedInt.mul(self.x, vec2.z)
 
 func length() -> int:
 	var length_sqrd := self.length_squared()
@@ -292,3 +324,6 @@ func normalize():
 			self.x = FixedInt.div(self.x, lgth)
 			self.y = FixedInt.div(self.y, lgth)
 			self.z = FixedInt.div(self.z, lgth)
+
+func is_zero_approx()-> bool:
+	return self.x == FixedInt.FIXED_ZERO && self.y == FixedInt.FIXED_ZERO && self.z == FixedInt.FIXED_ZERO
