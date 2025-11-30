@@ -4,7 +4,7 @@ class_name Fighter
 
 @export_enum("1", "2") var player := 0
 
-@export var states := {
+const state_default: Dictionary = {
 	"crouching": false,
 	"rising": false,
 	"airborne": false,
@@ -17,6 +17,10 @@ class_name Fighter
 	"actionable": true,
 	"face_opponent": false,
 }
+
+var states := state_default.duplicate(true)
+
+@export var movelist : FighterMovelist
 
 # tracks basic stances for the fighter -- extend if character has multiple stances
 enum STANCE {
@@ -83,25 +87,11 @@ var screen_position: String:
 				)
 			)
 
-# var velocity := FixedVector3.new()
-
-# var fixed_position: FixedVector3:
-# 	set(val):
-# 		fixed_position = val
-# 		self.global_position = FixedVector3.to_vec3(val)
-# 	get:
-# 		return FixedVector3.from_vec3(self.global_position)
-
-# var fixed_rotation: FixedVector3:
-# 	set(val):
-# 		fixed_rotation = val
-# 		self.global_rotation = FixedVector3.to_vec3(val)
-# 	get:
-# 		return FixedVector3.from_vec3(self.global_rotation)
-
 @onready var collision_body : FEFighterCollisionBody = %CollisionBody
 var input_interpreter = InputInterpreter.new()
+
 @onready var anim_player : AnimationPlayer = %AnimationPlayer
+var current_anim_id: String
 
 var collision_body_offset : Vector3
 # ======= METHODS =====================
@@ -118,15 +108,35 @@ func _ready() -> void:
 func input(player_input: Array[String]):
 	self.input_interpreter.interpret_input(player_input, self.screen_position)
 
+# checks the current animation id, sets player state based on currently playing animation
+func process_animation_data():
+	if self.current_anim_id == "":
+		self.states = state_default.duplicate(true)
+		return
+	
+	var atk := self.movelist.get_from_id(self.current_anim_id)
+
+	# set states
+	var current_frame := int(floor(self.anim_player.current_animation_position * 60))
+	for state: String in atk.player_states:
+
+		if self.states.has(state):
+			var state_data = atk.player_states.get(state)
+			if current_frame >= state_data.frame_range.start && \
+				current_frame < state_data.frame_range.end:
+				self.states[state] = state_data.value
+			else:
+				self.states.set(state, self.state_default.get(state))
+			
+
 # processes movement for player
 func process_movement(delta: int):
 	# self.collision_body.velocity = FixedVector3.new()
 
 	if !self.states["actionable"]: # if player is not actionable they are stuck in a currently playing animation
+		self.anim_player.advance(float(delta / 65536.0))
+		self.process_root_motion(delta)
 		return                     # and are unable to cancel. [MAY NEED FRAME TIMER HERE]
-
-	# check if player has been hit by opponent & needs to transition to hitstun anim
-	#       --> will return early in this case
 
 	var inp = self.input_interpreter.read_input()
 
@@ -142,7 +152,7 @@ func process_movement(delta: int):
 	# determine animation to play
 	var next_anim := self.check_animation_from_input()
 
-	if next_anim != self.anim_player.current_animation:
+	if next_anim != self.anim_player.current_animation && next_anim != "_BAKED":
 		self.anim_player.play(next_anim)
 
 	self.set_stance_state()
@@ -177,6 +187,10 @@ func check_animation_from_input() -> String:
 	var return_val := "neutral"
 
 	# check if an attack button was pressed here, different procedure is needed
+	if self.button_state != BUTTON_STATE.NONE:
+		return_val = self.initiate_attack_anim(current_anim)
+		if return_val != "EMPTY":
+			return  return_val + "_BAKED" if !return_val.ends_with("_BAKED") else return_val
 
 	var back_input := func():
 		if current_anim == "dash_b":
@@ -292,7 +306,15 @@ func check_animation_from_input() -> String:
 		DI_STATE.DOWN_FORWARD:
 			return_val = "walk_fc"
 
+	self.current_anim_id = ""
 	return return_val + "_BAKED" if !return_val.ends_with("_BAKED") else return_val
+
+func initiate_attack_anim(_current_anim: String) -> String:
+	var atk := self.movelist.get_from_input(self.di_state, self.button_state, self.states)
+	if atk != "EMPTY":
+		self.current_anim_id = atk
+		return self.movelist.get_from_id(atk).animation_name
+	return _current_anim
 
 func process_root_motion(delta: int):
 	# self.collision_body.fixed_look_at(self.opponent_position)
@@ -307,8 +329,6 @@ func process_root_motion(delta: int):
 	collide_and_slide(delta)
 
 func collide_and_slide(delta: int):
-
-	# TODO: Collision with walls & opponent
 
 	var new_position: FixedVector3 = self.collision_body.fixed_position
 
@@ -333,6 +353,8 @@ func collide_and_slide(delta: int):
 		# new_position.y -= change.y
 		new_position.z -= change.z
 
+	# TODO: Collision with walls
+
 	self.collision_body.fixed_position = new_position
 
 	self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
@@ -343,6 +365,3 @@ func collide_and_slide(delta: int):
 	))
 
 	self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
-
-	# self.position = FixedVector3.to_vec3(new_position)
-	# self.look_at(FixedVector3.to_vec3(self.opponent_position), Vector3.UP, true) # <--- needs "fixing" ???

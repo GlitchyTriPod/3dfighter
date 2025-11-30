@@ -2,6 +2,7 @@
 class_name FECollisionShape
 extends ShapeCast3D
 
+# Radius of the sphere. use this instead of scale.
 @export var fixed_sphere_radius := FixedInt.FIXED_HALF :
 	set(val):
 		fixed_sphere_radius = val
@@ -9,6 +10,19 @@ extends ShapeCast3D
 			var sph = SphereShape3D.new()
 			sph.radius = float(val / 65536.0)
 			self.shape = sph
+
+@export var shape_owner : NodePath
+
+@export_enum(
+	"none",
+	"head",
+	"torso",
+	"waist",
+	"arm",
+	"hand",
+	"leg",
+	"foot"
+	) var body_part := 0
 
 var velocity := FixedVector3.new()
 
@@ -34,10 +48,20 @@ func _ready():
 			self.shape = SphereShape3D.new()
 		else:
 			self.shape = self.shape.duplicate()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _process(delta):
-# 	pass
+		self.debug_shape_custom_color = Color.WHITE
+		self.set_collision_mask_value(1, false)
+		return
+	
+	if self.get_parent() is BoneAttachment3D:
+		if (get_node(self.shape_owner) as Fighter).player == 0:
+			self.add_to_group("Player1MainHurtbox")
+		else:
+			self.add_to_group("Player2MainHurtbox")
+	# else:
+	# 	if (get_node(self.shape_owner) as Fighter).player == 0:
+	# 		self.add_to_group("Player1MiscHitbox")
+	# 	else:
+	# 		self.add_to_group("Player2MiscHitbox")
 
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
 func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> Variant:

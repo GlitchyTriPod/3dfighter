@@ -1,16 +1,17 @@
 1. create dummy animations using existing model
 	- basic movement, 1 attack animation, 1 block animation
 	- Figure out how to make animation-friendly model into gameplay-friendly model
+DONE
 
 2. refactor player controller / input polling
 	- all inputs should be listened at the Stage level, and propogated downward into the Fighter objects/character controllers
 	- in order, inputs and collisions should be:
 		1. poll for p1 and p2 inputs (networked/local agnostic)
-		2. detect hit/hurtbox collisions
+		2. detect hit/hurtbox collisions <-- NEXT
 		3. advance player animations based on inputs & game state (movement should be handled by Root Motion)
 
 	ADD: Fix collision with opponent + dash & sidestep commands
-		+ rotations may be needed
+		+ rotations may be needed DONE
 		
 3. Set up network play
 	- not sure how this will go, play by ear

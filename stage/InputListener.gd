@@ -25,8 +25,12 @@ func _process(_delta: float):
 
 	if !self.process_ready: return
 
-	# second, detect hitbox & hurtbox collisions
-	
+	# second, set animation data, detect hitbox + hurtbox collisions
+	self.player_1.process_animation_data()
+	self.player_2.process_animation_data()
+
+	# self.player_1.process_hitbox_intersection()
+	# self.player_2.process_hitbox_intersection()
 
 	# last, advance player animations based on inputs & game state
 	self.player_1.process_movement(_delta_int)
