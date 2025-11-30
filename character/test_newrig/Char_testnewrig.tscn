@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://2p8kswkoorj4"]
+[gd_scene load_steps=40 format=3 uid="uid://2p8kswkoorj4"]
 
 [ext_resource type="PackedScene" uid="uid://dgycne4jq8462" path="res://models/testing/new_armature/atro4.glb" id="1_ogo0r"]
 [ext_resource type="Script" uid="uid://cjxug136e3d7u" path="res://character/Fighter.gd" id="2_tfe8g"]
@@ -78,6 +78,26 @@ radius = 0.14454651
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gs4y7"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_u06x1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4bk8w"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kmjj1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ij81n"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_58tfg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gp5b4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dnnwj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8qpq6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kvvkr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_feh0k"]
+
 [node name="atro4" instance=ExtResource("1_ogo0r")]
 script = ExtResource("2_tfe8g")
 movelist = SubResource("Resource_wikvu")
@@ -97,6 +117,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 11858
 shape_owner = NodePath("../../../..")
 body_part = 1
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_neck" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="15"]
@@ -114,6 +135,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 9203
 shape_owner = NodePath("../../../..")
 body_part = 1
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_spine" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="16"]
@@ -131,6 +153,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 14703
 shape_owner = NodePath("../../../..")
 body_part = 2
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_hip" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="17"]
@@ -148,6 +171,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 12713
 shape_owner = NodePath("../../../..")
 body_part = 3
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_shoulder_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="18"]
@@ -165,6 +189,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 8003
 shape_owner = NodePath("../../../..")
 body_part = 4
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_shoulder_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="19"]
@@ -182,6 +207,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 8003
 shape_owner = NodePath("../../../..")
 body_part = 4
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_arm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="20"]
@@ -199,6 +225,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 6663
 shape_owner = NodePath("../../../..")
 body_part = 4
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_arm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="21"]
@@ -216,6 +243,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 6663
 shape_owner = NodePath("../../../..")
 body_part = 4
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_forearm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="22"]
@@ -233,6 +261,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 7773
 shape_owner = NodePath("../../../..")
 body_part = 4
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_forearm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="23"]
@@ -250,6 +279,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 7773
 shape_owner = NodePath("../../../..")
 body_part = 4
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_hand_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="24"]
@@ -267,6 +297,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 7538
 shape_owner = NodePath("../../../..")
 body_part = 5
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_hand_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="25"]
@@ -284,6 +315,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 7538
 shape_owner = NodePath("../../../..")
 body_part = 5
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_thigh_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="26"]
@@ -301,6 +333,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 9623
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="FECollisionShape2" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_thigh_r" index="1"]
@@ -313,6 +346,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 9623
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_thigh_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="27"]
@@ -330,6 +364,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 9623
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="FECollisionShape2" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_thigh_l" index="1"]
@@ -342,6 +377,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 9623
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_leg_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="28"]
@@ -359,6 +395,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 10018
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="FECollisionShape2" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_leg_r" index="1"]
@@ -371,6 +408,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 8688
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_leg_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="29"]
@@ -388,6 +426,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 10018
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="FECollisionShape2" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_leg_l" index="1"]
@@ -400,6 +439,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 8688
 shape_owner = NodePath("../../../..")
 body_part = 6
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_foot_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="30"]
@@ -417,6 +457,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 9473
 shape_owner = NodePath("../../../..")
 body_part = 7
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_foot_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="31"]
@@ -434,6 +475,7 @@ script = ExtResource("3_hgcb2")
 fixed_sphere_radius = 9473
 shape_owner = NodePath("../../../..")
 body_part = 7
+is_hitbox = null
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="AnimationPlayer" parent="." index="1"]
@@ -453,6 +495,123 @@ collision_mask = 0
 collide_with_bodies = false
 debug_shape_custom_color = Color(0, 1, 0, 1)
 script = ExtResource("3_gs4y7")
-shape_owner = null
+shape_owner = NodePath("..")
 body_part = null
+is_hitbox = null
 metadata/_custom_type_script = "uid://njtvuidse1o3"
+
+[node name="MiscHurtboxPool" type="Node3D" parent="." index="3"]
+unique_name_in_owner = true
+
+[node name="FECollisionShape" type="ShapeCast3D" parent="MiscHurtboxPool" index="0"]
+enabled = false
+shape = SubResource("SphereShape3D_u06x1")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 1, 1, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = null
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape2" type="ShapeCast3D" parent="MiscHurtboxPool" index="1"]
+enabled = false
+shape = SubResource("SphereShape3D_4bk8w")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 1, 1, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = null
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape3" type="ShapeCast3D" parent="MiscHurtboxPool" index="2"]
+enabled = false
+shape = SubResource("SphereShape3D_kmjj1")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 1, 1, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = null
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape4" type="ShapeCast3D" parent="MiscHurtboxPool" index="3"]
+enabled = false
+shape = SubResource("SphereShape3D_ij81n")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 1, 1, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = null
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape5" type="ShapeCast3D" parent="MiscHurtboxPool" index="4"]
+enabled = false
+shape = SubResource("SphereShape3D_58tfg")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 1, 1, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = null
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="MiscHitboxPool" type="Node3D" parent="." index="4"]
+unique_name_in_owner = true
+
+[node name="FECollisionShape" type="ShapeCast3D" parent="MiscHitboxPool" index="0"]
+enabled = false
+shape = SubResource("SphereShape3D_gp5b4")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 0.8117647, 0, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = true
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape2" type="ShapeCast3D" parent="MiscHitboxPool" index="1"]
+enabled = false
+shape = SubResource("SphereShape3D_dnnwj")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 0.8117647, 0, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = true
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape3" type="ShapeCast3D" parent="MiscHitboxPool" index="2"]
+enabled = false
+shape = SubResource("SphereShape3D_8qpq6")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 0.8117647, 0, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = true
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape4" type="ShapeCast3D" parent="MiscHitboxPool" index="3"]
+enabled = false
+shape = SubResource("SphereShape3D_kvvkr")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 0.8117647, 0, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = true
+metadata/_custom_type_script = "uid://devworm8bt0ih"
+
+[node name="FECollisionShape5" type="ShapeCast3D" parent="MiscHitboxPool" index="4"]
+enabled = false
+shape = SubResource("SphereShape3D_feh0k")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 0.8117647, 0, 1)
+script = ExtResource("3_hgcb2")
+shape_owner = NodePath("../..")
+is_hitbox = true
+metadata/_custom_type_script = "uid://devworm8bt0ih"

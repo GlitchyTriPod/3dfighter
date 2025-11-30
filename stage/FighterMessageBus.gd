@@ -5,6 +5,22 @@ var player_1 : Fighter
 var player_2 : Fighter
 var game_camera : GameCamera
 
+func get_oppo_current_animation_data(player: Fighter, id: String) -> FighterAnimationData:
+	var oppo: Fighter
+	if player == self.player_1:
+		oppo = self.player_2
+	else:
+		oppo = self.player_1
+	return oppo.movelist.get_from_id(id)
+	
+func get_oppo_current_animation_id(player: Fighter) -> String:
+	var oppo: Fighter
+	if player == self.player_1:
+		oppo = self.player_2
+	else:
+		oppo = self.player_1
+	return oppo.current_anim_id
+
 func get_char_position(player_global_position: Vector3) -> String:
 	return self.game_camera.get_char_position(player_global_position)
 

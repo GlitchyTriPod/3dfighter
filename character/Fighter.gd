@@ -16,6 +16,14 @@ const state_default: Dictionary = {
 	"invisible": false,
 	"actionable": true,
 	"face_opponent": false,
+	"hit_stun": false,
+	"block_stun": false
+}
+
+var stun_reason := {
+	"stun_name": "",
+	"stun_hit": -1,
+	"stun_id": ""
 }
 
 var states := state_default.duplicate(true)
@@ -94,6 +102,11 @@ var input_interpreter = InputInterpreter.new()
 var current_anim_id: String
 
 var collision_body_offset : Vector3
+
+
+@onready var misc_hitbox_pool: Array = %MiscHitboxPool.get_children()
+@onready var misc_hurtbox_pool: Array = %MiscHurtboxPool.get_children()
+
 # ======= METHODS =====================
 
 func _ready() -> void:
@@ -104,6 +117,11 @@ func _ready() -> void:
 		self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
 
+func get_misc_unused_hitbox():
+	for i in self.misc_hitbox_pool:
+		if !i.enabled:
+			return i
+
 # Passes player input onto input interpreter
 func input(player_input: Array[String]):
 	self.input_interpreter.interpret_input(player_input, self.screen_position)
@@ -111,7 +129,7 @@ func input(player_input: Array[String]):
 # checks the current animation id, sets player state based on currently playing animation
 func process_animation_data():
 	if self.current_anim_id == "":
-		self.states = state_default.duplicate(true)
+		self.states = state_default.duplicate(true) # <-- *may* cause problems later
 		return
 	
 	var atk := self.movelist.get_from_id(self.current_anim_id)
@@ -127,11 +145,103 @@ func process_animation_data():
 				self.states[state] = state_data.value
 			else:
 				self.states.set(state, self.state_default.get(state))
+
+func process_animation_hitboxes():
+	if self.current_anim_id == "":
+		return
+	
+	for i in self.misc_hitbox_pool:
+		i.enabled = false
+		i.hitbox_attack_index = -1
+		i.hitbox_attack_name = ""
+
+	var atk := self.movelist.get_from_id(self.current_anim_id)
+
+	#find hitboxes
+	var current_frame := int(floor(self.anim_player.current_animation_position * 60))
+	var hitbox_data
+	var index: int
+	for h_b in atk.hitbox_data:
+		if !(current_frame >= h_b.frame_range.start && current_frame < h_b.frame_range.end):
+			continue
+		hitbox_data = h_b
+		index = atk.hitbox_data.find(h_b)
+		break
+	
+	if hitbox_data == null:
+		return
+
+	for shape in hitbox_data.shapes:
+		var hitbox := self.get_misc_unused_hitbox() as FECollisionShape
+		if hitbox == null:
+			break
+		hitbox.hitbox_attack_index = index
+		hitbox.hitbox_attack_name = atk.animation_name
+		hitbox.position = FixedVector3.to_vec3(shape.position)
+		hitbox.fixed_sphere_radius = shape.radius
+		hitbox.enabled = true
+
+func process_hitbox_intersection():
+	# if self.current_anim_id == "":
+	# 	return
+
+	var enemy_hitboxes := get_tree().get_nodes_in_group(
+		"Player1MiscHitbox" if self.player != 0 else "Player2MiscHitbox"
+	)
+
+	var self_hurtboxes := get_tree().get_nodes_in_group(
+		"Player1MainHurtbox" if self.player == 0 else "Player2MainHurtbox"
+	) + self.misc_hurtbox_pool
+
+	for hitbox: FECollisionShape in enemy_hitboxes:
+		if !hitbox.enabled || \
+			((hitbox.hitbox_attack_index == self.stun_reason.stun_hit && \
+			hitbox.hitbox_attack_name == self.stun_reason.stun_name)): 
+			continue
+
+		for hurtbox: FECollisionShape in self_hurtboxes:
+			if !hurtbox.enabled:
+				continue
 			
+			if hurtbox.fixed_is_overlapping_with(hitbox) is int:
+				# incoming hit detected!
+				self.process_hit(
+					hitbox.hitbox_attack_index, 
+					hitbox.hitbox_attack_name, 
+					self.message_bus.get_oppo_current_animation_id(self)
+				)
+				break
+
+func process_hit(attack_index: int, animation_name: String, animation_id: String):
+	self.stun_reason.stun_hit = attack_index
+	self.stun_reason.stun_name = animation_name
+	self.stun_reason.stun_id = animation_id
 
 # processes movement for player
 func process_movement(delta: int):
-	# self.collision_body.velocity = FixedVector3.new()
+
+	# check HERE if player needs to be put in stun state
+	if self.stun_reason.stun_id != "":
+		self.states["actionable"] = false
+		if !self.anim_player.current_animation.begins_with("hit"):
+			var atk_data = self.message_bus.get_oppo_current_animation_data(self, self.stun_reason.stun_id)
+
+			if self.anim_player.current_animation != atk_data.hitbox_data[self.stun_reason.stun_hit].hit_anim:
+				self.anim_player.play(atk_data.hitbox_data[self.stun_reason.stun_hit].hit_anim)
+
+		else: # will neeed to be deleted later
+			if self.anim_player.current_animation_position * 60 >= 23: # <-- WAIT I CAN CONTROL THE STUN LENGTH WITH THIS YESSSS
+				self.states["actionable"] = true
+				self.anim_player.play("idle_standing_BAKED")
+
+				self.stun_reason = {
+					"stun_name": "",
+					"stun_hit": -1,
+					"stun_id": ""
+				}
+
+
+
 
 	if !self.states["actionable"]: # if player is not actionable they are stuck in a currently playing animation
 		self.anim_player.advance(float(delta / 65536.0))

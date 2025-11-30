@@ -6,10 +6,10 @@ extends ShapeCast3D
 @export var fixed_sphere_radius := FixedInt.FIXED_HALF :
 	set(val):
 		fixed_sphere_radius = val
-		if Engine.is_editor_hint():
-			var sph = SphereShape3D.new()
-			sph.radius = float(val / 65536.0)
-			self.shape = sph
+		# if Engine.is_editor_hint():
+		var sph = SphereShape3D.new()
+		sph.radius = float(val / 65536.0)
+		self.shape = sph
 
 @export var shape_owner : NodePath
 
@@ -23,6 +23,11 @@ extends ShapeCast3D
 	"leg",
 	"foot"
 	) var body_part := 0
+
+@export var is_hitbox: bool = false
+
+var hitbox_attack_index: int = -1
+var hitbox_attack_name: String = ""
 
 var velocity := FixedVector3.new()
 
@@ -57,11 +62,21 @@ func _ready():
 			self.add_to_group("Player1MainHurtbox")
 		else:
 			self.add_to_group("Player2MainHurtbox")
-	# else:
-	# 	if (get_node(self.shape_owner) as Fighter).player == 0:
-	# 		self.add_to_group("Player1MiscHitbox")
-	# 	else:
-	# 		self.add_to_group("Player2MiscHitbox")
+	elif self.is_hitbox:
+		if (get_node(self.shape_owner) as Fighter).player == 0:
+			self.add_to_group("Player1MiscHitbox")
+		else:
+			self.add_to_group("Player2MiscHitbox")
+	else:
+		if (get_node(self.shape_owner) as Fighter).player == 0:
+			self.add_to_group("Player1MiscHurtbox")
+		else:
+			self.add_to_group("Player2MiscHurtbox")
+
+# called every frame, only useful for visualization
+func _process(_delta):
+	if !Engine.is_editor_hint():
+		self.visible = self.enabled
 
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
 func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> Variant:

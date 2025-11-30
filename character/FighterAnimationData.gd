@@ -19,7 +19,7 @@ var recovery_counter: int
 
 # contains data on any hitboxes put out by the animation.
 # Keep empty if this animation does not attack the opponent
-var hitbox_data := {}
+var hitbox_data := []
 
 # contains data on misc. hurtboxes that extends the player's hit area
 var hurtbox_data := {}
