@@ -54,7 +54,7 @@ func _init() -> void:
 	pass
 
 func add_to_list(move: FighterAnimationData):
-	var key = str(self.move_list.size()) #self.uuid_util.v4()
+	var key = str(self.move_list.size()) 
 	self.move_list.get_or_add(key, move)
 
 func get_from_input(_input_di: Fighter.DI_STATE, input_button: Fighter.BUTTON_STATE, _player_state: Dictionary) -> String:

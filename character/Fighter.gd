@@ -146,6 +146,7 @@ func process_animation_data():
 			else:
 				self.states.set(state, self.state_default.get(state))
 
+# checks current animation for hitboxes & places them into the scene if necessary
 func process_animation_hitboxes():
 	if self.current_anim_id == "":
 		return
@@ -181,9 +182,8 @@ func process_animation_hitboxes():
 		hitbox.fixed_sphere_radius = shape.radius
 		hitbox.enabled = true
 
+# checks if current fighter is intersecting with an enemy hitbox
 func process_hitbox_intersection():
-	# if self.current_anim_id == "":
-	# 	return
 
 	var enemy_hitboxes := get_tree().get_nodes_in_group(
 		"Player1MiscHitbox" if self.player != 0 else "Player2MiscHitbox"
@@ -210,6 +210,8 @@ func process_hitbox_intersection():
 					hitbox.hitbox_attack_name, 
 					self.message_bus.get_oppo_current_animation_id(self)
 				)
+				if self.current_anim_id != "":
+					self.current_anim_id = ""
 				break
 
 func process_hit(attack_index: int, animation_name: String, animation_id: String):

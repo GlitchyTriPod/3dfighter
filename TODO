@@ -7,7 +7,7 @@ DONE
 	- all inputs should be listened at the Stage level, and propogated downward into the Fighter objects/character controllers
 	- in order, inputs and collisions should be:
 		1. poll for p1 and p2 inputs (networked/local agnostic)
-		2. detect hit/hurtbox collisions <-- NEXT
+		2. detect hit/hurtbox collisions DONE
 		3. advance player animations based on inputs & game state (movement should be handled by Root Motion)
 
 	ADD: Fix collision with opponent + dash & sidestep commands
