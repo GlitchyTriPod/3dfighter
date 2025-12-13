@@ -17,6 +17,12 @@ DONE
 	- not sure how this will go, play by ear
 	- ensure rollback is working
 
+	- will need to make custom MessageSerializer before playtest with online player( due to MTU limit)
+
+	follow the tutorial.
+
+	- This will need a separated server-client setup. (do this later once things are working???) maybe not????
+
 4. create more animations
 	- strings, attacks with height variety & associated block animations, hit stun anims
 	- Throws?

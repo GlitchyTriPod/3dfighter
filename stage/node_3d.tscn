@@ -65,10 +65,10 @@ unique_name_in_owner = true
 
 [node name="atro4" parent="Chars" instance=ExtResource("7_gxuj5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2985727)
+player = 1
 
 [node name="atro5" parent="Chars" instance=ExtResource("7_gxuj5")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.995018e-08, 0, 1.2452707)
-player = 1
 
 [node name="debugCamera" type="Camera3D" parent="."]
 visible = false

@@ -38,10 +38,11 @@ var camera_last_target: Vector3
 func _ready():
 	self.camera = get_node(self.camera_node)
 	self.camera.global_position.x = -15.0 if self.default_pos == 0 else 15.0
-	# pass
+	
+	# self.add_to_group("network_sync")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_input):
 
 	self.camera_last_g_position = self.camera.global_position
 
@@ -65,10 +66,10 @@ func _process(_delta):
 		if self.camera.global_position.distance_to(self.cam_ref1.global_position) \
 			<= self.camera.global_position.distance_to(self.cam_ref2.global_position):
 			self.camera.global_position = \
-				lerp(self.camera.global_position, self.cam_ref1.global_position, self.smoothing_speed * _delta)
+				lerp(self.camera.global_position, self.cam_ref1.global_position, self.smoothing_speed * SyncManager.tick_time)
 		else:
 			self.camera.global_position = \
-				lerp(self.camera.global_position, self.cam_ref2.global_position, self.smoothing_speed * _delta)
+				lerp(self.camera.global_position, self.cam_ref2.global_position, self.smoothing_speed * SyncManager.tick_time)
 
 	else:
 		self.camera.global_position = self.camera_last_g_position
@@ -96,3 +97,14 @@ func is_player_airborne():
 		if !i.collision_body.is_on_floor():
 			return true
 	return false
+
+
+# func _save_state() -> Dictionary:
+# 	return {
+# 		"camera_position": self.camera.global_position,
+# 		"camera_rotation": self.camera.global_rotation
+# 	}
+
+# func _load_state(state:Dictionary) -> void:
+# 	self.camera.global_position = state["camera_position"]
+# 	self.camera.global_rotation = state["camera_rotation"]

@@ -98,7 +98,7 @@ var screen_position: String:
 @onready var collision_body : FEFighterCollisionBody = %CollisionBody
 var input_interpreter = InputInterpreter.new()
 
-@onready var anim_player : AnimationPlayer = %AnimationPlayer
+@onready var anim_player : NetworkAnimationPlayer = %NetworkAnimationPlayer
 var current_anim_id: String
 
 var collision_body_offset : Vector3
@@ -107,15 +107,30 @@ var collision_body_offset : Vector3
 @onready var misc_hitbox_pool: Array = %MiscHitboxPool.get_children()
 @onready var misc_hurtbox_pool: Array = %MiscHurtboxPool.get_children()
 
+var is_focused := false
+
+# var process_inputs := false
+
+signal ready_for_input_process(player)
+
 # ======= METHODS =====================
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		%AnimationPlayer.callback_mode_process = 1
+		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 	else:
-		%AnimationPlayer.callback_mode_process = 2
+		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
+
+	get_window().focus_entered.connect(self._on_window_focus_entered)
+	get_window().focus_exited.connect(self._on_window_focus_exited)
+
+func _on_window_focus_entered():
+	self.is_focused = true
+
+func _on_window_focus_exited():
+	self.is_focused = false
 
 func get_misc_unused_hitbox():
 	for i in self.misc_hitbox_pool:
@@ -123,8 +138,75 @@ func get_misc_unused_hitbox():
 			return i
 
 # Passes player input onto input interpreter
-func input(player_input: Array[String]):
-	self.input_interpreter.interpret_input(player_input, self.screen_position)
+# func input(player_input: Array[String]):
+# 	self.input_interpreter.interpret_input(player_input, self.screen_position)
+
+func _network_process(input: Dictionary):
+	# if !self.process_inputs:
+	# 	return
+	# input.direction.append_array(input.button)
+	self.input_interpreter.interpret_input(input, self.screen_position)
+	emit_signal("ready_for_input_process", self)
+
+func _get_local_input() -> Dictionary:
+	var player_input : Dictionary = {}
+
+	if !self.is_focused:
+		
+		return player_input
+
+	var dir = Vector2i(
+		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1))) - int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1))),
+		int(Input.is_action_pressed("INPUT_UP_P" + str(1))) - int(Input.is_action_pressed("INPUT_DOWN_P" + str(1)))
+	)
+
+	if dir != Vector2i.ZERO:
+		player_input["input_directional"] = dir
+
+	if Input.is_action_pressed("INPUT_PUNCH_P" + str(1)):
+		if !player_input.has("input_button"):
+			player_input["input_button"] = {}
+		player_input["input_button"]["p"] = true
+	if Input.is_action_pressed("INPUT_KICK_P" + str(1)):
+		if !player_input.has("input_button"):
+			player_input["input_button"] = {}
+		player_input["input_button"]["k"] = true
+	if Input.is_action_pressed("INPUT_ABILITY_P" + str(1)):
+		if !player_input.has("input_button"):
+			player_input["input_button"] = {}
+		player_input["input_button"]["a"] = true
+
+
+	return player_input
+
+func _save_state() -> Dictionary:
+	return {
+		"input_history": self.input_interpreter.input_history.duplicate(),
+	}
+
+func _load_state(state: Dictionary) -> void:
+	self.input_interpreter.input_history = state.input_history
+
+
+
+# 	return {
+# 		"position": self.position,
+# 		"rotation": self.rotation,
+# 		# "states": self.states,
+# 		# "stance": self.stance,
+# 		# "button_state": self.button_state,
+# 		# "di_state": self.di_state
+# 	}
+
+# 	self.position = state.position
+# 	self.rotation = state.rotation
+	# self.states = state.states
+	# self.stance = state.stance
+	# self.button_state = state.button_state
+	# self.di_state = state.di_state
+	# self.stun_reason = state.stun_reason
+	# self.current_anim_id = state.current_anim
+	# self.input_interpreter.input_history = state.input_history
 
 # checks the current animation id, sets player state based on currently playing animation
 func process_animation_data():
@@ -220,7 +302,7 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 	self.stun_reason.stun_id = animation_id
 
 # processes movement for player
-func process_movement(delta: int):
+func process_movement(delta: int): # could use some optimizing
 
 	# check HERE if player needs to be put in stun state
 	if self.stun_reason.stun_id != "":
@@ -229,12 +311,12 @@ func process_movement(delta: int):
 			var atk_data = self.message_bus.get_oppo_current_animation_data(self, self.stun_reason.stun_id)
 
 			if self.anim_player.current_animation != atk_data.hitbox_data[self.stun_reason.stun_hit].hit_anim:
-				self.anim_player.play(atk_data.hitbox_data[self.stun_reason.stun_hit].hit_anim)
+				self.anim_player.play("AnimLibrary_test_newrig/" + atk_data.hitbox_data[self.stun_reason.stun_hit].hit_anim)
 
 		else: # will neeed to be deleted later
 			if self.anim_player.current_animation_position * 60 >= 23: # <-- WAIT I CAN CONTROL THE STUN LENGTH WITH THIS YESSSS
 				self.states["actionable"] = true
-				self.anim_player.play("idle_standing_BAKED")
+				self.anim_player.play("AnimLibrary_test_newrig/idle_standing_BAKED")
 
 				self.stun_reason = {
 					"stun_name": "",
@@ -242,15 +324,15 @@ func process_movement(delta: int):
 					"stun_id": ""
 				}
 
-
-
-
 	if !self.states["actionable"]: # if player is not actionable they are stuck in a currently playing animation
-		self.anim_player.advance(float(delta / 65536.0))
+		# if self.anim_player.is_playing():
+		# 	self.anim_player.advance(SyncManager.tick_time )#float(delta / 65536.0))
 		self.process_root_motion(delta)
 		return                     # and are unable to cancel. [MAY NEED FRAME TIMER HERE]
 
 	var inp = self.input_interpreter.read_input()
+	if inp.size() == 0 || inp[0] == null:
+		return
 
 	self.button_state = inp[0].button
 	self.di_state = inp[0].di
@@ -265,11 +347,11 @@ func process_movement(delta: int):
 	var next_anim := self.check_animation_from_input()
 
 	if next_anim != self.anim_player.current_animation && next_anim != "_BAKED":
-		self.anim_player.play(next_anim)
+		self.anim_player.play("AnimLibrary_test_newrig/" + next_anim)
 
 	self.set_stance_state()
 
-	self.anim_player.advance(float(delta / 65536.0)) # <-- maybe this should be 1 frame length??? (1/60th sec?)
+	# self.anim_player.advance(SyncManager.tick_time) # <-- maybe this should be 1 frame length??? (1/60th sec?)
 
 	self.process_root_motion(delta)
 
@@ -296,7 +378,7 @@ func check_animation_from_input() -> String:
 
 	var inputs := self.input_interpreter.read_input(3)
 
-	var return_val := "neutral"
+	var return_val := "idle_standing"
 
 	# check if an attack button was pressed here, different procedure is needed
 	if self.button_state != BUTTON_STATE.NONE:
@@ -318,43 +400,43 @@ func check_animation_from_input() -> String:
 		DI_STATE.NEUTRAL:   
 			if inputs.size() > 1:
 				# handle sidestep to DOWN dir
-				if inputs[0].frame_count < 5 && \
+				if (inputs[0].frame_start - SyncManager.current_tick) < 5 && \
 					inputs[1].di == DI_STATE.DOWN && \
-					inputs[1].frame_count <= 8:
+					(inputs[1].frame_start - inputs[0].frame_start) <= 8:
 					if self.screen_position == "LEFT":
 						return_val = "step_r"
 					else:
 						return_val = "step_l"
 
 				# handle sidestep to UP dir
-				elif inputs[0].frame_count < 5 && \
+				elif (inputs[0].frame_start - SyncManager.current_tick) < 5 && \
 					inputs[1].di == DI_STATE.UP && \
-					inputs[1].frame_count <= 8:
+					(inputs[1].frame_start - inputs[0].frame_start) <= 8:
 					if self.screen_position == "LEFT":
 						return_val = "step_l"
 					else:
 						return_val = "step_r"
 						
-			if return_val == "neutral":
+			if return_val == "idle_standing":
 				if current_anim.contains("dash") || \
 					current_anim.contains("run") || \
 					current_anim.contains("step"):
 					return_val = current_anim
-				else:
-					return_val = "idle_standing"
+				# else:
+				# 	return_val = "idle_standing"
 		
 		DI_STATE.FORWARD:
-			if current_anim == "dash_f_BAKED":
-				if inputs[0].frame_count < 2 && \
+			if current_anim == "dash_f_BAKED" && inputs.size() >= 3:
+				if (inputs[0].frame_start - SyncManager.current_tick) < 2 && \
 					inputs[1].di == DI_STATE.NEUTRAL && \
-					inputs[1].frame_count <= 13:
+					(inputs[1].frame_start - inputs[0].frame_start) <= 13:
 					return_val = "run_f"
 				else:
 					return_val = current_anim
-			elif self.stance != STANCE.F_DASH && self.stance != STANCE.RUN:
-				if inputs[0].frame_count < 2 && \
+			elif self.stance != STANCE.F_DASH && self.stance != STANCE.RUN && inputs.size() >= 3:
+				if (inputs[0].frame_start - SyncManager.current_tick) < 2 && \
 					inputs[1].di == DI_STATE.NEUTRAL && \
-					inputs[1].frame_count <= 8 && \
+					(inputs[1].frame_start - inputs[0].frame_start) <= 8 && \
 					inputs[2].di == DI_STATE.FORWARD:
 						return_val = "dash_f"
 				else:
@@ -365,10 +447,10 @@ func check_animation_from_input() -> String:
 		DI_STATE.BACK:
 			if current_anim == "dash_b_BAKED":
 				return_val = current_anim
-			elif self.stance != STANCE.B_DASH:
-				if inputs[0].frame_count < 2 && \
+			elif self.stance != STANCE.B_DASH && inputs.size() >= 3:
+				if (inputs[0].frame_start - SyncManager.current_tick) < 2 && \
 					inputs[1].di == DI_STATE.NEUTRAL && \
-					inputs[1].frame_count <= 8 && \
+					(inputs[1].frame_start - inputs[0].frame_start) <= 8 && \
 					inputs[2].di == DI_STATE.BACK:
 						return_val = "dash_b"
 				else:

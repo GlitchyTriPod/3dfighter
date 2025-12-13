@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="3dFighter"
-run/main_scene="res://stage/world_test.tscn"
+run/main_scene="uid://cwmug0477s5fu"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 SyncManager="*res://addons/delta_rollback/SyncManager.gd"
+SyncDebugger="*res://addons/delta_rollback/SyncDebugger.gd"
+SyncReplay="*res://addons/delta_rollback/SyncReplay.gd"
 
 [display]
 
@@ -29,12 +31,16 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/uuid/plugin.cfg")
+enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/delta_rollback/plugin.cfg")
 
 [filesystem]
 
 import/blender/enabled.web=true
 import/fbx/enabled=true
+
+[global_group]
+
+network_sync="descriptor group for nodes participating in rollback."
 
 [importer_defaults]
 
@@ -160,9 +166,15 @@ sync_debug={
 ]
 }
 
+[network]
+
+rollback/classes/message_serializer="uid://b8ahiut0y2ub"
+rollback/debug/random_rollback_ticks=3
+
 [physics]
 
-common/physics_jitter_fix=0.0
+common/max_physics_steps_per_frame=1
+3d/physics_engine="Dummy"
 3d/default_gravity=642252.0
 
 [rendering]
