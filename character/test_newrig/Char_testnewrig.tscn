@@ -596,6 +596,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="NetworkAnimationPlayer" type="AnimationPlayer" parent="." index="5" groups=["network_sync"]]
 unique_name_in_owner = true
+deterministic = true
 root_motion_track = NodePath("rig_deform/Skeleton3D:c_pos")
 libraries = {
 &"AnimLibrary_test_newrig": ExtResource("5_8ng0y")

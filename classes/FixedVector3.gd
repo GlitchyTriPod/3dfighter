@@ -327,3 +327,21 @@ func normalize():
 
 func is_zero_approx()-> bool:
 	return self.x == FixedInt.FIXED_ZERO && self.y == FixedInt.FIXED_ZERO && self.z == FixedInt.FIXED_ZERO
+
+
+func to_quaternion() -> Quaternion:
+
+	var cr := FixedInt.cos(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
+	var sr := FixedInt.sin(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
+	var cp := FixedInt.cos(FixedInt.mul(self.y, FixedInt.FIXED_HALF))
+	var sp := FixedInt.sin(FixedInt.mul(self.y, FixedInt.FIXED_HALF))
+	var cy := FixedInt.cos(FixedInt.mul(self.z, FixedInt.FIXED_HALF))
+	var sy := FixedInt.sin(FixedInt.mul(self.z, FixedInt.FIXED_HALF))
+
+	var quat := Quaternion()
+	quat.w = (FixedInt.mul(FixedInt.mul(cr, cp), cy) + FixedInt.mul(FixedInt.mul(sr, sp), sy)) / 65536
+	quat.x = (FixedInt.mul(FixedInt.mul(sr, cp), cy) - FixedInt.mul(FixedInt.mul(cr, sp), sy)) / 65536
+	quat.y = (FixedInt.mul(FixedInt.mul(cr, sp), cy) + FixedInt.mul(FixedInt.mul(sr, cp), sy)) / 65536
+	quat.z = (FixedInt.mul(FixedInt.mul(cr, cp), sy) - FixedInt.mul(FixedInt.mul(sr, sp), cy)) / 65536
+
+	return quat

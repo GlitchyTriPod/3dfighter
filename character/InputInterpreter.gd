@@ -3,7 +3,7 @@ class_name InputInterpreter
 
 var input_history : Array = []
 
-func read_input(history := 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick
+func read_input(history := 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
 	if history == 0:
 		return [self.input_history.back()] # temp
 	var inputs = []
@@ -97,6 +97,10 @@ func interpret_input(input: Dictionary, screen_position: String):
 	var last_input = self.input_history.back()
 	if last_input == null:
 		self.input_history.append(current_input)
+		return
+
+	if current_input["frame_start"] <= last_input["frame_start"]:
+		# self.input_history[self.input_history.size() - 1] = current_input
 		return
 	
 	if current_input["di"] != last_input["di"] || current_input["button"] != last_input["button"]:

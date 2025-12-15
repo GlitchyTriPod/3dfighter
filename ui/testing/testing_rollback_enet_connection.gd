@@ -1,5 +1,8 @@
 extends Node
 
+const DummyNetworkAdapter = preload("res://addons/delta_rollback/DummyNetworkAdaptor.gd")
+
+@onready var main_menu = $CanvasLayer/MainMenu
 @onready var connection_panel = $CanvasLayer/ConnectionPanel
 @onready var host_field = $CanvasLayer/ConnectionPanel/GridContainer/HostField
 @onready var port_field = $CanvasLayer/ConnectionPanel/GridContainer/PortField
@@ -10,7 +13,7 @@ extends Node
 
 const LOG_FILE_DIRECTORY = "user://detailed_logs"
 
-var logging_enabled := true
+var logging_enabled := false
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(self._on_network_peer_connected)
@@ -28,6 +31,7 @@ func _on_server_button_pressed() -> void:
 	peer.create_server(int(port_field.text), 1)
 	multiplayer.multiplayer_peer = peer
 	self.connection_panel.visible = false
+	self.main_menu.visible = false
 	self.message_label.text = "Listening for connection..."
 
 func _on_client_button_pressed() -> void:
@@ -35,6 +39,7 @@ func _on_client_button_pressed() -> void:
 	peer.create_client(host_field.text, int(port_field.text))
 	multiplayer.multiplayer_peer = peer
 	self.connection_panel.visible = false
+	self.main_menu.visible = false
 	self.message_label.text = "Connecting to host..."
 
 func _on_network_peer_connected(_peer_id: int) -> void:
@@ -110,3 +115,15 @@ func _on_SyncManager_sync_error(message: String):
 	if peer:
 		peer.close()
 	SyncManager.clear_peers()
+
+
+func _on_online_button_pressed() -> void:
+	self.connection_panel.visible = true
+	SyncManager.reset_network_adaptor()
+	self.stage.fighter_message_bus.player_1.is_online = true
+	self.stage.fighter_message_bus.player_2.is_online = true
+
+func _on_local_button_pressed() -> void:
+	self.main_menu.visible = false
+	SyncManager.network_adaptor = DummyNetworkAdapter.new()
+	SyncManager.start()

@@ -169,7 +169,6 @@ sync_debug={
 [network]
 
 rollback/classes/message_serializer="uid://b8ahiut0y2ub"
-rollback/debug/random_rollback_ticks=3
 
 [physics]
 

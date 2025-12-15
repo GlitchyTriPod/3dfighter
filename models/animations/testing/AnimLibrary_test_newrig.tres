@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=16 format=3 uid="uid://bl13y8xeigkqy"]
 
-[sub_resource type="Animation" id="Animation_vhg50"]
+[sub_resource type="Animation" id="Animation_mosek"]
 resource_name = "RESET"
 step = 0.016666668
 tracks/0/type = "position_3d"
@@ -6591,7 +6591,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.45908493, 0.79573506, 0.37712365, 0.
 
 [resource]
 _data = {
-&"RESET": SubResource("Animation_vhg50"),
+&"RESET": SubResource("Animation_mosek"),
 &"atk_p_BAKED": SubResource("Animation_fyfm3"),
 &"dash_b_BAKED": SubResource("Animation_4nt5q"),
 &"dash_f_BAKED": SubResource("Animation_anddf"),

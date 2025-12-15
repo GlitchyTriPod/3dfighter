@@ -109,7 +109,7 @@ var collision_body_offset : Vector3
 
 var is_focused := false
 
-# var process_inputs := false
+var is_online := false
 
 signal ready_for_input_process(player)
 
@@ -156,22 +156,24 @@ func _get_local_input() -> Dictionary:
 		return player_input
 
 	var dir = Vector2i(
-		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1))) - int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1))),
-		int(Input.is_action_pressed("INPUT_UP_P" + str(1))) - int(Input.is_action_pressed("INPUT_DOWN_P" + str(1)))
+		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))) \
+		- int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))),
+		int(Input.is_action_pressed("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))) \
+		- int(Input.is_action_pressed("INPUT_DOWN_P" + str(1 if self.is_online else (self.player + 1))))
 	)
 
 	if dir != Vector2i.ZERO:
 		player_input["input_directional"] = dir
 
-	if Input.is_action_pressed("INPUT_PUNCH_P" + str(1)):
+	if Input.is_action_pressed("INPUT_PUNCH_P" + str(1 if self.is_online else (self.player + 1))):
 		if !player_input.has("input_button"):
 			player_input["input_button"] = {}
 		player_input["input_button"]["p"] = true
-	if Input.is_action_pressed("INPUT_KICK_P" + str(1)):
+	if Input.is_action_pressed("INPUT_KICK_P" + str(1 if self.is_online else (self.player + 1))):
 		if !player_input.has("input_button"):
 			player_input["input_button"] = {}
 		player_input["input_button"]["k"] = true
-	if Input.is_action_pressed("INPUT_ABILITY_P" + str(1)):
+	if Input.is_action_pressed("INPUT_ABILITY_P" + str(1 if self.is_online else (self.player + 1))):
 		if !player_input.has("input_button"):
 			player_input["input_button"] = {}
 		player_input["input_button"]["a"] = true
@@ -511,9 +513,8 @@ func initiate_attack_anim(_current_anim: String) -> String:
 	return _current_anim
 
 func process_root_motion(delta: int):
-	# self.collision_body.fixed_look_at(self.opponent_position)
 
-	var curr_rotation = self.collision_body.transform.basis.get_rotation_quaternion()
+	var curr_rotation := self.collision_body.global_transform.basis.get_rotation_quaternion()
 
 	self.collision_body.velocity = FixedVector3.mul(FixedVector3.div(
 		FixedVector3.from_vec3(
@@ -521,6 +522,8 @@ func process_root_motion(delta: int):
 	), delta), 98304)
 
 	collide_and_slide(delta)
+
+	self.collision_body.global_transform.basis.orthonormalized()
 
 func collide_and_slide(delta: int):
 

@@ -37,7 +37,7 @@ var camera_last_target: Vector3
 
 func _ready():
 	self.camera = get_node(self.camera_node)
-	self.camera.global_position.x = -15.0 if self.default_pos == 0 else 15.0
+	self.camera.global_position.x = 15.0 if self.default_pos == 0 else -15.0
 	
 	# self.add_to_group("network_sync")
 
@@ -74,7 +74,7 @@ func _process(_input):
 	else:
 		self.camera.global_position = self.camera_last_g_position
 
-	self.camera.global_rotation = Vector3(0,0,0)
+	# self.camera.global_rotation = Vector3(0,0,0)
 	self.camera.look_at(Vector3(self.global_position.x, self.global_position.y + 0.5, self.global_position.z))
 
 # needs conversion to fixedint

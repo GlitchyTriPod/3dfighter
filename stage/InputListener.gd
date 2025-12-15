@@ -18,6 +18,9 @@ var is_online_match := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# SyncManager.connect_signal(self.player_1, "ready_for_input_process", self, "_player_ready_process")
+	# SyncManager.connect_signal(self.player_2, "ready_for_input_process", self, "_player_ready_process")
+
 	self.player_1.ready_for_input_process.connect(_player_process_ready)
 	self.player_2.ready_for_input_process.connect(_player_process_ready)
 

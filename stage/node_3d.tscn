@@ -24,7 +24,7 @@ shader_parameter/resolution_scale = 3
 [node name="Stage" type="Node3D"]
 script = ExtResource("1_u2wdh")
 
-[node name="InputListener" type="Node" parent="."]
+[node name="InputListener" type="Node" parent="." groups=["network_sync"]]
 script = ExtResource("2_a83cb")
 
 [node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
