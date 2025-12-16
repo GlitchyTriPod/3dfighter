@@ -1,50 +1,53 @@
-extends Node
+extends RefCounted
+class_name InputInterpreter
 
-@onready var fighter: Fighter = get_parent()
+var input_history : Array = []
 
-var input_history: Array = []
-
-func read_input(history = 0):
+func read_input(history := 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
 	if history == 0:
-		return self.input_history.back() # temp
+		return [self.input_history.back()] # temp
 	var inputs = []
-	for i in range(self.input_history.size() - history, self.input_history.size()):
+	for i in range(clamp(self.input_history.size() - history, 0, 100), self.input_history.size()):
 		inputs.push_front(self.input_history[i])
 	return inputs
 
-func interpret_input(input: Array[String]):
-
+func interpret_input(input: Dictionary, screen_position: String):
+	
 	var di = ""
 	var button = ""
 
-	# socd cleaning
-	if input.has("up") && input.has("down"):
-		input.erase("up")
-		input.erase("down")
-	if input.has("left") && input.has("right"):
-		input.erase("left")
-		input.erase("right")
-
 	# check directional input
-	if input.has("down"): di += "D"
-	elif input.has("up"): di += "U"
-	if input.has("left"):
-		if self.fighter.screen_position == "LEFT": # flip B<->F based on screen position
-			di += "B"
-		else: di += "F"
-	elif input.has("right"):
-		if self.fighter.screen_position == "LEFT":
-			di += "F"
-		else: di += "B"
-	elif di == "": di += "N"
-	
-	# check button inputs
-	if input.has("p"): button += "P"
-	if input.has("k"): button += "K"
-	if input.has("a"): button += "A"
-	elif button == "": button += "N"
+	if input.has("input_directional"):
+		if input["input_directional"].y == -1:
+			di += "D"
+		elif input["input_directional"].y == 1:
+			di += "U"
 
-		
+		if input["input_directional"].x == 1:
+			if screen_position == "LEFT":
+				di += "B"
+			else:
+				di += "F"
+		elif input["input_directional"].x == -1:
+			if screen_position == "LEFT":
+				di += "F"
+			else:
+				di += "B"
+
+	if di == "":
+		di += "N"
+
+	# check button inputs
+	if input.has("input_button"):
+		if input["input_button"].has("p"):
+			button += "P"
+		if input["input_button"].has("k"):
+			button += "K"
+		if input["input_button"].has("a"):
+			button += "A"
+	
+	if button == "":
+		button += "N"
 
 	match di:
 		"N":
@@ -84,17 +87,27 @@ func interpret_input(input: Array[String]):
 		"PKA":
 			button = Fighter.BUTTON_STATE.PKA
 
-	# if input history is empty, enter current frame in.
-	if self.input_history.is_empty():
-		self.input_history.append({"di": di, "button": button, "frame_count": 1, "screen_pos": self.fighter.screen_position})
-		return
-	
-	# check current input against the previous frame's
-	var last_frame = self.input_history.back()
-	if last_frame.di == di && last_frame.button == button: # if matching input, increase frame counter
-		last_frame.frame_count += 1
-		if last_frame.frame_count > 999: last_frame.frame_count = 999
+	var current_input := {
+			"di": di,
+			"button": button, 
+			"frame_start": SyncManager.current_tick,
+			"screen_pos": screen_position
+		}
+
+	var last_input = self.input_history.back()
+	if last_input == null:
+		self.input_history.append(current_input)
 		return
 
-	# add input to history
-	self.input_history.append({"di": di, "button": button, "frame_count": 1, "screen_pos": self.fighter.screen_position})
+	if current_input["frame_start"] <= last_input["frame_start"]:
+		# self.input_history[self.input_history.size() - 1] = current_input
+		return
+	
+	if current_input["di"] != last_input["di"] || current_input["button"] != last_input["button"]:
+
+		# add input to history
+		self.input_history.append(current_input)
+
+	# trim array if necessary
+	if self.input_history.size() > 20:
+		self.input_history.pop_front()

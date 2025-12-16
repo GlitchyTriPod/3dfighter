@@ -1,0 +1,134 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwmug0477s5fu"]
+
+[ext_resource type="Script" uid="uid://hqmc820u2nut" path="res://ui/testing/testing_rollback_enet_connection.gd" id="1_yrsqn"]
+[ext_resource type="PackedScene" uid="uid://3nasqljy0y06" path="res://stage/node_3d.tscn" id="2_jmqwy"]
+
+[node name="TestingRollbackEnetConnection" type="Node"]
+script = ExtResource("1_yrsqn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.5
+offset_top = -20.0
+offset_right = 98.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LocalButton" type="Button" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+text = "Play Offline"
+
+[node name="OnlineButton" type="Button" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+text = "Play Online"
+
+[node name="ConnectionPanel" type="Window" parent="CanvasLayer"]
+oversampling_override = 1.0
+title = "Online"
+initial_position = 1
+size = Vector2i(196, 145)
+visible = false
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ConnectionPanel"]
+offset_left = 32.0
+offset_top = 28.0
+offset_right = 162.0
+offset_bottom = 129.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[node name="HostLabel" type="Label" parent="CanvasLayer/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+text = "Host:"
+
+[node name="HostField" type="LineEdit" parent="CanvasLayer/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+text = "127.0.0.1"
+
+[node name="PortLabel" type="Label" parent="CanvasLayer/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+text = "Port:"
+
+[node name="PortField" type="LineEdit" parent="CanvasLayer/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+text = "9999"
+
+[node name="ServerButton" type="Button" parent="CanvasLayer/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Server"
+
+[node name="ClientButton" type="Button" parent="CanvasLayer/ConnectionPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Client"
+
+[node name="MessageLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="ResetButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Reset"
+
+[node name="SyncLostLabel" type="Label" parent="CanvasLayer" groups=["network_sync"]]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Regaining sync..."
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Stage" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_jmqwy")]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/LocalButton" to="." method="_on_local_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/OnlineButton" to="." method="_on_online_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ConnectionPanel/GridContainer/ServerButton" to="." method="_on_server_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ConnectionPanel/GridContainer/ClientButton" to="." method="_on_client_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ResetButton" to="." method="_on_reset_button_pressed"]

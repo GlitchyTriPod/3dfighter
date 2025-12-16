@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vgbgifopg4tc"
+uid="uid://cq1a3ukykuk8w"
 path.s3tc="res://.godot/imported/killer_robot_tex5.png-10e360166764f4f7c4c049e25990351f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 

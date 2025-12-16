@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://wyevv7w87dpe"]
+
+[ext_resource type="Script" uid="uid://dgmx35nqwd2fu" path="res://FX/particles/rocket_trail.gd" id="1_pf2b2"]
+
+[sub_resource type="Gradient" id="Gradient_ec0d6"]
+offsets = PackedFloat32Array(0, 0.606707, 0.618902, 0.923781, 0.948171)
+colors = PackedColorArray(0.878431, 0.870588, 0.992157, 1, 0.878431, 0.870588, 0.992157, 1, 0.52549, 0.513726, 0.807843, 1, 0.52549, 0.513726, 0.807843, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jmo8d"]
+gradient = SubResource("Gradient_ec0d6")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+metadata/_snap_enabled = true
+metadata/_snap_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo00j"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Curve" id="Curve_cj48j"]
+_limits = [0.0, 0.25, 0.0, 1.0]
+_data = [Vector2(0, 0.0403226), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_y5q6c"]
+offsets = PackedFloat32Array(0.314356, 0.540865, 1)
+colors = PackedColorArray(0.878431, 0.870588, 0.992157, 1, 0.52549, 0.513726, 0.807843, 1, 0.52812, 0.5184, 0.81, 0)
+
+[node name="RocketTrail" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00154406, 0.124751, 0)
+billboard = 1
+texture = SubResource("GradientTexture2D_jmo8d")
+script = ExtResource("1_pf2b2")
+
+[node name="TrailEmitter" type="TrailEmitter" parent="."]
+material = SubResource("StandardMaterial3D_oo00j")
+curve = SubResource("Curve_cj48j")
+gradient = SubResource("Gradient_y5q6c")
+geometry_nodepath = NodePath("..")
+num_points = 4
+unique_name_in_owner = true

@@ -67,7 +67,7 @@ float sample(vec2 coord, float alpha, float shade, float lit) {
 
 void light() {
 	float f = ATTENUATION ;//min(ATTENUATION.r, min(ATTENUATION.g, ATTENUATION.b));
-	
+
 	float a = sample(
 		FRAGCOORD.xy * (1.0 / scale),
 		clamp(dot(NORMAL, LIGHT) + sharpness, 0.0, 1.0 + sharpness) * f,

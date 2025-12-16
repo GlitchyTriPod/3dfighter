@@ -1,0 +1,7 @@
+[gd_resource type="BoneMap" load_steps=2 format=3 uid="uid://bqys3cci1vdap"]
+
+[sub_resource type="SkeletonProfile" id="SkeletonProfile_ojjn4"]
+
+[resource]
+profile = SubResource("SkeletonProfile_ojjn4")
+bonemap = null

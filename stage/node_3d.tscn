@@ -1,18 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://3nasqljy0y06"]
+[gd_scene load_steps=12 format=3 uid="uid://3nasqljy0y06"]
 
 [ext_resource type="Environment" uid="uid://dalka1ns5gnl0" path="res://test_env.tres" id="1_cutdu"]
-[ext_resource type="Script" path="res://stage/Stage.gd" id="1_u2wdh"]
-[ext_resource type="Script" path="res://stage/InputListener.gd" id="2_a83cb"]
-[ext_resource type="Script" path="res://stage/InfiniteFloor.gd" id="3_k4aka"]
+[ext_resource type="Script" uid="uid://du4vguhn7pqyl" path="res://stage/Stage.gd" id="1_u2wdh"]
+[ext_resource type="Script" uid="uid://g4ntukdv8m3p" path="res://stage/InputListener.gd" id="2_a83cb"]
 [ext_resource type="MeshLibrary" uid="uid://cjirshw7x7jtr" path="res://mesh/mesh_lib.tres" id="3_yjwoe"]
-[ext_resource type="Shader" path="res://shader/ps1_post.gdshader" id="4_8xacr"]
-[ext_resource type="PackedScene" uid="uid://rig3atksreq0" path="res://character/Fighter.tscn" id="5_iu8nb"]
+[ext_resource type="Shader" uid="uid://cry6gxvxi3ga7" path="res://shader/ps1_post.gdshader" id="4_8xacr"]
 [ext_resource type="PackedScene" uid="uid://dip4omawevgwd" path="res://camera/GameCamera.tscn" id="7_6gy14"]
-[ext_resource type="Script" path="res://addons/camera.gd" id="9_cqpjc"]
+[ext_resource type="PackedScene" uid="uid://2p8kswkoorj4" path="res://character/test_newrig/Char_testnewrig.tscn" id="7_gxuj5"]
+[ext_resource type="Script" uid="uid://bmwn8pw6uiryr" path="res://addons/camera.gd" id="9_cqpjc"]
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1pahf"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ko0mh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_obluc"]
 size = Vector3(2.38, 2.575, 1.535)
@@ -27,20 +24,21 @@ shader_parameter/resolution_scale = 3
 [node name="Stage" type="Node3D"]
 script = ExtResource("1_u2wdh")
 
-[node name="InputListener" type="Node" parent="."]
+[node name="InputListener" type="Node" parent="." groups=["network_sync"]]
 script = ExtResource("2_a83cb")
+
+[node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
+camera_node = NodePath("../Camera3D2")
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+current = true
+fov = 40.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_cutdu")
 camera_attributes = SubResource("CameraAttributesPhysical_1pahf")
 
-[node name="InfiniteFloor" type="StaticBody3D" parent="."]
-script = ExtResource("3_k4aka")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InfiniteFloor"]
-shape = SubResource("WorldBoundaryShape3D_ko0mh")
-
-[node name="GridMap" type="GridMap" parent="InfiniteFloor"]
+[node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("3_yjwoe")
 cell_center_y = false
 data = {
@@ -64,17 +62,14 @@ surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 
 [node name="Chars" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(-0.00827272, 0, 0.999966, 0, 1, 0, -0.999966, 0, -0.00827272, 0, 0.0209684, 0)
 
-[node name="Character" parent="Chars" instance=ExtResource("5_iu8nb")]
-transform = Transform3D(-0.200736, 0, -0.979645, 0, 1, 0, 0.979645, 0, -0.200736, -2.03643, 0.0409111, 0.151683)
-
-[node name="Character2" parent="Chars" instance=ExtResource("5_iu8nb")]
-transform = Transform3D(-0.0787027, 0, 0.996898, 0, 1, 0, -0.996898, 0, -0.0787027, 2.0501, 0.0409111, 0.151683)
+[node name="atro4" parent="Chars" instance=ExtResource("7_gxuj5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2985727)
 player = 1
 
-[node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
-smoothing_speed = 5.0
+[node name="atro5" parent="Chars" instance=ExtResource("7_gxuj5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.995018e-08, 0, 1.2452707)
 
 [node name="debugCamera" type="Camera3D" parent="."]
+visible = false
 script = ExtResource("9_cqpjc")

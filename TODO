@@ -1,10 +1,62 @@
-- UPDATE character controller
-    - movement should be relative to position to opponent
-    - inputs need to be taken using multiple levels of interpretation
-        - read inputs from player 1 controller
-        - read inputs from player 2 controller
-        - inputs are read, they must be interpreted based on camera position on local client end
-            - inputs are then sent to proper character controller
-        - inputs are read on chara_controller level
-        - based on character moveset, movement and attacks are performed
-            - in coordination with camera position !!!!!
+1. create dummy animations using existing model
+	- basic movement, 1 attack animation, 1 block animation
+	- Figure out how to make animation-friendly model into gameplay-friendly model
+DONE
+
+2. refactor player controller / input polling
+	- all inputs should be listened at the Stage level, and propogated downward into the Fighter objects/character controllers
+	- in order, inputs and collisions should be:
+		1. poll for p1 and p2 inputs (networked/local agnostic)
+		2. detect hit/hurtbox collisions DONE
+		3. advance player animations based on inputs & game state (movement should be handled by Root Motion)
+
+	ADD: Fix collision with opponent + dash & sidestep commands
+		+ rotations may be needed DONE
+		
+3. Set up network play
+	- not sure how this will go, play by ear
+	- ensure rollback is working
+
+	- will need to make custom MessageSerializer before playtest with online player( due to MTU limit)
+
+	follow the tutorial.
+
+	- This will need a separated server-client setup. (do this later once things are working???) maybe not????
+
+4. create more animations
+	- strings, attacks with height variety & associated block animations, hit stun anims
+	- Throws?
+
+5. Fighter creation tool
+	- hitbox assignment & viewer, string builder, move properties tool
+	- stances?
+
+6. more animations
+	- launchers, juggles, bounds, wall stuns, knockdowns.
+
+7. Wall collisions, oki, & combo system
+
+IF ALL OF THIS WORKS, FULL SPEED AHEAD ON ASSET CREATION.
+
+
+
+
+NOTE TO SELF: break out DI cases in Fighter.gd check_animation_from_input()
+	extra char stances may require cases to be extended/overridden
+
+==================== OLD ===============================
+
+- make collision shape follow armature
+- base floor detection off of root bone position
+    - base all collision detection off of float positions -- convert to int64 before calc
+- update collide_and_slide to update root bone position instead of collision shape
+- update animation library to have basic root motion
+    - pre bake animations
+- check if this shit work !!!!!!!
+
+0. check if player is in control of character position
+1. animation dictates character mesh position
+2. update collision shape to match mesh position
+3. check collisions, update collision shape position
+4. re-update mesh position to match collision shape
+5. rotate mesh to match collision shape
