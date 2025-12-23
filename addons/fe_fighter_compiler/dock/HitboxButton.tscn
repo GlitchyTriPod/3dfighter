@@ -11,3 +11,5 @@ Z: 999.9
 i99 - i99"
 alignment = 0
 script = ExtResource("1_1akkv")
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]

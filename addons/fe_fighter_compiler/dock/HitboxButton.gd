@@ -2,6 +2,8 @@
 extends Button
 class_name HitboxButton
 
+signal clicked(source)
+
 @export var is_hurtbox := false
 
 var sphere_radius := 0
@@ -18,9 +20,12 @@ var attack_height: int
 var unblockable := false
 
 func update_text() -> void:
-    self.text = \
-        "Radius: " + str(self.sphere_radius) + "\n" + \
-        "X: " + str(self.x_pos) + "\n" + \
-        "Y: " + str(self.y_pos) + "\n" + \
-        "Z: " + str(self.z_pos) + "\n" + \
-        "i" + str(self.frame_start) + " - i" + str(self.frame_end)
+	self.text = \
+		"Radius: " + str(self.sphere_radius) + "\n" + \
+		"X: " + str(self.x_pos) + "\n" + \
+		"Y: " + str(self.y_pos) + "\n" + \
+		"Z: " + str(self.z_pos) + "\n" + \
+		"i" + str(self.frame_start) + " - i" + str(self.frame_end)
+
+func _on_button_up() -> void:
+	self.clicked.emit(self)

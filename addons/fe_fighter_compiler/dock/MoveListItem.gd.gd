@@ -69,10 +69,13 @@ func _on_button_button_up() -> void:
 func _on_add_hitbox_button_up() -> void:
 	var button = self.hitbox_button.instantiate()
 	%HitboxGrid.add_child(button)
+	button.clicked.connect(_on_hitbox_button_clicked)
 
 func _on_add_hurtbox_button_up() -> void:
 	var button: HitboxButton = self.hitbox_button.instantiate()
 	button.is_hurtbox = true
 	%HurtboxGrid.add_child(button)
+	button.clicked.connect(_on_hitbox_button_clicked)
 
-
+func _on_hitbox_button_clicked(data: Variant) -> void:
+	pass

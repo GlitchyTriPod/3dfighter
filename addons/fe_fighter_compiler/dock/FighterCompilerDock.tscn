@@ -45,6 +45,7 @@ text = ">>"
 
 [node name="SelectFighterLabel" type="Label" parent="MainView"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 6
 text = "Open a Fighter scene to edit a movelist."
@@ -52,8 +53,29 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MoveListView" type="ScrollContainer" parent="MainView"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainView/MoveListView"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainView"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Add Move" type="Button" parent="MainView/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+text = "Add Move"
+
+[node name="Remove Move" type="Button" parent="MainView/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+text = "Remove Move"

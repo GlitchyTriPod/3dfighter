@@ -1,8 +1,9 @@
 @tool
 extends EditorPlugin
 
-const dock = preload("res://addons/fe_fighter_compiler/dock/FighterCompilerDock.tscn")
+const scene = preload("res://addons/fe_fighter_compiler/dock/FighterCompilerDock.tscn")
 
+var dock
 
 func _enable_plugin() -> void:
 	# Add autoloads here.
@@ -14,11 +15,11 @@ func _disable_plugin() -> void:
 	pass
 
 
-func _enter_tree() -> void:
-	# Initialization of the plugin goes here.
-	add_control_to_bottom_panel(dock.instantiate(), "Fighter Maker")
+func _enter_tree() -> void:	
+	self.dock = scene.instantiate()
+	add_control_to_bottom_panel(self.dock, "Fighter Maker")
 
 
 func _exit_tree() -> void:
-	# Clean-up of the plugin goes here.
-	pass
+	remove_control_from_docks(self.dock)
+	self.dock.free()
