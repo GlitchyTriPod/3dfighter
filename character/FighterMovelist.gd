@@ -7,51 +7,51 @@ class_name FighterMovelist
 var move_list : Dictionary[String, FighterAnimationData] = {}
 
 # DEBUG TOOL ONLY
-func _init() -> void:
-	# if Engine.is_editor_hint():
-	var debug_move = FighterAnimationData.new()
-	debug_move.attack_name = "Jab"
-	debug_move.animation_name = "atk_p_BAKED"
+# func _init() -> void:
+# 	# if Engine.is_editor_hint():
+# 	var debug_move = FighterAnimationData.new()
+# 	debug_move.attack_name = "Jab"
+# 	debug_move.animation_name = "atk_p_BAKED"
 
-	debug_move.input_map.append(
-		{
-			"input_di": Fighter.DI_STATE.NEUTRAL,
-			"input_button": Fighter.BUTTON_STATE.P
-		}
-	)
+# 	debug_move.input_map.append(
+# 		{
+# 			"input_di": Fighter.DI_STATE.NEUTRAL,
+# 			"input_button": Fighter.BUTTON_STATE.P
+# 		}
+# 	)
 
-	debug_move.player_states = {
-		"actionable": {
-			"value": false,
-			"frame_range": {
-				"start": 0,
-				"end": 26
-			}
-		}
-	}
+# 	debug_move.player_states = {
+# 		"actionable": {
+# 			"value": false,
+# 			"frame_range": {
+# 				"start": 0,
+# 				"end": 26
+# 			}
+# 		}
+# 	}
 
-	debug_move.hitbox_data.append(
-		{
-			"attack_height": "high",
-			"frame_range": {
-				"start": 11,
-				"end": 13
-			},
-			"pushback_hit": 0,
-			"pushback_block": 0,
-			"hit_anim": "hit_h_1_BAKED",
-			"shapes": [
-				{
-					"radius": 12443,
-					"position": FixedVector3.from_vec3(Vector3(-0.042, 1.333, 0.878))
-				}
-			]
-		}
-	)
+# 	debug_move.hitbox_data.append(
+# 		{
+# 			"attack_height": "high",
+# 			"frame_range": {
+# 				"start": 11,
+# 				"end": 13
+# 			},
+# 			"pushback_hit": 0,
+# 			"pushback_block": 0,
+# 			"hit_anim": "hit_h_1_BAKED",
+# 			"shapes": [
+# 				{
+# 					"radius": 12443,
+# 					"position": FixedVector3.from_vec3(Vector3(-0.042, 1.333, 0.878))
+# 				}
+# 			]
+# 		}
+# 	)
 
-	self.add_to_list(debug_move)
+# 	self.add_to_list(debug_move)
 	
-	pass
+# 	pass
 
 func add_to_list(move: FighterAnimationData):
 	var key = str(self.move_list.size()) 

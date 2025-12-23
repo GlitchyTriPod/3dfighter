@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://2cctih4flcle"]
+
+[ext_resource type="Script" uid="uid://cr6gtkfpwsh1d" path="res://addons/fe_fighter_compiler/dock/HitboxButton.gd" id="1_1akkv"]
+
+[node name="HitboxButton" type="Button"]
+toggle_mode = true
+text = "Radius: 99999
+X: 999.9
+Y: 999.9
+Z: 999.9
+i99 - i99"
+alignment = 0
+script = ExtResource("1_1akkv")

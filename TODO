@@ -11,7 +11,9 @@ DONE
 		3. advance player animations based on inputs & game state (movement should be handled by Root Motion)
 
 	ADD: Fix collision with opponent + dash & sidestep commands
-		+ rotations may be needed DONE
+		+ rotations may be needed
+
+DONE
 		
 3. Set up network play
 	- not sure how this will go, play by ear
@@ -23,16 +25,25 @@ DONE
 
 	- This will need a separated server-client setup. (do this later once things are working???) maybe not????
 
+
+KIND OF DONE???
+
 4. create more animations
 	- strings, attacks with height variety & associated block animations, hit stun anims
-	- Throws?
+
+^^^
+do together
+vvv
 
 5. Fighter creation tool
 	- hitbox assignment & viewer, string builder, move properties tool
-	- stances?
+	- stances? <-- replace enum with state machine setup: more extensible
+	- Need a "animation library compiler" -- must pre-bake velocity data into anims in order to cut reliability on GD root motion methods
+
+
 
 6. more animations
-	- launchers, juggles, bounds, wall stuns, knockdowns.
+	- launchers, juggles, bounds, wall stuns, knockdowns. throws
 
 7. Wall collisions, oki, & combo system
 

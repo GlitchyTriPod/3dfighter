@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://uubyff354auq"]
+
+[ext_resource type="Script" uid="uid://d1ctdc7gs2o5l" path="res://addons/fe_fighter_compiler/dock/AnimationState.gd" id="1_rqcci"]
+
+[node name="AnimationState" type="HBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_rqcci")
+
+[node name="StateName" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "[state name]"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Start: "
+
+[node name="FrameStart" type="SpinBox" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "End:"
+
+[node name="FrameEnd" type="SpinBox" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="RemoveButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+
+[connection signal="value_changed" from="FrameStart" to="." method="_on_frame_start_value_changed"]
+[connection signal="button_up" from="RemoveButton" to="." method="_on_remove_button_button_up"]

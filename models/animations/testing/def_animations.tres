@@ -1,0 +1,32 @@
+[gd_resource type="AnimationLibrary" load_steps=14 format=3 uid="uid://c6f8qr1267dmd"]
+
+[ext_resource type="Animation" uid="uid://sqlhh31gg2e6" path="res://models/animations/testing/def_atk_p.res" id="1_ubgto"]
+[ext_resource type="Animation" uid="uid://m3jaxkh4by65" path="res://models/animations/testing/def_dash_b.res" id="2_qbaii"]
+[ext_resource type="Animation" uid="uid://d267uypc4t3mu" path="res://models/animations/testing/def_dash_f.res" id="3_ssyyt"]
+[ext_resource type="Animation" uid="uid://bhi076yj2tf7e" path="res://models/animations/testing/def_idle_crouching.res" id="4_xi0io"]
+[ext_resource type="Animation" uid="uid://bujtffhilcqwk" path="res://models/animations/testing/def_idle_standing.res" id="5_pb8e7"]
+[ext_resource type="Animation" uid="uid://benkn1a43lx0l" path="res://models/animations/testing/def_run_f.res" id="6_2sdl1"]
+[ext_resource type="Animation" uid="uid://kf4kr8dmavyc" path="res://models/animations/testing/def_step_l.res" id="7_byvdc"]
+[ext_resource type="Animation" uid="uid://dbe7hf2xjlv7i" path="res://models/animations/testing/def_step_r.res" id="8_k46sr"]
+[ext_resource type="Animation" uid="uid://bqj8tc24tgwtu" path="res://models/animations/testing/def_walk_b.res" id="9_q4s7h"]
+[ext_resource type="Animation" uid="uid://d2rk5d8mccnah" path="res://models/animations/testing/def_walk_f.res" id="10_72ljn"]
+[ext_resource type="Animation" uid="uid://dxcxbucuc7hkd" path="res://models/animations/testing/def_walk_fc.res" id="11_cr2uu"]
+[ext_resource type="Animation" uid="uid://cgle8hsc6hiet" path="res://models/animations/testing/def_walk_l.res" id="12_ha1xk"]
+[ext_resource type="Animation" uid="uid://bj63nbwv2mpr7" path="res://models/animations/testing/def_walk_r.res" id="13_7fswf"]
+
+[resource]
+_data = {
+&"def_atk_p": ExtResource("1_ubgto"),
+&"def_dash_b": ExtResource("2_qbaii"),
+&"def_dash_f": ExtResource("3_ssyyt"),
+&"def_idle_crouching": ExtResource("4_xi0io"),
+&"def_idle_standing": ExtResource("5_pb8e7"),
+&"def_run_f": ExtResource("6_2sdl1"),
+&"def_step_l": ExtResource("7_byvdc"),
+&"def_step_r": ExtResource("8_k46sr"),
+&"def_walk_b": ExtResource("9_q4s7h"),
+&"def_walk_f": ExtResource("10_72ljn"),
+&"def_walk_fc": ExtResource("11_cr2uu"),
+&"def_walk_l": ExtResource("12_ha1xk"),
+&"def_walk_r": ExtResource("13_7fswf")
+}

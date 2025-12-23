@@ -1,13 +1,14 @@
 @tool
-class_name FECollisionShape
 extends ShapeCast3D
+class_name FECollisionShape
 
 # Radius of the sphere. use this instead of scale.
 @export var fixed_sphere_radius := FixedInt.FIXED_HALF :
-	set(val):
+	set(val): #<---- BAD PERFORMANCE. FIX THIS
 		fixed_sphere_radius = val
-		# if Engine.is_editor_hint():
-		var sph = SphereShape3D.new() #<---- BAD PERFORMANCE. FIX IMMEDIATELY
+		var sph = self.shape
+		if Engine.is_editor_hint():
+			sph = SphereShape3D.new()
 		sph.radius = float(val / 65536.0)
 		self.shape = sph
 

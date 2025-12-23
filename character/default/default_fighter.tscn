@@ -1,0 +1,137 @@
+[gd_scene load_steps=22 format=3 uid="uid://bqv58e3mf17np"]
+
+[ext_resource type="PackedScene" uid="uid://dgycne4jq8462" path="res://models/testing/new_armature/atro4.glb" id="1_wmmqn"]
+[ext_resource type="Script" uid="uid://cjxug136e3d7u" path="res://character/Fighter.gd" id="2_6wdtg"]
+[ext_resource type="Animation" uid="uid://sqlhh31gg2e6" path="res://models/animations/testing/def_atk_p.res" id="3_rrsoe"]
+[ext_resource type="Animation" uid="uid://m3jaxkh4by65" path="res://models/animations/testing/def_dash_b.res" id="4_ar3m2"]
+[ext_resource type="Animation" uid="uid://d267uypc4t3mu" path="res://models/animations/testing/def_dash_f.res" id="5_rt770"]
+[ext_resource type="Animation" uid="uid://c77w3kf3i70mw" path="res://models/animations/testing/def_hit_h1.res" id="6_12j2r"]
+[ext_resource type="Animation" uid="uid://bhi076yj2tf7e" path="res://models/animations/testing/def_idle_crouching.res" id="7_hsa5o"]
+[ext_resource type="Animation" uid="uid://bujtffhilcqwk" path="res://models/animations/testing/def_idle_standing.res" id="8_qt7i2"]
+[ext_resource type="Animation" uid="uid://benkn1a43lx0l" path="res://models/animations/testing/def_run_f.res" id="9_7x45a"]
+[ext_resource type="Animation" uid="uid://kf4kr8dmavyc" path="res://models/animations/testing/def_step_l.res" id="10_k6ntr"]
+[ext_resource type="Animation" uid="uid://dbe7hf2xjlv7i" path="res://models/animations/testing/def_step_r.res" id="11_so50q"]
+[ext_resource type="Animation" uid="uid://bqj8tc24tgwtu" path="res://models/animations/testing/def_walk_b.res" id="12_edibl"]
+[ext_resource type="Animation" uid="uid://d2rk5d8mccnah" path="res://models/animations/testing/def_walk_f.res" id="13_cwj40"]
+[ext_resource type="Animation" uid="uid://dxcxbucuc7hkd" path="res://models/animations/testing/def_walk_fc.res" id="14_g4gmf"]
+[ext_resource type="Animation" uid="uid://cgle8hsc6hiet" path="res://models/animations/testing/def_walk_l.res" id="15_ywpbi"]
+[ext_resource type="Animation" uid="uid://bj63nbwv2mpr7" path="res://models/animations/testing/def_walk_r.res" id="16_cv8w6"]
+[ext_resource type="Animation" uid="uid://bn4fvijffdvcx" path="res://models/animations/testing/def_RESET.res" id="17_g2pkh"]
+[ext_resource type="Script" uid="uid://7pefdhcr1asv" path="res://addons/delta_rollback/NetworkAnimationPlayer.gd" id="17_ywpbi"]
+[ext_resource type="Script" uid="uid://njtvuidse1o3" path="res://character/FEFighterCollisionBody.gd" id="18_mymn1"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_17v6d"]
+_data = {
+&"def_RESET": ExtResource("17_g2pkh"),
+&"def_atk_p": ExtResource("3_rrsoe"),
+&"def_dash_b": ExtResource("4_ar3m2"),
+&"def_dash_f": ExtResource("5_rt770"),
+&"def_hit_h1": ExtResource("6_12j2r"),
+&"def_idle_crouching": ExtResource("7_hsa5o"),
+&"def_idle_standing": ExtResource("8_qt7i2"),
+&"def_run_f": ExtResource("9_7x45a"),
+&"def_step_l": ExtResource("10_k6ntr"),
+&"def_step_r": ExtResource("11_so50q"),
+&"def_walk_b": ExtResource("12_edibl"),
+&"def_walk_f": ExtResource("13_cwj40"),
+&"def_walk_fc": ExtResource("14_g4gmf"),
+&"def_walk_l": ExtResource("15_ywpbi"),
+&"def_walk_r": ExtResource("16_cv8w6")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_75ayf"]
+
+[node name="DefaultFighter" instance=ExtResource("1_wmmqn")]
+script = ExtResource("2_6wdtg")
+
+[node name="Skeleton3D" parent="rig_deform" index="0"]
+bones/0/rotation = Quaternion(3.0908623e-08, 0.7071068, 0.7071068, -3.0908623e-08)
+bones/1/position = Vector3(-0.0006840524, -0.15682231, 1.029777)
+bones/1/rotation = Quaternion(0.06914816, 0.74393874, 0.66260487, 0.052235905)
+bones/4/position = Vector3(-0.15944628, 0.2571496, 0.64453703)
+bones/4/rotation = Quaternion(-0.34989363, -0.52834016, 0.58618766, 0.5047923)
+bones/5/rotation = Quaternion(-2.7802443e-07, 0.117125556, 1.404098e-07, 0.99311715)
+bones/6/position = Vector3(0.16593476, 0.0358528, 0.13196224)
+bones/6/rotation = Quaternion(0.58485353, 0.04787507, 0.8096928, 0.00720328)
+bones/7/rotation = Quaternion(-5.3519546e-08, -0.07820118, 1.7754575e-08, 0.9969377)
+bones/8/position = Vector3(-0.12054677, 0.049471222, 0.55020237)
+bones/8/rotation = Quaternion(0.21841478, -0.59486467, -0.059474163, 0.77129376)
+bones/9/position = Vector3(0.123790994, -0.12242844, 0.29540485)
+bones/9/rotation = Quaternion(-0.25807476, 0.5270132, -0.30228898, 0.751183)
+bones/10/position = Vector3(-0.20254713, 0.08461394, 0.818625)
+bones/10/rotation = Quaternion(-0.011353404, -0.4822862, 0.21152116, 0.85001755)
+bones/11/position = Vector3(0.23539983, -0.10286309, 0.7797289)
+bones/11/rotation = Quaternion(-0.087707646, 0.4803788, -0.0966813, 0.8672925)
+bones/12/position = Vector3(-0.25424233, 0.21958342, 0.78551084)
+bones/12/rotation = Quaternion(0.3151381, -0.3652627, -0.4134055, 0.772248)
+bones/13/rotation = Quaternion(1.2675964e-07, 0.51337, -9.177192e-08, 0.85816735)
+bones/14/position = Vector3(0.24777128, 0.04035946, 0.743398)
+bones/14/rotation = Quaternion(0.2374301, 0.42671233, 0.47629085, 0.7312254)
+bones/15/rotation = Quaternion(-9.250553e-08, -0.73398143, -4.3731745e-08, 0.6791696)
+bones/16/position = Vector3(-0.16073835, 0.3248316, 0.9661427)
+bones/16/rotation = Quaternion(0.52242625, 0.10983358, -0.27382022, 0.80001867)
+bones/18/rotation = Quaternion(-0.009817259, 0.103036866, -0.7194958, 0.68674076)
+bones/19/rotation = Quaternion(-0.050711747, 0.0025891515, -0.44404405, 0.89456505)
+bones/22/rotation = Quaternion(-0.2451144, -0.10813473, -0.6083745, 0.7470651)
+bones/23/rotation = Quaternion(-0.024548244, 0.022269731, -0.51938546, 0.8538971)
+bones/27/rotation = Quaternion(0.13689524, -0.16462542, -0.52518195, 0.8236153)
+bones/28/position = Vector3(0.13465533, 0.13964872, 0.91600883)
+bones/28/rotation = Quaternion(0.50981516, -0.25202537, 0.14602114, 0.8094748)
+bones/30/rotation = Quaternion(-0.0056723915, -0.1033479, 0.6913431, 0.71507466)
+bones/31/rotation = Quaternion(-0.05063334, -0.0038289414, 0.42202437, 0.9051614)
+bones/34/rotation = Quaternion(-0.24872184, 0.09955719, 0.5820638, 0.7677418)
+bones/35/rotation = Quaternion(-0.02388685, -0.022977596, 0.4942078, 0.8687118)
+bones/39/rotation = Quaternion(0.12918337, 0.15515868, 0.5057894, 0.8386981)
+bones/41/position = Vector3(0.004935762, 0.6926941, -0.2203136)
+bones/41/rotation = Quaternion(0.9486269, -0.009372339, 0.3162181, 0.0050389157)
+bones/42/position = Vector3(0.28406546, 0.09873392, 0.29526088)
+bones/42/rotation = Quaternion(-0.0017240031, 0.5038873, 0.86376715, 0.0010552446)
+bones/43/rotation = Quaternion(-8.7264e-05, 0.988928, 0.14839612, -1.116949e-05)
+bones/44/position = Vector3(0.08164723, 0.4558677, -0.1582073)
+bones/44/rotation = Quaternion(0.26497373, 0.795467, 0.47534057, 0.26659435)
+bones/45/position = Vector3(-0.19081317, 0.18019485, -0.52266157)
+bones/45/rotation = Quaternion(-0.28854355, -0.026388861, 0.9570689, -0.0080899075)
+bones/46/rotation = Quaternion(-0.398764, 0.5917744, 0.6995649, -0.037409198)
+bones/47/position = Vector3(-0.08164724, 0.45884752, -0.2807097)
+bones/47/rotation = Quaternion(0.82701266, -0.2531811, -0.41136542, 0.28762475)
+bones/48/position = Vector3(0.01702364, 0.6947551, -0.2363118)
+bones/48/rotation = Quaternion(0.086268865, -0.36215237, -0.008643798, 0.92807794)
+bones/49/position = Vector3(0.0060478067, 0.9275425, -0.19698724)
+bones/49/rotation = Quaternion(0.18255271, -0.35010114, -0.043067597, 0.9177412)
+bones/50/position = Vector3(-0.073018745, 0.8594208, -0.19601981)
+bones/50/rotation = Quaternion(-0.79107934, 0.5530099, 0.08004488, 0.24893053)
+bones/51/position = Vector3(-0.22302838, 0.8160598, -0.24608573)
+bones/51/rotation = Quaternion(0.60859156, -0.4303453, -0.5021236, 0.43851018)
+bones/52/position = Vector3(0.0052459054, 0.85124487, -0.12577607)
+bones/52/rotation = Quaternion(-0.59233516, -0.70480734, -0.3842292, 0.06894739)
+bones/53/position = Vector3(0.15085195, 0.851739, -0.050355654)
+bones/53/rotation = Quaternion(0.4800586, 0.5962271, 0.6174207, 0.18124226)
+
+[node name="AnimationPlayer" parent="." index="1"]
+active = false
+
+[node name="NetworkAnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+unique_name_in_owner = true
+deterministic = true
+root_motion_track = NodePath("rig_deform/Skeleton3D:c_pos")
+libraries = {
+&"testing": SubResource("AnimationLibrary_17v6d")
+}
+script = ExtResource("17_ywpbi")
+metadata/_custom_type_script = "uid://7pefdhcr1asv"
+
+[node name="CollisionBody" type="ShapeCast3D" parent="." index="3"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5029971, 0)
+shape = SubResource("SphereShape3D_75ayf")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+collide_with_bodies = false
+debug_shape_custom_color = Color(0, 1, 0, 1)
+script = ExtResource("18_mymn1")
+shape_owner = NodePath("..")
+metadata/_custom_type_script = "uid://njtvuidse1o3"
+
+[node name="MiscHitboxPool" type="Node3D" parent="." index="4"]
+
+[node name="MiscHurtboxPool" type="Node3D" parent="." index="5"]
