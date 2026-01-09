@@ -631,3 +631,6 @@ libraries = {
 autoplay = "AnimLibrary_test_newrig/idle_standing_BAKED"
 script = ExtResource("6_8ng0y")
 metadata/_custom_type_script = "uid://7pefdhcr1asv"
+
+[node name="AddonSpheres" type="Node3D" parent="." index="5"]
+unique_name_in_owner = true

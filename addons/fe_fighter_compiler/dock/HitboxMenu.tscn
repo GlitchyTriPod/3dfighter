@@ -1,0 +1,186 @@
+[gd_scene load_steps=2 format=3 uid="uid://htj3jlcx7ibc"]
+
+[ext_resource type="Script" uid="uid://dkhqk58bc4j2s" path="res://addons/fe_fighter_compiler/dock/hitbox_menu.gd" id="1_j6re0"]
+
+[node name="HitboxMenu" type="GridContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+script = ExtResource("1_j6re0")
+
+[node name="radius" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="radius"]
+layout_mode = 2
+text = "Sphere radius: "
+
+[node name="radiusVal" type="SpinBox" parent="radius"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="framestart" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="framestart"]
+layout_mode = 2
+text = "Frame Start: "
+
+[node name="FrameStartVal" type="SpinBox" parent="framestart"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="xpos" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="xpos"]
+layout_mode = 2
+text = "X position: "
+
+[node name="XposVal" type="SpinBox" parent="xpos"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="frameend" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="frameend"]
+layout_mode = 2
+text = "Frame end: "
+
+[node name="FrameEndVal" type="SpinBox" parent="frameend"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="ypos" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ypos"]
+layout_mode = 2
+text = "Y position: "
+
+[node name="YposVal" type="SpinBox" parent="ypos"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="attackheight" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="attackheight"]
+layout_mode = 2
+text = "Attack Height: "
+
+[node name="AttackHeightVal" type="OptionButton" parent="attackheight"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "High"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Low"
+popup/item_2/id = 2
+popup/item_3/text = "Sp. Medium"
+popup/item_3/id = 3
+popup/item_4/text = "Sp. Low"
+popup/item_4/id = 4
+
+[node name="zpos" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="zpos"]
+layout_mode = 2
+text = "Z position: "
+
+[node name="ZposVal" type="SpinBox" parent="zpos"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="unblock" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="unblock"]
+layout_mode = 2
+text = "Unblockable: "
+
+[node name="UnblockableVal" type="CheckBox" parent="unblock"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="punch" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="punch"]
+layout_mode = 2
+text = "Is Punch?: "
+
+[node name="IsPunchVal" type="CheckBox" parent="punch"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="kick" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="kick"]
+layout_mode = 2
+text = "Is Kick?: "
+
+[node name="IsKickVal" type="CheckBox" parent="kick"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="grab" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="grab"]
+layout_mode = 2
+text = "Is Grab?: "
+
+[node name="IsGrabVal" type="CheckBox" parent="grab"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Confirm
+"
+
+[node name="Cancel" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Cancel"
+
+[connection signal="update_sphere" from="." to="." method="_on_update_sphere"]
+[connection signal="value_changed" from="radius/radiusVal" to="." method="_on_radius_val_value_changed"]
+[connection signal="value_changed" from="framestart/FrameStartVal" to="." method="_on_frame_start_val_value_changed"]
+[connection signal="value_changed" from="xpos/XposVal" to="." method="_on_xpos_val_value_changed"]
+[connection signal="value_changed" from="frameend/FrameEndVal" to="." method="_on_frame_end_val_value_changed"]
+[connection signal="value_changed" from="ypos/YposVal" to="." method="_on_ypos_val_value_changed"]
+[connection signal="item_selected" from="attackheight/AttackHeightVal" to="." method="_on_attack_height_val_item_selected"]
+[connection signal="value_changed" from="zpos/ZposVal" to="." method="_on_zpos_val_value_changed"]
+[connection signal="toggled" from="unblock/UnblockableVal" to="." method="_on_unblockable_val_toggled"]
+[connection signal="toggled" from="punch/IsPunchVal" to="." method="_on_is_punch_val_toggled"]
+[connection signal="toggled" from="kick/IsKickVal" to="." method="_on_is_kick_val_toggled"]
+[connection signal="toggled" from="grab/IsGrabVal" to="." method="_on_is_grab_val_toggled"]
+[connection signal="button_up" from="Confirm" to="." method="_on_confirm_button_up"]
+[connection signal="button_up" from="Cancel" to="." method="_on_cancel_button_up"]

@@ -3,13 +3,16 @@ extends PanelContainer
 class_name MoveListItem
 
 signal is_selected(source)
+signal is_unselected
+
+signal request_hitbox_menu(hitbox: HitboxButton)
 
 const animation_state = preload("res://addons/fe_fighter_compiler/dock/animation_state.tscn")
 const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButton.tscn")
 
 @export var default_animations: AnimationLibrary
 @export var hit_animations: AnimationLibrary
-@export var block_aniamtions: AnimationLibrary
+@export var block_animations: AnimationLibrary
 
 var character_animations: AnimationLibrary
 
@@ -27,7 +30,7 @@ func _ready() -> void:
 		%MoveAnimationOption.add_item(name)
 	# for name: StringName in self.block_aniamtions: # used for stagger effects on blocked attacks
 	# 	%OnBlockOption.add_item(name)
-	for name: StringName in self.block_aniamtions:
+	for name: StringName in self.block_animations:
 		%OnBlockOpponentOption.add_item(name)
 	for name: StringName in self.hit_animations:
 		%OnHitOpponentOption.add_item(name)
@@ -77,5 +80,5 @@ func _on_add_hurtbox_button_up() -> void:
 	%HurtboxGrid.add_child(button)
 	button.clicked.connect(_on_hitbox_button_clicked)
 
-func _on_hitbox_button_clicked(data: Variant) -> void:
-	pass
+func _on_hitbox_button_clicked(hitbox: HitboxButton) -> void:
+	self.request_hitbox_menu.emit(hitbox)

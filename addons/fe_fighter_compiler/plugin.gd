@@ -3,12 +3,15 @@ extends EditorPlugin
 
 const scene = preload("res://addons/fe_fighter_compiler/dock/FighterCompilerDock.tscn")
 
+var global: FighterCompilerGlobal
+
 var dock
 
 func _enable_plugin() -> void:
 	# Add autoloads here.
-	pass
-
+	self.global = preload("res://addons/fe_fighter_compiler/FighterCompilerGlobal.gd").new()
+	self.global.request_node_to_dock.connect(self.add_to_dock)
+	self.global.request_remove_node_from_dock.connect(self.remove_from_dock)
 
 func _disable_plugin() -> void:
 	# Remove autoloads here.
@@ -17,9 +20,20 @@ func _disable_plugin() -> void:
 
 func _enter_tree() -> void:	
 	self.dock = scene.instantiate()
+	self.dock.request_hitbox_menu.connect(self._on_dock_request_hitbox_menu)
 	add_control_to_bottom_panel(self.dock, "Fighter Maker")
 
 
 func _exit_tree() -> void:
-	remove_control_from_docks(self.dock)
+	remove_control_from_bottom_panel(self.dock)
 	self.dock.free()
+
+func add_to_dock(dock_slot, node) -> void:
+	add_control_to_dock(dock_slot, node)
+
+func remove_from_dock(node) -> void:
+	remove_control_from_docks(node)
+	node.free()
+
+func _on_dock_request_hitbox_menu(hitbox: HitboxButton) -> void:
+	self.global.create_hitbox_menu(hitbox)

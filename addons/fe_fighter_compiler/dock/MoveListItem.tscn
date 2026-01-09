@@ -72,8 +72,36 @@ text = "Animation:"
 [node name="MoveAnimationOption" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-item_count = 1
+item_count = 15
 popup/item_0/id = 0
+popup/item_1/text = "def_atk_p"
+popup/item_1/id = 1
+popup/item_2/text = "def_dash_b"
+popup/item_2/id = 2
+popup/item_3/text = "def_dash_f"
+popup/item_3/id = 3
+popup/item_4/text = "def_idle_crouching"
+popup/item_4/id = 4
+popup/item_5/text = "def_idle_standing"
+popup/item_5/id = 5
+popup/item_6/text = "def_run_f"
+popup/item_6/id = 6
+popup/item_7/text = "def_step_l"
+popup/item_7/id = 7
+popup/item_8/text = "def_step_r"
+popup/item_8/id = 8
+popup/item_9/text = "def_walk_b"
+popup/item_9/id = 9
+popup/item_10/text = "def_walk_f"
+popup/item_10/id = 10
+popup/item_11/text = "def_walk_fc"
+popup/item_11/id = 11
+popup/item_12/text = "def_walk_l"
+popup/item_12/id = 12
+popup/item_13/text = "def_walk_r"
+popup/item_13/id = 13
+popup/item_14/text = "def_hit_h1"
+popup/item_14/id = 14
 
 [node name="InputContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

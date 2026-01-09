@@ -119,6 +119,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 	else:
+		%AddonSpheres.free()
+
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
