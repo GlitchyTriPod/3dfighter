@@ -17,11 +17,13 @@ var frame_end := 0
 
 var attack_height: int
 
+# Yet to be implemented
 var unblockable := false
 var is_grab := false
 
 var is_punch := false
 var is_kick := false
+# ===========================
 
 func _ready() -> void:
 	self.update_text()

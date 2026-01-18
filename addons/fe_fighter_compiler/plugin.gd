@@ -17,7 +17,6 @@ func _disable_plugin() -> void:
 	# Remove autoloads here.
 	pass
 
-
 func _enter_tree() -> void:	
 	self.dock = scene.instantiate()
 	self.dock.request_hitbox_menu.connect(self._on_dock_request_hitbox_menu)

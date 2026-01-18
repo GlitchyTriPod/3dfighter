@@ -28,17 +28,20 @@ func get_sphere_in_editor():
 			node.fixed_position.z == self.data["z_pos"]:
 				self.sphere = node
 				return
-	if self.sphere == null:
-		var new_sphere = FECollisionShape.new()
-		new_sphere.fixed_sphere_radius = data["sphere_radius"]
-		new_sphere.fixed_position = FixedVector3.new(
-			data["x_pos"],
-			data["y_pos"],
-			data["z_pos"]
-		)
+				
+	# if self.sphere == null:
+	# 	var new_sphere = FECollisionShape.new()
+	# 	new_sphere.fixed_sphere_radius = data["sphere_radius"]
+	# 	new_sphere.fixed_position = FixedVector3.new(
+	# 		data["x_pos"],
+	# 		data["y_pos"],
+	# 		data["z_pos"]
+	# 	)
 
-		EditorInterface.get_edited_scene_root().get_node("AddonSpheres") \
-			.add_child(new_sphere)
+	# 	EditorInterface.get_edited_scene_root().get_node("AddonSpheres") \
+	# 		.add_child(new_sphere)
+
+	# 	self.sphere = new_sphere
 
 func apply_hitbox_changes() -> void:
 	self.data = self.working_data.duplicate(true)
@@ -46,6 +49,10 @@ func apply_hitbox_changes() -> void:
 	self.update_data.emit(self.data)
 
 func _on_update_sphere(data: Dictionary) -> void:
+	if self.sphere == null:
+		self.get_sphere_in_editor()
+		if self.sphere == null:
+			return
 	self.sphere.fixed_sphere_radius = data["sphere_radius"]
 	self.sphere.fixed_position.x = data["x_pos"]
 	self.sphere.fixed_position.y = data["y_pos"]

@@ -23,9 +23,15 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="MainView/AnimationControls"]
+[node name="CompileMovelistButton" type="Button" parent="MainView/AnimationControls"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Bake Velocity Data..."
+text = "Compile Movelist"
+
+[node name="BakeVelocityDataButton" type="Button" parent="MainView/AnimationControls"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bake Velocity Data"
 
 [node name="AnimationSelector" type="OptionButton" parent="MainView/AnimationControls"]
 unique_name_in_owner = true
@@ -57,7 +63,6 @@ vertical_alignment = 1
 
 [node name="MoveListView" type="ScrollContainer" parent="MainView"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -69,7 +74,6 @@ size_flags_vertical = 3
 
 [node name="MoveListControls" type="HBoxContainer" parent="MainView"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
@@ -86,6 +90,8 @@ size_flags_horizontal = 10
 size_flags_vertical = 8
 text = "Remove Move"
 
+[connection signal="animation_frame_changed" from="." to="." method="_on_animation_frame_changed"]
+[connection signal="button_up" from="MainView/AnimationControls/CompileMovelistButton" to="." method="_on_compile_movelist_button_button_up"]
 [connection signal="button_up" from="MainView/AnimationControls/SeekBack" to="." method="_on_seek_back_button_up"]
 [connection signal="button_up" from="MainView/MoveListControls/Add Move" to="." method="_on_add_move_button_up"]
 [connection signal="button_up" from="MainView/MoveListControls/Remove Move" to="." method="_on_remove_move_button_up"]

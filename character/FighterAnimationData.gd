@@ -3,9 +3,10 @@ class_name FighterAnimationData
 
 # var id: String
 
-var attack_name: String = ""
+var move_name: String = ""
 
-var input_map: Array = []
+var input_di_map: Array = []
+var input_button: int
 
 var animation_name: String = ""
 
@@ -19,12 +20,16 @@ var recovery_counter: int
 
 # contains data on any hitboxes put out by the animation.
 # Keep empty if this animation does not attack the opponent
-var hitbox_data := []
+var hitbox_data := {}
 
 # contains data on misc. hurtboxes that extends the player's hit area
 var hurtbox_data := {}
 
 # contains fighter state data based on frame ranges
-var player_states :={}
+var player_states := {}
 
 # TODO: link to other AnimationData to enable attack strings
+
+func add_inputs_arr(inputs: Array):
+    self.input_di_map = inputs.slice(-1, inputs.size() - 2)
+    self.input_button = inputs[inputs.size() -1]

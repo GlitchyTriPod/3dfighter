@@ -57,6 +57,10 @@ func add_to_list(move: FighterAnimationData):
 	var key = str(self.move_list.size()) 
 	self.move_list.get_or_add(key, move)
 
+func add_arr_to_list(moves: Array[FighterAnimationData]):
+	for i: FighterAnimationData in moves:
+		self.add_to_list(i)
+
 func get_from_input(_input_di: Fighter.DI_STATE, input_button: Fighter.BUTTON_STATE, _player_state: Dictionary) -> String:
 	for move_id: String in self.move_list:
 		var move: FighterAnimationData = self.move_list.get(move_id)

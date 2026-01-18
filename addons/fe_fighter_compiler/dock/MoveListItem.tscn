@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://di3b0552wm8gb"]
+[gd_scene load_steps=14 format=3 uid="uid://di3b0552wm8gb"]
 
 [ext_resource type="Texture2D" uid="uid://bsgp03cahu7rb" path="res://img/icon/star.png" id="1_7e60s"]
 [ext_resource type="Script" uid="uid://bb5c0aru3csjo" path="res://addons/fe_fighter_compiler/dock/MoveListItem.gd.gd" id="1_15l3u"]
@@ -7,7 +7,6 @@
 [ext_resource type="AnimationLibrary" uid="uid://bwyyg2cj0soe4" path="res://models/animations/testing/def_hit_animations.res" id="3_7j2wi"]
 [ext_resource type="Texture2D" uid="uid://bkj15iv03dya4" path="res://img/icon/upRight.png" id="3_jcdpy"]
 [ext_resource type="Texture2D" uid="uid://c2kp6y6vbo5fb" path="res://img/icon/arrowRight.png" id="4_jp5y0"]
-[ext_resource type="AnimationLibrary" uid="uid://cviv8qqhngumm" path="res://models/animations/testing/def_block_animations.tres" id="4_okxo3"]
 [ext_resource type="Texture2D" uid="uid://camo5585x3d4x" path="res://img/icon/downRight.png" id="5_a8qxq"]
 [ext_resource type="Texture2D" uid="uid://sd07n4uts3ic" path="res://img/icon/arrowDown.png" id="6_7j2wi"]
 [ext_resource type="Texture2D" uid="uid://vo7ajo23scq8" path="res://img/icon/downLeft.png" id="7_okxo3"]
@@ -38,7 +37,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7e60s")
 script = ExtResource("1_15l3u")
 default_animations = ExtResource("2_a8qxq")
 hit_animations = ExtResource("3_7j2wi")
-block_aniamtions = ExtResource("4_okxo3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
