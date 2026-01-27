@@ -10,7 +10,7 @@ var data: Dictionary
 
 var working_data: Dictionary
 
-@onready var sphere : FECollisionShape
+@onready var sphere: FECollisionShape
 
 func _ready() -> void:
 	self.get_sphere_in_editor()
@@ -18,7 +18,7 @@ func _ready() -> void:
 	self.working_data = self.data.duplicate(true)
 
 func get_sphere_in_editor():
-	var active_spheres = EditorInterface.get_edited_scene_root() \
+	var active_spheres: Array = EditorInterface.get_edited_scene_root() \
 		.get_node("AddonSpheres") \
 		.get_children()
 	for node: FECollisionShape in active_spheres:
@@ -44,7 +44,7 @@ func get_sphere_in_editor():
 	# 	self.sphere = new_sphere
 
 func apply_hitbox_changes() -> void:
-	self.data = self.working_data.duplicate(true)
+	self.data: Dictionary = self.working_data.duplicate(true)
 	self.update_sphere.emit(self.data)
 	self.update_data.emit(self.data)
 
@@ -100,7 +100,7 @@ func _on_is_grab_val_toggled(toggled_on: bool) -> void:
 
 func _on_confirm_button_up() -> void:
 	self.apply_hitbox_changes()
-	var toaster = EditorInterface.get_editor_toaster()
+	var toaster: EditorToaster = EditorInterface.get_editor_toaster()
 	toaster.push_toast("Hitbox values saved!")
 
 func _on_cancel_button_up() -> void:

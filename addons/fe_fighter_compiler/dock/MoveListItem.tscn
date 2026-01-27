@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://di3b0552wm8gb"]
+[gd_scene load_steps=16 format=3 uid="uid://di3b0552wm8gb"]
 
 [ext_resource type="Texture2D" uid="uid://bsgp03cahu7rb" path="res://img/icon/star.png" id="1_7e60s"]
 [ext_resource type="Script" uid="uid://bb5c0aru3csjo" path="res://addons/fe_fighter_compiler/dock/MoveListItem.gd.gd" id="1_15l3u"]
@@ -26,6 +26,11 @@ border_width_bottom = 4
 border_color = Color(0.23137255, 0.1254902, 0.1254902, 1)
 anti_aliasing = false
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jp5y0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp5y0"]
+bg_color = Color(0.11659999, 0.1683, 0.22, 1)
+
 [node name="MoveListItem" type="PanelContainer"]
 anchors_preset = 10
 anchor_right = 1.0
@@ -37,6 +42,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7e60s")
 script = ExtResource("1_15l3u")
 default_animations = ExtResource("2_a8qxq")
 hit_animations = ExtResource("3_7j2wi")
+block_animations = SubResource("AnimationLibrary_jp5y0")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -70,7 +76,7 @@ text = "Animation:"
 [node name="MoveAnimationOption" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-item_count = 15
+item_count = 29
 popup/item_0/id = 0
 popup/item_1/text = "def_atk_p"
 popup/item_1/id = 1
@@ -100,6 +106,34 @@ popup/item_13/text = "def_walk_r"
 popup/item_13/id = 13
 popup/item_14/text = "def_hit_h1"
 popup/item_14/id = 14
+popup/item_15/text = "def_atk_p"
+popup/item_15/id = 15
+popup/item_16/text = "def_dash_b"
+popup/item_16/id = 16
+popup/item_17/text = "def_dash_f"
+popup/item_17/id = 17
+popup/item_18/text = "def_idle_crouching"
+popup/item_18/id = 18
+popup/item_19/text = "def_idle_standing"
+popup/item_19/id = 19
+popup/item_20/text = "def_run_f"
+popup/item_20/id = 20
+popup/item_21/text = "def_step_l"
+popup/item_21/id = 21
+popup/item_22/text = "def_step_r"
+popup/item_22/id = 22
+popup/item_23/text = "def_walk_b"
+popup/item_23/id = 23
+popup/item_24/text = "def_walk_f"
+popup/item_24/id = 24
+popup/item_25/text = "def_walk_fc"
+popup/item_25/id = 25
+popup/item_26/text = "def_walk_l"
+popup/item_26/id = 26
+popup/item_27/text = "def_walk_r"
+popup/item_27/id = 27
+popup/item_28/text = "def_hit_h1"
+popup/item_28/id = 28
 
 [node name="InputContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -201,6 +235,7 @@ theme_override_constants/margin_bottom = 10
 [node name="MoveData" type="FoldableContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jp5y0")
 title = "Move Data"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData"]
@@ -256,6 +291,10 @@ text = "On Hit [Opponent]: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+selected = 0
+item_count = 1
+popup/item_0/text = "def_hit_h1"
+popup/item_0/id = 0
 
 [node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States"]
 layout_mode = 2
@@ -276,6 +315,10 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
+selected = 0
+item_count = 1
+popup/item_0/text = "def_hit_h1"
+popup/item_0/id = 0
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States"]
 layout_mode = 2
@@ -358,6 +401,7 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/IsSelected" to="." method="_on_is_selected_toggled"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/MoveAnimationOption" to="." method="_on_move_animation_option_item_selected"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/AddDirectionalInput" to="." method="_on_add_directional_input_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/RemoveDirectionalInput" to="." method="_on_remove_directional_input_button_up"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]

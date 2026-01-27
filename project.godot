@@ -8,19 +8,28 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="3dFighter"
 run/main_scene="uid://cwmug0477s5fu"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
 
-SyncManager="*res://addons/delta_rollback/SyncManager.gd"
+SyncManager="*uid://xohxvtt4jjfo"
 SyncDebugger="*res://addons/delta_rollback/SyncDebugger.gd"
 SyncReplay="*res://addons/delta_rollback/SyncReplay.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
 
 [display]
 
@@ -31,7 +40,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/delta_rollback/plugin.cfg")
+enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/delta_rollback/plugin.cfg", "res://addons/fe_fighter_compiler/plugin.cfg")
 
 [filesystem]
 
@@ -172,8 +181,9 @@ rollback/classes/message_serializer="uid://b8ahiut0y2ub"
 
 [physics]
 
+2d/run_on_separate_thread=true
+3d/run_on_separate_thread=true
 common/max_physics_steps_per_frame=1
-3d/physics_engine="Dummy"
 3d/default_gravity=642252.0
 
 [rendering]
@@ -189,8 +199,8 @@ anti_aliasing/screen_space_roughness_limiter/enabled=false
 anti_aliasing/screen_space_roughness_limiter/amount=0.01
 anti_aliasing/screen_space_roughness_limiter/limit=0.01
 environment/glow/upscale_mode=0
-environment/screen_space_reflection/roughness_quality=0
 environment/subsurface_scattering/subsurface_scattering_quality=0
+environment/screen_space_reflection/roughness_quality=0
 
 [shader_globals]
 

@@ -4,7 +4,7 @@ class_name FighterMovelist
 
 # const uuid_util = preload("res://addons/uuid/uuid.gd")
 
-var move_list : Dictionary[String, FighterAnimationData] = {}
+var move_list: Dictionary[String, FighterAnimationData] = {}
 
 # DEBUG TOOL ONLY
 # func _init() -> void:
@@ -54,7 +54,7 @@ var move_list : Dictionary[String, FighterAnimationData] = {}
 # 	pass
 
 func add_to_list(move: FighterAnimationData):
-	var key = str(self.move_list.size()) 
+	var key: String = str(self.move_list.size()) 
 	self.move_list.get_or_add(key, move)
 
 func add_arr_to_list(moves: Array[FighterAnimationData]):

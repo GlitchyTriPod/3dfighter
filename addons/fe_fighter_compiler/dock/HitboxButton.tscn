@@ -4,11 +4,11 @@
 
 [node name="HitboxButton" type="Button"]
 toggle_mode = true
-text = "Radius: 99999
-X: 999.9
-Y: 999.9
-Z: 999.9
-i99 - i99"
+text = "Radius: 0
+X: 0
+Y: 0
+Z: 0
+i0 - i0"
 alignment = 0
 script = ExtResource("1_1akkv")
 

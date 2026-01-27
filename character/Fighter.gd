@@ -2,7 +2,7 @@
 extends Node3D
 class_name Fighter
 
-@export_enum("1", "2") var player := 0
+@export_enum("1", "2") var player: int = 0
 
 const state_default: Dictionary = {
 	"crouching": false,
@@ -26,9 +26,9 @@ var stun_reason := {
 	"stun_id": ""
 }
 
-var states := state_default.duplicate(true)
+var states: Dictionary = state_default.duplicate(true)
 
-@export var movelist : FighterMovelist
+@export var movelist: FighterMovelist
 
 # tracks basic stances for the fighter -- extend if character has multiple stances
 enum STANCE {
@@ -72,11 +72,11 @@ enum BUTTON_STATE {
 	PKA
 }
 # tracks the buttons that the player is pressing/holding down
-var button_state = BUTTON_STATE.NONE
+var button_state: int = BUTTON_STATE.NONE
 
 var message_bus: FighterMessageBus
 
-var floor_height : int = 0
+var floor_height: int = 0
 
 var is_on_ground: bool:
 	get:
@@ -95,21 +95,21 @@ var screen_position: String:
 				)
 			)
 
-@onready var collision_body : FEFighterCollisionBody = %CollisionBody
-var input_interpreter = InputInterpreter.new()
+@onready var collision_body: FEFighterCollisionBody = %CollisionBody
+var input_interpreter: InputInterpreter = InputInterpreter.new()
 
-@onready var anim_player : NetworkAnimationPlayer = %NetworkAnimationPlayer
+@onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
 var current_anim_id: String
 
-var collision_body_offset : Vector3
+var collision_body_offset: Vector3
 
 
 @onready var misc_hitbox_pool: Array = %MiscHitboxPool.get_children()
 @onready var misc_hurtbox_pool: Array = %MiscHurtboxPool.get_children()
 
-var is_focused := false
+var is_focused: bool = false
 
-var is_online := false
+var is_online: bool = false
 
 signal ready_for_input_process(player)
 
@@ -248,12 +248,13 @@ func process_animation_hitboxes():
 	var current_frame := int(floor(self.anim_player.current_animation_position * 60))
 	var hitbox_data
 	var index: int
-	for h_b in atk.hitbox_data:
-		if !(current_frame >= h_b.frame_range.start && current_frame < h_b.frame_range.end):
-			continue
-		hitbox_data = h_b
-		index = atk.hitbox_data.find(h_b)
-		break
+	if atk.hitbox_data.has("shapes"):
+		for h_b in atk.hitbox_data["shapes"]:
+			if !(current_frame >= h_b.frame_range.start && current_frame < h_b.frame_range.end):
+				continue
+			hitbox_data = h_b
+			index = atk.hitbox_data["shapes"].find(h_b)
+			break
 	
 	if hitbox_data == null:
 		return
