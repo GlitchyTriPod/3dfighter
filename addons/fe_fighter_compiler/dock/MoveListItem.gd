@@ -8,7 +8,7 @@ signal is_unselected
 signal animation_changed(anim_name: String)
 signal animation_frame_changed(frame: float)
 
-signal request_hitbox_menu(hitbox: HitboxButton)
+signal request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String)
 
 const animation_state = preload("res://addons/fe_fighter_compiler/dock/animation_state.tscn")
 const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButton.tscn")
@@ -21,7 +21,9 @@ const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButto
 
 var character_animations: AnimationLibrary
 
-var move_name: String
+var move_name: String:
+	get:
+		return %MoveNameLabel.text
 
 var selected: bool = false
 
@@ -158,16 +160,17 @@ func _on_button_button_up() -> void:
 func _on_add_hitbox_button_up() -> void:
 	var button: HitboxButton = self.hitbox_button.instantiate()
 	%HitboxGrid.add_child(button)
-	button.clicked.connect(_on_hitbox_button_clicked)
+	button.clicked.connect(self._on_hitbox_button_clicked)
 
 func _on_add_hurtbox_button_up() -> void:
 	var button: HitboxButton = self.hitbox_button.instantiate()
 	button.is_hurtbox = true
 	%HurtboxGrid.add_child(button)
-	button.clicked.connect(_on_hitbox_button_clicked)
+	button.clicked.connect(self._on_hitbox_button_clicked)
 
 func _on_hitbox_button_clicked(hitbox: HitboxButton) -> void:
-	self.request_hitbox_menu.emit(hitbox)
+	var idx: int = %HitboxGrid.get_children().find(hitbox)
+	self.request_hitbox_menu.emit(hitbox, idx, self.move_name)
 
 func _on_dock_animation_frame_changed(frame: float) -> void:
 	# self.animation_frame_changed.emit(frame)
@@ -176,14 +179,20 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 
 	var spheres: Array = EditorInterface.get_edited_scene_root().get_node("AddonSpheres").get_children()
 	for sphere: Node in spheres:
-		sphere.queue_free()
+		sphere.free()
 
 	var hitboxes: Array = %HitboxGrid.get_children()
-	for hitbox: HitboxButton in hitboxes:
+	for i: int in hitboxes.size():
+		var hitbox: HitboxButton = hitboxes[i]
 		if !(hitbox.frame_start <= frame && frame < hitbox.frame_end):
 			continue
 
 		var new_sphere: FECollisionShape = FECollisionShape.new()
+
+		EditorInterface.get_edited_scene_root().get_node("AddonSpheres") \
+			.add_child(new_sphere)		
+		new_sphere.owner = EditorInterface.get_edited_scene_root()
+
 		new_sphere.fixed_sphere_radius = hitbox.sphere_radius
 		new_sphere.fixed_position = FixedVector3.new(
 			hitbox.x_pos,
@@ -192,9 +201,17 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 		)
 		new_sphere.debug_shape_custom_color = Color.YELLOW
 
+		new_sphere.name = "hit_[%d]%s" % [i, self.move_name]
+
 	var hurtboxes: Array = %HurtboxGrid.get_children()
-	for hurtbox: HitboxButton in hurtboxes:
+	for i: int in hurtboxes.size():
+		var hurtbox: HitboxButton = hurtboxes[i]
 		var new_sphere: FECollisionShape = FECollisionShape.new()
+		
+		EditorInterface.get_edited_scene_root().get_node("AddonSpheres") \
+			.add_child(new_sphere)		
+		new_sphere.owner = EditorInterface.get_edited_scene_root()
+
 		new_sphere.fixed_sphere_radius = hurtbox.sphere_radius
 		new_sphere.fixed_position = FixedVector3.new(
 			hurtbox.x_pos,
@@ -202,6 +219,8 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 			hurtbox.z_pos
 		)
 		new_sphere.debug_shape_custom_color = Color.WHITE
+
+		new_sphere.name = "hurt_[%d]%s" % [i, self.move_name]
 
 func _on_move_animation_option_item_selected(index: int) -> void:
 	self.animation_changed.emit(%MoveAnimationOption.get_item_text(index))

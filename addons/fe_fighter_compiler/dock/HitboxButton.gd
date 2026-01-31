@@ -2,7 +2,7 @@
 extends Button
 class_name HitboxButton
 
-signal clicked(source)
+signal clicked(source: HitboxButton)
 
 @export var is_hurtbox := false
 
@@ -23,6 +23,7 @@ var is_grab := false
 
 var is_punch := false
 var is_kick := false
+
 # ===========================
 
 func _ready() -> void:
@@ -67,3 +68,6 @@ func update_data(data: Dictionary):
 	self.is_kick = data['is_kick']
 	self.is_grab = data['is_grab']
 	self.update_text()
+
+func _on_HitboxMenu_request_hitbox_removal() -> void:
+	self.queue_free()

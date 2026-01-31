@@ -1,12 +1,12 @@
 class_name FixedInt
 
-const FIXED_ZERO := 0
-const FIXED_ONE := 65536
-const FIXED_HALF := 32768
-const FIXED_TWO := 131072
-const FIXED_PI := 205887
-const FIXED_TAU := 411774
-const FIXED_PI_DIV_2 := 102943
+const FIXED_ZERO: int = 0
+const FIXED_ONE: int = 65536
+const FIXED_HALF: int = 32768
+const FIXED_TWO: int = 131072
+const FIXED_PI: int = 205887
+const FIXED_TAU: int = 411774
+const FIXED_PI_DIV_2: int = 102943
 
 # also copied from SGPhysics2D, which copied from wikipedia. theft is an art
 # https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Binary_numeral_system_.28base_2.29
@@ -39,6 +39,12 @@ static func sqrt_64(num: int) -> int:
 static func from_int(val: int) -> int:
 	return val << 16
 
+static func from_float(val: float) -> int:
+	return int(val * 65536)
+
+static func to_float(fixed_int: int) -> float:
+	return float(fixed_int / 65536.0)
+
 static func mul(val1: int, val2: int) -> int:
 	# there may need to be some overflow checks above this
 	# but im assuming for now that gdscript is incapable from performing those
@@ -64,7 +70,7 @@ static func sin(num: int) -> int:
 	if x < FixedInt.from_int(0):
 		x += FixedInt.from_int(4)
 
-	var sig := FixedInt.from_int(+1)
+	var sig: int = FixedInt.from_int(+1)
 	if x > FixedInt.from_int(2):
 		# Reduce domain to [0..2].
 		sig = FixedInt.from_int(-1)
@@ -74,7 +80,7 @@ static func sin(num: int) -> int:
 		# Reduce domain to [0..1].
 		x = FixedInt.from_int(2) - x
 
-	var x2 := FixedInt.mul(x, x)
+	var x2: int = FixedInt.mul(x, x)
 	
 	return FixedInt.mul(FixedInt.mul(sig, x), FIXED_PI - FixedInt.mul(x2,
 			FIXED_TAU - FixedInt.from_int(5) - FixedInt.mul(x2, (FIXED_PI - FixedInt.from_int(3)))
@@ -90,7 +96,7 @@ static func acos(num: int) -> int:
 	if num == -FIXED_ONE:
 		return FIXED_PI
 
-	var yy := FIXED_ONE - FixedInt.mul(num, num)
+	var yy: int = FIXED_ONE - FixedInt.mul(num, num)
 	return FixedInt.mul(FIXED_TWO, FixedInt.atan_div(FixedInt.sqrt_64(yy << 16), FIXED_ONE + num))
 	
 # // Adapted from the fpm library: https://github.com/MikeLankamp/fpm
@@ -113,7 +119,7 @@ static func atan2(this: int, num: int) -> int:
 	if num < FIXED_ZERO:
 		return FIXED_PI_DIV_2 if this > FIXED_ZERO else -FIXED_PI_DIV_2
 
-	var ret := FixedInt.atan_div(this, num)
+	var ret: int = FixedInt.atan_div(this, num)
 
 	if num < FIXED_ZERO:
 		return ret + FIXED_PI if this >= FIXED_ZERO else ret - FIXED_PI
@@ -141,11 +147,11 @@ static func atan_div(p_y: int, p_x: int) -> int:
 # // Copyright 2019 Mike Lankamp
 # // License: MIT
 static func atan_sanitized(p_x: int) -> int:
-	var a := 5089   #  0.0776509570923569
-	var b := -18837 # -0.2874298095703125
-	var c := 65220  #  0.999755859375 (PI_DIV_4 - A - B)
+	var a: int = 5089   #  0.0776509570923569
+	var b: int = -18837 # -0.2874298095703125
+	var c: int = 65220  #  0.999755859375 (PI_DIV_4 - A - B)
 
-	var xx = FixedInt.mul(p_x, p_x)
+	var xx: int = FixedInt.mul(p_x, p_x)
 	return FixedInt.mul(FixedInt.mul(FixedInt.mul(a, xx) + b, xx) + c, p_x)
 
 static func deg2rads(deg: int) -> int: 				# 180
@@ -156,5 +162,5 @@ static func rads2deg(rad: int) -> int: 				# 180
 	return FixedInt.mul(rad, FixedInt.div(11796480, FIXED_PI )) 
 	# return FixedInt.div(FixedInt.mul(deg, FIXED_PI), 11796480)
 
-static func lerp(from: int, to: int, weight: int):
+static func lerp(from: int, to: int, weight: int) -> int:
 	return FixedInt.mul(from, (FIXED_ONE - weight)) + FixedInt.mul(to, weight)

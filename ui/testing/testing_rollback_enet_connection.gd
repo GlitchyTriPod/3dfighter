@@ -2,18 +2,18 @@ extends Node
 
 const DummyNetworkAdapter = preload("res://addons/delta_rollback/DummyNetworkAdaptor.gd")
 
-@onready var main_menu = $CanvasLayer/MainMenu
-@onready var connection_panel = $CanvasLayer/ConnectionPanel
-@onready var host_field = $CanvasLayer/ConnectionPanel/GridContainer/HostField
-@onready var port_field = $CanvasLayer/ConnectionPanel/GridContainer/PortField
-@onready var message_label = $CanvasLayer/MessageLabel
-@onready var sync_lost_label = $CanvasLayer/SyncLostLabel
+@onready var main_menu: HBoxContainer = $CanvasLayer/MainMenu
+@onready var connection_panel: Window = $CanvasLayer/ConnectionPanel
+@onready var host_field: LineEdit = $CanvasLayer/ConnectionPanel/GridContainer/HostField
+@onready var port_field: LineEdit = $CanvasLayer/ConnectionPanel/GridContainer/PortField
+@onready var message_label: Label = $CanvasLayer/MessageLabel
+@onready var sync_lost_label: Label = $CanvasLayer/SyncLostLabel
 
 @onready var stage: Stage = %Stage
 
-const LOG_FILE_DIRECTORY = "user://detailed_logs"
+const LOG_FILE_DIRECTORY: String = "user://detailed_logs"
 
-var logging_enabled := false
+var logging_enabled: bool= false
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(self._on_network_peer_connected)
@@ -27,7 +27,7 @@ func _ready() -> void:
 	SyncManager.sync_error.connect(self._on_SyncManager_sync_error)
 
 func _on_server_button_pressed() -> void:
-	var peer = ENetMultiplayerPeer.new()
+	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	peer.create_server(int(port_field.text), 1)
 	multiplayer.multiplayer_peer = peer
 	self.connection_panel.visible = false
@@ -35,7 +35,7 @@ func _on_server_button_pressed() -> void:
 	self.message_label.text = "Listening for connection..."
 
 func _on_client_button_pressed() -> void:
-	var peer = ENetMultiplayerPeer.new()
+	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	peer.create_client(host_field.text, int(port_field.text))
 	multiplayer.multiplayer_peer = peer
 	self.connection_panel.visible = false
@@ -69,20 +69,20 @@ func _on_network_server_disconnected() -> void:
 func _on_reset_button_pressed() -> void:
 	SyncManager.stop()
 	SyncManager.clear_peers()
-	var peer := multiplayer.multiplayer_peer
+	var peer: MultiplayerPeer = multiplayer.multiplayer_peer
 	if peer:
 		peer.close()
 	get_tree().reload_current_scene()
 
-func _on_SyncManager_sync_started():
+func _on_SyncManager_sync_started() -> void:
 	message_label.text = "Sync Started!"
 
 	if logging_enabled:
 		if !DirAccess.dir_exists_absolute(LOG_FILE_DIRECTORY):
 			DirAccess.make_dir_absolute(LOG_FILE_DIRECTORY)
 
-		var datetime = Time.get_datetime_dict_from_system(true)
-		var log_file_name = "%04d%02d%02d-%02d%02d%02d-peer-%d.log" % [
+		var datetime: Dictionary = Time.get_datetime_dict_from_system(true)
+		var log_file_name: String = "%04d%02d%02d-%02d%02d%02d-peer-%d.log" % [
 			datetime['year'],
 			datetime['month'],
 			datetime['day'],
@@ -95,23 +95,23 @@ func _on_SyncManager_sync_started():
 		SyncManager.start_logging(LOG_FILE_DIRECTORY + '/' + log_file_name)
 
 	
-func _on_SyncManager_sync_stopped():
+func _on_SyncManager_sync_stopped() -> void:
 	if logging_enabled:
 		SyncManager.stop_logging()
 
-func _on_SyncManager_sync_lost():
+func _on_SyncManager_sync_lost() -> void:
 	sync_lost_label.visible = true
 	pass
 
-func _on_SyncManager_sync_regained():
+func _on_SyncManager_sync_regained() -> void:
 	sync_lost_label.visible = false
 	pass
 
-func _on_SyncManager_sync_error(message: String):
+func _on_SyncManager_sync_error(message: String) -> void:
 	message_label.text= "Fatal sync error: " + message
 	sync_lost_label.visible = false
 
-	var peer := multiplayer.multiplayer_peer
+	var peer: MultiplayerPeer = multiplayer.multiplayer_peer
 	if peer:
 		peer.close()
 	SyncManager.clear_peers()

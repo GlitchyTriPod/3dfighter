@@ -32,18 +32,18 @@ class_name FixedVector3
 		if self.universal_setter_callback != null:
 			self.universal_setter_callback.call()
 
-var x_setter_callback #: Callable 
-var y_setter_callback
-var z_setter_callback
-var universal_setter_callback 
+var x_setter_callback: Callable 
+var y_setter_callback: Callable
+var z_setter_callback: Callable
+var universal_setter_callback: Callable
 
-func _init(x_inc: int = 0, y_inc: int = 0, z_inc: int = 0):
+func _init(x_inc: int = 0, y_inc: int = 0, z_inc: int = 0) -> void:
 	self.x = x_inc
 	self.y = y_inc
 	self.z = z_inc
 
 static func from_vec3(val: Vector3) -> FixedVector3:
-	var ret_vec = FixedVector3.new()
+	var ret_vec: FixedVector3 = FixedVector3.new()
 
 	ret_vec.x = int(val.x * 65536)
 	ret_vec.y = int(val.y * 65536)
@@ -52,7 +52,7 @@ static func from_vec3(val: Vector3) -> FixedVector3:
 	return ret_vec
 
 static func to_vec3(val: FixedVector3) -> Vector3:
-	var ret_vec = Vector3()
+	var ret_vec: Vector3 = Vector3()
 
 	ret_vec.x = float(val.x / 65536.0)
 	ret_vec.y = float(val.y / 65536.0)
@@ -61,7 +61,7 @@ static func to_vec3(val: FixedVector3) -> Vector3:
 	return ret_vec
 
 static func add(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
-	var ret_vec = FixedVector3.new()
+	var ret_vec: FixedVector3 = FixedVector3.new()
 
 	ret_vec.x = vec1.x + vec2.x
 	ret_vec.y = vec1.y + vec2.y
@@ -70,7 +70,7 @@ static func add(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
 	return ret_vec
 
 static func sub(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
-	var ret_vec = FixedVector3.new()
+	var ret_vec: FixedVector3 = FixedVector3.new()
 
 	ret_vec.x = vec1.x - vec2.x
 	ret_vec.y = vec1.y - vec2.y
@@ -79,7 +79,7 @@ static func sub(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
 	return ret_vec
 
 static func mul(vec: FixedVector3, num: int) -> FixedVector3:
-	var ret_vec = FixedVector3.new()
+	var ret_vec: FixedVector3 = FixedVector3.new()
 
 	ret_vec.x = FixedInt.mul(vec.x, num)
 	ret_vec.y = FixedInt.mul(vec.y, num)
@@ -88,7 +88,7 @@ static func mul(vec: FixedVector3, num: int) -> FixedVector3:
 	return ret_vec
 
 static func vec_mul(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
-	var ret_vec = FixedVector3.new()
+	var ret_vec: FixedVector3 = FixedVector3.new()
 
 	ret_vec.x = FixedInt.mul(vec1.x, vec2.x)
 	ret_vec.y = FixedInt.mul(vec1.y, vec2.y)
@@ -97,7 +97,7 @@ static func vec_mul(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
 	return ret_vec
 
 static func div(vec: FixedVector3, num: int) -> FixedVector3:
-	var ret_vec = FixedVector3.new()
+	var ret_vec: FixedVector3 = FixedVector3.new()
 
 	ret_vec.x = FixedInt.div(vec.x, num)
 	ret_vec.y = FixedInt.div(vec.y, num)
@@ -106,7 +106,7 @@ static func div(vec: FixedVector3, num: int) -> FixedVector3:
 	return ret_vec
 
 static func lerp(from: FixedVector3, to: FixedVector3, weight: int) -> FixedVector3:
-	var ret = FixedVector3.new()
+	var ret: FixedVector3 = FixedVector3.new()
 
 	ret.x = FixedInt.lerp(from.x, to.x, weight)
 	ret.y = FixedInt.lerp(from.y, to.y, weight)
@@ -115,13 +115,13 @@ static func lerp(from: FixedVector3, to: FixedVector3, weight: int) -> FixedVect
 	return ret
 
 static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP, use_model_front: bool = false) -> Basis:
-	var v_z = target.normalized()
+	var v_z : FixedVector3= target.normalized()
 	if !use_model_front:
 		v_z.x = -v_z.x
 		v_z.y = -v_z.y
 		v_z.z = -v_z.z
 
-	var v_x := FixedVector3.from_vec3(up_axis).cross(v_z)
+	var v_x: FixedVector3 = FixedVector3.from_vec3(up_axis).cross(v_z)
 	if v_x.is_zero_approx():
 		v_x = FixedVector3.from_vec3(
 			up_axis.cross( \
@@ -132,7 +132,7 @@ static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP
 
 	v_x.normalize()
 
-	var v_y := v_z.cross(v_x)
+	var v_y: FixedVector3 = v_z.cross(v_x)
 
 	return Basis(
 		FixedVector3.to_vec3(v_x),
@@ -141,14 +141,14 @@ static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP
 	)
 
 func dot(vec2: FixedVector3) -> int:
-	var res := 0
+	var res: int = 0
 	res += FixedInt.mul(self.x, vec2.x)
 	res += FixedInt.mul(self.y, vec2.y)
 	res += FixedInt.mul(self.z, vec2.z)
 	return res
 
 func dot_2d(vec2: FixedVector3) -> int:
-	var res := 0
+	var res: int = 0
 	res += FixedInt.mul(self.x, vec2.x)
 	# res += FixedInt.mul(self.y, vec2.y)
 	res += FixedInt.mul(self.z, vec2.z)
@@ -164,26 +164,26 @@ func cross(vec2: FixedVector3) -> FixedVector3:
 	# return FixedInt.mul(self.z, vec2.x) - FixedInt.mul(self.x, vec2.z)
 
 func length() -> int:
-	var length_sqrd := self.length_squared()
+	var length_sqrd: int = self.length_squared()
 
 	if length_sqrd == 0:
 		return 0
 
-	var lgth = FixedInt.sqrt_64(length_sqrd)
+	var lgth: int = FixedInt.sqrt_64(length_sqrd)
 	if lgth == 0:
 		return 1
 
 	return lgth
 
 func length_2d() -> int: # returns length projected across the XZ plane
-	var pow1 = FixedInt.mul(self.x, self.x)
-	var pow2 = FixedInt.mul(self.z, self.z)
+	var pow1: int = FixedInt.mul(self.x, self.x)
+	var pow2: int = FixedInt.mul(self.z, self.z)
 
 	# print(str(pow1) + " " + str(pow2) + ' ' + str(FixedInt.sqrt_64(pow1 + pow2)))
 	return FixedInt.sqrt_64(pow1 + pow2)
 
 func length_squared() -> int:
-	var ret := FixedInt.mul(self.x, self.x) \
+	var ret: int = FixedInt.mul(self.x, self.x) \
 		+ FixedInt.mul(self.y, self.y) \
 		+ FixedInt.mul(self.z, self.z)
 											  
@@ -203,7 +203,7 @@ func distance_squared_to(vec: FixedVector3) -> int:
 	return FixedVector3.sub(vec, self).length_squared()
 
 func direction_to(vec2: FixedVector3) -> FixedVector3:
-	var ret := FixedVector3.new()
+	var ret: FixedVector3 = FixedVector3.new()
 	ret.x = vec2.x - self.x
 	ret.y = vec2.y - self.y
 	ret.z = vec2.z - self.z
@@ -211,7 +211,7 @@ func direction_to(vec2: FixedVector3) -> FixedVector3:
 	return ret
 
 func angle(axis: Vector3) -> int:
-	var yaw := func() -> int: 
+	var yaw: Callable = func() -> int: 
 		return FixedInt.atan2(self.y, self.x)
 
 	match axis:
@@ -222,7 +222,7 @@ func angle(axis: Vector3) -> int:
 				)
 			)   
 		Vector3.LEFT, Vector3.RIGHT:
-			var _yaw = yaw.call()
+			var _yaw: int = yaw.call()
 			return FixedInt.atan2(
 				FixedInt.mul(
 					self.y, FixedInt.cos(_yaw)
@@ -235,12 +235,12 @@ func angle(axis: Vector3) -> int:
 	return 0
 
 func angle_to(target: FixedVector3, _axis: Vector3 = Vector3.UP) -> int: # << CONVERT THIS 
-	var del_x = self.x - target.x
-	var del_z = self.z - target.z
+	var del_x: int = self.x - target.x
+	var del_z: int = self.z - target.z
 
-	var slope = FixedInt.div(del_x, del_z)
+	var slope: int = FixedInt.div(del_x, del_z)
 
-	var ang = FixedInt.atan(slope)
+	var ang: int = FixedInt.atan(slope)
 
 	if self.z > target.z:
 		ang += FixedInt.FIXED_PI
@@ -249,19 +249,19 @@ func angle_to(target: FixedVector3, _axis: Vector3 = Vector3.UP) -> int: # << CO
 	return ang
 
 func rotated(axis: FixedVector3, p_rotation: int) -> FixedVector3:
-	var v := FixedVector3.new(self.x, self.y, self.z)
+	var v: FixedVector3 = FixedVector3.new(self.x, self.y, self.z)
 	v.rotate(axis,  p_rotation) 
 	return v
 
-func rotate(_axis, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
+func rotate(_axis: FixedVector3, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
 	
-	var s = FixedInt.sin(ang)
-	var c = FixedInt.cos(ang)
+	var s: int = FixedInt.sin(ang)
+	var c: int = FixedInt.cos(ang)
 
 
-	var x_old := int(self.x)
+	var x_old: int = int(self.x)
 	# var y_old := int(self.y)
-	var z_old := int(self.z)
+	var z_old: int = int(self.z)
 
 	self.z = FixedInt.mul(c, z_old) - FixedInt.mul(s, x_old)
 	self.x = FixedInt.mul(s, z_old) + FixedInt.mul(c, x_old)
@@ -269,12 +269,12 @@ func rotate(_axis, ang: int) -> FixedVector3: # <-- simplify this; focus on just
 	return self
 
 func normalized() -> FixedVector3:
-	var v := FixedVector3.new(self.x, self.y, self.z)
+	var v: FixedVector3 = FixedVector3.new(self.x, self.y, self.z)
 	v.normalize()
 	return v
 
 # based on snopek games' SGPysics2D implementation, translated into 3d
-func normalize():
+func normalize() -> void:
 	var x_abs: int = abs(self.x)
 	var y_abs: int = abs(self.y)
 	var z_abs: int = abs(self.z)
@@ -307,7 +307,7 @@ func normalize():
 			var y_big: int = self.y << 11
 			var z_big: int = self.z << 11
 
-			var lgth := FixedVector3.new(
+			var lgth: int = FixedVector3.new(
 					x_big, 
 					y_big, 
 					z_big
@@ -319,7 +319,7 @@ func normalize():
 				self.z = FixedInt.div(z_big, lgth)
 
 	else:
-		var lgth = self.length()
+		var lgth: int = self.length()
 		if lgth != 0:
 			self.x = FixedInt.div(self.x, lgth)
 			self.y = FixedInt.div(self.y, lgth)
@@ -331,14 +331,14 @@ func is_zero_approx()-> bool:
 
 func to_quaternion() -> Quaternion:
 
-	var cr := FixedInt.cos(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
-	var sr := FixedInt.sin(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
-	var cp := FixedInt.cos(FixedInt.mul(self.y, FixedInt.FIXED_HALF))
-	var sp := FixedInt.sin(FixedInt.mul(self.y, FixedInt.FIXED_HALF))
-	var cy := FixedInt.cos(FixedInt.mul(self.z, FixedInt.FIXED_HALF))
-	var sy := FixedInt.sin(FixedInt.mul(self.z, FixedInt.FIXED_HALF))
+	var cr: int = FixedInt.cos(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
+	var sr: int = FixedInt.sin(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
+	var cp: int = FixedInt.cos(FixedInt.mul(self.y, FixedInt.FIXED_HALF))
+	var sp: int = FixedInt.sin(FixedInt.mul(self.y, FixedInt.FIXED_HALF))
+	var cy: int = FixedInt.cos(FixedInt.mul(self.z, FixedInt.FIXED_HALF))
+	var sy: int = FixedInt.sin(FixedInt.mul(self.z, FixedInt.FIXED_HALF))
 
-	var quat := Quaternion()
+	var quat: Quaternion = Quaternion()
 	quat.w = (FixedInt.mul(FixedInt.mul(cr, cp), cy) + FixedInt.mul(FixedInt.mul(sr, sp), sy)) / 65536
 	quat.x = (FixedInt.mul(FixedInt.mul(sr, cp), cy) - FixedInt.mul(FixedInt.mul(cr, sp), sy)) / 65536
 	quat.y = (FixedInt.mul(FixedInt.mul(cr, sp), cy) + FixedInt.mul(FixedInt.mul(sr, cp), sy)) / 65536

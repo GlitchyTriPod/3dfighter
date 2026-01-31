@@ -30,6 +30,7 @@ SyncReplay="*res://addons/delta_rollback/SyncReplay.gd"
 
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/inferred_declaration=1
+gdscript/warnings/integer_division=0
 
 [display]
 

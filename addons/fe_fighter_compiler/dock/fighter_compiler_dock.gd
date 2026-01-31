@@ -2,34 +2,35 @@
 extends Control
 class_name FighterCompilerDock
 
-signal request_hitbox_menu(node)
+signal request_hitbox_menu(node: HitboxButton, idx: int, name: String)
 signal animation_frame_changed(frame: float)
 
 const move_list_item: Resource = preload('res://addons/fe_fighter_compiler/dock/MoveListItem.tscn')
 
-var tick_time = (1.0 / ProjectSettings.get_setting("physics/common/physics_ticks_per_second"))
+var tick_time: float = (1.0 / ProjectSettings.get_setting("physics/common/physics_ticks_per_second"))
 
 var anim_player: NetworkAnimationPlayer:
 	get:
-		return EditorInterface.get_edited_scene_root().get_node("NetworkAnimationPlayer")
+		return self.fighter.get_node("NetworkAnimationPlayer")
 
 var fighter: Fighter
 
 var selected_item: MoveListItem
 
-var process: bool = false
+# var process: bool = false
 
 func _ready() -> void:
-	self.process = true
+	# self.process = true
 
 	var root: Node = EditorInterface.get_edited_scene_root()
 
 	if root is not Fighter:
 		return
 
-	self.fighter = root
+	self.attach_to_fighter_scene()
+	self.load_animation_data()
 
-	# self.anim_player = root.get_node("NetworkAnimationPlayer")
+func load_animation_data() -> void:
 
 	self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 
@@ -43,9 +44,8 @@ func _ready() -> void:
 	self.anim_player.seek(0.0)
 	self.animation_frame_changed.emit(0.0)
 
-func _process(_delta: float) -> void:
-	if !self.process:
-		return
+# func _process(_delta: float) -> void:
+func attach_to_fighter_scene() -> void:
 
 	if EditorInterface.get_edited_scene_root() is FighterCompilerDock:
 		return
@@ -56,18 +56,15 @@ func _process(_delta: float) -> void:
 		%MoveListView.visible = false
 		return
 
-	if EditorInterface.get_edited_scene_root() != self.fighter:
-		self.process = false
-		get_tree().reload_current_scene()
-		return
+	self.fighter = EditorInterface.get_edited_scene_root()
 
 	%SelectFighterLabel.visible = false
 	%MoveListControls.visible = true
 	%MoveListView.visible = true
 
 func empty_hitbox_visuals():
-	var spheres = EditorInterface.get_edited_scene_root().get_node("AddonSpheres").get_children()
-	for i in spheres:
+	var spheres: Array = EditorInterface.get_edited_scene_root().get_node("AddonSpheres").get_children()
+	for i: Node in spheres:
 		i.queue_free()
 	
 func _on_MoveListItem_is_selected(move: MoveListItem) -> void:
@@ -93,8 +90,8 @@ func _on_animation_selector_item_selected(index: int) -> void:
 	self.anim_player.seek(0.0)
 	self.animation_frame_changed.emit(0.0)
 
-func _on_MoveListItem_request_hitbox_menu(hitbox: HitboxButton) -> void:
-	self.request_hitbox_menu.emit(hitbox)
+func _on_MoveListItem_request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String) -> void:
+	self.request_hitbox_menu.emit(hitbox, idx, name)
 
 func _on_seek_forward_button_up() -> void:
 	if self.anim_player.current_animation_position >= self.anim_player.current_animation_length:
@@ -172,3 +169,7 @@ func _on_compile_movelist_button_button_up() -> void:
 
 	# done?
 	# -> send + apply data to fighter scene
+
+func _on_reattach_button_button_up() -> void:
+	self.attach_to_fighter_scene()
+	self.load_animation_data()
