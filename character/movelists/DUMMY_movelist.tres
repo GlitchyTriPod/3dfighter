@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="FighterMovelist" format=3 uid="uid://ch5v0uv1lxpo5"]
+
+[ext_resource type="Script" uid="uid://b3mr44oha4bir" path="res://classes/FixedVector3.gd" id="1_thd5g"]
+[ext_resource type="Script" uid="uid://vcufsxs45fag" path="res://character/FighterAnimationData.gd" id="2_cb3ny"]
+[ext_resource type="Script" uid="uid://2tb7qvilma2l" path="res://character/FighterMovelist.gd" id="3_08nhi"]
+
+[sub_resource type="Resource" id="Resource_thd5g"]
+script = ExtResource("1_thd5g")
+x = -2621
+y = 89784
+z = 56360
+
+[sub_resource type="Resource" id="Resource_cb3ny"]
+script = ExtResource("2_cb3ny")
+move_name = "5P"
+input_di_map = [0]
+input_button = 1
+animation_name = "def_atk_p"
+hitbox_data = {
+"block_anim": "",
+"frame_range": {
+"end": -1,
+"start": -1
+},
+"hit_anim": "def_hit_h1",
+"pushback_force": 0.0,
+"shapes": [{
+"attack_height": 0,
+"frame_range": {
+"end": 12,
+"start": 11
+},
+"position": SubResource("Resource_thd5g"),
+"radius": 9830
+}]
+}
+player_states = {
+"vuln_counter_hit": {
+"end": 11,
+"start": 0
+}
+}
+
+[resource]
+script = ExtResource("3_08nhi")
+move_list = {
+"0": SubResource("Resource_cb3ny")
+}

@@ -2,7 +2,10 @@
 extends Node3D
 class_name Fighter
 
-@export_enum("1", "2") var player: int = 0
+@export var fighter_name: String = "DUMMY"
+
+# @export_enum("1", "2") 
+var player: int = 0
 
 const state_default: Dictionary = {
 	"crouching": false,
@@ -20,7 +23,7 @@ const state_default: Dictionary = {
 	"block_stun": false
 }
 
-var stun_reason := {
+var stun_reason: Dictionary = {
 	"stun_name": "",
 	"stun_hit": -1,
 	"stun_id": ""
@@ -45,7 +48,7 @@ enum STANCE {
 	JUMP
 }
 
-var stance = STANCE.STANDING
+var stance: int = STANCE.STANDING
 
 enum DI_STATE {
 	NEUTRAL,
@@ -59,7 +62,7 @@ enum DI_STATE {
 	UP_BACK
 }
 # tracks the current direction that the player is holding
-var di_state = DI_STATE.NEUTRAL
+var di_state: int = DI_STATE.NEUTRAL
 
 enum BUTTON_STATE {
 	NONE,
@@ -111,7 +114,7 @@ var is_focused: bool = false
 
 var is_online: bool = false
 
-signal ready_for_input_process(player)
+signal ready_for_input_process(player: Fighter)
 
 # ======= METHODS =====================
 
@@ -128,22 +131,23 @@ func _ready() -> void:
 	get_window().focus_entered.connect(self._on_window_focus_entered)
 	get_window().focus_exited.connect(self._on_window_focus_exited)
 
-func _on_window_focus_entered():
+func _on_window_focus_entered() -> void:
 	self.is_focused = true
 
-func _on_window_focus_exited():
+func _on_window_focus_exited() -> void:
 	self.is_focused = false
 
-func get_misc_unused_hitbox():
-	for i in self.misc_hitbox_pool:
+func get_misc_unused_hitbox() -> Variant:
+	for i: FECollisionShape in self.misc_hitbox_pool:
 		if !i.enabled:
 			return i
+	return
 
 # Passes player input onto input interpreter
 # func input(player_input: Array[String]):
 # 	self.input_interpreter.interpret_input(player_input, self.screen_position)
 
-func _network_process(input: Dictionary):
+func _network_process(input: Dictionary) -> void:
 	# if !self.process_inputs:
 	# 	return
 	# input.direction.append_array(input.button)
@@ -157,7 +161,7 @@ func _get_local_input() -> Dictionary:
 		
 		return player_input
 
-	var dir = Vector2i(
+	var dir: Vector2i = Vector2i(
 		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))) \
 		- int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))),
 		int(Input.is_action_pressed("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))) \
@@ -213,19 +217,19 @@ func _load_state(state: Dictionary) -> void:
 	# self.input_interpreter.input_history = state.input_history
 
 # checks the current animation id, sets player state based on currently playing animation
-func process_animation_data():
+func process_animation_data() -> void:
 	if self.current_anim_id == "":
 		self.states = state_default.duplicate(true) # <-- *may* cause problems later
 		return
 	
-	var atk := self.movelist.get_from_id(self.current_anim_id)
+	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
 	# set states
-	var current_frame := int(floor(self.anim_player.current_animation_position * 60))
+	var current_frame: int = int(floor(self.anim_player.current_animation_position * 60))
 	for state: String in atk.player_states:
 
 		if self.states.has(state):
-			var state_data = atk.player_states.get(state)
+			var state_data: Variant = atk.player_states.get(state)
 			if current_frame >= state_data.frame_range.start && \
 				current_frame < state_data.frame_range.end:
 				self.states[state] = state_data.value
@@ -233,23 +237,23 @@ func process_animation_data():
 				self.states.set(state, self.state_default.get(state))
 
 # checks current animation for hitboxes & places them into the scene if necessary
-func process_animation_hitboxes():
+func process_animation_hitboxes() -> void:
 	if self.current_anim_id == "":
 		return
 	
-	for i in self.misc_hitbox_pool:
+	for i: FECollisionShape in self.misc_hitbox_pool:
 		i.enabled = false
 		i.hitbox_attack_index = -1
 		i.hitbox_attack_name = ""
 
-	var atk := self.movelist.get_from_id(self.current_anim_id)
+	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
 	#find hitboxes
-	var current_frame := int(floor(self.anim_player.current_animation_position * 60))
-	var hitbox_data
+	var current_frame: int = int(floor(self.anim_player.current_animation_position * 60))
+	var hitbox_data: Dictionary
 	var index: int
 	if atk.hitbox_data.has("shapes"):
-		for h_b in atk.hitbox_data["shapes"]:
+		for h_b: Dictionary in atk.hitbox_data["shapes"]:
 			if !(current_frame >= h_b.frame_range.start && current_frame < h_b.frame_range.end):
 				continue
 			hitbox_data = h_b
@@ -259,8 +263,8 @@ func process_animation_hitboxes():
 	if hitbox_data == null:
 		return
 
-	for shape in hitbox_data.shapes:
-		var hitbox := self.get_misc_unused_hitbox() as FECollisionShape
+	for shape: Dictionary in hitbox_data.shapes:
+		var hitbox: FECollisionShape = self.get_misc_unused_hitbox() # as FECollisionShape
 		if hitbox == null:
 			break
 		hitbox.hitbox_attack_index = index
@@ -270,13 +274,13 @@ func process_animation_hitboxes():
 		hitbox.enabled = true
 
 # checks if current fighter is intersecting with an enemy hitbox
-func process_hitbox_intersection():
+func process_hitbox_intersection() -> void:
 
-	var enemy_hitboxes := get_tree().get_nodes_in_group(
+	var enemy_hitboxes: Array = get_tree().get_nodes_in_group(
 		"Player1MiscHitbox" if self.player != 0 else "Player2MiscHitbox"
 	)
 
-	var self_hurtboxes := get_tree().get_nodes_in_group(
+	var self_hurtboxes: Array = get_tree().get_nodes_in_group(
 		"Player1MainHurtbox" if self.player == 0 else "Player2MainHurtbox"
 	) + self.misc_hurtbox_pool
 
@@ -301,19 +305,19 @@ func process_hitbox_intersection():
 					self.current_anim_id = ""
 				break
 
-func process_hit(attack_index: int, animation_name: String, animation_id: String):
+func process_hit(attack_index: int, animation_name: String, animation_id: String) -> void:
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = animation_id
 
 # processes movement for player
-func process_movement(delta: int): # could use some optimizing
+func process_movement(delta: int) -> void: # could use some optimizing
 
 	# check HERE if player needs to be put in stun state
 	if self.stun_reason.stun_id != "":
 		self.states["actionable"] = false
 		if !self.anim_player.current_animation.begins_with("hit"):
-			var atk_data = self.message_bus.get_oppo_current_animation_data(self, self.stun_reason.stun_id)
+			var atk_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, self.stun_reason.stun_id)
 
 			if self.anim_player.current_animation != atk_data.hitbox_data[self.stun_reason.stun_hit].hit_anim:
 				self.anim_player.play("AnimLibrary_test_newrig/" + atk_data.hitbox_data[self.stun_reason.stun_hit].hit_anim)
@@ -335,7 +339,7 @@ func process_movement(delta: int): # could use some optimizing
 		self.process_root_motion(delta)
 		return                     # and are unable to cancel. [MAY NEED FRAME TIMER HERE]
 
-	var inp = self.input_interpreter.read_input()
+	var inp: Array = self.input_interpreter.read_input()
 	if inp.size() == 0 || inp[0] == null:
 		return
 
@@ -349,7 +353,7 @@ func process_movement(delta: int): # could use some optimizing
 	# 	opponent_dir = self.collision_body.fixed_position.direction_to(self.opponent_position)
 
 	# determine animation to play
-	var next_anim := self.check_animation_from_input()
+	var next_anim: String = self.check_animation_from_input()
 
 	if next_anim != self.anim_player.current_animation && next_anim != "_BAKED":
 		self.anim_player.play("AnimLibrary_test_newrig/" + next_anim)
@@ -361,7 +365,7 @@ func process_movement(delta: int): # could use some optimizing
 	self.process_root_motion(delta)
 
 # sets player stance -- extend if character has extra stances
-func set_stance_state():
+func set_stance_state() -> void:
 	match self.anim_player.current_animation:
 		"dash_f_BAKED":
 			self.stance = STANCE.F_DASH
@@ -379,11 +383,11 @@ func set_stance_state():
 			self.stance = STANCE.STANDING
 
 func check_animation_from_input() -> String:
-	var current_anim := self.anim_player.current_animation
+	var current_anim: String = self.anim_player.current_animation
 
-	var inputs := self.input_interpreter.read_input(3)
+	var inputs: Array = self.input_interpreter.read_input(3)
 
-	var return_val := "idle_standing"
+	var return_val: String = "idle_standing"
 
 	# check if an attack button was pressed here, different procedure is needed
 	if self.button_state != BUTTON_STATE.NONE:
@@ -391,12 +395,12 @@ func check_animation_from_input() -> String:
 		if return_val != "EMPTY":
 			return  return_val + "_BAKED" if !return_val.ends_with("_BAKED") else return_val
 
-	var back_input := func():
+	var back_input: Callable = func() -> String:
 		if current_anim == "dash_b":
 			return current_anim
 		return "walk_b"
 
-	var forward_input := func():
+	var forward_input: Callable = func() -> String:
 		if current_anim == "dash_f":
 			return current_anim
 		return "walk_f"
@@ -509,15 +513,15 @@ func check_animation_from_input() -> String:
 	return return_val + "_BAKED" if !return_val.ends_with("_BAKED") else return_val
 
 func initiate_attack_anim(_current_anim: String) -> String:
-	var atk := self.movelist.get_from_input(self.di_state, self.button_state, self.states)
+	var atk: String = self.movelist.get_from_input(self.di_state, self.button_state, self.states)
 	if atk != "EMPTY":
 		self.current_anim_id = atk
 		return self.movelist.get_from_id(atk).animation_name
 	return _current_anim
 
-func process_root_motion(delta: int):
+func process_root_motion(delta: int) -> void:
 
-	var curr_rotation := self.collision_body.global_transform.basis.get_rotation_quaternion()
+	var curr_rotation: Quaternion = self.collision_body.global_transform.basis.get_rotation_quaternion()
 
 	self.collision_body.velocity = FixedVector3.mul(FixedVector3.div(
 		FixedVector3.from_vec3(
@@ -528,7 +532,7 @@ func process_root_motion(delta: int):
 
 	self.collision_body.global_transform.basis.orthonormalized()
 
-func collide_and_slide(delta: int):
+func collide_and_slide(delta: int) -> void:
 
 	var new_position: FixedVector3 = self.collision_body.fixed_position
 
@@ -541,10 +545,10 @@ func collide_and_slide(delta: int):
 		else "Player1MainCollisionBody"
 	)[0] # this group should never be empty, and should only have 1 member
 
-	var overlap = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
+	var overlap: Variant = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 
 	if overlap is int:
-		var change := FixedVector3.mul(
+		var change: FixedVector3 = FixedVector3.mul(
 			self.collision_body.fixed_position.direction_to(oppo_collision_body.fixed_position),
 			FixedInt.div(overlap, FixedInt.FIXED_TWO)
 		)

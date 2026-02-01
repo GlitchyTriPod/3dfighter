@@ -3,10 +3,10 @@ extends ShapeCast3D
 class_name FECollisionShape
 
 # Radius of the sphere. use this instead of scale.
-@export var fixed_sphere_radius := FixedInt.FIXED_HALF :
+@export var fixed_sphere_radius: int = FixedInt.FIXED_HALF :
 	set(val): #<---- BAD PERFORMANCE. FIX THIS
 		fixed_sphere_radius = val
-		var sph = self.shape
+		var sph: Shape3D = self.shape
 		if Engine.is_editor_hint():
 			sph = SphereShape3D.new()
 		sph.radius = float(val / 65536.0)
@@ -23,14 +23,14 @@ class_name FECollisionShape
 	"hand",
 	"leg",
 	"foot"
-	) var body_part := 0
+	) var body_part: int = 0
 
 @export var is_hitbox: bool = false
 
 var hitbox_attack_index: int = -1
 var hitbox_attack_name: String = ""
 
-var velocity := FixedVector3.new()
+var velocity: FixedVector3 = FixedVector3.new()
 
 var fixed_position: FixedVector3:
 	get:
@@ -47,7 +47,7 @@ var fixed_rotation: FixedVector3:
 		self.global_rotation = FixedVector3.to_vec3(val)
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	self.collide_with_areas = false
 	self.collide_with_bodies = false
 
@@ -131,11 +131,11 @@ func _ready():
 
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
 func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> Variant:
-	var combined_radius := FixedInt.mul(
+	var combined_radius: int = FixedInt.mul(
 		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius), 
 		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius)
 	)
-	var dist := self.fixed_position.distance_squared_to(inc_shape.fixed_position)
+	var dist: int = self.fixed_position.distance_squared_to(inc_shape.fixed_position)
 	if dist < combined_radius:
 		return FixedInt.sqrt_64(combined_radius - dist)
 	return false

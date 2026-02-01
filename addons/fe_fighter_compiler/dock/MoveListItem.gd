@@ -58,7 +58,7 @@ func deselect():
 
 func get_input_map() -> Array:
 	var val: Array = []
-	for node in %InputSequence.get_children():
+	for node: Node in %InputSequence.get_children():
 		if node is OptionButton:
 			val.append(node.selected)
 	val.append(%ButtonInputOption.selected)
@@ -79,6 +79,14 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 		boxes = %HurtboxGrid.get_children()
 	else:
 		boxes = %HitboxGrid.get_children()
+
+		val["frame_range"] = {
+			"start": frame_start,
+			"end": frame_end
+		}
+		val["hit_anim"] = %OnHitOpponentOption.text
+		val["block_anim"] = %OnBlockOpponentOption.text
+		val["pushback_force"] = %PushbackForce.value
 	
 	if !boxes.is_empty():
 		val["shapes"] = []
@@ -103,25 +111,17 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 			}
 			data["attack_height"] = box.attack_height
 
-			
-	val["frame_range"] = {
-		"start": frame_start,
-		"end": frame_end
-	}
-	val["hit_anim"] = %OnHitOpponentOption.text
-	val["block_anim"] = %OnBlockOpponentOption.text
-	val["pushback_force"] = %PushbackForce.value
-		
+			val["shapes"].append(data)
+
 	return val
 
 func get_state_data() -> Dictionary:
 	var val: Dictionary = {}
 
-	for state: AnimationState in %DefaultStatesContainer:
+	for state: AnimationState in %DefaultStatesContainer.get_children():
 		val.merge(state.get_state_data())
 
 	return val
-
 
 # ======================
 
@@ -173,7 +173,6 @@ func _on_hitbox_button_clicked(hitbox: HitboxButton) -> void:
 	self.request_hitbox_menu.emit(hitbox, idx, self.move_name)
 
 func _on_dock_animation_frame_changed(frame: float) -> void:
-	# self.animation_frame_changed.emit(frame)
 	if !%IsSelected.toggled:
 		return
 

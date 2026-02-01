@@ -1,10 +1,10 @@
-# @tool
+@tool
 extends Resource
 class_name FighterMovelist
 
 # const uuid_util = preload("res://addons/uuid/uuid.gd")
 
-var move_list: Dictionary[String, FighterAnimationData] = {}
+@export var move_list: Dictionary = {}
 
 # DEBUG TOOL ONLY
 # func _init() -> void:
@@ -53,11 +53,11 @@ var move_list: Dictionary[String, FighterAnimationData] = {}
 	
 # 	pass
 
-func add_to_list(move: FighterAnimationData):
+func add_to_list(move: FighterAnimationData) -> void:
 	var key: String = str(self.move_list.size()) 
 	self.move_list.get_or_add(key, move)
 
-func add_arr_to_list(moves: Array[FighterAnimationData]):
+func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
 	for i: FighterAnimationData in moves:
 		self.add_to_list(i)
 

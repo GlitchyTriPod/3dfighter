@@ -44,6 +44,10 @@ func load_animation_data() -> void:
 	self.anim_player.seek(0.0)
 	self.animation_frame_changed.emit(0.0)
 
+func load_movelist_data() -> void:
+	#zzz
+	pass
+
 # func _process(_delta: float) -> void:
 func attach_to_fighter_scene() -> void:
 
@@ -155,7 +159,7 @@ func _on_compile_movelist_button_button_up() -> void:
 		var inputs = []
 
 		anim_data.move_name = item.move_name
-		anim_data.add_inputs(item.get_input_map())
+		anim_data.add_inputs_arr(item.get_input_map())
 		anim_data.animation_name = item.get_animation_name()
 
 		# add frame data here
@@ -169,6 +173,13 @@ func _on_compile_movelist_button_button_up() -> void:
 
 	# done?
 	# -> send + apply data to fighter scene
+	self.fighter.movelist = move_list
+
+	toaster.push_toast("Movelist compiled! Saving to disk...")
+
+	ResourceSaver.save(self.fighter.movelist, "res://character/movelists/%s_movelist.tres" % self.fighter.fighter_name)
+
+	toaster.push_toast("Saved Movelist to disk.")
 
 func _on_reattach_button_button_up() -> void:
 	self.attach_to_fighter_scene()
