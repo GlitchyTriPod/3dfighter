@@ -84,9 +84,9 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 			"start": frame_start,
 			"end": frame_end
 		}
-		val["hit_anim"] = %OnHitOpponentOption.text
-		val["block_anim"] = %OnBlockOpponentOption.text
-		val["pushback_force"] = %PushbackForce.value
+		# val["hit_anim"] = %OnHitOpponentOption.text
+		# val["block_anim"] = %OnBlockOpponentOption.text
+		# val["pushback_force"] = %PushbackForce.value
 	
 	if !boxes.is_empty():
 		val["shapes"] = []
@@ -110,6 +110,10 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 				"end": box.frame_end
 			}
 			data["attack_height"] = box.attack_height
+			data["unblockable"] = box.unblockable
+			data["is_grab"] = box.is_grab
+			data["is_punch"] = box.is_punch
+			data["is_kick"] = box.is_kick
 
 			val["shapes"].append(data)
 
@@ -122,6 +126,32 @@ func get_state_data() -> Dictionary:
 		val.merge(state.get_state_data())
 
 	return val
+
+func add_player_state(data: Dictionary = {}, state_name: String = "") -> void:
+	var anim_state: AnimationState = self.animation_state.instantiate()
+	%DefaultStatesContainer.add_child(anim_state)
+	if data.is_empty():
+		return
+
+	# await anim_state.ready
+	anim_state.get_node("%StateName").text = state_name
+	anim_state.get_node("%FrameStart").value = data["start"]
+	anim_state.get_node("%FrameEnd").value = data["end"]
+
+func add_hitbox(is_hurtbox: bool = false, data: Dictionary = {}):
+	var button: HitboxButton = self.hitbox_button.instantiate()
+	button.is_hurtbox = is_hurtbox
+	if is_hurtbox:
+		%HurtboxGrid.add_child(button)
+	else:
+		%HitboxGrid.add_child(button)
+	button.clicked.connect(self._on_hitbox_button_clicked)
+
+	if data.is_empty():
+		return
+
+	# await button.ready
+	button.update_data(data)
 
 # ======================
 
@@ -153,20 +183,15 @@ func _on_on_counter_opponent_toggle_toggled(toggled_on: bool) -> void:
 		return
 	%OnCounterOpponentOption.disabled = true
 
+# add player state
 func _on_button_button_up() -> void:
-	var anim_state: AnimationState = self.animation_state.instantiate()
-	%DefaultStatesContainer.add_child(anim_state)
+	self.add_player_state()
 
 func _on_add_hitbox_button_up() -> void:
-	var button: HitboxButton = self.hitbox_button.instantiate()
-	%HitboxGrid.add_child(button)
-	button.clicked.connect(self._on_hitbox_button_clicked)
+	self.add_hitbox()
 
 func _on_add_hurtbox_button_up() -> void:
-	var button: HitboxButton = self.hitbox_button.instantiate()
-	button.is_hurtbox = true
-	%HurtboxGrid.add_child(button)
-	button.clicked.connect(self._on_hitbox_button_clicked)
+	self.add_hitbox(true)
 
 func _on_hitbox_button_clicked(hitbox: HitboxButton) -> void:
 	var idx: int = %HitboxGrid.get_children().find(hitbox)

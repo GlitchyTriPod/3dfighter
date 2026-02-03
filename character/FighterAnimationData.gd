@@ -19,6 +19,16 @@ class_name FighterAnimationData
 @export var recovery_block: int
 @export var recovery_counter: int
 
+@export var unblockable: bool
+@export var is_grab: bool
+@export var is_punch: bool
+@export var is_kick: bool
+
+@export var hit_animation: String
+@export var block_animation: String
+
+@export var pushback_force: int
+
 # contains data on any hitboxes put out by the animation.
 # Keep empty if this animation does not attack the opponent
 @export var hitbox_data: Dictionary = {}

@@ -6,9 +6,9 @@
 
 [sub_resource type="Resource" id="Resource_thd5g"]
 script = ExtResource("1_thd5g")
-x = -2621
-y = 89784
-z = 56360
+x = -1310
+y = 87818
+z = 55705
 
 [sub_resource type="Resource" id="Resource_cb3ny"]
 script = ExtResource("2_cb3ny")
@@ -16,28 +16,31 @@ move_name = "5P"
 input_di_map = [0]
 input_button = 1
 animation_name = "def_atk_p"
+hit_animation = "def_hit_h1"
+pushback_force = 8
 hitbox_data = {
-"block_anim": "",
 "frame_range": {
 "end": -1,
 "start": -1
 },
-"hit_anim": "def_hit_h1",
-"pushback_force": 0.0,
 "shapes": [{
 "attack_height": 0,
 "frame_range": {
 "end": 12,
 "start": 11
 },
+"is_grab": false,
+"is_kick": false,
+"is_punch": true,
 "position": SubResource("Resource_thd5g"),
-"radius": 9830
+"radius": 11141,
+"unblockable": false
 }]
 }
 player_states = {
-"vuln_counter_hit": {
-"end": 11,
-"start": 0
+"Hi_there:)": {
+"end": 8,
+"start": 3
 }
 }
 

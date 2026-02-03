@@ -44,11 +44,17 @@ func load_animation_data() -> void:
 	self.anim_player.seek(0.0)
 	self.animation_frame_changed.emit(0.0)
 
+# Populates move list from movelist data attached to fighter scene
 func load_movelist_data() -> void:
-	#zzz
+	
+	for key: String in self.fighter.movelist.move_list:
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(key)
+		self.add_movelist_item(move)
+
+		pass
+
 	pass
 
-# func _process(_delta: float) -> void:
 func attach_to_fighter_scene() -> void:
 
 	if EditorInterface.get_edited_scene_root() is FighterCompilerDock:
@@ -66,11 +72,84 @@ func attach_to_fighter_scene() -> void:
 	%MoveListControls.visible = true
 	%MoveListView.visible = true
 
+func add_movelist_item(data: FighterAnimationData = null) -> void:	
+	var item: MoveListItem = self.move_list_item.instantiate()
+
+	item.is_selected.connect(self._on_MoveListItem_is_selected)
+	item.is_unselected.connect(self._on_MoveListItem_is_unselected)
+	item.request_hitbox_menu.connect(self._on_MoveListItem_request_hitbox_menu)
+
+	self.animation_frame_changed.connect(item._on_dock_animation_frame_changed)
+
+	%MoveListView.get_child(0).add_child(item)
+
+	if data == null:
+		return 
+
+	# print("waiting...")
+	# await item.ready
+
+	# print("continuing")
+	# # populate fields if provided with FighterAnimationData
+
+	item.get_node("%MoveNameLabel").text = data.move_name
+	item.get_node("%ButtonInputOption").selected = data.input_button
+	item.get_node("%PushbackForce").value = data.pushback_force
+
+	#animation for move
+	for i: int in item.get_node("%MoveAnimationOption").item_count:
+		if data.animation_name == item.get_node("%MoveAnimationOption").get_item_text(i):
+			item.get_node("%MoveAnimationOption").selected = i
+			break
+
+	#directional input sequence
+	for i: int in data.input_di_map.size():
+		print(str(i))
+		var di_option: OptionButton = item.get_node("%DirectionalInputOption")
+		if i != 0:
+			di_option = di_option.duplicate()
+			item.get_node("%InputSequence") \
+				.get_child(item.get_node("%InputSequence").get_child_count() - 2) \
+				.add_sibling(di_option)
+		di_option.selected = data.input_di_map[i]
+
+	# frame data here??? do i even need to do anything with that?
+
+	#player states
+	for key: String in data.player_states:
+		item.add_player_state(data.player_states[key], key)
+
+	#hitboxes
+	if data.hitbox_data.has("shapes"):
+		for i: Dictionary in data.hitbox_data["shapes"]:
+			# need to transpose data lol
+			i["sphere_radius"] = i["radius"]
+			i["x_pos"] = i["position"].x
+			i["y_pos"] = i["position"].y
+			i["z_pos"] = i["position"].z
+			i["frame_start"] = i["frame_range"]["start"]
+			i["frame_end"] = i["frame_range"]["end"]
+			item.add_hitbox(false, i)
+
+	#hurtboxes
+	if data.hurtbox_data.has("shapes"):
+		for i: Dictionary in data.hurtbox_data["shapes"]:
+			# need to transpose data lol
+			i["sphere_radius"] = i["radius"]
+			i["x_pos"] = i["position"].x
+			i["y_pos"] = i["position"].y
+			i["z_pos"] = i["position"].z
+			i["frame_start"] = i["frame_range"]["start"]
+			i["frame_end"] = i["frame_range"]["end"]
+			item.add_hitbox(true, i)
+
 func empty_hitbox_visuals():
 	var spheres: Array = EditorInterface.get_edited_scene_root().get_node("AddonSpheres").get_children()
 	for i: Node in spheres:
 		i.queue_free()
 	
+# =========================
+
 func _on_MoveListItem_is_selected(move: MoveListItem) -> void:
 	self.selected_item = move
 
@@ -122,15 +201,7 @@ func _on_seek_back_button_up() -> void:
 	self.animation_frame_changed.emit(self.anim_player.current_animation_position * 60)
 
 func _on_add_move_button_up() -> void:
-	var item: MoveListItem = self.move_list_item.instantiate()
-
-	item.is_selected.connect(self._on_MoveListItem_is_selected)
-	item.is_unselected.connect(self._on_MoveListItem_is_unselected)
-	item.request_hitbox_menu.connect(self._on_MoveListItem_request_hitbox_menu)
-
-	self.animation_frame_changed.connect(item._on_dock_animation_frame_changed)
-
-	%MoveListView.get_child(0).add_child(item)
+	self.add_movelist_item()
 
 func _on_remove_move_button_up() -> void:
 	self.anim_player.seek(
@@ -161,6 +232,9 @@ func _on_compile_movelist_button_button_up() -> void:
 		anim_data.move_name = item.move_name
 		anim_data.add_inputs_arr(item.get_input_map())
 		anim_data.animation_name = item.get_animation_name()
+		anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
+		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
+		anim_data.pushback_force = item.get_node("%PushbackForce").value
 
 		# add frame data here
 
@@ -184,3 +258,4 @@ func _on_compile_movelist_button_button_up() -> void:
 func _on_reattach_button_button_up() -> void:
 	self.attach_to_fighter_scene()
 	self.load_animation_data()
+	self.load_movelist_data()

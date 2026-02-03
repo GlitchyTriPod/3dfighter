@@ -6,7 +6,7 @@ class_name FighterMovelist
 
 @export var move_list: Dictionary = {}
 
-# DEBUG TOOL ONLY
+# region DEBUG TOOL ONLY
 # func _init() -> void:
 # 	# if Engine.is_editor_hint():
 # 	var debug_move = FighterAnimationData.new()
@@ -51,7 +51,7 @@ class_name FighterMovelist
 
 # 	self.add_to_list(debug_move)
 	
-# 	pass
+# endregion	pass
 
 func add_to_list(move: FighterAnimationData) -> void:
 	var key: String = str(self.move_list.size()) 
@@ -62,6 +62,7 @@ func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
 		self.add_to_list(i)
 
 func get_from_input(_input_di: Fighter.DI_STATE, input_button: Fighter.BUTTON_STATE, _player_state: Dictionary) -> String:
+	# may need refactoring in order to improve search time. not making good use of move_list being a Dictionary
 	for move_id: String in self.move_list:
 		var move: FighterAnimationData = self.move_list.get(move_id)
 
