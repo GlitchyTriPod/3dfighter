@@ -10,6 +10,8 @@ signal animation_frame_changed(frame: float)
 
 signal request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String)
 
+signal request_movelist_refs
+
 const animation_state = preload("res://addons/fe_fighter_compiler/dock/animation_state.tscn")
 const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButton.tscn")
 
@@ -19,13 +21,14 @@ const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButto
 
 @onready var move_animation_option : OptionButton = %MoveAnimationOption
 
-var character_animations: AnimationLibrary
+# var character_animations: AnimationLibrary
 
 var move_name: String:
 	get:
 		return %MoveNameLabel.text
 
 var selected: bool = false
+var is_reference: bool = false
 
 var anim_names: Array[StringName]:
 	get:
@@ -33,17 +36,23 @@ var anim_names: Array[StringName]:
 		arr = self.default_animations.get_animation_list() + \
 			self.hit_animations.get_animation_list() + \
 			self.block_animations.get_animation_list()
-		if self.character_animations != null:
-			arr += self.character_animations.get_animation_list()
+		# if self.character_animations != null:
+		# 	arr += self.character_animations.get_animation_list()
 		return arr		
 
 func _ready() -> void:
 	self.move_name = %MoveNameLabel.text
 
+	%MoveAnimationOption.clear()
+	%OnBlockOption.clear()
+	%OnBlockOpponentOption.clear()
+	%OnHitOpponentOption.clear()
+	%OnCounterOpponentOption.clear()
+
 	for name: StringName in self.anim_names:
 		%MoveAnimationOption.add_item(name)
-	# for name: StringName in self.block_animations: # used for stagger effects on blocked attacks
-	# 	%OnBlockOption.add_item(name)
+	for name: StringName in self.anim_names: # used for stagger effects on blocked attacks
+		%OnBlockOption.add_item(name)
 	for name: StringName in self.block_animations.get_animation_list():
 		%OnBlockOpponentOption.add_item(name)
 	for name: StringName in self.hit_animations.get_animation_list():
@@ -153,6 +162,9 @@ func add_hitbox(is_hurtbox: bool = false, data: Dictionary = {}):
 	# await button.ready
 	button.update_data(data)
 
+# func load_refs() -> void:
+# 	pass
+
 # ======================
 
 func _on_is_selected_toggled(toggled_on: bool) -> void:
@@ -248,3 +260,22 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 
 func _on_move_animation_option_item_selected(index: int) -> void:
 	self.animation_changed.emit(%MoveAnimationOption.get_item_text(index))
+
+func _on_is_reference_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		self.is_reference = true
+	else:
+		self.is_reference = false
+	self.request_movelist_refs.emit()
+
+func _on_FighterCompilerDock_reload_movelistitem_refs(refs: Array) -> void:
+	var selected_ref: String = %OnRecoveryRef.get_item_text(%OnRecoveryRef.selected)
+	var index: int = -1
+	%OnRecoveryRef.clear()
+	for i: int in refs.size():
+		%OnRecoveryRef.add_item("Ref/%s" % [refs[i]["move_name"]])
+		if selected_ref != null && \
+			selected_ref == %OnRecoveryRef.get_item_text(i):
+			index = i
+
+	%OnRecoveryRef.selected = index

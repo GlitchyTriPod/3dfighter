@@ -1,51 +1,169 @@
 [gd_resource type="Resource" script_class="FighterMovelist" format=3 uid="uid://ch5v0uv1lxpo5"]
 
-[ext_resource type="Script" uid="uid://b3mr44oha4bir" path="res://classes/FixedVector3.gd" id="1_thd5g"]
 [ext_resource type="Script" uid="uid://vcufsxs45fag" path="res://character/FighterAnimationData.gd" id="2_cb3ny"]
 [ext_resource type="Script" uid="uid://2tb7qvilma2l" path="res://character/FighterMovelist.gd" id="3_08nhi"]
 
-[sub_resource type="Resource" id="Resource_thd5g"]
-script = ExtResource("1_thd5g")
-x = -1310
-y = 87818
-z = 55705
-
-[sub_resource type="Resource" id="Resource_cb3ny"]
+[sub_resource type="Resource" id="Resource_3esc5"]
 script = ExtResource("2_cb3ny")
-move_name = "5P"
+move_name = "idle"
 input_di_map = [0]
-input_button = 1
-animation_name = "def_atk_p"
+animation_name = "def_atk_2p"
 hit_animation = "def_hit_h1"
-pushback_force = 8
+block_animation = "def_block_h_1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
-},
-"shapes": [{
-"attack_height": 0,
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_thd5g"]
+script = ExtResource("2_cb3ny")
+move_name = "idle_crouch"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
 "frame_range": {
-"end": 12,
-"start": 11
-},
-"is_grab": false,
-"is_kick": false,
-"is_punch": true,
-"position": SubResource("Resource_thd5g"),
-"radius": 11141,
-"unblockable": false
-}]
-}
-player_states = {
-"Hi_there:)": {
-"end": 8,
-"start": 3
+"end": -1,
+"start": -1
 }
 }
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_cb3ny"]
+script = ExtResource("2_cb3ny")
+move_name = "idle_crouch_guard"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_08nhi"]
+script = ExtResource("2_cb3ny")
+move_name = "walk_f"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_kgg6k"]
+script = ExtResource("2_cb3ny")
+move_name = "walk_fc"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_xk686"]
+script = ExtResource("2_cb3ny")
+move_name = "walk_b"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_hjo88"]
+script = ExtResource("2_cb3ny")
+move_name = "dash_f"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_2yxrc"]
+script = ExtResource("2_cb3ny")
+move_name = "dash_b"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_p0c22"]
+script = ExtResource("2_cb3ny")
+move_name = "step_l"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
+
+[sub_resource type="Resource" id="Resource_3o56v"]
+script = ExtResource("2_cb3ny")
+move_name = "step_r"
+input_di_map = [0]
+animation_name = "def_atk_2p"
+hit_animation = "def_hit_h1"
+block_animation = "def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+is_reference = true
 
 [resource]
 script = ExtResource("3_08nhi")
 move_list = {
-"0": SubResource("Resource_cb3ny")
+"0": SubResource("Resource_3esc5"),
+"1": SubResource("Resource_thd5g"),
+"2": SubResource("Resource_cb3ny"),
+"3": SubResource("Resource_08nhi"),
+"4": SubResource("Resource_kgg6k"),
+"5": SubResource("Resource_xk686"),
+"6": SubResource("Resource_hjo88"),
+"7": SubResource("Resource_2yxrc"),
+"8": SubResource("Resource_p0c22"),
+"9": SubResource("Resource_3o56v")
 }

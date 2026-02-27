@@ -40,6 +40,7 @@ class_name FighterAnimationData
 @export var player_states: Dictionary = {}
 
 # TODO: link to other AnimationData to enable attack strings
+@export var is_reference: bool
 
 func add_inputs_arr(inputs: Array) -> void:
     self.input_di_map = inputs.slice(0, inputs.size() - 1)
