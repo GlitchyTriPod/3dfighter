@@ -48,10 +48,21 @@ func load_animation_data() -> void:
 	self.animation_frame_changed.emit(0.0)
 
 # Populates move list from movelist data attached to fighter scene
-func load_movelist_data() -> void:	
+func load_movelist_data() -> void:
+	for n: Node in %MoveListView.get_child(0).get_children():
+		n.queue_free()
+	
 	for key: String in self.fighter.movelist.move_list:
 		var move: FighterAnimationData = self.fighter.movelist.move_list.get(key)
 		self.add_movelist_item(move)
+	
+	for key: String in self.fighter.movelist.move_list:
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(key)
+		self.check_and_mark_movelist_ref(move)
+
+	for key: String in self.fighter.movelist.move_list:
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(key)
+		self.refresh_movelist_refs(move)
 
 func attach_to_fighter_scene() -> void:
 	if EditorInterface.get_edited_scene_root() is FighterCompilerDock:
@@ -94,7 +105,9 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 	item.get_node("%MoveNameLabel").text = data.move_name
 	item.get_node("%ButtonInputOption").selected = data.input_button
 	item.get_node("%PushbackForce").value = data.pushback_force
-	item.get_node("%IsReference").button_pressed = data.is_reference
+
+	## have to do this later
+	# item.get_node("%IsReference").button_pressed = data.is_reference
 
 	#animation for move
 	for i: int in item.get_node("%MoveAnimationOption").item_count:
@@ -104,7 +117,6 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 
 	#directional input sequence
 	for i: int in data.input_di_map.size():
-		print(str(i))
 		var di_option: OptionButton = item.get_node("%DirectionalInputOption")
 		if i != 0:
 			di_option = di_option.duplicate()
@@ -142,6 +154,26 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 			i["frame_start"] = i["frame_range"]["start"]
 			i["frame_end"] = i["frame_range"]["end"]
 			item.add_hitbox(true, i)
+
+func check_and_mark_movelist_ref(data: FighterAnimationData) -> void:
+	var move: Variant = self.get_movelistitem_from_animationdata(data)
+	if move is MoveListItem:
+		move.get_node("%IsReference").button_pressed = data.is_reference
+
+func get_movelistitem_from_animationdata(data: FighterAnimationData) -> Variant:
+	var movelist: Array = %MoveListView.get_child(0).get_children()
+	for move: MoveListItem in movelist:
+		if move.move_name == data.move_name:
+			return move
+	return
+
+func refresh_movelist_refs(data: FighterAnimationData) -> void:
+	var move: Variant = self.get_movelistitem_from_animationdata(data)
+	if move is MoveListItem:
+		for i: int in move.get_node("%OnRecoveryRef").item_count:
+			if data.recovery_ref == move.get_node("%OnRecoveryRef").get_item_text(i):
+				move.get_node("%OnRecoveryRef").selected = i
+				break
 
 func empty_hitbox_visuals():
 	var spheres: Array = EditorInterface.get_edited_scene_root().get_node("AddonSpheres").get_children()
@@ -247,6 +279,7 @@ func _on_compile_movelist_button_button_up() -> void:
 		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
 		anim_data.pushback_force = item.get_node("%PushbackForce").value
 		anim_data.is_reference = item.is_reference
+		anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
 
 		# add frame data here
 

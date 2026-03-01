@@ -41,6 +41,7 @@ class_name FighterAnimationData
 
 # TODO: link to other AnimationData to enable attack strings
 @export var is_reference: bool
+@export var recovery_ref: String
 
 func add_inputs_arr(inputs: Array) -> void:
     self.input_di_map = inputs.slice(0, inputs.size() - 1)

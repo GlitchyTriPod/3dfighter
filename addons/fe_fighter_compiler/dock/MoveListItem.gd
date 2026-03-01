@@ -30,17 +30,33 @@ var move_name: String:
 var selected: bool = false
 var is_reference: bool = false
 
-var anim_names: Array[StringName]:
+var anim_names: Array[String]:
 	get:
-		var arr: Array = []
-		arr = self.default_animations.get_animation_list() + \
-			self.hit_animations.get_animation_list() + \
-			self.block_animations.get_animation_list()
+		var arr: Array[String] = []
+
+		for name: StringName in self.default_animations.get_animation_list():
+			arr.append("%s/%s" % [self.default_animations.resource_name, name])
+		for name: StringName in self.block_animations.get_animation_list():
+			arr.append("%s/%s" % [self.block_animations.resource_name, name])
+		for name: StringName in self.hit_animations.get_animation_list():
+			arr.append("%s/%s" % [self.hit_animations.resource_name, name])
+
 		# if self.character_animations != null:
-		# 	arr += self.character_animations.get_animation_list()
+		# 	for name: StringName in self.character_animations.get_animation_list():
+		# 		arr.append("%s/%s" % [self.character_animations.resource_path, name])
+
+		# arr = self.default_animations.get_animation_list() + \
+		# 	self.hit_animations.get_animation_list() + \
+		# 	self.block_animations.get_animation_list()
+		# # if self.character_animations != null:
+		# # 	arr += self.character_animations.get_animation_list()
+
 		return arr		
 
 func _ready() -> void:
+	if EditorInterface.get_edited_scene_root() == self:
+		return
+
 	self.move_name = %MoveNameLabel.text
 
 	%MoveAnimationOption.clear()
@@ -54,10 +70,10 @@ func _ready() -> void:
 	for name: StringName in self.anim_names: # used for stagger effects on blocked attacks
 		%OnBlockOption.add_item(name)
 	for name: StringName in self.block_animations.get_animation_list():
-		%OnBlockOpponentOption.add_item(name)
+		%OnBlockOpponentOption.add_item("%s/%s" % [self.block_animations.resource_name, name])
 	for name: StringName in self.hit_animations.get_animation_list():
-		%OnHitOpponentOption.add_item(name)
-		%OnCounterOpponentOption.add_item(name)
+		%OnHitOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
+		%OnCounterOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 	%MoveData.folded = true
 
 # ======================
@@ -270,12 +286,12 @@ func _on_is_reference_toggled(toggled_on: bool) -> void:
 
 func _on_FighterCompilerDock_reload_movelistitem_refs(refs: Array) -> void:
 	var selected_ref: String = %OnRecoveryRef.get_item_text(%OnRecoveryRef.selected)
+	print(selected_ref)
 	var index: int = -1
 	%OnRecoveryRef.clear()
 	for i: int in refs.size():
 		%OnRecoveryRef.add_item("Ref/%s" % [refs[i]["move_name"]])
-		if selected_ref != null && \
-			selected_ref == %OnRecoveryRef.get_item_text(i):
+		if selected_ref == "Ref/%s" % [refs[i]["move_name"]]:
 			index = i
 
 	%OnRecoveryRef.selected = index

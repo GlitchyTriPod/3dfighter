@@ -284,10 +284,10 @@ func process_command_inputs(_delta: int) -> String:
 	return ""
 
 # takes input information from the InputListener and hands it to the InputInterpreter.
-func input(input_data: Array[String]):
+func input(input_data: Array[String]) -> void:
 	self.input_interpreter.interpret_input(input_data)
 
-func collide_and_slide(delta: int):
+func collide_and_slide(delta: int) -> void:
 
 	# TODO: Collision with walls
 
@@ -303,10 +303,10 @@ func collide_and_slide(delta: int):
 		else "Player1MainCollisionBody"
 	)[0] # this group should never be empty, and should only have 1 member
 
-	var overlap = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
+	var overlap: Variant = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 	
 	if overlap is int:
-		var change := FixedVector3.mul(
+		var change: FixedVector3 = FixedVector3.mul(
 			self.fixed_position.direction_to(oppo_collision_body.fixed_position),
 			FixedInt.div(overlap, FixedInt.FIXED_TWO)
 		)
