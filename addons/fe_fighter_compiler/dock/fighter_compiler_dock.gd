@@ -94,20 +94,15 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 	%MoveListView.get_child(0).add_child(item)
 
 	if data == null:
-		return 
-
-	# print("waiting...")
-	# await item.ready
-
-	# print("continuing")
-	# # populate fields if provided with FighterAnimationData
+		item.emit_signal("request_movelist_refs") # need to emit this to populate refs on new list item
+		return # return if there is no data to populate
 
 	item.get_node("%MoveNameLabel").text = data.move_name
 	item.get_node("%ButtonInputOption").selected = data.input_button
 	item.get_node("%PushbackForce").value = data.pushback_force
-
-	## have to do this later
-	# item.get_node("%IsReference").button_pressed = data.is_reference
+	item.get_node("%NoInput").button_pressed = data.no_input if data.get("no_input") != null else false
+	item.get_node("%SideContext").selected = data.side_context if data.get("side_context") != null else 0
+	item.get_node("%RequiredState").text = data.required_state if data.get("required_state") != null else ""
 
 	#animation for move
 	for i: int in item.get_node("%MoveAnimationOption").item_count:
@@ -280,6 +275,9 @@ func _on_compile_movelist_button_button_up() -> void:
 		anim_data.pushback_force = item.get_node("%PushbackForce").value
 		anim_data.is_reference = item.is_reference
 		anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
+		anim_data.no_input = item.get_node("%NoInput").button_pressed
+		anim_data.side_context = item.get_node("%SideContext").selected
+		anim_data.required_state = item.get_node("%RequiredState").text
 
 		# add frame data here
 

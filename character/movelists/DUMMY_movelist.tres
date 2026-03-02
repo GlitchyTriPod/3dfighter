@@ -21,7 +21,7 @@ player_states = {
 "end": 999,
 "start": 0
 },
-"guard_high": {
+"neutral_guard_high": {
 "end": 999,
 "start": 0
 }
@@ -51,7 +51,7 @@ player_states = {
 "end": 999,
 "start": 0
 },
-"guard_low": {
+"neutral_guard_low": {
 "end": 999,
 "start": 0
 }
@@ -87,7 +87,7 @@ player_states = {
 }
 }
 is_reference = true
-recovery_ref = "Ref/idle_crouch"
+recovery_ref = "Ref/idle_crouch_guard"
 
 [sub_resource type="Resource" id="Resource_08nhi"]
 script = ExtResource("1_3esc5")
@@ -234,9 +234,14 @@ player_states = {
 "left_movement": {
 "end": 999,
 "start": 0
+},
+"step_left": {
+"end": 999,
+"start": 0
 }
 }
 recovery_ref = "Ref/idle"
+side_context = 1
 
 [sub_resource type="Resource" id="Resource_3o56v"]
 script = ExtResource("1_3esc5")
@@ -259,15 +264,82 @@ player_states = {
 "right_movement": {
 "end": 999,
 "start": 0
+},
+"step_right": {
+"end": 999,
+"start": 0
 }
 }
 recovery_ref = "Ref/idle"
+side_context = 1
+
+[sub_resource type="Resource" id="Resource_sqnrw"]
+script = ExtResource("1_3esc5")
+move_name = "step_l"
+input_di_map = [5, 0]
+animation_name = "def_animations/def_step_l"
+hit_animation = "def_hit_animations/def_hit_h1"
+block_animation = "def_block_animations/def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+player_states = {
+"actionable": {
+"end": 999,
+"start": 5
+},
+"left_movement": {
+"end": 999,
+"start": 0
+},
+"step_left": {
+"end": 999,
+"start": 0
+}
+}
+recovery_ref = "Ref/idle"
+side_context = 2
+
+[sub_resource type="Resource" id="Resource_xnc4f"]
+script = ExtResource("1_3esc5")
+move_name = "step_r"
+input_di_map = [1, 0]
+animation_name = "def_animations/def_step_r"
+hit_animation = "def_hit_animations/def_hit_h1"
+block_animation = "def_block_animations/def_block_h_1"
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+player_states = {
+"actionable": {
+"end": 999,
+"start": 5
+},
+"right_movement": {
+"end": 999,
+"start": 0
+},
+"step_right": {
+"end": 999,
+"start": 0
+}
+}
+recovery_ref = "Ref/idle"
+side_context = 2
 
 [resource]
 script = ExtResource("2_thd5g")
 move_list = {
 "0": SubResource("Resource_3esc5"),
 "1": SubResource("Resource_thd5g"),
+"10": SubResource("Resource_sqnrw"),
+"11": SubResource("Resource_xnc4f"),
 "2": SubResource("Resource_cb3ny"),
 "3": SubResource("Resource_08nhi"),
 "4": SubResource("Resource_kgg6k"),

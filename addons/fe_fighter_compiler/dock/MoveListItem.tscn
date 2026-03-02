@@ -173,6 +173,49 @@ popup/item_6/id = 6
 popup/item_7/text = "P+K+A"
 popup/item_7/id = 7
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=594384805]
+layout_mode = 2
+
+[node name="NoInput" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=287395283]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "No Input"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1422325716]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Side Context:"
+
+[node name="SideContext" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1313707686]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Both Sides"
+popup/item_0/id = 0
+popup/item_1/text = "Left Side Only"
+popup/item_1/id = 1
+popup/item_2/text = "Right Side Only"
+popup/item_2/id = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=774657519]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1633181186]
+layout_mode = 2
+text = "Requires State: "
+
+[node name="RequiredState" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1917078676]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "[State Name]"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=781033478]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=382091988]
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
@@ -181,9 +224,11 @@ theme_override_constants/margin_bottom = 10
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jp5y0")
+folded = true
 title = "Move Data"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData" unique_id=1980212798]
+visible = false
 layout_mode = 2
 
 [node name="RecoveryAnim" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=112517000]
@@ -358,6 +403,7 @@ layout_mode = 2
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/MoveAnimationOption" to="." method="_on_move_animation_option_item_selected"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/AddDirectionalInput" to="." method="_on_add_directional_input_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/RemoveDirectionalInput" to="." method="_on_remove_directional_input_button_up"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NoInput" to="." method="_on_no_input_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent/OnCounterOpponentToggle" to="." method="_on_on_counter_opponent_toggle_toggled"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/States/DefaultStates/Button" to="." method="_on_button_button_up"]

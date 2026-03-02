@@ -29,6 +29,7 @@ var move_name: String:
 
 var selected: bool = false
 var is_reference: bool = false
+var no_input: bool = false
 
 var anim_names: Array[String]:
 	get:
@@ -295,3 +296,10 @@ func _on_FighterCompilerDock_reload_movelistitem_refs(refs: Array) -> void:
 			index = i
 
 	%OnRecoveryRef.selected = index
+
+func _on_no_input_toggled(toggled_on: bool) -> void:
+	self.no_input = toggled_on
+	%DirectionalInputOption.disabled = toggled_on
+	%AddDirectionalInput.disabled = toggled_on
+	%RemoveDirectionalInput.disabled = toggled_on
+	

@@ -13,6 +13,8 @@ class_name FighterAnimationData
 
 @export var animation_length: int
 
+@export var required_state: String = ""
+
 @export var attack_speed: int
 
 @export var recovery_hit: int
@@ -42,6 +44,10 @@ class_name FighterAnimationData
 # TODO: link to other AnimationData to enable attack strings
 @export var is_reference: bool
 @export var recovery_ref: String
+
+@export var no_input: bool = false
+
+@export_enum("Both", "Left", "Right") var side_context: int = 0
 
 func add_inputs_arr(inputs: Array) -> void:
     self.input_di_map = inputs.slice(0, inputs.size() - 1)
