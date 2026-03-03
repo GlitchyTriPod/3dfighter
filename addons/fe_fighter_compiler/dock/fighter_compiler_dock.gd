@@ -52,8 +52,8 @@ func load_movelist_data() -> void:
 	for n: Node in %MoveListView.get_child(0).get_children():
 		n.queue_free()
 	
-	for key: String in self.fighter.movelist.move_list:
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(key)
+	for i: int in self.fighter.movelist.move_list.size():
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(i))
 		self.add_movelist_item(move)
 	
 	for key: String in self.fighter.movelist.move_list:
@@ -83,6 +83,8 @@ func attach_to_fighter_scene() -> void:
 func add_movelist_item(data: FighterAnimationData = null) -> void:	
 	var item: MoveListItem = self.move_list_item.instantiate()
 
+	item.character_animations = self.fighter.animation_library
+
 	item.is_selected.connect(self._on_MoveListItem_is_selected)
 	item.is_unselected.connect(self._on_MoveListItem_is_unselected)
 	item.request_hitbox_menu.connect(self._on_MoveListItem_request_hitbox_menu)
@@ -103,6 +105,8 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 	item.get_node("%NoInput").button_pressed = data.no_input if data.get("no_input") != null else false
 	item.get_node("%SideContext").selected = data.side_context if data.get("side_context") != null else 0
 	item.get_node("%RequiredState").text = data.required_state if data.get("required_state") != null else ""
+	item.get_node("%HoldInput").button_pressed = data.hold_input if data.get("hold_input") != null else false
+	item.get_node("%HoldInput").disabled = item.get_node("%NoInput").button_pressed
 
 	#animation for move
 	for i: int in item.get_node("%MoveAnimationOption").item_count:
@@ -198,6 +202,7 @@ func _on_MoveListItem_is_selected(move: MoveListItem) -> void:
 		if move.move_animation_option.get_item_text(move.move_animation_option.selected) == \
 			%AnimationSelector.get_item_text(i):
 			%AnimationSelector.selected = i
+			%AnimationSelector.emit_signal("item_selected", i)
 			break
 
 func _on_MoveListItem_is_unselected() -> void:
@@ -207,7 +212,7 @@ func _on_MoveListItem_request_movelist_refs() -> void:
 	self.reload_movelistitem_refs.emit(self.get_movelist_refs())
 
 func _on_animation_selector_item_selected(index: int) -> void:
-	self.anim_player.current_animation = %AnimationSelector.get_item_text(index)
+	self.anim_player.play(%AnimationSelector.get_item_text(index))
 	self.anim_player.seek(0.0)
 	self.animation_frame_changed.emit(0.0)
 
@@ -278,6 +283,7 @@ func _on_compile_movelist_button_button_up() -> void:
 		anim_data.no_input = item.get_node("%NoInput").button_pressed
 		anim_data.side_context = item.get_node("%SideContext").selected
 		anim_data.required_state = item.get_node("%RequiredState").text
+		anim_data.hold_input = item.get_node("%HoldInput").button_pressed
 
 		# add frame data here
 
@@ -290,6 +296,7 @@ func _on_compile_movelist_button_button_up() -> void:
 
 	# done?
 	# -> send + apply data to fighter scene
+	move_list.take_over_path("res://character/movelists/%s_movelist.tres" % self.fighter.fighter_name)
 	self.fighter.movelist = move_list
 
 	toaster.push_toast("Movelist compiled! Saving to disk...")

@@ -21,7 +21,7 @@ const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButto
 
 @onready var move_animation_option : OptionButton = %MoveAnimationOption
 
-# var character_animations: AnimationLibrary
+var character_animations: AnimationLibrary = null
 
 var move_name: String:
 	get:
@@ -42,9 +42,9 @@ var anim_names: Array[String]:
 		for name: StringName in self.hit_animations.get_animation_list():
 			arr.append("%s/%s" % [self.hit_animations.resource_name, name])
 
-		# if self.character_animations != null:
-		# 	for name: StringName in self.character_animations.get_animation_list():
-		# 		arr.append("%s/%s" % [self.character_animations.resource_path, name])
+		if self.character_animations != null:
+			for name: StringName in self.character_animations.get_animation_list():
+				arr.append("%s/%s" % [self.character_animations.resource_name, name])
 
 		# arr = self.default_animations.get_animation_list() + \
 		# 	self.hit_animations.get_animation_list() + \
@@ -287,7 +287,6 @@ func _on_is_reference_toggled(toggled_on: bool) -> void:
 
 func _on_FighterCompilerDock_reload_movelistitem_refs(refs: Array) -> void:
 	var selected_ref: String = %OnRecoveryRef.get_item_text(%OnRecoveryRef.selected)
-	print(selected_ref)
 	var index: int = -1
 	%OnRecoveryRef.clear()
 	for i: int in refs.size():
@@ -299,6 +298,7 @@ func _on_FighterCompilerDock_reload_movelistitem_refs(refs: Array) -> void:
 
 func _on_no_input_toggled(toggled_on: bool) -> void:
 	self.no_input = toggled_on
+	%HoldInput.disabled = toggled_on
 	%DirectionalInputOption.disabled = toggled_on
 	%AddDirectionalInput.disabled = toggled_on
 	%RemoveDirectionalInput.disabled = toggled_on

@@ -33,6 +33,8 @@ var states: Dictionary = state_default.duplicate(true)
 
 @export var movelist: FighterMovelist
 
+@export var animation_library: AnimationLibrary
+
 # tracks basic stances for the fighter -- extend if character has multiple stances
 enum STANCE {
 	STANDING,

@@ -46,6 +46,7 @@ class_name FighterAnimationData
 @export var recovery_ref: String
 
 @export var no_input: bool = false
+@export var hold_input: bool = false
 
 @export_enum("Both", "Left", "Right") var side_context: int = 0
 

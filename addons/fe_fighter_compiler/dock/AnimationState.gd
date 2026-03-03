@@ -23,7 +23,7 @@ func get_state_data() -> Dictionary:
 
 func _on_remove_button_button_up() -> void:
 	self.visible = false
-	self.free()
+	self.queue_free()
 
 func _on_frame_start_value_changed(value: float) -> void:
 	%FrameEnd.min_value = value
