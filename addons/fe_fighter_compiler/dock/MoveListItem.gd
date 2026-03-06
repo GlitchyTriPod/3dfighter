@@ -77,6 +77,8 @@ func _ready() -> void:
 		%OnCounterOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 	%MoveData.folded = true
 
+	# self.theme
+
 # ======================
 
 func deselect():
@@ -188,8 +190,14 @@ func _on_is_selected_toggled(toggled_on: bool) -> void:
 	self.selected = toggled_on
 	if toggled_on:
 		self.is_selected.emit(self)
+		var stylebox: StyleBox = self.get_theme_stylebox("panel").duplicate()
+		stylebox.border_color = Color("#3d5ff9")
+		self.add_theme_stylebox_override("panel", stylebox)
 	else:
 		self.is_unselected.emit()
+		var stylebox: StyleBox = self.get_theme_stylebox("panel").duplicate()
+		stylebox.border_color = Color("#3b2020")
+		self.add_theme_stylebox_override("panel", stylebox)
 
 func _on_add_directional_input_button_up() -> void:
 	var opt: OptionButton = %DirectionalInputOption.duplicate()
@@ -227,12 +235,12 @@ func _on_hitbox_button_clicked(hitbox: HitboxButton) -> void:
 	self.request_hitbox_menu.emit(hitbox, idx, self.move_name)
 
 func _on_dock_animation_frame_changed(frame: float) -> void:
-	if !%IsSelected.toggled:
+	if !%IsSelected.button_pressed:
 		return
 
 	var spheres: Array = EditorInterface.get_edited_scene_root().get_node("AddonSpheres").get_children()
 	for sphere: Node in spheres:
-		sphere.free()
+		sphere.queue_free()
 
 	var hitboxes: Array = %HitboxGrid.get_children()
 	for i: int in hitboxes.size():
@@ -303,3 +311,10 @@ func _on_no_input_toggled(toggled_on: bool) -> void:
 	%AddDirectionalInput.disabled = toggled_on
 	%RemoveDirectionalInput.disabled = toggled_on
 	
+func _on_non_attack_toggled(toggled_on: bool) -> void:
+	%OnBlockOpponentOption.disabled = toggled_on
+	%OnHitOpponentOption.disabled = toggled_on
+	%OnBlockToggle.disabled = toggled_on
+	%OnCounterOpponentToggle.disabled = toggled_on
+	%AddHitbox.disabled = toggled_on
+	%AddHurtbox.disabled = toggled_on

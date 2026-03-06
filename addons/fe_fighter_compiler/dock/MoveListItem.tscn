@@ -187,6 +187,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Hold Input"
 
+[node name="NonAttackToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=878511231]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Non-Attack"
+
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1422325716]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -229,11 +234,9 @@ theme_override_constants/margin_bottom = 10
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jp5y0")
-folded = true
 title = "Move Data"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData" unique_id=1980212798]
-visible = false
 layout_mode = 2
 
 [node name="RecoveryAnim" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=112517000]
@@ -259,6 +262,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="OnBlockToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock" unique_id=592705806]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock" unique_id=1896759007]
@@ -311,6 +315,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="OnCounterOpponentToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent" unique_id=521943509]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent" unique_id=209452962]
@@ -409,6 +414,7 @@ layout_mode = 2
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/AddDirectionalInput" to="." method="_on_add_directional_input_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/RemoveDirectionalInput" to="." method="_on_remove_directional_input_button_up"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NoInput" to="." method="_on_no_input_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NonAttackToggle" to="." method="_on_non_attack_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent/OnCounterOpponentToggle" to="." method="_on_on_counter_opponent_toggle_toggled"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/States/DefaultStates/Button" to="." method="_on_button_button_up"]

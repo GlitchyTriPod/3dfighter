@@ -46,6 +46,7 @@ func populate_data() -> void:
 	%ZposVal.value = FixedInt.to_float(self.working_data["z_pos"])
 	%FrameStartVal.value = self.working_data["frame_start"]
 	%FrameEndVal.value = self.working_data["frame_end"]
+	%AttackHeightVal.selected = self.working_data["attack_height"]
 	%UnblockableVal.button_pressed = self.working_data["unblockable"]
 	%IsPunchVal.button_pressed = self.working_data["is_punch"]
 	%IsKickVal.button_pressed = self.working_data["is_kick"]

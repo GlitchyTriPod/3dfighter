@@ -9,8 +9,11 @@ script = ExtResource("1_3esc5")
 move_name = "idle"
 input_di_map = [0]
 animation_name = "def_animations/def_idle_standing"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -36,8 +39,11 @@ script = ExtResource("1_3esc5")
 move_name = "idle_crouch"
 input_di_map = [5]
 animation_name = "def_animations/def_idle_crouching"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -66,8 +72,11 @@ script = ExtResource("1_3esc5")
 move_name = "idle_crouch_guard"
 input_di_map = [6]
 animation_name = "def_animations/def_idle_crouching"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -96,8 +105,11 @@ script = ExtResource("1_3esc5")
 move_name = "walk_f"
 input_di_map = [3]
 animation_name = "def_animations/def_walk_f"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -122,8 +134,11 @@ script = ExtResource("1_3esc5")
 move_name = "walk_fc"
 input_di_map = [4]
 animation_name = "def_animations/def_walk_fc"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -152,8 +167,11 @@ script = ExtResource("1_3esc5")
 move_name = "walk_b"
 input_di_map = [7]
 animation_name = "def_animations/def_walk_b"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -181,8 +199,11 @@ script = ExtResource("1_3esc5")
 move_name = "dash_f"
 input_di_map = [3, 0, 3]
 animation_name = "def_animations/def_dash_f"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -210,8 +231,11 @@ script = ExtResource("1_3esc5")
 move_name = "dash_b"
 input_di_map = [7, 0, 7]
 animation_name = "def_animations/def_dash_b"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -239,8 +263,11 @@ script = ExtResource("1_3esc5")
 move_name = "step_l_LEFT"
 input_di_map = [1, 0]
 animation_name = "def_animations/def_step_l"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -269,8 +296,11 @@ script = ExtResource("1_3esc5")
 move_name = "step_r_LEFT"
 input_di_map = [5, 0]
 animation_name = "def_animations/def_step_r"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -303,8 +333,11 @@ script = ExtResource("1_3esc5")
 move_name = "step_r_RIGHT"
 input_di_map = [1, 0]
 animation_name = "def_animations/def_step_r"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -337,8 +370,11 @@ script = ExtResource("1_3esc5")
 move_name = "step_l_RIGHT"
 input_di_map = [5, 0]
 animation_name = "def_animations/def_step_l"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -372,8 +408,11 @@ move_name = "walk_l_LEFT"
 input_di_map = [1]
 animation_name = "def_animations/def_walk_l"
 required_state = "step_left"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -405,8 +444,11 @@ move_name = "walk_r_LEFT"
 input_di_map = [5]
 animation_name = "def_animations/def_walk_r"
 required_state = "step_right"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -438,8 +480,11 @@ move_name = "walk_l_RIGHT"
 input_di_map = [5]
 animation_name = "def_animations/def_walk_l"
 required_state = "step_left"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -471,8 +516,11 @@ move_name = "walk_r_RIGHT"
 input_di_map = [1]
 animation_name = "def_animations/def_walk_r"
 required_state = "step_right"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -504,8 +552,11 @@ move_name = "run_f"
 input_di_map = [0, 3]
 animation_name = "def_animations/def_run_f"
 required_state = "f_dash"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -534,8 +585,11 @@ script = ExtResource("1_3esc5")
 move_name = "block_h_1"
 input_di_map = [0]
 animation_name = "def_block_animations/def_block_h_1"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -560,8 +614,11 @@ script = ExtResource("1_3esc5")
 move_name = "block_m_1"
 input_di_map = [0]
 animation_name = "def_block_animations/def_block_m_1"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -586,8 +643,11 @@ script = ExtResource("1_3esc5")
 move_name = "block_l_1"
 input_di_map = [0]
 animation_name = "def_block_animations/def_block_l_1"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -616,8 +676,11 @@ script = ExtResource("1_3esc5")
 move_name = "hit_h_1"
 input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_h1"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -642,8 +705,11 @@ script = ExtResource("1_3esc5")
 move_name = "hit_m_1"
 input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_m_1"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -664,8 +730,11 @@ script = ExtResource("1_3esc5")
 move_name = "hit_l_1"
 input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_l_1"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -693,8 +762,10 @@ move_name = "5P"
 input_di_map = [0]
 input_button = 1
 animation_name = "def_animations/def_atk_p"
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -738,8 +809,10 @@ move_name = "2P"
 input_di_map = [5]
 input_button = 1
 animation_name = "def_animations/def_atk_2p"
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_m_1"
 block_animation = "def_block_animations/def_block_m_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -793,8 +866,10 @@ move_name = "3P"
 input_di_map = [4]
 input_button = 1
 animation_name = "AnimLibrary_Atropos/atro_atk_3p"
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_m_1"
 block_animation = "def_block_animations/def_block_m_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -855,8 +930,10 @@ move_name = "2K"
 input_di_map = [5]
 input_button = 2
 animation_name = "AnimLibrary_Atropos/atro_atk_2k"
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_l_1"
 block_animation = "def_block_animations/def_block_l_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -927,8 +1004,11 @@ move_name = "2K+A"
 input_di_map = [5]
 input_button = 6
 animation_name = "AnimLibrary_Atropos/atro_atk_2ka"
+recovery_block = "AnimLibrary_Atropos/atro_stagger_rl"
+has_block_recovery = true
 hit_animation = "def_hit_animations/def_hit_l_1"
 block_animation = "def_block_animations/def_block_l_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -989,8 +1069,11 @@ script = ExtResource("1_3esc5")
 move_name = "stagger_rl"
 input_di_map = [0]
 animation_name = "AnimLibrary_Atropos/atro_stagger_rl"
+non_attack = true
+recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -998,6 +1081,7 @@ hitbox_data = {
 }
 }
 is_reference = true
+recovery_ref = "Ref/idle_crouch"
 no_input = true
 
 [resource]

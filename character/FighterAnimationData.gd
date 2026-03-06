@@ -15,11 +15,14 @@ class_name FighterAnimationData
 
 @export var required_state: String = ""
 
+@export var non_attack: bool = false
+
 @export var attack_speed: int
 
-@export var recovery_hit: int
-@export var recovery_block: int
-@export var recovery_counter: int
+@export var recovery_hit: String = ""
+@export var recovery_block: String = ""
+@export var has_block_recovery: bool = false
+# @export var recovery_counter: int
 
 @export var unblockable: bool
 @export var is_grab: bool
@@ -28,6 +31,8 @@ class_name FighterAnimationData
 
 @export var hit_animation: String
 @export var block_animation: String
+@export var counter_animation: String = ""
+@export var has_counter_property: bool = false
 
 @export var pushback_force: int
 

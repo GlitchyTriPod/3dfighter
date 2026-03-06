@@ -107,6 +107,9 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 	item.get_node("%RequiredState").text = data.required_state if data.get("required_state") != null else ""
 	item.get_node("%HoldInput").button_pressed = data.hold_input if data.get("hold_input") != null else false
 	item.get_node("%HoldInput").disabled = item.get_node("%NoInput").button_pressed
+	item.get_node("%OnBlockToggle").button_pressed = data.has_block_recovery if data.get("has_block_recovery") != null else false
+	item.get_node("%OnCounterOpponentToggle").button_pressed = data.has_counter_property if data.get("has_counter_property") != null else false
+	item.get_node("%NonAttackToggle").button_pressed = data.non_attack if data.get("non_attack") != null else false
 
 	#animation for move
 	for i: int in item.get_node("%MoveAnimationOption").item_count:
@@ -123,6 +126,30 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 				.get_child(item.get_node("%InputSequence").get_child_count() - 2) \
 				.add_sibling(di_option)
 		di_option.selected = data.input_di_map[i]
+
+	# blocked attack animation (attacker)
+	for i: int in item.get_node("%OnBlockOption").item_count:
+		if str(data.recovery_block) == item.get_node("%OnBlockOption").get_item_text(i):
+			item.get_node("%OnBlockOption").selected = i
+			break
+
+	# blocked attack animation (Opponent)
+	for i: int in item.get_node("%OnBlockOpponentOption").item_count:
+		if data.block_animation == item.get_node("%OnBlockOpponentOption").get_item_text(i):
+			item.get_node("%OnBlockOpponentOption").selected = i
+			break
+
+	# hit animation (opponent)
+	for i:int in item.get_node("%OnHitOpponentOption").item_count:
+		if data.hit_animation == item.get_node("%OnHitOpponentOption").get_item_text(i):
+			item.get_node("%OnHitOpponentOption").selected = i
+			break
+
+	# counter hit anim (opponent)
+	for i: int in item.get_node("%OnCounterOpponentOption").item_count:
+		if data.counter_animation == item.get_node("%OnCounterOpponentOption").get_item_text(i):
+			item.get_node("%OnCounterOpponentOption").selected = i
+			break
 
 	# frame data here??? do i even need to do anything with that?
 
@@ -269,23 +296,28 @@ func _on_compile_movelist_button_button_up() -> void:
 	var move_list: FighterMovelist = FighterMovelist.new()
 
 	for item: MoveListItem in %MoveListView.get_child(0).get_children():
-		var anim_data := FighterAnimationData.new()
-		var inputs = []
+		var anim_data: FighterAnimationData = FighterAnimationData.new()
+		var inputs: Array = []
 
 		anim_data.move_name = item.move_name
 		anim_data.add_inputs_arr(item.get_input_map())
 		anim_data.animation_name = item.get_animation_name()
 		anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
 		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
+		anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
+		anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
 		anim_data.pushback_force = item.get_node("%PushbackForce").value
 		anim_data.is_reference = item.is_reference
+		anim_data.has_block_recovery = item.get_node("%OnBlockToggle").button_pressed
+		anim_data.recovery_block = item.get_node("%OnBlockOption").text
 		anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
 		anim_data.no_input = item.get_node("%NoInput").button_pressed
 		anim_data.side_context = item.get_node("%SideContext").selected
 		anim_data.required_state = item.get_node("%RequiredState").text
 		anim_data.hold_input = item.get_node("%HoldInput").button_pressed
+		anim_data.non_attack = item.get_node("%NonAttackToggle").button_pressed
 
-		# add frame data here
+		# add frame data here???
 
 		anim_data.hitbox_data = item.get_hitbox_data()
 		anim_data.hurtbox_data = item.get_hitbox_data(true)
