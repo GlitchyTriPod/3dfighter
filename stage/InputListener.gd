@@ -4,20 +4,20 @@ class_name InputListener
 @onready var player_1: Fighter = get_node("../Chars").get_child(0)
 @onready var player_2: Fighter = get_node("../Chars").get_child(1)
 
-var _p1_ready := false
-var _p2_ready := false
+var _p1_ready : bool = false
+var _p2_ready : bool = false
 
 # @onready var timer: NetworkTimer = get_child(0)
 
-var is_p1_local := true
-var is_p2_local := true
+var is_p1_local : bool = true
+var is_p2_local : bool = true
 
 # var process_ready := false
 
-var is_online_match := false
+var is_online_match : bool = false
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	# SyncManager.connect_signal(self.player_1, "ready_for_input_process", self, "_player_ready_process")
 	# SyncManager.connect_signal(self.player_2, "ready_for_input_process", self, "_player_ready_process")
 
@@ -36,7 +36,7 @@ func _ready():
 # 	self.player_1.process_inputs = true
 # 	self.player_2.process_inputs = true
 
-func _player_process_ready(player: Fighter):
+func _player_process_ready(player: Fighter) -> void:
 	if player == self.player_1:
 		self._p1_ready = true
 	else:
@@ -49,7 +49,7 @@ func _player_process_ready(player: Fighter):
 
 # # Called every network tick. 'delta' is the elapsed time since the previous frame.
 # delta will change with rollback implementation
-func input_process(): #_input: Dictionary): #_delta: float):
+func input_process() -> void: #_input: Dictionary): #_delta: float):
 
 	# first, poll for inputs
 	# check if player is local or networked
@@ -62,19 +62,21 @@ func input_process(): #_input: Dictionary): #_delta: float):
 	# if !self.process_ready:
 	# 	return
 
-	var _delta_int = int(SyncManager.tick_time * 65536) #int(_delta * 65536)
+	var _delta_int: int = int(SyncManager.tick_time * 65536) #int(_delta * 65536)
 
-	# second, set animation data, detect hitbox + hurtbox collisions
+	# set player states based on animation data
 	self.player_1.process_animation_data()
 	self.player_2.process_animation_data()
 
+	# enable/disable hit/hurtboxes for player based on anim data
 	self.player_1.process_animation_hitboxes()
 	self.player_2.process_animation_hitboxes()
 
+	# check for hit/hurtbox intersections
 	self.player_1.process_hitbox_intersection()
 	self.player_2.process_hitbox_intersection()
 
-	# last, advance player animations based on inputs & game state
+	#advance player animations based on inputs & game state
 	self.player_1.process_movement(_delta_int)
 	self.player_2.process_movement(_delta_int)
 

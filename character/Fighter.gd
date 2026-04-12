@@ -7,21 +7,21 @@ class_name Fighter
 # @export_enum("1", "2") 
 var player: int = 0
 
-const state_default: Dictionary = {
-	"crouching": false,
-	"rising": false,
-	"airborne": false,
-	"grounded": false,
-	"wall": false,
-	"running": false,
-	"counterhit": false,
-	"invincible": false,
-	"invisible": false,
-	"actionable": true,
-	"face_opponent": false,
-	"hit_stun": false,
-	"block_stun": false
-}
+# const state_default: Dictionary = {
+# 	"crouching": false,
+# 	"rising": false,
+# 	"airborne": false,
+# 	"grounded": false,
+# 	"wall": false,
+# 	"running": false,
+# 	"counterhit": false,
+# 	"invincible": false,
+# 	"invisible": false,
+# 	"actionable": true,
+# 	"face_opponent": false,
+# 	"hit_stun": false,
+# 	"block_stun": false
+# }
 
 var stun_reason: Dictionary = {
 	"stun_name": "",
@@ -29,7 +29,8 @@ var stun_reason: Dictionary = {
 	"stun_id": ""
 }
 
-var states: Dictionary = state_default.duplicate(true)
+# var states: Dictionary = state_default.duplicate(true)
+var states: Array[String] = []
 
 @export var movelist: FighterMovelist
 
@@ -101,13 +102,14 @@ var screen_position: String:
 			)
 
 @onready var collision_body: FEFighterCollisionBody = %CollisionBody
+
 var input_interpreter: InputInterpreter = InputInterpreter.new()
 
 @onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
-var current_anim_id: String
 
+var current_anim_id: String = "0" # Movelist item, NOT animation name
+			
 var collision_body_offset: Vector3
-
 
 @onready var misc_hitbox_pool: Array = %MiscHitboxPool.get_children()
 @onready var misc_hurtbox_pool: Array = %MiscHurtboxPool.get_children()
@@ -156,6 +158,7 @@ func _network_process(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
 	emit_signal("ready_for_input_process", self)
 
+# preddy sure this is unused now
 func _get_local_input() -> Dictionary:
 	var player_input : Dictionary = {}
 
@@ -197,8 +200,6 @@ func _save_state() -> Dictionary:
 func _load_state(state: Dictionary) -> void:
 	self.input_interpreter.input_history = state.input_history
 
-
-
 # 	return {
 # 		"position": self.position,
 # 		"rotation": self.rotation,
@@ -220,29 +221,37 @@ func _load_state(state: Dictionary) -> void:
 
 # checks the current animation id, sets player state based on currently playing animation
 func process_animation_data() -> void:
-	if self.current_anim_id == "":
-		self.states = state_default.duplicate(true) # <-- *may* cause problems later
-		return
+	# vv this should never happen bc an animation should always be present & have state data
+	# if self.current_anim_id == "":
+	# 	self.states = state_default.duplicate(true) # <-- *may* cause problems later
+	# 	return
+
+	# retrieve current anim id
 	
 	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
 	# set states
 	var current_frame: int = int(floor(self.anim_player.current_animation_position * 60))
-	for state: String in atk.player_states:
+	for state: String in atk.player_states.keys():
 
-		if self.states.has(state):
-			var state_data: Variant = atk.player_states.get(state)
-			if current_frame >= state_data.frame_range.start && \
-				current_frame < state_data.frame_range.end:
-				self.states[state] = state_data.value
-			else:
-				self.states.set(state, self.state_default.get(state))
+		# if self.states.has(state):
+		var state_data: Variant = atk.player_states.get(state)
+		if current_frame >= state_data.frame_range.start && \
+			current_frame < state_data.frame_range.end:
+			if self.states.has(state):
+				continue
+			self.states.append(state)
+		else:
+			if self.states.has(state):
+				self.states.remove_at(self.states.find(state))
 
 # checks current animation for hitboxes & places them into the scene if necessary
 func process_animation_hitboxes() -> void:
-	if self.current_anim_id == "":
-		return
+	# if self.current_anim_id == "":
+	# 	return
 	
+	# zzz
+
 	for i: FECollisionShape in self.misc_hitbox_pool:
 		i.enabled = false
 		i.hitbox_attack_index = -1
@@ -317,7 +326,8 @@ func process_movement(delta: int) -> void: # could use some optimizing
 
 	# check HERE if player needs to be put in stun state
 	if self.stun_reason.stun_id != "":
-		self.states["actionable"] = false
+		# self.states["actionable"] = false
+		self.states.remove_at(self.states.find("actionable"))
 		if !self.anim_player.current_animation.begins_with("hit"):
 			var atk_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, self.stun_reason.stun_id)
 
@@ -326,7 +336,8 @@ func process_movement(delta: int) -> void: # could use some optimizing
 
 		else: # will neeed to be deleted later
 			if self.anim_player.current_animation_position * 60 >= 23: # <-- WAIT I CAN CONTROL THE STUN LENGTH WITH THIS YESSSS
-				self.states["actionable"] = true
+				# self.states["actionable"] = true
+				self.states.remove_at(self.states.find("actionable"))
 				self.anim_player.play("AnimLibrary_test_newrig/idle_standing_BAKED")
 
 				self.stun_reason = {
@@ -335,7 +346,7 @@ func process_movement(delta: int) -> void: # could use some optimizing
 					"stun_id": ""
 				}
 
-	if !self.states["actionable"]: # if player is not actionable they are stuck in a currently playing animation
+	if !self.states.has("actionable"): # if player is not actionable they are stuck in a currently playing animation
 		# if self.anim_player.is_playing():
 		# 	self.anim_player.advance(SyncManager.tick_time )#float(delta / 65536.0))
 		self.process_root_motion(delta)

@@ -3,18 +3,18 @@ class_name InputInterpreter
 
 var input_history : Array = []
 
-func read_input(history := 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
+func read_input(history : int= 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
 	if history == 0:
 		return [self.input_history.back()] # temp
-	var inputs = []
-	for i in range(clamp(self.input_history.size() - history, 0, 100), self.input_history.size()):
+	var inputs: Array = []
+	for i: int in range(clamp(self.input_history.size() - history, 0, 100), self.input_history.size()):
 		inputs.push_front(self.input_history[i])
 	return inputs
 
-func interpret_input(input: Dictionary, screen_position: String):
+func interpret_input(input: Dictionary, screen_position: String) -> void:
 	
-	var di = ""
-	var button = ""
+	var di: String = ""
+	var button: String = ""
 
 	# check directional input
 	if input.has("input_directional"):
@@ -49,52 +49,56 @@ func interpret_input(input: Dictionary, screen_position: String):
 	if button == "":
 		button += "N"
 
+	# TODO: turn this into a bit mask
+	var ret_di: int
 	match di:
 		"N":
-			di = Fighter.DI_STATE.NEUTRAL
+			ret_di = Fighter.DI_STATE.NEUTRAL
 		"U":
-			di = Fighter.DI_STATE.UP
+			ret_di = Fighter.DI_STATE.UP
 		"UF":
-			di = Fighter.DI_STATE.UP_FORWARD
+			ret_di = Fighter.DI_STATE.UP_FORWARD
 		"F":
-			di = Fighter.DI_STATE.FORWARD
+			ret_di = Fighter.DI_STATE.FORWARD
 		"DF":
-			di = Fighter.DI_STATE.DOWN_FORWARD
+			ret_di = Fighter.DI_STATE.DOWN_FORWARD
 		"D":
-			di = Fighter.DI_STATE.DOWN
+			ret_di = Fighter.DI_STATE.DOWN
 		"DB":
-			di = Fighter.DI_STATE.DOWN_BACK
+			ret_di = Fighter.DI_STATE.DOWN_BACK
 		"B":
-			di = Fighter.DI_STATE.BACK
+			ret_di = Fighter.DI_STATE.BACK
 		"UB":
-			di = Fighter.DI_STATE.UP_BACK
+			ret_di = Fighter.DI_STATE.UP_BACK
 
+	# TODO: turn this into a bit mask
+	var ret_button: int
 	match button:
 		"N":			
-			button = Fighter.BUTTON_STATE.NONE
+			ret_button = Fighter.BUTTON_STATE.NONE
 		"P":
-			button = Fighter.BUTTON_STATE.P
+			ret_button = Fighter.BUTTON_STATE.P
 		"K":
-			button = Fighter.BUTTON_STATE.K
+			ret_button = Fighter.BUTTON_STATE.K
 		"A":
-			button = Fighter.BUTTON_STATE.A
+			ret_button = Fighter.BUTTON_STATE.A
 		"PK":
-			button = Fighter.BUTTON_STATE.PK
+			ret_button = Fighter.BUTTON_STATE.PK
 		"PA":
-			button = Fighter.BUTTON_STATE.PA
+			ret_button = Fighter.BUTTON_STATE.PA
 		"KA":
-			button = Fighter.BUTTON_STATE.KA
+			ret_button = Fighter.BUTTON_STATE.KA
 		"PKA":
-			button = Fighter.BUTTON_STATE.PKA
+			ret_button = Fighter.BUTTON_STATE.PKA
 
-	var current_input := {
-			"di": di,
-			"button": button, 
+	var current_input : Dictionary = {
+			"di": ret_di,
+			"button": ret_button, 
 			"frame_start": SyncManager.current_tick,
 			"screen_pos": screen_position
 		}
 
-	var last_input = self.input_history.back()
+	var last_input: Variant = self.input_history.back()
 	if last_input == null:
 		self.input_history.append(current_input)
 		return

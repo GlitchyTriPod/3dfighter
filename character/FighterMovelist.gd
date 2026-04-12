@@ -53,6 +53,9 @@ class_name FighterMovelist
 	
 # endregion	pass
 
+# func get_idle_anim() -> String:
+
+
 func add_to_list(move: FighterAnimationData) -> void:
 	var key: String = str(self.move_list.size()) 
 	self.move_list.get_or_add(key, move)
@@ -61,16 +64,16 @@ func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
 	for i: FighterAnimationData in moves:
 		self.add_to_list(i)
 
-func get_from_input(_input_di: Fighter.DI_STATE, input_button: Fighter.BUTTON_STATE, _player_state: Dictionary) -> String:
+func get_from_input(_input_di: Fighter.DI_STATE, input_button: Fighter.BUTTON_STATE, _player_state: Array) -> String:
 	# may need refactoring in order to improve search time. not making good use of move_list being a Dictionary
-	for move_id: String in self.move_list:
+	for move_id: String in self.move_list.keys():
 		var move: FighterAnimationData = self.move_list.get(move_id)
 
 		# print(move.animation_name)
 		if move.input_map[0].input_button == input_button: # <- need a more detailed selector, this is fine for now
 			return move_id
 
-	return "EMPTY"
+	return "0"
 
 func get_from_id(move_id: String) -> FighterAnimationData:
 	return self.move_list.get(move_id)
