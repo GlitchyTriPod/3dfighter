@@ -75,5 +75,12 @@ func get_from_input(_input_di: Fighter.DI_STATE, input_button: Fighter.BUTTON_ST
 
 	return "0"
 
+func get_default_anim_id_from_name(anim_name: String) -> String:
+	for move_id: String in self.move_list.keys():
+		var move: FighterAnimationData = self.move_list.get(move_id)
+		if anim_name.contains(move.move_name):
+			return move_id
+	return "0"
+
 func get_from_id(move_id: String) -> FighterAnimationData:
 	return self.move_list.get(move_id)

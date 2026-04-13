@@ -24,9 +24,9 @@ var player: int = 0
 # }
 
 var stun_reason: Dictionary = {
-	"stun_name": "",
-	"stun_hit": -1,
-	"stun_id": ""
+	"stun_name": "", # not really sure what im using this for rn im sure its important
+	"stun_hit": -1, # used to prevent hit registering multiple times on consecutive frames
+	"stun_id": "" # holds the id of the stun animation to be played
 }
 
 # var states: Dictionary = state_default.duplicate(true)
@@ -250,8 +250,6 @@ func process_animation_hitboxes() -> void:
 	# if self.current_anim_id == "":
 	# 	return
 	
-	# zzz
-
 	for i: FECollisionShape in self.misc_hitbox_pool:
 		i.enabled = false
 		i.hitbox_attack_index = -1
@@ -301,6 +299,8 @@ func process_hitbox_intersection() -> void:
 			hitbox.hitbox_attack_name == self.stun_reason.stun_name)): 
 			continue
 
+		# Check for early break conditions here (high atk vs. crouching opp., etc.)
+
 		for hurtbox: FECollisionShape in self_hurtboxes:
 			if !hurtbox.enabled:
 				continue
@@ -312,17 +312,24 @@ func process_hitbox_intersection() -> void:
 					hitbox.hitbox_attack_name, 
 					self.message_bus.get_oppo_current_animation_id(self)
 				)
-				if self.current_anim_id != "":
-					self.current_anim_id = ""
+				# if self.current_anim_id != "":
+				# 	self.current_anim_id = ""
 				break
 
 func process_hit(attack_index: int, animation_name: String, animation_id: String) -> void:
+	var enemy_anim_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, animation_id)
+
+	# TODO: Need to determine if this is a block or hit stun, currently only hitstun enabled
+	var stun_move: String = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
+
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name
-	self.stun_reason.stun_id = animation_id
+	self.stun_reason.stun_id = stun_move
 
 # processes movement for player
 func process_movement(delta: int) -> void: # could use some optimizing
+
+	# zzz
 
 	# check HERE if player needs to be put in stun state
 	if self.stun_reason.stun_id != "":

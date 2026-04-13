@@ -4,7 +4,7 @@ class_name FECollisionShape
 
 # Radius of the sphere. use this instead of scale.
 @export var fixed_sphere_radius: int = FixedInt.FIXED_HALF :
-	set(val): #<---- BAD PERFORMANCE. FIX THIS
+	set(val): # <---- VERY BAD PERFORMANCE. GENERATING 3D SHAPE SHOULD NOT BE DONE IN PRODUCTION
 		fixed_sphere_radius = val
 		var sph: Shape3D = self.shape
 		if Engine.is_editor_hint():
