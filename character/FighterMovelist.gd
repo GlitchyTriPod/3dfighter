@@ -84,3 +84,11 @@ func get_default_anim_id_from_name(anim_name: String) -> String:
 
 func get_from_id(move_id: String) -> FighterAnimationData:
 	return self.move_list.get(move_id)
+
+func get_from_ref_name(ref_name: String) -> Variant:
+	for move: FighterAnimationData in self.move_list.values():
+		if !move.is_reference:
+			continue
+		if move.move_name == ref_name:
+			return move
+	return false
