@@ -92,7 +92,7 @@ var opponent_position: FixedVector3:
 	get:
 		return self.message_bus.get_oppo_fixed_position(self)
 
-var screen_position: String:
+var screen_position: int:
 	get:
 		return self.message_bus \
 			.get_char_position( \
@@ -421,9 +421,9 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 # 			self.stance = STANCE.STANDING
 
 func get_move_from_input() -> FighterAnimationData:
-	var inputs: Array = self.input_interpreter.read_input(7)
+	var inputs: Array = self.input_interpreter.read_input(10)
 
-	# zzz
+	return self.movelist.get_from_input(inputs, self.states, self.screen_position)
 
 # region old
 # func check_animation_from_input() -> String:
@@ -557,12 +557,12 @@ func get_move_from_input() -> FighterAnimationData:
 # 	return return_val + "_BAKED" if !return_val.ends_with("_BAKED") else return_val
 # endregion
 
-func initiate_attack_anim(_current_anim: String) -> String:
-	var atk: String = self.movelist.get_from_input(self.di_state, self.button_state, self.states)
-	if atk != "EMPTY":
-		self.current_anim_id = atk
-		return self.movelist.get_from_id(atk).animation_name
-	return _current_anim
+# func initiate_attack_anim(_current_anim: String) -> String:
+# 	var atk: String = self.movelist.get_from_input(self.di_state, self.button_state, self.states)
+# 	if atk != "EMPTY":
+# 		self.current_anim_id = atk
+# 		return self.movelist.get_from_id(atk).animation_name
+# 	return _current_anim
 
 func process_root_motion(delta: int) -> void:
 

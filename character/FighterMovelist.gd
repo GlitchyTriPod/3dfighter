@@ -64,17 +64,6 @@ func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
 	for i: FighterAnimationData in moves:
 		self.add_to_list(i)
 
-func get_from_input(_input_di: Fighter.DI_STATE, input_button: Fighter.BUTTON_STATE, _player_state: Array) -> String:
-	# may need refactoring in order to improve search time. not making good use of move_list being a Dictionary
-	for move_id: String in self.move_list.keys():
-		var move: FighterAnimationData = self.move_list.get(move_id)
-
-		# print(move.animation_name)
-		if move.input_map[0].input_button == input_button: # <- need a more detailed selector, this is fine for now
-			return move_id
-
-	return "0"
-
 func get_default_anim_id_from_name(anim_name: String) -> String:
 	for move_id: String in self.move_list.keys():
 		var move: FighterAnimationData = self.move_list.get(move_id)
@@ -92,3 +81,61 @@ func get_from_ref_name(ref_name: String) -> Variant:
 		if move.move_name == ref_name:
 			return move
 	return false
+
+func get_from_input(inputs: Array[Dictionary], player_states: Array[String], screen_position: int) -> FighterAnimationData:
+	var ret_val: FighterAnimationData = null
+	var possible_moves: Array[FighterAnimationData] = [ ]
+
+	for move: FighterAnimationData in self.move_list.values():
+		if move.input_di_map.back() == inputs[0]["di"] && \
+			move.input_button == inputs[0]["button"] && \
+			(move.side_context == 0 || screen_position == move.side_context):
+			possible_moves.append(move)
+	
+	possible_moves.sort_custom(
+		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
+			if !a.required_state.is_empty() && player_states.has(a.required_state):
+				return true
+			if a.input_di_map.size() > b.input_di_map.size():
+				return true
+			return false
+	)
+
+	inputs.reverse()
+	for move: FighterAnimationData in possible_moves:
+
+		if move.input_di_map.size() > 1: # checking for motion input
+			# we already checked that the last part of the input matches, no need to recheck
+			var passes_check: bool = true
+			for i: int in range(move.input_di_map.size() - 2, 0, -1):
+				# make sure there are enough readable inputs for this move to be valid
+				if (i >= inputs.size()) || \
+
+					# check that directional input matches
+					(move.input_di_map[i] != inputs[i]["di"]) || \
+
+					# check that player input move quickly enough
+					((inputs[i - 1].frame_start if i != 0 else SyncManager.current_tick) - inputs[i].frame_start > 6):
+
+					passes_check = false
+					break
+				
+			if passes_check == false:
+				continue
+
+			ret_val = move
+			break
+
+		# zzz
+
+	return ret_val
+
+	# # may need refactoring in order to improve search time. not making good use of move_list being a Dictionary
+	# for move_id: String in self.move_list.keys():
+	# 	var move: FighterAnimationData = self.move_list.get(move_id)
+
+	# 	# print(move.animation_name)
+	# 	if move.input_map[0].input_button == input_button: # <- need a more detailed selector, this is fine for now
+	# 		return move_id
+
+	# return "0"
