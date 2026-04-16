@@ -9,10 +9,10 @@ enum BUTTON_FLAGS {
 	A = 0x04
 }
 
-func read_input(history :int = 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
+func read_input(history :int = 0) -> Array[Dictionary]: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
 	if history == 0:
 		return [self.input_history.back()] # temp
-	var inputs: Array = []
+	var inputs: Array[Dictionary] = []
 	for i: int in range(clamp(self.input_history.size() - history, 0, 100), self.input_history.size()):
 		inputs.push_front(self.input_history[i])
 	return inputs
@@ -92,8 +92,8 @@ func interpret_input(input: Dictionary, screen_position: int) -> void:
 			"screen_pos": screen_position
 		}
 
-	var last_input: Dictionary = self.input_history.back()
-	if last_input == null:
+	var last_input: Dictionary = self.input_history.back() if !self.input_history.is_empty() else {}
+	if last_input.is_empty():
 		self.input_history.append(current_input)
 		return
 

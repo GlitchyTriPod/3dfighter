@@ -242,8 +242,8 @@ func process_animation_data() -> void:
 
 		# if self.states.has(state):
 		var state_data: Variant = atk.player_states.get(state)
-		if current_frame >= state_data.frame_range.start && \
-			current_frame < state_data.frame_range.end:
+		if current_frame >= state_data.start && \
+			current_frame < state_data.end:
 			if self.states.has(state):
 				continue
 			self.states.append(state)
@@ -265,7 +265,7 @@ func process_animation_hitboxes() -> void:
 
 	#find hitboxes
 	var current_frame: int = int(floor(self.anim_player.current_animation_position * 60))
-	var hitbox_data: Dictionary
+	var hitbox_data: Dictionary = {}
 	var index: int
 	if atk.hitbox_data.has("shapes"):
 		for h_b: Dictionary in atk.hitbox_data["shapes"]:
@@ -275,7 +275,7 @@ func process_animation_hitboxes() -> void:
 			index = atk.hitbox_data["shapes"].find(h_b)
 			break
 	
-	if hitbox_data == null:
+	if hitbox_data.is_empty():
 		return
 
 	for shape: Dictionary in hitbox_data.shapes:
@@ -420,7 +420,7 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 # 			self.stance = STANCE.STANDING
 
 func get_move_from_input() -> FighterAnimationData:
-	var inputs: Array = self.input_interpreter.read_input(10)
+	var inputs: Array[Dictionary] = self.input_interpreter.read_input(10)
 
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position)
 

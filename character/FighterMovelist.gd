@@ -89,13 +89,24 @@ func get_from_ref_name(ref_name: String) -> Variant:
 	return false
 
 func get_from_input(inputs: Array[Dictionary], player_states: Array[String], screen_position: int) -> FighterAnimationData:
-	var ret_val: FighterAnimationData = null
+
+	# zzz bugs need squashing
+
+	# var ret_val: FighterAnimationData = null
 	var possible_moves: Array[FighterAnimationData] = [ ]
 
+	### selecting valid moves ###
+
 	for move: FighterAnimationData in self.move_list.values():
-		if move.input_di_map.back() == inputs[0]["di"] && \
+		if (move.input_di_map.back() == inputs[0]["di"] || \
+
+			# this check is to specifically get neutral di input moves in the event there is no
+			# move associated with the current di
+			(move.input_di_map.size() == 1 && move.input_di_map[0] == 0))  && \
+
 			self.is_valid_button_press(move.input_button, inputs[0]["button"]) && \
-			(move.side_context == 0 || screen_position == move.side_context):
+			(move.side_context == 0 || screen_position == move.side_context) && \
+			(!move.required_state.is_empty() && player_states.has(move.required_state)):
 			possible_moves.append(move)
 	
 	### determining move priority ###
@@ -128,17 +139,20 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 	)
 	temp_arr_normal_inputs.sort_custom(
 		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
+			if a.input_button == b.input_button:
+				return a.input_di_map[0] > b.input_di_map[0]
 			return a.input_button > b.input_button
 	)
 
 	possible_moves = temp_arr_state_moves + temp_arr_motion_inputs + temp_arr_normal_inputs
 
-	# zzz
+	### selecting move ###
 
 	inputs.reverse()
 	for move: FighterAnimationData in possible_moves:
 
-		if move.input_di_map.size() > 1: # checking for motion input
+		# checking for motion input
+		if move.input_di_map.size() > 1:
 			# we already checked that the last part of the input matches, no need to recheck
 			var passes_check: bool = true
 			for i: int in range(move.input_di_map.size() - 2, 0, -1):
@@ -149,7 +163,7 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 					(move.input_di_map[i] != inputs[i]["di"] || move.input_di_map[i] != inputs[i - 1]["di"]) || \
 
 					# check that player input move quickly enough
-					((inputs[i - 1].frame_start if i != 0 else SyncManager.current_tick) - inputs[i].frame_start > 6):
+					((inputs[i - 1].frame_start if i != 0 else SyncManager.current_tick) - inputs[i].frame_start < 6):
 
 					passes_check = false
 					break
@@ -157,13 +171,14 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 			if passes_check == false:
 				continue
 
-			ret_val = move
-			break
+			return move
+			# break
 
+		# move does not have a motion input
+		return move
+		# ...is that legit all it needs??? lol
 
-		
-
-	return ret_val
+	return null
 
 	# # may need refactoring in order to improve search time. not making good use of move_list being a Dictionary
 	# for move_id: String in self.move_list.keys():
@@ -175,9 +190,12 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 
 	# return "0"
 
-func is_valid_button_press(button_mask: int, move_input: int) -> bool:
-	if (move_input & BUTTON_FLAGS.P and button_mask & BUTTON_FLAGS.P) || \
+func is_valid_button_press(move_input: int, button_mask: int) -> bool:
+	if ((move_input & BUTTON_FLAGS.P and button_mask & BUTTON_FLAGS.P) || \
 		(move_input & BUTTON_FLAGS.K and button_mask & BUTTON_FLAGS.K) || \
-		(move_input & BUTTON_FLAGS.A and button_mask & BUTTON_FLAGS.A):
+		(move_input & BUTTON_FLAGS.A and button_mask & BUTTON_FLAGS.A)) && \
+
+		# this check makes sure that the selected move requires less or equal button presses than the actual input
+		move_input <= button_mask:
 		return true
 	return false

@@ -32,10 +32,10 @@ class_name FixedVector3
 		if self.universal_setter_callback != null:
 			self.universal_setter_callback.call()
 
-var x_setter_callback: Callable 
-var y_setter_callback: Callable
-var z_setter_callback: Callable
-var universal_setter_callback: Callable
+var x_setter_callback: Callable = func() -> void: return
+var y_setter_callback: Callable = func() -> void: return
+var z_setter_callback: Callable = func() -> void: return
+var universal_setter_callback: Callable = func() -> void: return
 
 func _init(x_inc: int = 0, y_inc: int = 0, z_inc: int = 0) -> void:
 	self.x = x_inc
