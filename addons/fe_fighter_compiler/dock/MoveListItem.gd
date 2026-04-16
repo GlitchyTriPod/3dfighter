@@ -89,7 +89,7 @@ func get_input_map() -> Array:
 	for node: Node in %InputSequence.get_children():
 		if node is OptionButton:
 			val.append(node.selected)
-	val.append(%ButtonInputOption.selected)
+	val.append(%ButtonInputOption.get_item_text(%ButtonInputOption.selected))
 	return val
 
 func get_animation_name():

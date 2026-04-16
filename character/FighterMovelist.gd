@@ -6,6 +6,12 @@ class_name FighterMovelist
 
 @export var move_list: Dictionary = {}
 
+enum BUTTON_FLAGS {
+	P = 0x01,
+	K = 0x02,
+	A = 0x04
+}
+
 # region DEBUG TOOL ONLY
 # func _init() -> void:
 # 	# if Engine.is_editor_hint():
@@ -88,18 +94,46 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 
 	for move: FighterAnimationData in self.move_list.values():
 		if move.input_di_map.back() == inputs[0]["di"] && \
-			move.input_button == inputs[0]["button"] && \
+			self.is_valid_button_press(move.input_button, inputs[0]["button"]) && \
 			(move.side_context == 0 || screen_position == move.side_context):
 			possible_moves.append(move)
 	
-	possible_moves.sort_custom(
+	### determining move priority ###
+
+	var temp_arr_state_moves: Array[FighterAnimationData] = possible_moves.filter(
+		func(move: FighterAnimationData) -> bool:
+			return !move.required_state.is_empty()
+	)
+	temp_arr_state_moves.sort_custom(
 		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
-			if !a.required_state.is_empty() && player_states.has(a.required_state):
-				return true
+			return a.input_button > b.input_button
+	)
+
+	var temp_arr_motion_inputs: Array[FighterAnimationData] = possible_moves.filter(
+		func(move: FighterAnimationData) -> bool:
+			return move.input_di_map.size() > 1
+	)
+	temp_arr_motion_inputs.sort_custom(
+		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
 			if a.input_di_map.size() > b.input_di_map.size():
 				return true
+			if a.input_di_map.size() == b.input_di_map.size():
+				return a.input_button > b.input_button
 			return false
 	)
+
+	var temp_arr_normal_inputs: Array[FighterAnimationData] = possible_moves.filter(
+		func(move: FighterAnimationData) -> bool:
+			return move.input_di_map.size() <= 1
+	)
+	temp_arr_normal_inputs.sort_custom(
+		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
+			return a.input_button > b.input_button
+	)
+
+	possible_moves = temp_arr_state_moves + temp_arr_motion_inputs + temp_arr_normal_inputs
+
+	# zzz
 
 	inputs.reverse()
 	for move: FighterAnimationData in possible_moves:
@@ -111,8 +145,8 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 				# make sure there are enough readable inputs for this move to be valid
 				if (i >= inputs.size()) || \
 
-					# check that directional input matches
-					(move.input_di_map[i] != inputs[i]["di"]) || \
+					# check that directional input matches		vv added for input leniency (idk if it works)
+					(move.input_di_map[i] != inputs[i]["di"] || move.input_di_map[i] != inputs[i - 1]["di"]) || \
 
 					# check that player input move quickly enough
 					((inputs[i - 1].frame_start if i != 0 else SyncManager.current_tick) - inputs[i].frame_start > 6):
@@ -126,7 +160,8 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 			ret_val = move
 			break
 
-		# zzz
+
+		
 
 	return ret_val
 
@@ -139,3 +174,10 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 	# 		return move_id
 
 	# return "0"
+
+func is_valid_button_press(button_mask: int, move_input: int) -> bool:
+	if (move_input & BUTTON_FLAGS.P and button_mask & BUTTON_FLAGS.P) || \
+		(move_input & BUTTON_FLAGS.K and button_mask & BUTTON_FLAGS.K) || \
+		(move_input & BUTTON_FLAGS.A and button_mask & BUTTON_FLAGS.A):
+		return true
+	return false

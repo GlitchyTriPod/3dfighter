@@ -2,6 +2,12 @@
 extends Resource
 class_name FighterAnimationData
 
+enum BUTTON_FLAGS {
+	P = 0x01,
+	K = 0x02,
+	A = 0x04
+}
+
 # var id: String
 
 @export var move_name: String = ""
@@ -57,4 +63,13 @@ class_name FighterAnimationData
 
 func add_inputs_arr(inputs: Array) -> void:
     self.input_di_map = inputs.slice(0, inputs.size() - 1)
-    self.input_button = inputs[inputs.size() -1]
+
+    var button_val: int = 0
+    if inputs[inputs.size() - 1].contains("P"):
+        button_val |= BUTTON_FLAGS.P
+    if inputs[inputs.size() - 1].contains("K"):
+        button_val |= BUTTON_FLAGS.K
+    if inputs[inputs.size() - 1].contains("A"):
+        button_val |= BUTTON_FLAGS.A
+
+    self.input_button = button_val

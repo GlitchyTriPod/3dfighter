@@ -37,21 +37,21 @@ var states: Array[String] = []
 @export var animation_library: AnimationLibrary
 
 # tracks basic stances for the fighter -- extend if character has multiple stances
-enum STANCE {
-	STANDING,
-	CROUCHING,
-	GROUNDED,
-	AIRBORNE,
-	WALL,
-	F_DASH,
-	B_DASH,
-	SIDESTEP,
-	SIDEWALK,
-	RUN,
-	JUMP
-}
+# enum STANCE {
+# 	STANDING,
+# 	CROUCHING,
+# 	GROUNDED,
+# 	AIRBORNE,
+# 	WALL,
+# 	F_DASH,
+# 	B_DASH,
+# 	SIDESTEP,
+# 	SIDEWALK,
+# 	RUN,
+# 	JUMP
+# }
 
-var stance: int = STANCE.STANDING
+# var stance: int = STANCE.STANDING
 
 enum DI_STATE {
 	NEUTRAL,
@@ -65,20 +65,20 @@ enum DI_STATE {
 	UP_BACK
 }
 # tracks the current direction that the player is holding
-var di_state: int = DI_STATE.NEUTRAL
+# var di_state: int = DI_STATE.NEUTRAL
 
-enum BUTTON_STATE {
-	NONE,
-	P,
-	K,
-	A,
-	PK,
-	PA,
-	KA,
-	PKA
-}
+# enum BUTTON_STATE {
+# 	NONE,
+# 	P,
+# 	K,
+# 	A,
+# 	PK,
+# 	PA,
+# 	KA,
+# 	PKA
+# }
 # tracks the buttons that the player is pressing/holding down
-var button_state: int = BUTTON_STATE.NONE
+# var button_state: int = BUTTON_STATE.NONE
 
 var message_bus: FighterMessageBus
 
@@ -158,7 +158,6 @@ func _network_process(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
 	emit_signal("ready_for_input_process", self)
 
-# preddy sure this is unused now
 func _get_local_input() -> Dictionary:
 	var player_input : Dictionary = {}
 

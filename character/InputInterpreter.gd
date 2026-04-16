@@ -3,6 +3,12 @@ class_name InputInterpreter
 
 var input_history : Array = []
 
+enum BUTTON_FLAGS {
+	P = 0x01,
+	K = 0x02,
+	A = 0x04
+}
+
 func read_input(history :int = 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
 	if history == 0:
 		return [self.input_history.back()] # temp
@@ -71,25 +77,13 @@ func interpret_input(input: Dictionary, screen_position: int) -> void:
 		"UB":
 			ret_di = Fighter.DI_STATE.UP_BACK
 
-	# TODO: turn this into a bit mask
-	var ret_button: int
-	match button:
-		"N":			
-			ret_button = Fighter.BUTTON_STATE.NONE
-		"P":
-			ret_button = Fighter.BUTTON_STATE.P
-		"K":
-			ret_button = Fighter.BUTTON_STATE.K
-		"A":
-			ret_button = Fighter.BUTTON_STATE.A
-		"PK":
-			ret_button = Fighter.BUTTON_STATE.PK
-		"PA":
-			ret_button = Fighter.BUTTON_STATE.PA
-		"KA":
-			ret_button = Fighter.BUTTON_STATE.KA
-		"PKA":
-			ret_button = Fighter.BUTTON_STATE.PKA
+	var ret_button: int = 0
+	if button.contains("P"):
+		ret_button |= BUTTON_FLAGS.P
+	if button.contains("K"):
+		ret_button |= BUTTON_FLAGS.K
+	if button.contains("A"):
+		ret_button |= BUTTON_FLAGS.A
 
 	var current_input : Dictionary = {
 			"di": ret_di,
