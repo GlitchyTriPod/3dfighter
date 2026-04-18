@@ -4,8 +4,8 @@ class_name Fighter
 
 @export var fighter_name: String = "DUMMY"
 
-# @export_enum("1", "2") 
-var player: int = 0
+# @expor 
+@export_enum("1", "2") var player: int = 0
 
 # const state_default: Dictionary = {
 # 	"crouching": false,
@@ -159,17 +159,17 @@ func _network_process(input: Dictionary) -> void:
 	emit_signal("ready_for_input_process", self)
 
 func _get_local_input() -> Dictionary:
-	var player_input : Dictionary = {}
+	var player_input: Dictionary = {}
 
 	if !self.is_focused:
 		
 		return player_input
 
 	var dir: Vector2i = Vector2i(
-		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))) \
-		- int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))),
-		int(Input.is_action_pressed("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))) \
-		- int(Input.is_action_pressed("INPUT_DOWN_P" + str(1 if self.is_online else (self.player + 1))))
+		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))) - \
+		int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))),
+		int(Input.is_action_pressed("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))) - \
+		int(Input.is_action_pressed("INPUT_DOWN_P" + str(1 if self.is_online else (self.player + 1))))
 	)
 
 	if dir != Vector2i.ZERO:
@@ -187,7 +187,6 @@ func _get_local_input() -> Dictionary:
 		if !player_input.has("input_button"):
 			player_input["input_button"] = {}
 		player_input["input_button"]["a"] = true
-
 
 	return player_input
 
@@ -378,7 +377,7 @@ func process_movement(delta: int) -> void: # could use some optimizing
 	# determine animation to play
 	var next_move: FighterAnimationData = self.get_move_from_input()
 
-	if next_move.animation_name != self.anim_player.current_animation:
+	if next_move!= null && next_move.animation_name != self.anim_player.current_animation:
 		self.set_animation_order(next_move)
 
 	# if next_anim != self.anim_player.current_animation && next_anim != "_BAKED":

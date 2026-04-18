@@ -9,7 +9,7 @@ enum BUTTON_FLAGS {
 	A = 0x04
 }
 
-func read_input(history :int = 0) -> Array[Dictionary]: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
+func read_input(history: int = 0) -> Array[Dictionary]: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
 	if history == 0:
 		return [self.input_history.back()] # temp
 	var inputs: Array[Dictionary] = []
