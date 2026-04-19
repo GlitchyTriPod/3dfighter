@@ -3,7 +3,7 @@ class_name FEFighterCollisionBody
 extends FECollisionShape
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	super()
 	self.debug_shape_custom_color = Color.GREEN
 	self.remove_from_group("Player1MiscHurtbox")
@@ -17,17 +17,17 @@ func _ready():
 	self.add_to_group("network_sync")
 
 func is_on_floor(floor_height: int) -> bool:
-	var rem = self.fixed_position.y - self.fixed_sphere_radius
+	var rem: int = self.fixed_position.y - self.fixed_sphere_radius
 	return rem <= floor_height
 
-func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP):
+func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP) -> void:
 
-	var origin := FixedVector3.from_vec3(self.global_transform.origin)
+	var origin: FixedVector3 = FixedVector3.from_vec3(self.global_transform.origin)
 
-	var forward := FixedVector3.sub(target, origin)
-	var lookat_basis := FixedVector3.basis_looking_at(forward, axis, true)
+	var forward: FixedVector3 = FixedVector3.sub(target, origin)
+	var lookat_basis: Basis = FixedVector3.basis_looking_at(forward, axis, true)
 
-	var original_scale = self.scale
+	var original_scale: Vector3 = self.scale
 
 	self.global_transform = Transform3D(lookat_basis, FixedVector3.to_vec3(origin))
 
