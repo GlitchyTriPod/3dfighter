@@ -21,8 +21,13 @@ func get_oppo_current_animation_id(player: Fighter) -> String:
 		oppo = self.player_1
 	return oppo.current_anim_id
 
+func get_oppo_states(player: Fighter) -> Array[String]:
+	if player == self.player_1:
+		return self.player_2.states
+	return self.player_1.states
+
 func get_char_position(player_global_position: Vector3) -> int:
-	return self.game_camera.get_char_position(player_global_position)
+	return self.game_camera.get_char_position(player_global_position)	
 
 func get_oppo_fixed_position(player: Fighter) -> FixedVector3:
 	var oppo: Fighter

@@ -73,7 +73,7 @@ func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
 func get_default_anim_id_from_name(anim_name: String) -> String:
 	for move_id: String in self.move_list.keys():
 		var move: FighterAnimationData = self.move_list.get(move_id)
-		if anim_name.contains(move.move_name):
+		if anim_name == move.animation_name:
 			return move_id
 	return "0"
 

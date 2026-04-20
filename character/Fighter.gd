@@ -148,10 +148,6 @@ func get_misc_unused_hitbox() -> Variant:
 			return i
 	return
 
-# Passes player input onto input interpreter
-# func input(player_input: Array[String]):
-# 	self.input_interpreter.interpret_input(player_input, self.screen_position)
-
 func _network_process(input: Dictionary) -> void:
 	# if !self.process_inputs:
 	# 	return
@@ -249,9 +245,6 @@ func process_animation_data() -> void:
 			if self.states.has(state):
 				continue
 			self.states.append(state)
-		# else:
-		# 	if self.states.has(state):
-		# 		self.states.remove_at(self.states.find(state))
 	
 
 # checks current animation for hitboxes & places them into the scene if necessary
@@ -340,8 +333,12 @@ func process_movement(delta: int) -> void: # could use some optimizing
 
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != "":
+		# print(self.stun_reason.stun_id.split("/").get(1))
+
 		self.set_animation_order(self.movelist.get_from_id(self.stun_reason.stun_id))
 		self.reset_stun_reason()
+		self.process_root_motion(delta)
+		return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
 	if !self.states.has("actionable"):
@@ -367,7 +364,6 @@ func process_movement(delta: int) -> void: # could use some optimizing
 		next_move.animation_name != self.anim_player.current_animation && \
 		!self.is_current_input_ignored(inp):
 		self.set_animation_order(next_move)
-
 
 	self.process_root_motion(delta)
 
@@ -468,7 +464,8 @@ func collide_and_slide(delta: int) -> void:
 
 	self.collision_body.fixed_position = new_position
 
-	self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
+	if self.is_tracking_opponent():
+		self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
 	
 	self.position = FixedVector3.to_vec3( \
 		FixedVector3.sub(self.collision_body.fixed_position, \
@@ -476,3 +473,11 @@ func collide_and_slide(delta: int) -> void:
 	))
 
 	self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
+
+func is_tracking_opponent() -> bool:
+	var oppo_states: Array[String] = self.message_bus.get_oppo_states(self)
+	if self.states.has("track_opp") || \
+		(self.states.has("track_right") && oppo_states.has("left_movement")) || \
+		(self.states.has("track_left") && oppo_states.has("right_movement")):
+		return true
+	return false

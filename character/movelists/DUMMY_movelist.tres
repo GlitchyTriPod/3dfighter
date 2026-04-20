@@ -848,6 +848,10 @@ player_states = {
 "punishable": {
 "end": 999,
 "start": 11
+},
+"track_opp": {
+"end": 2,
+"start": 0
 }
 }
 recovery_ref = "Ref/idle"
@@ -899,6 +903,10 @@ player_states = {
 "punishable": {
 "end": 999,
 "start": 11
+},
+"track_opp": {
+"end": 2,
+"start": 0
 }
 }
 recovery_ref = "Ref/idle_crouch"
@@ -964,6 +972,10 @@ player_states = {
 "punishable": {
 "end": 999,
 "start": 16
+},
+"track_opp": {
+"end": 2,
+"start": 0
 }
 }
 recovery_ref = "Ref/idle"
@@ -1032,6 +1044,10 @@ player_states = {
 "punishable": {
 "end": 999,
 "start": 16
+},
+"track_opp": {
+"end": 2,
+"start": 0
 }
 }
 recovery_ref = "Ref/idle_crouch"
@@ -1115,6 +1131,10 @@ player_states = {
 "punishable": {
 "end": 999,
 "start": 21
+},
+"track_opp": {
+"end": 2,
+"start": 0
 }
 }
 recovery_ref = "Ref/idle"
