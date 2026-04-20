@@ -130,6 +130,7 @@ func _ready() -> void:
 		%AddonSpheres.free()
 
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+		self.anim_player.playback_default_blend_time = 0.1
 		self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
 

@@ -250,25 +250,36 @@ func _on_seek_forward_button_up() -> void:
 	if self.anim_player.current_animation_position >= self.anim_player.current_animation_length:
 		return
 
+	var seek_position: float = clampf(self.anim_player.current_animation_position + self.tick_time, 0.0, 99999.0)
+	var curr_anim: StringName = self.anim_player.current_animation
+
+	self.animation_frame_changed.emit(seek_position * 60)
+
+	await get_tree().create_timer(0.001).timeout
+
+	self.anim_player.play(curr_anim)
 	self.anim_player.seek(
-		clampf(self.anim_player.current_animation_position + self.tick_time,
-			self.anim_player.current_animation_position, 
-			self.anim_player.current_animation_length
-		),
+		seek_position,
 		true
 	)
-	self.animation_frame_changed.emit(self.anim_player.current_animation_position * 60)
 
 func _on_seek_back_button_up() -> void:
 	if self.anim_player.current_animation_position <= 0:
 		return
 	
+	var seek_position: float = clampf(self.anim_player.current_animation_position - self.tick_time, 0.0, 99999.0)
+	var curr_anim: StringName = self.anim_player.current_animation
+
+	self.animation_frame_changed.emit(seek_position * 60)
+
+	await get_tree().create_timer(0.001).timeout
+
+	self.anim_player.play(curr_anim)
 	self.anim_player.seek(
-		clampf(self.anim_player.current_animation_position - self.tick_time, 0.0, 99999.0),
+		seek_position,
 		true
 	)
 
-	self.animation_frame_changed.emit(self.anim_player.current_animation_position * 60)
 
 func _on_add_move_button_up() -> void:
 	self.add_movelist_item()
