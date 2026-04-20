@@ -107,7 +107,7 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 
 			self.is_valid_button_press(move.input_button, inputs[0]["button"]) && \
 			(move.side_context == 0 || screen_position == move.side_context) && \
-			(player_states.has(move.required_state) if !move.required_state.is_empty() else true):
+			(self.has_valid_states(move, player_states) if !move.required_state.is_empty() else true):
 			possible_moves.append(move)
 	
 	### determining move priority ###
@@ -152,10 +152,13 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 	# inputs.reverse()
 	for move: FighterAnimationData in possible_moves:
 
+
 		# checking for motion input
 		if move.input_di_map.size() > 1:
-			if move.input_di_map.size() > inputs.size():
+			if move.input_di_map.size() > inputs.size() || \
+				SyncManager.current_tick - inputs[0].frame_start >= 6:
 				continue
+				
 
 			# we already checked that the last part of the input matches, no need to recheck
 			var passes_check: bool = true
@@ -168,26 +171,13 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 					passes_check = false
 					break
 
-				if inputs[i + input_history_offset - 1].frame_start \
-					if i + input_history_offset - 1 > 0 \
-					else SyncManager.current_tick \
+				if (inputs[i + input_history_offset - 1].frame_start \
+					if i + input_history_offset - 1 >= 0 \
+					else SyncManager.current_tick) \
 					- inputs[i + input_history_offset].frame_start >= 6:
 					
 					passes_check = false
 					break
-
-			# for i: int in range(move.input_di_map.size() - 1, 0, -1):
-			# 	# make sure there are enough readable inputs for this move to be valid
-			# 	if (i >= inputs.size()) || \
-
-			# 		# check that directional input matches		vv added for input leniency (idk if it works) does not work.
-			# 		(move.input_di_map[i] != inputs[i]["di"] || move.input_di_map[i] != inputs[i - 1]["di"]) || \
-
-			# 		# check that player input move quickly enough
-			# 		((inputs[i - 1].frame_start if i != 0 else SyncManager.current_tick) - inputs[i].frame_start < 6):
-
-			# 		passes_check = false
-			# 		break
 				
 			if passes_check == false:
 				continue
@@ -195,21 +185,13 @@ func get_from_input(inputs: Array[Dictionary], player_states: Array[String], scr
 			return move
 			# break
 
+		# assert(move.move_name != "walk_l_LEFT")
+
 		# move does not have a motion input
 		return move
 		# ...is that legit all it needs??? lol
 
 	return self.move_list.get("0")
-
-	# # may need refactoring in order to improve search time. not making good use of move_list being a Dictionary
-	# for move_id: String in self.move_list.keys():
-	# 	var move: FighterAnimationData = self.move_list.get(move_id)
-
-	# 	# print(move.animation_name)
-	# 	if move.input_map[0].input_button == input_button: # <- need a more detailed selector, this is fine for now
-	# 		return move_id
-
-	# return "0"
 
 func is_valid_button_press(move_input: int, button_mask: int) -> bool:
 	if ((move_input & BUTTON_FLAGS.P and button_mask & BUTTON_FLAGS.P) || \
@@ -220,4 +202,13 @@ func is_valid_button_press(move_input: int, button_mask: int) -> bool:
 		# this check makes sure that the selected move requires less or equal button presses than the actual input
 		move_input <= button_mask:
 		return true
+	return false
+
+func has_valid_states(move: FighterAnimationData, player_states: Array[String]) -> bool:
+	var states: PackedStringArray = move.required_state.split(", ")
+
+	for state: String in states:
+		if player_states.has(state):
+			return true
+	
 	return false

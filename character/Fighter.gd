@@ -108,7 +108,7 @@ var input_interpreter: InputInterpreter = InputInterpreter.new()
 @onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
 
 var current_anim_id: String = "0" # Movelist item, NOT animation name
-var anim_fallback_id: String = "0"
+# var anim_fallback_id: String = "0"
 			
 var collision_body_offset: Vector3
 
@@ -230,8 +230,6 @@ func process_animation_data() -> void:
 	# retrieve current anim id
 	
 	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
-
-	if self.player == 0: print(atk.move_name)
 
 	# remove non-calculated states
 	self.states = self.states.filter(
@@ -355,17 +353,19 @@ func process_movement(delta: int) -> void: # could use some optimizing
 			self.set_animation_order(self.movelist.get_from_ref_name(move.recovery_ref))
 
 		self.process_root_motion(delta)
-		
+
 		return
 
-	var inp: Array = self.input_interpreter.read_input()
+	var inp: Array[Dictionary] = self.input_interpreter.read_input()
 	if inp.size() == 0 || inp[0] == null:
 		return
 
 	# determine animation to play
 	var next_move: FighterAnimationData = self.get_move_from_input()
 
-	if next_move!= null && next_move.animation_name != self.anim_player.current_animation:
+	if next_move != null && \
+		next_move.animation_name != self.anim_player.current_animation && \
+		!self.is_current_input_ignored(inp):
 		self.set_animation_order(next_move)
 
 
@@ -386,6 +386,40 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
 	self.anim_player.play(atk_data.animation_name)
 	
+func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
+	if current_input[0].button != 0:
+		return false
+
+	match current_input[0].di:
+		DI_STATE.NEUTRAL:
+			if self.states.has("recovery_ignore_input_NEUTRAL"):
+				return true
+		DI_STATE.UP:
+			if self.states.has("recovery_ignore_input_UP"):
+				return true
+		DI_STATE.UP_FORWARD:
+			if self.states.has("recovery_ignore_input_UP_FORWARD"):
+				return true
+		DI_STATE.FORWARD:
+			if self.states.has("recovery_ignore_input_FORWARD"):
+				return true
+		DI_STATE.DOWN_FORWARD:
+			if self.states.has("recovery_ignore_input_DOWN_FORWARD"):
+				return true
+		DI_STATE.DOWN:
+			if self.states.has("recovery_ignore_input_DOWN"):
+				return true
+		DI_STATE.DOWN_BACK:
+			if self.states.has("recovery_ignore_input_DOWN_BACK"):
+				return true
+		DI_STATE.BACK:
+			if self.states.has("recovery_ignore_input_BACK"):
+				return true
+		DI_STATE.UP_BACK:
+			if self.states.has("recovery_ignore_input_UP_BACK"):
+				return true
+				
+	return false
 
 func get_move_from_input() -> FighterAnimationData:
 	var inputs: Array[Dictionary] = self.input_interpreter.read_input(10)
