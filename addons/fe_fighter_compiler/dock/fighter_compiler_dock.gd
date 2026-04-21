@@ -3,6 +3,8 @@ extends Control
 class_name FighterCompilerDock
 
 signal request_hitbox_menu(node: HitboxButton, idx: int, name: String)
+signal request_bake_velocity_menu()
+
 signal animation_frame_changed(frame: float)
 
 signal reload_movelistitem_refs(refs: Array)
@@ -347,6 +349,9 @@ func _on_compile_movelist_button_button_up() -> void:
 	ResourceSaver.save(self.fighter.movelist, "res://character/movelists/%s_movelist.tres" % self.fighter.fighter_name)
 
 	toaster.push_toast("Saved Movelist to disk.")
+
+func _on_bake_velocity_data_button_button_up() -> void:
+	self.request_bake_velocity_menu.emit()
 
 func _on_reattach_button_button_up() -> void:
 	self.attach_to_fighter_scene()

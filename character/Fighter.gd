@@ -29,10 +29,11 @@ var stun_reason: Dictionary = {
 	"stun_id": "" # holds the id of the stun animation to be played
 }
 
-# var states: Dictionary = state_default.duplicate(true)
+# vvv TODO: change this to PackedStringArray
 var states: Array[String] = []
 
 @export var movelist: FighterMovelist
+@export var animation_velocity_data: Dictionary
 
 @export var animation_library: AnimationLibrary
 
@@ -119,9 +120,12 @@ var is_focused: bool = false
 
 var is_online: bool = false
 
-signal ready_for_input_process(player: Fighter)
+@export var _velocity_bake_mode: bool = false
 
-# ======= METHODS =====================
+signal ready_for_input_process(player: Fighter)
+signal record_velocity_data(velocity: FixedVector3)
+
+### LIFE CYCLE ###
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -137,83 +141,12 @@ func _ready() -> void:
 	get_window().focus_entered.connect(self._on_window_focus_entered)
 	get_window().focus_exited.connect(self._on_window_focus_exited)
 
-func _on_window_focus_entered() -> void:
-	self.is_focused = true
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint() && self._velocity_bake_mode:
+		var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(SyncManager.tick_time))
+		self.record_velocity_data.emit(vel)
 
-func _on_window_focus_exited() -> void:
-	self.is_focused = false
-
-func get_misc_unused_hitbox() -> Variant:
-	for i: FECollisionShape in self.misc_hitbox_pool:
-		if !i.enabled:
-			return i
-	return
-
-func _network_process(input: Dictionary) -> void:
-	# if !self.process_inputs:
-	# 	return
-	# input.direction.append_array(input.button)
-	self.input_interpreter.interpret_input(input, self.screen_position)
-	emit_signal("ready_for_input_process", self)
-
-func _get_local_input() -> Dictionary:
-	var player_input: Dictionary = {}
-
-	if !self.is_focused:
-		
-		return player_input
-
-	var dir: Vector2i = Vector2i(
-		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))) - \
-		int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))),
-		int(Input.is_action_pressed("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))) - \
-		int(Input.is_action_pressed("INPUT_DOWN_P" + str(1 if self.is_online else (self.player + 1))))
-	)
-
-	if dir != Vector2i.ZERO:
-		player_input["input_directional"] = dir
-
-	if Input.is_action_pressed("INPUT_PUNCH_P" + str(1 if self.is_online else (self.player + 1))):
-		if !player_input.has("input_button"):
-			player_input["input_button"] = {}
-		player_input["input_button"]["p"] = true
-	if Input.is_action_pressed("INPUT_KICK_P" + str(1 if self.is_online else (self.player + 1))):
-		if !player_input.has("input_button"):
-			player_input["input_button"] = {}
-		player_input["input_button"]["k"] = true
-	if Input.is_action_pressed("INPUT_ABILITY_P" + str(1 if self.is_online else (self.player + 1))):
-		if !player_input.has("input_button"):
-			player_input["input_button"] = {}
-		player_input["input_button"]["a"] = true
-
-	return player_input
-
-func _save_state() -> Dictionary:
-	return {
-		"input_history": self.input_interpreter.input_history.duplicate(),
-	}
-
-func _load_state(state: Dictionary) -> void:
-	self.input_interpreter.input_history = state.input_history
-
-# 	return {
-# 		"position": self.position,
-# 		"rotation": self.rotation,
-# 		# "states": self.states,
-# 		# "stance": self.stance,
-# 		# "button_state": self.button_state,
-# 		# "di_state": self.di_state
-# 	}
-
-# 	self.position = state.position
-# 	self.rotation = state.rotation
-	# self.states = state.states
-	# self.stance = state.stance
-	# self.button_state = state.button_state
-	# self.di_state = state.di_state
-	# self.stun_reason = state.stun_reason
-	# self.current_anim_id = state.current_anim
-	# self.input_interpreter.input_history = state.input_history
+### METHODS ###
 
 func reset_stun_reason() -> void:
 	self.stun_reason = {
@@ -423,7 +356,15 @@ func get_move_from_input() -> FighterAnimationData:
 
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position)
 
-func process_root_motion(delta: int) -> void:
+func process_root_motion(delta: int) -> Variant:
+
+	#### for use INSIDE editor only ####
+	if Engine.is_editor_hint():
+		var frame_velocity: FixedVector3 = \
+			FixedVector3.from_vec3(self.anim_player.get_root_motion_position())
+		self.collision_body.velocity = frame_velocity
+		return frame_velocity
+	#####################################
 
 	var curr_rotation: Quaternion = self.collision_body.global_transform.basis.get_rotation_quaternion()
 
@@ -435,6 +376,7 @@ func process_root_motion(delta: int) -> void:
 	collide_and_slide(delta)
 
 	self.collision_body.global_transform.basis.orthonormalized()
+	return
 
 func collide_and_slide(delta: int) -> void:
 
@@ -444,29 +386,33 @@ func collide_and_slide(delta: int) -> void:
 	new_position.y += FixedInt.mul(self.collision_body.velocity.y, delta)
 	new_position.z += FixedInt.mul(self.collision_body.velocity.z, delta)
 
-	var oppo_collision_body : FEFighterCollisionBody = get_tree().get_nodes_in_group(
-		"Player2MainCollisionBody" if self.player == 0 \
-		else "Player1MainCollisionBody"
-	)[0] # this group should never be empty, and should only have 1 member
+	######### used OUTSIDE editor only #########
+	if !Engine.is_editor_hint():
 
-	var overlap: Variant = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
+		var oppo_collision_body : FEFighterCollisionBody = get_tree().get_nodes_in_group(
+			"Player2MainCollisionBody" if self.player == 0 \
+			else "Player1MainCollisionBody"
+		)[0] # this group should never be empty, and should only have 1 member
 
-	if overlap is int:
-		var change: FixedVector3 = FixedVector3.mul(
-			self.collision_body.fixed_position.direction_to(oppo_collision_body.fixed_position),
-			FixedInt.div(overlap, FixedInt.FIXED_TWO)
-		)
+		var overlap: Variant = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 
-		new_position.x -= change.x
-		# new_position.y -= change.y
-		new_position.z -= change.z
+		if overlap is int:
+			var change: FixedVector3 = FixedVector3.mul(
+				self.collision_body.fixed_position.direction_to(oppo_collision_body.fixed_position),
+				FixedInt.div(overlap, FixedInt.FIXED_TWO)
+			)
 
-	# TODO: Collision with walls
+			new_position.x -= change.x
+			# new_position.y -= change.y
+			new_position.z -= change.z
 
-	self.collision_body.fixed_position = new_position
+		# TODO: Collision with walls
 
-	if self.is_tracking_opponent():
-		self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
+		self.collision_body.fixed_position = new_position
+
+		if self.is_tracking_opponent():
+			self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
+	############################################
 	
 	self.position = FixedVector3.to_vec3( \
 		FixedVector3.sub(self.collision_body.fixed_position, \
@@ -482,3 +428,80 @@ func is_tracking_opponent() -> bool:
 		(self.states.has("track_left") && oppo_states.has("right_movement")):
 		return true
 	return false
+
+### LISTENERS ###
+
+func _on_window_focus_entered() -> void:
+	self.is_focused = true
+
+func _on_window_focus_exited() -> void:
+	self.is_focused = false
+
+func get_misc_unused_hitbox() -> Variant:
+	for i: FECollisionShape in self.misc_hitbox_pool:
+		if !i.enabled:
+			return i
+	return
+
+func _network_process(input: Dictionary) -> void:
+	self.input_interpreter.interpret_input(input, self.screen_position)
+	emit_signal("ready_for_input_process", self)
+
+func _get_local_input() -> Dictionary:
+	var player_input: Dictionary = {}
+
+	if !self.is_focused:
+		
+		return player_input
+
+	var dir: Vector2i = Vector2i(
+		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))) - \
+		int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))),
+		int(Input.is_action_pressed("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))) - \
+		int(Input.is_action_pressed("INPUT_DOWN_P" + str(1 if self.is_online else (self.player + 1))))
+	)
+
+	if dir != Vector2i.ZERO:
+		player_input["input_directional"] = dir
+
+	if Input.is_action_pressed("INPUT_PUNCH_P" + str(1 if self.is_online else (self.player + 1))):
+		if !player_input.has("input_button"):
+			player_input["input_button"] = {}
+		player_input["input_button"]["p"] = true
+	if Input.is_action_pressed("INPUT_KICK_P" + str(1 if self.is_online else (self.player + 1))):
+		if !player_input.has("input_button"):
+			player_input["input_button"] = {}
+		player_input["input_button"]["k"] = true
+	if Input.is_action_pressed("INPUT_ABILITY_P" + str(1 if self.is_online else (self.player + 1))):
+		if !player_input.has("input_button"):
+			player_input["input_button"] = {}
+		player_input["input_button"]["a"] = true
+
+	return player_input
+
+func _save_state() -> Dictionary:
+	return {
+		"input_history": self.input_interpreter.input_history.duplicate(),
+	}
+
+func _load_state(state: Dictionary) -> void:
+	self.input_interpreter.input_history = state.input_history
+
+# 	return {
+# 		"position": self.position,
+# 		"rotation": self.rotation,
+# 		# "states": self.states,
+# 		# "stance": self.stance,
+# 		# "button_state": self.button_state,
+# 		# "di_state": self.di_state
+# 	}
+
+# 	self.position = state.position
+# 	self.rotation = state.rotation
+	# self.states = state.states
+	# self.stance = state.stance
+	# self.button_state = state.button_state
+	# self.di_state = state.di_state
+	# self.stun_reason = state.stun_reason
+	# self.current_anim_id = state.current_anim
+	# self.input_interpreter.input_history = state.input_history

@@ -23,8 +23,11 @@ func _enter_tree() -> void:
 
 	var dock_content: FighterCompilerDock = scene.instantiate()
 	dock_content.request_hitbox_menu.connect(self._on_dock_request_hitbox_menu)
+	dock_content.request_bake_velocity_menu.connect(self._on_dock_request_bake_velocity_menu)
 	self.dock.add_child(dock_content)
 	add_dock(self.dock)
+
+	self.create_global()
 
 func _exit_tree() -> void:
 	remove_dock(self.dock)
@@ -43,6 +46,7 @@ func remove_from_dock(node) -> void:
 	node.queue_free()
 
 func _on_dock_request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String) -> void:
-	if self.global == null:
-		self.create_global()
 	self.global.create_hitbox_menu(hitbox, idx, name)
+
+func _on_dock_request_bake_velocity_menu() -> void:
+	self.global.create_bake_velocity_menu()
