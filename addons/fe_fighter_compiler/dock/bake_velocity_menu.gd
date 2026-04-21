@@ -12,18 +12,12 @@ class_name BakeVelocityMenu
 
 signal request_dock_removal(node: BakeVelocityMenu)
 
-# func _ready() -> void:
-#     %ProgressBar.value = 0
-#     %Label.text = ""
-#     %BakeButton.disabled = false
-#     %ExitButton.disabled = false
-
 ### METHODS ###
 
 func bake_velocity_process() -> void:
     %ProgressBar.value = 0
     %ProgressBar.max_value = self.anim_player.get_animation_list().size()
-    %Label.text = "Bake in progress. DO NOT TOUCH ANYTHING UNTIL COMPLETE."
+    %Label.text = "Bake in progress.\n[color=red]DO NOT TOUCH ANYTHING UNTIL COMPLETE.[/color]"
     %BakeButton.disabled = true
     %ExitButton.disabled = true
 
@@ -31,10 +25,6 @@ func bake_velocity_process() -> void:
     self.anim_player.clear_queue()
 
     var velocity_data: Dictionary = {}
-
-    
-
-
     
     self.fighter.record_velocity_data.connect(self._on_fighter_record_velocity_data.bind(velocity_data))
     self.anim_player.current_animation_changed.connect(self._on_anim_player_current_animation_changed)
@@ -56,8 +46,10 @@ func bake_velocity_process() -> void:
 
 func update_progress_label() -> void:
     var anim_list: PackedStringArray = self.anim_player.get_animation_list()
-    var progress: int = anim_list.find(self.anim_player.current_animation) - 1
-    %ProgressLabel.text = "%d/%d Animations complete" % [progress, anim_list.size()]
+    var progress: int = anim_list.find(self.anim_player.current_animation)
+    %ProgressLabel.text = "%s (%d/%d)" % [self.anim_player.current_animation,
+        progress if progress != -1 else anim_list.size(), 
+        anim_list.size()]
     %ProgressBar.value = progress
 
 ### LISTENERS ###
@@ -97,8 +89,11 @@ func _on_bake_button_button_up() -> void:
     self.bake_velocity_process()
     
 func _on_exit_button_button_up() -> void:
-    self.fighter.record_velocity_data.disconnect(self._on_fighter_record_velocity_data)
-    self.anim_player.animation_finished.disconnect(self._on_anim_player_animation_finished)
-    self.anim_player.current_animation_changed.disconnect(self._on_anim_player_current_animation_changed)
+    if self.fighter.record_velocity_data.is_connected(self._on_fighter_record_velocity_data):
+        self.fighter.record_velocity_data.disconnect(self._on_fighter_record_velocity_data)
+    if self.anim_player.animation_finished.is_connected(self._on_anim_player_animation_finished):
+        self.anim_player.animation_finished.disconnect(self._on_anim_player_animation_finished)
+    if self.anim_player.current_animation_changed.is_connected(self._on_anim_player_current_animation_changed):
+        self.anim_player.current_animation_changed.disconnect(self._on_anim_player_current_animation_changed)
 
     self.request_dock_removal.emit(self)
