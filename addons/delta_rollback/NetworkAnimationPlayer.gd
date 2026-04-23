@@ -9,7 +9,6 @@ func _ready() -> void:
 	add_to_group('network_sync')
 
 func _network_process(input: Dictionary) -> void:
-	pass
 	if is_playing():
 		advance(SyncManager.tick_time)
 

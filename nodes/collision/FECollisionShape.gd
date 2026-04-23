@@ -6,11 +6,12 @@ class_name FECollisionShape
 @export var fixed_sphere_radius: int = FixedInt.FIXED_HALF :
 	set(val): # <---- VERY BAD PERFORMANCE. GENERATING 3D SHAPE SHOULD NOT BE DONE IN PRODUCTION
 		fixed_sphere_radius = val
-		var sph: Shape3D = self.shape
-		if Engine.is_editor_hint():
-			sph = SphereShape3D.new()
-		sph.radius = float(val / 65536.0)
-		self.shape = sph
+		if OS.has_feature("show_collision_shapes"):
+			var sph: Shape3D = self.shape
+			if Engine.is_editor_hint():
+				sph = SphereShape3D.new()
+			sph.radius = float(val / 65536.0)
+			self.shape = sph
 
 @export var shape_owner : NodePath
 
@@ -32,16 +33,16 @@ var hitbox_attack_name: String = ""
 
 var velocity: FixedVector3 = FixedVector3.new()
 
-var fixed_position: FixedVector3:
-	get:
-		return FixedVector3.from_vec3(self.global_position)
+@onready var fixed_position: FixedVector3 = FixedVector3.from_vec3(self.global_position):
+	# get:
+	# 	return FixedVector3.from_vec3(self.global_position)
 	set(val):
 		fixed_position = val
 		self.global_position = FixedVector3.to_vec3(val)
 
-var fixed_rotation: FixedVector3:
-	get:
-		return FixedVector3.from_vec3(self.global_rotation)
+@onready var fixed_rotation: FixedVector3 = FixedVector3.from_vec3(self.global_rotation):
+	# get:
+	# 	return FixedVector3.from_vec3(self.global_rotation)
 	set(val):
 		fixed_rotation = val
 		self.global_rotation = FixedVector3.to_vec3(val)
@@ -52,10 +53,15 @@ func _ready() -> void:
 	self.collide_with_bodies = false
 
 	self.target_position = Vector3(0,0,0)
-	if self.shape == null:
-		self.shape = SphereShape3D.new()
+
+	if OS.has_feature("show_collision_shapes"):
+		if self.shape == null:
+			self.shape = SphereShape3D.new()
+		else:
+			self.shape = self.shape.duplicate()
 	else:
-		self.shape = self.shape.duplicate()
+		self.visible = false
+
 	self.shape.radius = float(self.fixed_sphere_radius / 65536.0)
 	self.debug_shape_custom_color = Color.WHITE
 	self.set_collision_mask_value(1, false)

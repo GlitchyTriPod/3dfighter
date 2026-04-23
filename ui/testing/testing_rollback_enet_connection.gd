@@ -13,7 +13,7 @@ const DummyNetworkAdapter = preload("res://addons/delta_rollback/DummyNetworkAda
 
 const LOG_FILE_DIRECTORY: String = "user://detailed_logs"
 
-var logging_enabled: bool= false
+var logging_enabled: bool = true
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(self._on_network_peer_connected)

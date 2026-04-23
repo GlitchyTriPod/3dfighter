@@ -10,6 +10,8 @@ class_name BakeVelocityMenu
     get:
         return EditorInterface.get_edited_scene_root()
 
+var looping_anims: PackedStringArray = PackedStringArray()
+
 signal request_dock_removal(node: BakeVelocityMenu)
 
 ### METHODS ###
@@ -30,15 +32,16 @@ func bake_velocity_process() -> void:
     self.anim_player.current_animation_changed.connect(self._on_anim_player_current_animation_changed)
     self.anim_player.animation_finished.connect(self._on_anim_player_animation_finished.bind(velocity_data))
 
-    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
+    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
     self.fighter._velocity_bake_mode = true
 
-    # if !self.anim_player.is_playing():
-
-    print(self.anim_player.get_animation_list().get(0))
     self.anim_player.play(self.anim_player.get_animation_list().get(0))
+    self.anim_player.seek(0, true)
 
     for anim: String in self.anim_player.get_animation_list():
+        if self.anim_player.get_animation(anim).loop_mode == Animation.LOOP_LINEAR:
+            self.looping_anims.append(anim)
+
         if self.anim_player.current_animation == anim:
             continue
         self.anim_player.queue(anim)
@@ -55,12 +58,12 @@ func update_progress_label() -> void:
 ### LISTENERS ###
 
 func _on_fighter_record_velocity_data(data: FixedVector3, velocity_data: Dictionary) -> void:
-    var frame: int = int(floor(self.anim_player.current_animation_position * 60))
+    var frame: int = roundi(self.anim_player.current_animation_position * 60)
     if velocity_data.has(self.anim_player.current_animation) && \
         velocity_data[self.anim_player.current_animation].has(str(frame)):
-        # var next: StringName = self.anim_player.animation_get_next(self.anim_player.current_animation)
 
         return
+        
     if !velocity_data.has(self.anim_player.current_animation):
         velocity_data[self.anim_player.current_animation] = {}
 
@@ -74,12 +77,17 @@ func _on_anim_player_current_animation_changed(anim_name: StringName) -> void:
 func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Dictionary) -> void:
     self.update_progress_label()
 
+    if self.looping_anims.has(anim_name):
+        self.anim_player.get_animation(anim_name).loop_mode = Animation.LOOP_LINEAR
+
     if self.anim_player.is_playing():
         return
 
     self.fighter._velocity_bake_mode = false
     self.fighter.animation_velocity_data = velocity_data
-    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
+
+    self.looping_anims.clear()
 
     %BakeButton.disabled = false
     %ExitButton.disabled = false

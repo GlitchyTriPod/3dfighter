@@ -2197,6 +2197,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.4867115, 0.44003195, 0.7351592, 0.17
 [sub_resource type="Animation" id="Animation_2prg2"]
 resource_name = "idle_crouching_BAKED"
 length = 1.6666666
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -2636,6 +2637,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.48005858, 0.59622705, 0.6174207, 0.1
 [sub_resource type="Animation" id="Animation_0a53g"]
 resource_name = "idle_standing_BAKED"
 length = 3.3333333
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -3074,6 +3076,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.49051428, 0.436737, 0.7360917, 0.163
 
 [sub_resource type="Animation" id="Animation_fgkxk"]
 resource_name = "run_f_BAKED"
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -4391,6 +4394,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.49051428, 0.436737, 0.7360917, 0.163
 [sub_resource type="Animation" id="Animation_pge0f"]
 resource_name = "walk_b_BAKED"
 length = 1.6666666
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -4830,6 +4834,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.4867115, 0.44003195, 0.7351592, 0.17
 [sub_resource type="Animation" id="Animation_8s032"]
 resource_name = "walk_f_BAKED"
 length = 1.6666666
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -5269,6 +5274,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.5514624, 0.4151098, 0.69788843, 0.19
 [sub_resource type="Animation" id="Animation_qnm8p"]
 resource_name = "walk_fc_BAKED"
 length = 0.8333333
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -5707,6 +5713,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.50536036, 0.5651069, 0.6441796, 0.10
 
 [sub_resource type="Animation" id="Animation_shrni"]
 resource_name = "walk_l_BAKED"
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -6145,6 +6152,7 @@ tracks/61/keys = PackedFloat32Array(0, 1, 0.446781, 0.52836233, 0.6712553, 0.265
 
 [sub_resource type="Animation" id="Animation_toyf8"]
 resource_name = "walk_r_BAKED"
+loop_mode = 1
 step = 0.016666668
 tracks/0/type = "position_3d"
 tracks/0/imported = true

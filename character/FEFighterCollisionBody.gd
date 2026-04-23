@@ -22,14 +22,16 @@ func is_on_floor(floor_height: int) -> bool:
 
 func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP) -> void:
 
-	var origin: FixedVector3 = FixedVector3.from_vec3(self.global_transform.origin)
+	# var origin: FixedVector3 = FixedVector3.from_vec3(self.global_transform.origin)
 
-	var forward: FixedVector3 = FixedVector3.sub(target, origin)
+	var forward: FixedVector3 = FixedVector3.sub(target, self.fixed_position)
 	var lookat_basis: Basis = FixedVector3.basis_looking_at(forward, axis, true)
 
 	var original_scale: Vector3 = self.scale
 
-	self.global_transform = Transform3D(lookat_basis, FixedVector3.to_vec3(origin))
+	self.global_transform = Transform3D(lookat_basis, FixedVector3.to_vec3(self.fixed_position)) # <-- ???
+
+	# self.fixed_rotation = FixedVector3.new(0, self.fixed_rotation.y, 0)
 
 	self.fixed_rotation.x = FixedInt.FIXED_ZERO
 	self.fixed_rotation.z = FixedInt.FIXED_ZERO
@@ -38,17 +40,17 @@ func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP) -> void:
 
 func _save_state() -> Dictionary:
 	return {
-		"position": {
-			"x": self.fixed_position.x,
-			"y": self.fixed_position.y,
-			"z": self.fixed_position.z
-		},
-		# self.fixed_position,
-		"rotation": {
-			"x": self.fixed_rotation.x,
-			"y": self.fixed_rotation.y,
-			"z": self.fixed_rotation.z
-		},
+		# "position": {
+		# 	"x": self.fixed_position.x,
+		# 	"y": self.fixed_position.y,
+		# 	"z": self.fixed_position.z
+		# },
+		# # self.fixed_position,
+		# "rotation": {
+		# 	"x": self.fixed_rotation.x,
+		# 	"y": self.fixed_rotation.y,
+		# 	"z": self.fixed_rotation.z
+		# },
 		# "rotation": self.fixed_rotation,
 		"velocity": {
 			"x": self.velocity.x,
@@ -61,16 +63,16 @@ func _save_state() -> Dictionary:
 	}
 
 func _load_state(state: Dictionary) -> void:
-	self.fixed_position = FixedVector3.new(
-		state.position.x,
-		state.position.y,
-		state.position.z
-	)
-	self.fixed_rotation = FixedVector3.new(
-		state.rotation.x,
-		state.rotation.y,
-		state.rotation.z
-	)
+	# self.fixed_position = FixedVector3.new(
+	# 	state.position.x,
+	# 	state.position.y,
+	# 	state.position.z
+	# )
+	# self.fixed_rotation = FixedVector3.new(
+	# 	state.rotation.x,
+	# 	state.rotation.y,
+	# 	state.rotation.z
+	# )
 	self.velocity = FixedVector3.new(
 		state.velocity.x,
 		state.velocity.y,

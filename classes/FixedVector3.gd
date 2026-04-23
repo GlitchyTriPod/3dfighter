@@ -248,12 +248,12 @@ func angle_to(target: FixedVector3, _axis: Vector3 = Vector3.UP) -> int: # << CO
 	
 	return ang
 
-func rotated(axis: FixedVector3, p_rotation: int) -> FixedVector3:
+func rotated(axis: Vector3, p_rotation: int) -> FixedVector3:
 	var v: FixedVector3 = FixedVector3.new(self.x, self.y, self.z)
 	v.rotate(axis,  p_rotation) 
 	return v
 
-func rotate(_axis: FixedVector3, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
+func rotate(_axis: Vector3, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
 	
 	var s: int = FixedInt.sin(ang)
 	var c: int = FixedInt.cos(ang)

@@ -143,8 +143,9 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() && self._velocity_bake_mode:
-		var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(SyncManager.tick_time))
+		var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(1.0 / 60))
 		self.record_velocity_data.emit(vel)
+		self.anim_player.advance(1.0 / 60)
 
 ### METHODS ###
 
@@ -168,7 +169,7 @@ func process_animation_data() -> void:
 	)
 
 	# set states
-	var current_frame: int = int(floor(self.anim_player.current_animation_position * 60))
+	var current_frame: int = roundi(self.anim_player.current_animation_position * 60)
 	# if self.player == 0: print(current_frame)
 	for state: String in atk.player_states.keys():
 
@@ -194,7 +195,7 @@ func process_animation_hitboxes() -> void:
 	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
 	#find hitboxes
-	var current_frame: int = int(floor(self.anim_player.current_animation_position * 60))
+	var current_frame: int = roundi(self.anim_player.current_animation_position * 60)
 	var hitbox_data: Array = []
 	# var index: int
 	if atk.hitbox_data.has("shapes"):
@@ -367,16 +368,36 @@ func process_root_motion(delta: int) -> Variant:
 	#####################################
 
 	var curr_rotation: Quaternion = self.collision_body.global_transform.basis.get_rotation_quaternion()
+	# var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
+
+	# self.collision_body.velocity = FixedVector3.mul(
+	# 	FixedVector3.div(
+	# 		self.get_root_motion().rotate(Vector3.UP, curr_rotation.y),
+	# 		delta
+	# 	),
+	# 	98304
+	# )
 
 	self.collision_body.velocity = FixedVector3.mul(FixedVector3.div(
 		FixedVector3.from_vec3(
-			curr_rotation * self.anim_player.get_root_motion_position()
-	), delta), 98304)
+			curr_rotation * FixedVector3.to_vec3(self.get_root_motion())
+	), delta), FixedInt.FIXED_ONE)
 
 	collide_and_slide(delta)
 
-	self.collision_body.global_transform.basis.orthonormalized()
+	# self.collision_body.global_transform.basis.orthonormalized()
 	return
+
+func get_root_motion() -> FixedVector3:
+	var vel: FixedVector3 =self.animation_velocity_data.get(
+		self.anim_player.current_animation
+	).get(
+		str(roundi(self.anim_player.current_animation_position * 60))
+	)
+
+	# assert(vel != null)
+
+	return vel
 
 func collide_and_slide(delta: int) -> void:
 
@@ -419,7 +440,7 @@ func collide_and_slide(delta: int) -> void:
 			FixedVector3.from_vec3(self.collision_body_offset) \
 	))
 
-	self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
+	self.rotation = self.collision_body.global_rotation #FixedVector3.to_vec3(self.collision_body.fixed_rotation)
 
 func is_tracking_opponent() -> bool:
 	var oppo_states: Array[String] = self.message_bus.get_oppo_states(self)
