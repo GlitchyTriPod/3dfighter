@@ -115,7 +115,7 @@ static func lerp(from: FixedVector3, to: FixedVector3, weight: int) -> FixedVect
 	return ret
 
 static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP, use_model_front: bool = false) -> Basis:
-	var v_z : FixedVector3= target.normalized()
+	var v_z: FixedVector3 = target.normalized()
 	if !use_model_front:
 		v_z.x = -v_z.x
 		v_z.y = -v_z.y

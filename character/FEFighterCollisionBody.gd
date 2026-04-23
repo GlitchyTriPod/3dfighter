@@ -22,21 +22,15 @@ func is_on_floor(floor_height: int) -> bool:
 
 func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP) -> void:
 
-	# var origin: FixedVector3 = FixedVector3.from_vec3(self.global_transform.origin)
-
 	var forward: FixedVector3 = FixedVector3.sub(target, self.fixed_position)
 	var lookat_basis: Basis = FixedVector3.basis_looking_at(forward, axis, true)
 
-	var original_scale: Vector3 = self.scale
+	self.fixed_rotation = FixedVector3.from_vec3(lookat_basis.get_euler())
 
-	self.global_transform = Transform3D(lookat_basis, FixedVector3.to_vec3(self.fixed_position)) # <-- ???
-
-	# self.fixed_rotation = FixedVector3.new(0, self.fixed_rotation.y, 0)
-
-	self.fixed_rotation.x = FixedInt.FIXED_ZERO
-	self.fixed_rotation.z = FixedInt.FIXED_ZERO
-
-	self.scale = original_scale
+	if self.fixed_rotation.x != FixedInt.FIXED_ZERO:
+		self.fixed_rotation.x = FixedInt.FIXED_ZERO
+	if self.fixed_rotation.z != FixedInt.FIXED_ZERO:
+		self.fixed_rotation.z = FixedInt.FIXED_ZERO
 
 func _save_state() -> Dictionary:
 	return {

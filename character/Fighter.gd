@@ -367,21 +367,35 @@ func process_root_motion(delta: int) -> Variant:
 		return frame_velocity
 	#####################################
 
-	var curr_rotation: Quaternion = self.collision_body.global_transform.basis.get_rotation_quaternion()
-	# var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
+	# velocity rotation (to match currently facing direction)
 
-	# self.collision_body.velocity = FixedVector3.mul(
-	# 	FixedVector3.div(
-	# 		self.get_root_motion().rotate(Vector3.UP, curr_rotation.y),
-	# 		delta
-	# 	),
-	# 	98304
-	# )
+	# quaternion method
+	# var curr_rotation: Quaternion = self.collision_body.global_transform.basis.get_rotation_quaternion()
 
-	self.collision_body.velocity = FixedVector3.mul(FixedVector3.div(
-		FixedVector3.from_vec3(
-			curr_rotation * FixedVector3.to_vec3(self.get_root_motion())
-	), delta), FixedInt.FIXED_ONE)
+	# self.collision_body.velocity = FixedVector3.mul(FixedVector3.div(
+	# 	FixedVector3.from_vec3(
+	# 		curr_rotation * FixedVector3.to_vec3(self.get_root_motion())
+	# ), delta), FixedInt.FIXED_ONE)
+
+	# collide_and_slide(delta)
+
+	# euler method
+	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
+
+	var vel: FixedVector3 = self.get_root_motion() #.rotate(Vector3.UP, curr_rotation.y)
+	var vel_rot: FixedVector3 = vel.rotated(Vector3.UP, curr_rotation.y)
+
+	# if self.player == 1:
+	# 	print(self.collision_body.fixed_rotation.y)
+	# 	print(vel.x, " ", vel.y, " ", vel.z, "||", vel_rot.x, " ", vel_rot.y, " ", vel_rot.z)
+
+	self.collision_body.velocity = FixedVector3.mul(
+		FixedVector3.div(
+			vel_rot, #self.get_root_motion().rotate(Vector3.UP, curr_rotation.y),
+			delta
+		),
+		FixedInt.FIXED_ONE
+	)
 
 	collide_and_slide(delta)
 
@@ -440,7 +454,7 @@ func collide_and_slide(delta: int) -> void:
 			FixedVector3.from_vec3(self.collision_body_offset) \
 	))
 
-	self.rotation = self.collision_body.global_rotation #FixedVector3.to_vec3(self.collision_body.fixed_rotation)
+	self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
 
 func is_tracking_opponent() -> bool:
 	var oppo_states: Array[String] = self.message_bus.get_oppo_states(self)
