@@ -178,6 +178,7 @@ sync_debug={
 
 [network]
 
+rollback/limits/max_messages_at_once=5
 rollback/classes/message_serializer="uid://b8ahiut0y2ub"
 rollback/debug/random_rollback_ticks=2
 

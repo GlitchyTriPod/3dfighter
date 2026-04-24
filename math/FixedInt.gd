@@ -86,6 +86,15 @@ static func sin(num: int) -> int:
 			FIXED_TAU - FixedInt.from_int(5) - FixedInt.mul(x2, (FIXED_PI - FixedInt.from_int(3)))
 		)) >> 1
 
+static func asin(num: int) -> int:
+	if num < -FIXED_ONE || num > FIXED_ONE:
+		return FIXED_ZERO
+	var yy: int = FIXED_ONE - FixedInt.mul(num, num)
+	if yy == FIXED_ZERO:
+		return FIXED_PI_DIV_2 if num > FIXED_ZERO else -FIXED_PI_DIV_2
+
+	return FixedInt.atan_div(num, FixedInt.sqrt_64(yy << 16))
+
 static func cos(num: int) -> int:
 	return FixedInt.sin(num + FIXED_PI_DIV_2)
 

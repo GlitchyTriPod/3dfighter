@@ -114,7 +114,7 @@ static func lerp(from: FixedVector3, to: FixedVector3, weight: int) -> FixedVect
 
 	return ret
 
-static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP, use_model_front: bool = false) -> Basis:
+static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP, use_model_front: bool = false) -> Array[Array]:
 	var v_z: FixedVector3 = target.normalized()
 	if !use_model_front:
 		v_z.x = -v_z.x
@@ -134,11 +134,94 @@ static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP
 
 	var v_y: FixedVector3 = v_z.cross(v_x)
 
-	return Basis(
-		FixedVector3.to_vec3(v_x),
-		FixedVector3.to_vec3(v_y),
-		FixedVector3.to_vec3(v_z)
-	)
+	return [
+		[v_x.x, v_y.x, v_z.x],
+		[v_x.y, v_y.y, v_z.y],
+		[v_x.z, v_y.z, v_z.z]
+	]
+
+	# return Basis(
+	# 	FixedVector3.to_vec3(v_x),
+	# 	FixedVector3.to_vec3(v_y),
+	# 	FixedVector3.to_vec3(v_z)
+	# )
+
+# Retrieves euler rotation [rewritten from Godot Source Code: https://github.com/godotengine/godot/blob/master/core/math/basis.cpp]
+static func basis_get_euler(basis: Array[Array], order: EulerOrder = EulerOrder.EULER_ORDER_XYZ) -> FixedVector3:
+	var euler: FixedVector3 = FixedVector3.new()
+
+	match order:
+		EulerOrder.EULER_ORDER_XYZ:
+			var m12: int = basis[1][2]
+
+			if m12 < (FixedInt.FIXED_ONE - 1):
+
+				if m12 > -(FixedInt.FIXED_ONE - 1):
+					
+					# is this a pure X rotation?
+					if basis[1][0] == 0 && \
+						basis[0][1] == 0 && \
+						basis[0][2] == 0 && \
+						basis[2][0] == 0 && \
+						basis[0][0] == FixedInt.FIXED_ONE:
+						# return the simplest form (human friendlier in editor and scripts)
+						euler.x = FixedInt.atan2(-m12, basis[1][1])
+						euler.y = 0
+						euler.z = 0
+					
+					else:
+						euler.x = FixedInt.asin(-m12)
+						euler.y = FixedInt.atan2(basis[0][2], basis[2][2])
+						euler.z = FixedInt.atan2(basis[1][0], basis[1][1])
+
+				else: # m12 == -1
+					euler.x = FixedInt.FIXED_PI_DIV_2
+					euler.y = FixedInt.atan2(basis[0][1], basis[0][0])
+					euler.z = 0
+
+			else:
+				euler.x = -FixedInt.FIXED_PI_DIV_2
+				euler.y = -FixedInt.atan2(basis[0][1], basis[0][0])
+				euler.z = 0
+
+			return euler
+		
+		EulerOrder.EULER_ORDER_YXZ:
+			var sy: int = basis[0][2]
+
+			if sy < (FixedInt.FIXED_ONE - 1):
+
+				if sy > -(FixedInt.FIXED_ONE - 1):
+					
+					# is this a pure X rotation?
+					if basis[1][0] == 0 && \
+						basis[0][1] == 0 && \
+						basis[1][2] == 0 && \
+						basis[2][1] == 0 && \
+						basis[1][1] == FixedInt.FIXED_ONE:
+						# return the simplest form (human friendlier in editor and scripts)
+						euler.x = 0
+						euler.y = FixedInt.atan2(basis[0][2], basis[0][0])
+						euler.z = 0
+					
+					else:
+						euler.x = FixedInt.atan2(-basis[1][2], basis[2][2])
+						euler.y = FixedInt.asin(sy)
+						euler.z = FixedInt.atan2(-basis[0][1], basis[0][0])
+
+				else: 
+					euler.x = FixedInt.atan2(basis[2][1], basis[1][1])
+					euler.y = -FixedInt.FIXED_PI_DIV_2
+					euler.z = 0
+
+			else:
+				euler.x = FixedInt.atan2(basis[2][1], basis[1][1])
+				euler.y = FixedInt.FIXED_PI_DIV_2
+				euler.z = 0
+
+			return euler
+
+	return FixedVector3.new()
 
 func dot(vec2: FixedVector3) -> int:
 	var res: int = 0

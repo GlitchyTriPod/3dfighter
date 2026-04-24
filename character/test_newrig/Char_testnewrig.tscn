@@ -10833,3 +10833,9 @@ unique_name_in_owner = true
 
 [node name="AnimationPlayer" parent="." index="6" unique_id=85066067]
 active = false
+
+[node name="AnimationNameLabel" type="Label3D" parent="." index="7" unique_id=407016320]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0982058, 0)
+billboard = 1
+outline_size = 7

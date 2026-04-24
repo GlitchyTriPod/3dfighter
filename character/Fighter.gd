@@ -109,7 +109,7 @@ var input_interpreter: InputInterpreter = InputInterpreter.new()
 @onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
 
 var current_anim_id: String = "0" # Movelist item, NOT animation name
-# var anim_fallback_id: String = "0"
+var anim_fallback_id: String = "0"
 			
 var collision_body_offset: Vector3
 
@@ -142,6 +142,8 @@ func _ready() -> void:
 	get_window().focus_exited.connect(self._on_window_focus_exited)
 
 func _process(_delta: float) -> void:
+	%AnimationNameLabel.text = self.anim_player.current_animation
+
 	if Engine.is_editor_hint() && self._velocity_bake_mode:
 		var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(1.0 / 60))
 		self.record_velocity_data.emit(vel)
@@ -158,9 +160,12 @@ func reset_stun_reason() -> void:
 
 # checks the current animation id, sets player state based on currently playing animation
 func process_animation_data() -> void:
-	# retrieve current anim id
-	
 	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
+
+	# check if Fighter has transitioned to fallback animation
+	if atk.animation_name != self.anim_player.current_animation:
+		self.current_anim_id = self.anim_fallback_id
+		atk = self.movelist.get_from_id(current_anim_id)
 
 	# remove non-calculated states
 	self.states = self.states.filter(
@@ -169,7 +174,7 @@ func process_animation_data() -> void:
 	)
 
 	# set states
-	var current_frame: int = roundi(self.anim_player.current_animation_position * 60)
+	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
 	# if self.player == 0: print(current_frame)
 	for state: String in atk.player_states.keys():
 
@@ -195,7 +200,7 @@ func process_animation_hitboxes() -> void:
 	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
 	#find hitboxes
-	var current_frame: int = roundi(self.anim_player.current_animation_position * 60)
+	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
 	var hitbox_data: Array = []
 	# var index: int
 	if atk.hitbox_data.has("shapes"):
@@ -295,6 +300,8 @@ func process_movement(delta: int) -> void: # could use some optimizing
 	# determine animation to play
 	var next_move: FighterAnimationData = self.get_move_from_input()
 
+	# assert(!(next_move.move_name == "idle" && self.anim_player.current_animation == "def_animations/def_dash_b" ))
+
 	if next_move != null && \
 		next_move.animation_name != self.anim_player.current_animation && \
 		!self.is_current_input_ignored(inp):
@@ -313,6 +320,8 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 				atk_data.animation_name,
 				recovery_move.animation_name
 			)
+
+			self.anim_fallback_id = self.movelist.get_move_id(recovery_move)
 
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
 	self.anim_player.play(atk_data.animation_name)
@@ -363,7 +372,7 @@ func process_root_motion(delta: int) -> Variant:
 	if Engine.is_editor_hint():
 		var frame_velocity: FixedVector3 = \
 			FixedVector3.from_vec3(self.anim_player.get_root_motion_position())
-		self.collision_body.velocity = frame_velocity
+		# self.collision_body.velocity = frame_velocity
 		return frame_velocity
 	#####################################
 
@@ -403,10 +412,10 @@ func process_root_motion(delta: int) -> Variant:
 	return
 
 func get_root_motion() -> FixedVector3:
-	var vel: FixedVector3 =self.animation_velocity_data.get(
+	var vel: FixedVector3 = self.animation_velocity_data.get(
 		self.anim_player.current_animation
 	).get(
-		str(roundi(self.anim_player.current_animation_position * 60))
+		str(floori(self.anim_player.current_animation_position * 60))
 	)
 
 	# assert(vel != null)
