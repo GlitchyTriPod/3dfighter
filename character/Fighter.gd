@@ -120,7 +120,7 @@ var is_online: bool = false
 
 @export var _velocity_bake_mode: bool = false
 
-signal ready_for_input_process(player: Fighter)
+# signal ready_for_input_process(player: Fighter)
 signal record_velocity_data(velocity: FixedVector3)
 
 ### LIFE CYCLE ###
@@ -485,9 +485,9 @@ func get_misc_unused_hitbox() -> Variant:
 			return i
 	return
 
-func _network_process(input: Dictionary) -> void:
+func _network_preprocess(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
-	emit_signal("ready_for_input_process", self)
+	# emit_signal("ready_for_input_process", self)
 
 func _get_local_input() -> Dictionary:
 	var player_input: Dictionary = {}
@@ -524,10 +524,14 @@ func _get_local_input() -> Dictionary:
 func _save_state() -> Dictionary:
 	return {
 		"input_history": self.input_interpreter.input_history.duplicate(),
+		"current_anim_id": self.current_anim_id,
+		"anim_fallback_id": self.anim_fallback_id
 	}
 
 func _load_state(state: Dictionary) -> void:
-	self.input_interpreter.input_history = state.input_history
+	self.input_interpreter.input_history = state.input_history.duplicate()
+	self.current_anim_id = state.current_anim_id
+	self.anim_fallback_id = state.anim_fallback_id
 
 # 	return {
 # 		"position": self.position,
