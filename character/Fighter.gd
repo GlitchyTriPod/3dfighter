@@ -97,9 +97,7 @@ var screen_position: int:
 	get:
 		return self.message_bus \
 			.get_char_position( \
-				FixedVector3.to_vec3(self.collision_body.fixed_position if \
-					self.collision_body != null else self.collision_body.fixed_position
-				)
+				FixedVector3.to_vec3(self.collision_body.fixed_position)
 			)
 
 @onready var collision_body: FEFighterCollisionBody = %CollisionBody
@@ -135,7 +133,7 @@ func _ready() -> void:
 
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.anim_player.playback_default_blend_time = 0.1
-		self.collision_body_offset = self.collision_body.position
+		# self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
 
 	get_window().focus_entered.connect(self._on_window_focus_entered)
@@ -392,11 +390,8 @@ func process_root_motion(delta: int) -> Variant:
 	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
 
 	var vel: FixedVector3 = self.get_root_motion() #.rotate(Vector3.UP, curr_rotation.y)
-	var vel_rot: FixedVector3 = vel.rotated(Vector3.UP, curr_rotation.y)
+	var vel_rot: FixedVector3 = vel.rotated(FixedVector3.UP, curr_rotation.y)
 
-	# if self.player == 1:
-	# 	print(self.collision_body.fixed_rotation.y)
-	# 	print(vel.x, " ", vel.y, " ", vel.z, "||", vel_rot.x, " ", vel_rot.y, " ", vel_rot.z)
 
 	self.collision_body.velocity = FixedVector3.mul(
 		FixedVector3.div(
@@ -458,12 +453,15 @@ func collide_and_slide(delta: int) -> void:
 			self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
 	############################################
 	
-	self.position = FixedVector3.to_vec3( \
-		FixedVector3.sub(self.collision_body.fixed_position, \
-			FixedVector3.from_vec3(self.collision_body_offset) \
-	))
+	# self.position = FixedVector3.to_vec3( \
+	# 	FixedVector3.sub(self.collision_body.fixed_position, \
+	# 		FixedVector3.from_vec3(self.collision_body_offset) \
+	# ))
 
-	self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
+	# self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
+
+	self.position = self.collision_body.global_position
+	self.rotation = self.collision_body.global_rotation
 
 func is_tracking_opponent() -> bool:
 	var oppo_states: Array[String] = self.message_bus.get_oppo_states(self)

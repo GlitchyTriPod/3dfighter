@@ -62,8 +62,8 @@ func input_process() -> void: #_input: Dictionary): #_delta: float):
 	# if !self.process_ready:
 	# 	return
 
-	var _delta_int: int = int(SyncManager.tick_time * 65536) #int(_delta * 65536)
-
+	var _delta_int: int = FixedInt.from_float(SyncManager.tick_time)
+	
 	# set player states based on animation data
 	self.player_1.process_animation_data()
 	self.player_2.process_animation_data()

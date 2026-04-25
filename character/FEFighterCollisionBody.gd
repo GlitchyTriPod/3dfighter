@@ -35,17 +35,17 @@ func fixed_look_at(target: FixedVector3, axis: FixedVector3 = FixedVector3.UP) -
 
 func _save_state() -> Dictionary:
 	return {
-		# "position": {
-		# 	"x": self.fixed_position.x,
-		# 	"y": self.fixed_position.y,
-		# 	"z": self.fixed_position.z
-		# },
+		"position": {
+			"x": self.fixed_position.x,
+			"y": self.fixed_position.y,
+			"z": self.fixed_position.z
+		},
 		# # self.fixed_position,
-		# "rotation": {
-		# 	"x": self.fixed_rotation.x,
-		# 	"y": self.fixed_rotation.y,
-		# 	"z": self.fixed_rotation.z
-		# },
+		"rotation": {
+			"x": self.fixed_rotation.x,
+			"y": self.fixed_rotation.y,
+			"z": self.fixed_rotation.z
+		},
 		# "rotation": self.fixed_rotation,
 		"velocity": {
 			"x": self.velocity.x,
@@ -58,16 +58,16 @@ func _save_state() -> Dictionary:
 	}
 
 func _load_state(state: Dictionary) -> void:
-	# self.fixed_position = FixedVector3.new(
-	# 	state.position.x,
-	# 	state.position.y,
-	# 	state.position.z
-	# )
-	# self.fixed_rotation = FixedVector3.new(
-	# 	state.rotation.x,
-	# 	state.rotation.y,
-	# 	state.rotation.z
-	# )
+	self.fixed_position = FixedVector3.new(
+		state.position.x,
+		state.position.y,
+		state.position.z
+	)
+	self.fixed_rotation = FixedVector3.new(
+		state.rotation.x,
+		state.rotation.y,
+		state.rotation.z
+	)
 	self.velocity = FixedVector3.new(
 		state.velocity.x,
 		state.velocity.y,

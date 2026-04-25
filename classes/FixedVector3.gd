@@ -48,18 +48,18 @@ func _init(x_inc: int = 0, y_inc: int = 0, z_inc: int = 0) -> void:
 static func from_vec3(val: Vector3) -> FixedVector3:
 	var ret_vec: FixedVector3 = FixedVector3.new()
 
-	ret_vec.x = int(val.x * 65536)
-	ret_vec.y = int(val.y * 65536)
-	ret_vec.z = int(val.z * 65536)
+	ret_vec.x = FixedInt.from_int(floori(val.x))
+	ret_vec.y = FixedInt.from_int(floori(val.y))
+	ret_vec.z = FixedInt.from_int(floori(val.z))
 
 	return ret_vec
 
 static func to_vec3(val: FixedVector3) -> Vector3:
 	var ret_vec: Vector3 = Vector3()
 
-	ret_vec.x = float(val.x / 65536.0)
-	ret_vec.y = float(val.y / 65536.0)
-	ret_vec.z = float(val.z / 65536.0)
+	ret_vec.x = FixedInt.to_float(val.x)
+	ret_vec.y = FixedInt.to_float(val.y)
+	ret_vec.z = FixedInt.to_float(val.z)
 
 	return ret_vec
 
@@ -350,7 +350,7 @@ func length() -> int:
 
 	var lgth: int = FixedInt.sqrt_64(length_sqrd)
 	if lgth == 0:
-		return 1
+		return FixedInt.FIXED_ONE
 
 	return lgth
 
@@ -369,7 +369,7 @@ func length_squared() -> int:
 	# squaring a fixed point number smaller than 15 will be 0
 	# which means ret can be 0
 	if (ret == 0) && (self.x != 0 || self.y != 0 || self.z != 0):
-		return 1 # gotta return something
+		return FixedInt.FIXED_ONE # gotta return something
 	return ret
 
 func distance_to(vec: FixedVector3) -> int:
@@ -423,16 +423,15 @@ func angle_to(target: FixedVector3, _axis: Vector3 = Vector3.UP) -> int: # << CO
 
 	if self.z > target.z:
 		ang += FixedInt.FIXED_PI
-
 	
 	return ang
 
-func rotated(axis: Vector3, p_rotation: int) -> FixedVector3:
+func rotated(axis: FixedVector3, p_rotation: int) -> FixedVector3:
 	var v: FixedVector3 = FixedVector3.new(self.x, self.y, self.z)
 	v.rotate(axis,  p_rotation) 
 	return v
 
-func rotate(_axis: Vector3, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
+func rotate(_axis: FixedVector3, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
 	
 	var s: int = FixedInt.sin(ang)
 	var c: int = FixedInt.cos(ang)
@@ -507,9 +506,8 @@ func normalize() -> void:
 func is_zero_approx()-> bool:
 	return self.x == FixedInt.FIXED_ZERO && self.y == FixedInt.FIXED_ZERO && self.z == FixedInt.FIXED_ZERO
 
-
+# unused
 func to_quaternion() -> Quaternion:
-
 	var cr: int = FixedInt.cos(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
 	var sr: int = FixedInt.sin(FixedInt.mul(self.x, FixedInt.FIXED_HALF))
 	var cp: int = FixedInt.cos(FixedInt.mul(self.y, FixedInt.FIXED_HALF))

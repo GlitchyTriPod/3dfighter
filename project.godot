@@ -178,9 +178,14 @@ sync_debug={
 
 [network]
 
-rollback/limits/max_messages_at_once=5
+rollback/input_delay=4
+rollback/limits/max_input_frames_per_message=10
+rollback/limits/max_messages_at_once=7
+rollback/limits/max_state_mismatch_count=30
 rollback/classes/message_serializer="uid://b8ahiut0y2ub"
+rollback/debug/rollback_ticks=1
 rollback/debug/random_rollback_ticks=2
+rollback/debug/skip_nth_message=2
 
 [physics]
 

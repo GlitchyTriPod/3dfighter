@@ -34,15 +34,11 @@ var hitbox_attack_name: String = ""
 var velocity: FixedVector3 = FixedVector3.new()
 
 @onready var fixed_position: FixedVector3 = FixedVector3.from_vec3(self.global_position):
-	# get:
-	# 	return FixedVector3.from_vec3(self.global_position)
 	set(val):
 		fixed_position = val
 		self.global_position = FixedVector3.to_vec3(val)
 
 @onready var fixed_rotation: FixedVector3 = FixedVector3.from_vec3(self.global_rotation):
-	# get:
-	# 	return FixedVector3.from_vec3(self.global_rotation)
 	set(val):
 		fixed_rotation = val
 		self.global_rotation = FixedVector3.to_vec3(val)
