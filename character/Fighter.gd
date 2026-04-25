@@ -447,7 +447,7 @@ func collide_and_slide(delta: int) -> void:
 			)
 
 			new_position.x -= change.x
-			# new_position.y -= change.y
+			# new_position.y -= change.y 
 			new_position.z -= change.z
 
 		# TODO: Collision with walls

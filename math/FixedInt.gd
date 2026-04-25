@@ -124,8 +124,8 @@ static func atan(this: int) -> int:
 # // License: MIT
 static func atan2(this: int, num: int) -> int:
 	if this == FIXED_ZERO:
-		return FIXED_PI if num > FIXED_ZERO else -FIXED_PI_DIV_2
-	if num < FIXED_ZERO:
+		return FIXED_PI if num < FIXED_ZERO else FIXED_ZERO
+	if num == FIXED_ZERO:
 		return FIXED_PI_DIV_2 if this > FIXED_ZERO else -FIXED_PI_DIV_2
 
 	var ret: int = FixedInt.atan_div(this, num)
@@ -145,7 +145,7 @@ static func atan_div(p_y: int, p_x: int) -> int:
 		return -FixedInt.atan_div(-p_y, p_x)
 	
 	if p_x < FIXED_ZERO:
-		return -FixedInt.atan_div(p_y, p_x)
+		return -FixedInt.atan_div(p_y, -p_x)
 
 	if p_y > p_x:
 		return FIXED_PI_DIV_2 - FixedInt.atan_sanitized(FixedInt.div(p_x, p_y))

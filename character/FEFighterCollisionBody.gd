@@ -20,16 +20,13 @@ func is_on_floor(floor_height: int) -> bool:
 	var rem: int = self.fixed_position.y - self.fixed_sphere_radius
 	return rem <= floor_height
 
-func fixed_look_at(target: FixedVector3, axis: Vector3 = Vector3.UP) -> void:
+func fixed_look_at(target: FixedVector3, axis: FixedVector3 = FixedVector3.UP) -> void:
 
 	var forward: FixedVector3 = FixedVector3.sub(target, self.fixed_position)
-	# var lookat_basis: Basis = FixedVector3.basis_looking_at(forward, axis, true)
 
-	var lookat_basis: Array[Array] = FixedVector3.basis_looking_at(forward, axis, true)
-
-	self.fixed_rotation = FixedVector3.basis_get_euler(lookat_basis)
-
-	# self.fixed_rotation = FixedVector3.from_vec3(lookat_basis.get_euler())
+	# vvv One that Needs to Fucking Work but Does :)  #-nt- 
+	var fixed_lookat_basis: Array = FixedVector3.basis_looking_at(forward, axis, true)
+	self.fixed_rotation = FixedVector3.basis_get_euler(fixed_lookat_basis)
 
 	if self.fixed_rotation.x != FixedInt.FIXED_ZERO:
 		self.fixed_rotation.x = FixedInt.FIXED_ZERO

@@ -32,6 +32,9 @@ class_name FixedVector3
 		if self.universal_setter_callback != null:
 			self.universal_setter_callback.call()
 
+static var UP: FixedVector3 = FixedVector3.new(0, FixedInt.FIXED_ONE, 0)
+static var RIGHT: FixedVector3 = FixedVector3.new(FixedInt.FIXED_ONE, 0, 0)
+
 var x_setter_callback: Callable = func() -> void: return
 var y_setter_callback: Callable = func() -> void: return
 var z_setter_callback: Callable = func() -> void: return
@@ -114,25 +117,35 @@ static func lerp(from: FixedVector3, to: FixedVector3, weight: int) -> FixedVect
 
 	return ret
 
-static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP, use_model_front: bool = false) -> Array[Array]:
+static func basis_looking_at(
+	target: FixedVector3, 
+	up_axis: FixedVector3 = FixedVector3.UP, 
+	use_model_front: bool = false, 
+	return_basis: bool = false) -> Variant: # Array[Array]:
 	var v_z: FixedVector3 = target.normalized()
 	if !use_model_front:
 		v_z.x = -v_z.x
 		v_z.y = -v_z.y
 		v_z.z = -v_z.z
 
-	var v_x: FixedVector3 = FixedVector3.from_vec3(up_axis).cross(v_z)
+	var v_x: FixedVector3 = up_axis.cross(v_z)
 	if v_x.is_zero_approx():
-		v_x = FixedVector3.from_vec3(
-			up_axis.cross( \
-				Vector3.RIGHT if \
+		v_x = up_axis.cross( \
+				FixedVector3.RIGHT if \
 					(abs(up_axis.x) <= abs(up_axis.y) && abs(up_axis.x) <= abs(up_axis.z)) \
-					else Vector3.UP
-			))
+					else FixedVector3.UP
+		).normalized()
 
 	v_x.normalize()
 
-	var v_y: FixedVector3 = v_z.cross(v_x)
+	var v_y: FixedVector3 = v_z.cross(v_x).normalized()
+
+	if return_basis:
+		return Basis(
+			FixedVector3.to_vec3(v_x),
+			FixedVector3.to_vec3(v_y),
+			FixedVector3.to_vec3(v_z)
+		)
 
 	return [
 		[v_x.x, v_y.x, v_z.x],
@@ -140,14 +153,9 @@ static func basis_looking_at(target: FixedVector3, up_axis: Vector3 = Vector3.UP
 		[v_x.z, v_y.z, v_z.z]
 	]
 
-	# return Basis(
-	# 	FixedVector3.to_vec3(v_x),
-	# 	FixedVector3.to_vec3(v_y),
-	# 	FixedVector3.to_vec3(v_z)
-	# )
 
 # Retrieves euler rotation [rewritten from Godot Source Code: https://github.com/godotengine/godot/blob/master/core/math/basis.cpp]
-static func basis_get_euler(basis: Array[Array], order: EulerOrder = EulerOrder.EULER_ORDER_XYZ) -> FixedVector3:
+static func basis_get_euler(basis: Array, order: EulerOrder = EulerOrder.EULER_ORDER_YXZ) -> FixedVector3:
 	var euler: FixedVector3 = FixedVector3.new()
 
 	match order:
@@ -185,43 +193,131 @@ static func basis_get_euler(basis: Array[Array], order: EulerOrder = EulerOrder.
 				euler.z = 0
 
 			return euler
+
+		EulerOrder.EULER_ORDER_XZY:
+			var sz: int = basis[0][1]
+
+			if sz < (FixedInt.FIXED_ONE - 1):
+
+				if sz > -(FixedInt.FIXED_ONE - 1):
+					euler.x = FixedInt.atan2(basis[2][1], basis[1][1])
+					euler.y = FixedInt.atan2(basis[0][2], basis[0][0])
+					euler.z = FixedInt.asin(-sz)
+
+				else: # sz == -1
+					euler.x = -FixedInt.atan2(basis[1][2], basis[2][2])
+					euler.y = 0
+					euler.z = FixedInt.FIXED_PI_DIV_2
+
+			else: # sz == 1
+				euler.x = -FixedInt.atan2(basis[1][2], basis[2][2])
+				euler.y = 0
+				euler.z = -FixedInt.FIXED_PI_DIV_2
+
+			return euler
 		
 		EulerOrder.EULER_ORDER_YXZ:
-			var sy: int = basis[0][2]
+			var m12: int = basis[1][2]
 
-			if sy < (FixedInt.FIXED_ONE - 1):
+			if m12 < (FixedInt.FIXED_ONE - 1):
 
-				if sy > -(FixedInt.FIXED_ONE - 1):
+				if m12 > -(FixedInt.FIXED_ONE - 1):
 					
 					# is this a pure X rotation?
 					if basis[1][0] == 0 && \
 						basis[0][1] == 0 && \
-						basis[1][2] == 0 && \
-						basis[2][1] == 0 && \
-						basis[1][1] == FixedInt.FIXED_ONE:
+						basis[0][2] == 0 && \
+						basis[2][0] == 0 && \
+						basis[0][0] == FixedInt.FIXED_ONE:
 						# return the simplest form (human friendlier in editor and scripts)
-						euler.x = 0
-						euler.y = FixedInt.atan2(basis[0][2], basis[0][0])
+						euler.x = FixedInt.atan2(-m12, basis[1][1])
+						euler.y = 0
 						euler.z = 0
 					
 					else:
-						euler.x = FixedInt.atan2(-basis[1][2], basis[2][2])
-						euler.y = FixedInt.asin(sy)
-						euler.z = FixedInt.atan2(-basis[0][1], basis[0][0])
+						euler.x = FixedInt.asin(-m12)
+						euler.y = FixedInt.atan2(basis[0][2], basis[2][2])
+						euler.z = FixedInt.atan2(basis[1][0], basis[1][1])
 
-				else: 
-					euler.x = FixedInt.atan2(basis[2][1], basis[1][1])
-					euler.y = -FixedInt.FIXED_PI_DIV_2
+				else: # m12 == -1
+					euler.x = FixedInt.FIXED_PI_DIV_2
+					euler.y = FixedInt.atan2(basis[0][1], basis[0][0])
 					euler.z = 0
 
-			else:
-				euler.x = FixedInt.atan2(basis[2][1], basis[1][1])
-				euler.y = FixedInt.FIXED_PI_DIV_2
+			else: # m12 == 1
+				euler.x = -FixedInt.FIXED_PI_DIV_2
+				euler.y = -FixedInt.atan2(basis[0][1], basis[0][0])
 				euler.z = 0
 
 			return euler
 
-	return FixedVector3.new()
+		EulerOrder.EULER_ORDER_YZX:
+			var sz: int = basis[1][0]
+
+			if sz < (FixedInt.FIXED_ONE - 1):
+
+				if sz > -(FixedInt.FIXED_ONE - 1):
+					euler.x = FixedInt.atan2(-basis[1][2], basis[1][1])
+					euler.y = FixedInt.atan2(-basis[2][0], basis[0][0])
+					euler.z = FixedInt.asin(sz)
+
+				else: # sz == -1
+					euler.x = FixedInt.atan2(basis[2][1], basis[2][2])
+					euler.y = 0
+					euler.z = -FixedInt.FIXED_PI_DIV_2
+
+			else: # sz == 1
+				euler.x = FixedInt.atan2(basis[2][1], basis[2][2])
+				euler.y = 0
+				euler.z = FixedInt.FIXED_PI_DIV_2
+
+			return euler
+
+		EulerOrder.EULER_ORDER_ZXY:
+			var sx: int = basis[2][1]
+
+			if sx < (FixedInt.FIXED_ONE - 1):
+
+				if sx > -(FixedInt.FIXED_ONE - 1):
+					euler.x = FixedInt.asin(sx)
+					euler.y = FixedInt.atan2(-basis[2][0], basis[2][2])
+					euler.z = FixedInt.atan2(-basis[0][1], basis[1][1])
+
+				else: # sx == -1
+					euler.x = -FixedInt.FIXED_PI_DIV_2
+					euler.y = FixedInt.atan2(basis[0][2], basis[0][0])
+					euler.z = 0
+
+			else: # sx == 1
+				euler.x = FixedInt.FIXED_PI_DIV_2
+				euler.y = FixedInt.atan2(basis[0][2], basis[0][0])
+				euler.z = 0
+
+			return euler
+
+		EulerOrder.EULER_ORDER_ZYX:
+			var sy: int = basis[2][0]
+
+			if sy < (FixedInt.FIXED_ONE - 1):
+
+				if sy > -(FixedInt.FIXED_ONE - 1):
+					euler.x = FixedInt.atan2(basis[2][1], basis[2][2])
+					euler.y = FixedInt.asin(-sy)
+					euler.z = FixedInt.atan2(basis[1][0], basis[0][0])
+
+				else: # sy == -1
+					euler.x = 0
+					euler.y = FixedInt.FIXED_PI_DIV_2
+					euler.z = -FixedInt.atan2(basis[0][1], basis[1][1])
+
+			else: # sy == 1
+				euler.x = 0
+				euler.y = -FixedInt.FIXED_PI_DIV_2
+				euler.z = -FixedInt.atan2(basis[0][1], basis[1][1])
+
+			return euler
+
+	return euler
 
 func dot(vec2: FixedVector3) -> int:
 	var res: int = 0
