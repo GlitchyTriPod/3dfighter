@@ -39,5 +39,10 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
 
+[node name="CheckBakeHitboxes" type="CheckBox" parent="." unique_id=853470875]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bake Skeleton Hitboxes"
+
 [connection signal="button_up" from="HBoxContainer/BakeButton" to="." method="_on_bake_button_button_up"]
 [connection signal="button_up" from="HBoxContainer/ExitButton" to="." method="_on_exit_button_button_up"]

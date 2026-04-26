@@ -58,8 +58,8 @@ func _process(_input: Variant) -> void:
 	# assign positions to reference nodes
 	self.cam_ref1.position.x = dist
 	self.cam_ref2.position.x = -dist
-	self.cam_ref1.position.y = self.global_position.y + 1.5
-	self.cam_ref2.position.y = self.global_position.y + 1.5
+	self.cam_ref1.position.y = self.global_position.y + 0.5
+	self.cam_ref2.position.y = self.global_position.y + 0.5
 
 	if abs(self.rotation_degrees.x) < 75:
 
@@ -75,7 +75,7 @@ func _process(_input: Variant) -> void:
 		self.camera.global_position = self.camera_last_g_position
 
 	# self.camera.global_rotation = Vector3(0,0,0)
-	self.camera.look_at(Vector3(self.global_position.x, self.global_position.y + 1, self.global_position.z))
+	self.camera.look_at(Vector3(self.global_position.x, self.global_position.y + 0.5, self.global_position.z))
 
 # needs conversion to fixedint
 func get_char_position(char_position: Vector3) -> int:

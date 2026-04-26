@@ -7,22 +7,6 @@ class_name Fighter
 # @expor 
 @export_enum("1", "2") var player: int = 0
 
-# const state_default: Dictionary = {
-# 	"crouching": false,
-# 	"rising": false,
-# 	"airborne": false,
-# 	"grounded": false,
-# 	"wall": false,
-# 	"running": false,
-# 	"counterhit": false,
-# 	"invincible": false,
-# 	"invisible": false,
-# 	"actionable": true,
-# 	"face_opponent": false,
-# 	"hit_stun": false,
-# 	"block_stun": false
-# }
-
 var stun_reason: Dictionary = {
 	"stun_name": "", # not really sure what im using this for rn im sure its important
 	"stun_hit": -1, # used to prevent hit registering multiple times on consecutive frames
@@ -30,29 +14,14 @@ var stun_reason: Dictionary = {
 }
 
 # vvv TODO: change this to PackedStringArray
-var states: Array[String] = []
+var states: PackedStringArray = []
 
 @export var movelist: FighterMovelist
-@export var animation_velocity_data: Dictionary
+
+@export var animation_velocity_data: FighterResource
+@export var animation_hurtbox_data: FighterResource
 
 @export var animation_library: AnimationLibrary
-
-# tracks basic stances for the fighter -- extend if character has multiple stances
-# enum STANCE {
-# 	STANDING,
-# 	CROUCHING,
-# 	GROUNDED,
-# 	AIRBORNE,
-# 	WALL,
-# 	F_DASH,
-# 	B_DASH,
-# 	SIDESTEP,
-# 	SIDEWALK,
-# 	RUN,
-# 	JUMP
-# }
-
-# var stance: int = STANCE.STANDING
 
 enum DI_STATE {
 	NEUTRAL,
@@ -65,21 +34,6 @@ enum DI_STATE {
 	BACK,
 	UP_BACK
 }
-# tracks the current direction that the player is holding
-# var di_state: int = DI_STATE.NEUTRAL
-
-# enum BUTTON_STATE {
-# 	NONE,
-# 	P,
-# 	K,
-# 	A,
-# 	PK,
-# 	PA,
-# 	KA,
-# 	PKA
-# }
-# tracks the buttons that the player is pressing/holding down
-# var button_state: int = BUTTON_STATE.NONE
 
 var message_bus: FighterMessageBus
 
@@ -119,9 +73,10 @@ var is_focused: bool = false
 var is_online: bool = false
 
 @export var _velocity_bake_mode: bool = false
+@export var _hurtbox_bake_mode: bool = false
 
-# signal ready_for_input_process(player: Fighter)
 signal record_velocity_data(velocity: FixedVector3)
+signal record_hurtbox_data(hurtboxes: Array)
 
 ### LIFE CYCLE ###
 
@@ -129,11 +84,14 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
 	else:
-		%AddonSpheres.free()
+		%AddonSpheres.queue_free()
+
+		for nde: Node in get_tree().get_nodes_in_group("SkeletonHurtbox"):
+			nde.queue_free()
 
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.anim_player.playback_default_blend_time = 0.1
-		# self.collision_body_offset = self.collision_body.position
+		self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
 
 	get_window().focus_entered.connect(self._on_window_focus_entered)
@@ -142,10 +100,16 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	%AnimationNameLabel.text = self.anim_player.current_animation
 
-	if Engine.is_editor_hint() && self._velocity_bake_mode:
-		var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(1.0 / 60))
-		self.record_velocity_data.emit(vel)
-		self.anim_player.advance(1.0 / 60)
+	if Engine.is_editor_hint(): 
+		if self._velocity_bake_mode:
+			var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(1.0 / 60))
+			self.record_velocity_data.emit(vel)
+		
+		if self._hurtbox_bake_mode:
+			self.record_hurtbox_data.emit(get_tree().get_nodes_in_group("SkeletonHurtbox"))
+
+		if self._velocity_bake_mode || self._hurtbox_bake_mode:
+			self.anim_player.advance(1.0 / 60)
 
 ### METHODS ###
 
@@ -165,11 +129,9 @@ func process_animation_data() -> void:
 		self.current_anim_id = self.anim_fallback_id
 		atk = self.movelist.get_from_id(current_anim_id)
 
-	# remove non-calculated states
-	self.states = self.states.filter(
-		func(state: String) -> bool:
-			return state.ends_with("_calc")
-	)
+	for state: String in self.states:
+		if !state.ends_with("_calc"):
+			self.states.erase(state)
 
 	# set states
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
@@ -218,7 +180,7 @@ func process_animation_hitboxes() -> void:
 			break
 		# hitbox.hitbox_attack_index = index
 		hitbox.hitbox_attack_name = atk.animation_name
-		hitbox.position = FixedVector3.to_vec3(shape.position)
+		hitbox.fixed_position = shape.position
 		hitbox.fixed_sphere_radius = shape.radius
 		hitbox.enabled = true
 
@@ -252,8 +214,6 @@ func process_hitbox_intersection() -> void:
 					hitbox.hitbox_attack_name, 
 					self.message_bus.get_oppo_current_animation_id(self)
 				)
-				# if self.current_anim_id != "":
-				# 	self.current_anim_id = ""
 				break
 
 func process_hit(attack_index: int, animation_name: String, animation_id: String) -> void:
@@ -370,21 +330,10 @@ func process_root_motion(delta: int) -> Variant:
 	if Engine.is_editor_hint():
 		var frame_velocity: FixedVector3 = \
 			FixedVector3.from_vec3(self.anim_player.get_root_motion_position())
-		# self.collision_body.velocity = frame_velocity
 		return frame_velocity
 	#####################################
 
 	# velocity rotation (to match currently facing direction)
-
-	# quaternion method
-	# var curr_rotation: Quaternion = self.collision_body.global_transform.basis.get_rotation_quaternion()
-
-	# self.collision_body.velocity = FixedVector3.mul(FixedVector3.div(
-	# 	FixedVector3.from_vec3(
-	# 		curr_rotation * FixedVector3.to_vec3(self.get_root_motion())
-	# ), delta), FixedInt.FIXED_ONE)
-
-	# collide_and_slide(delta)
 
 	# euler method
 	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
@@ -403,17 +352,14 @@ func process_root_motion(delta: int) -> Variant:
 
 	collide_and_slide(delta)
 
-	# self.collision_body.global_transform.basis.orthonormalized()
 	return
 
 func get_root_motion() -> FixedVector3:
-	var vel: FixedVector3 = self.animation_velocity_data.get(
+	var vel: FixedVector3 = self.animation_velocity_data.resource.get(
 		self.anim_player.current_animation
 	).get(
 		str(floori(self.anim_player.current_animation_position * 60))
 	)
-
-	# assert(vel != null)
 
 	return vel
 
@@ -452,19 +398,12 @@ func collide_and_slide(delta: int) -> void:
 		if self.is_tracking_opponent():
 			self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
 	############################################
-	
-	# self.position = FixedVector3.to_vec3( \
-	# 	FixedVector3.sub(self.collision_body.fixed_position, \
-	# 		FixedVector3.from_vec3(self.collision_body_offset) \
-	# ))
 
-	# self.rotation = FixedVector3.to_vec3(self.collision_body.fixed_rotation)
-
-	self.position = self.collision_body.global_position
+	self.position = self.collision_body.global_position - self.collision_body_offset
 	self.rotation = self.collision_body.global_rotation
 
 func is_tracking_opponent() -> bool:
-	var oppo_states: Array[String] = self.message_bus.get_oppo_states(self)
+	var oppo_states: PackedStringArray = self.message_bus.get_oppo_states(self)
 	if self.states.has("track_opp") || \
 		(self.states.has("track_right") && oppo_states.has("left_movement")) || \
 		(self.states.has("track_left") && oppo_states.has("right_movement")):

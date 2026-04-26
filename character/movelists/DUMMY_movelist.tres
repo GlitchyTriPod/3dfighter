@@ -20,6 +20,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -44,6 +50,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -82,6 +94,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -115,6 +133,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -139,6 +163,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -177,6 +207,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -209,6 +245,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -220,7 +262,7 @@ player_states = {
 },
 "recovery_ignore_input_FORWARD": {
 "end": 13,
-"start": 5
+"start": 0
 },
 "recovery_ignore_input_NEUTRAL": {
 "end": 999,
@@ -244,6 +286,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -284,6 +332,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -330,6 +384,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -371,6 +431,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -407,6 +473,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -454,6 +526,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -489,6 +567,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -534,6 +618,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -574,6 +664,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "actionable": {
 "end": 999,
@@ -609,6 +705,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -655,6 +757,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "block_stun": {
 "end": 999,
@@ -684,6 +792,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "block_stun": {
 "end": 999,
@@ -708,6 +822,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -746,6 +866,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "hit_stun": {
 "end": 999,
@@ -771,6 +897,12 @@ hitbox_data = {
 "start": -1
 }
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "hit_stun": {
 "end": 999,
@@ -791,6 +923,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
@@ -839,6 +977,12 @@ hitbox_data = {
 "radius": 11141,
 "unblockable": false
 }]
+}
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
 }
 player_states = {
 "counterable": {
@@ -890,6 +1034,12 @@ hitbox_data = {
 "radius": 11796,
 "unblockable": false
 }]
+}
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
 }
 player_states = {
 "counterable": {
@@ -964,6 +1114,12 @@ hitbox_data = {
 "unblockable": false
 }]
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "counterable": {
 "end": 15,
@@ -1031,6 +1187,12 @@ hitbox_data = {
 "radius": 17039,
 "unblockable": false
 }]
+}
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
 }
 player_states = {
 "counterable": {
@@ -1123,6 +1285,12 @@ hitbox_data = {
 "unblockable": false
 }]
 }
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
 player_states = {
 "counterable": {
 "end": 20,
@@ -1150,6 +1318,12 @@ hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1

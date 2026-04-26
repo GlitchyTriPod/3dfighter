@@ -48,9 +48,9 @@ func _init(x_inc: int = 0, y_inc: int = 0, z_inc: int = 0) -> void:
 static func from_vec3(val: Vector3) -> FixedVector3:
 	var ret_vec: FixedVector3 = FixedVector3.new()
 
-	ret_vec.x = FixedInt.from_int(floori(val.x))
-	ret_vec.y = FixedInt.from_int(floori(val.y))
-	ret_vec.z = FixedInt.from_int(floori(val.z))
+	ret_vec.x = FixedInt.from_float(val.x)
+	ret_vec.y = FixedInt.from_float(val.y)
+	ret_vec.z = FixedInt.from_float(val.z)
 
 	return ret_vec
 

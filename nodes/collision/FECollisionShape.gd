@@ -3,10 +3,10 @@ extends ShapeCast3D
 class_name FECollisionShape
 
 # Radius of the sphere. use this instead of scale.
-@export var fixed_sphere_radius: int = FixedInt.FIXED_HALF :
-	set(val): # <---- VERY BAD PERFORMANCE. GENERATING 3D SHAPE SHOULD NOT BE DONE IN PRODUCTION
+@export var fixed_sphere_radius: int = FixedInt.FIXED_HALF:
+	set(val):
 		fixed_sphere_radius = val
-		if OS.has_feature("show_collision_shapes"):
+		if OS.has_feature("show_collision_shapes"): # <---- VERY BAD PERFORMANCE. DEBUGGING + OFFLINE ONLY
 			var sph: Shape3D = self.shape
 			if Engine.is_editor_hint():
 				sph = SphereShape3D.new()
@@ -55,7 +55,7 @@ func _ready() -> void:
 			self.shape = SphereShape3D.new()
 		else:
 			self.shape = self.shape.duplicate()
-	else:
+	elif !Engine.is_editor_hint():
 		self.visible = false
 
 	self.shape.radius = float(self.fixed_sphere_radius / 65536.0)

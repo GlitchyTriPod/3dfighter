@@ -31,9 +31,9 @@ var selected: bool = false
 var is_reference: bool = false
 var no_input: bool = false
 
-var anim_names: Array[String]:
+var anim_names: PackedStringArray:
 	get:
-		var arr: Array[String] = []
+		var arr: PackedStringArray = []
 
 		for name: StringName in self.default_animations.get_animation_list():
 			arr.append("%s/%s" % [self.default_animations.resource_name, name])
@@ -108,13 +108,10 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 	else:
 		boxes = %HitboxGrid.get_children()
 
-		val["frame_range"] = {
-			"start": frame_start,
-			"end": frame_end
-		}
-		# val["hit_anim"] = %OnHitOpponentOption.text
-		# val["block_anim"] = %OnBlockOpponentOption.text
-		# val["pushback_force"] = %PushbackForce.value
+	val["frame_range"] = {
+		"start": frame_start,
+		"end": frame_end
+	}
 	
 	if !boxes.is_empty():
 		val["shapes"] = []

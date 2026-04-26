@@ -39,7 +39,7 @@ func get_from_ref_name(ref_name: String) -> Variant:
 			return move
 	return false
 
-func get_from_input(inputs: Array[Dictionary], player_states: Array[String], screen_position: int) -> FighterAnimationData:
+func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray, screen_position: int) -> FighterAnimationData:
 
 	# var ret_val: FighterAnimationData = null
 	var possible_moves: Array[FighterAnimationData] = [ ]
@@ -152,7 +152,7 @@ func is_valid_button_press(move_input: int, button_mask: int) -> bool:
 		return true
 	return false
 
-func has_valid_states(move: FighterAnimationData, player_states: Array[String]) -> bool:
+func has_valid_states(move: FighterAnimationData, player_states: PackedStringArray) -> bool:
 	var states: PackedStringArray = move.required_state.split(", ")
 
 	for state: String in states:
