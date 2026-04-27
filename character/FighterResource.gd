@@ -3,4 +3,4 @@
 extends Resource
 class_name FighterResource
 
-@export var dict: Dictionary = {}
+@export_storage var dict: Dictionary = {}

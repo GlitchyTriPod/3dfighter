@@ -72,11 +72,11 @@ var is_focused: bool = false
 
 var is_online: bool = false
 
-@export var _velocity_bake_mode: bool = false
-@export var _hurtbox_bake_mode: bool = false
+@export_storage var _velocity_bake_mode: bool = false
+@export_storage var _hurtbox_bake_mode: bool = false
 
-signal record_velocity_data(velocity: FixedVector3)
-signal record_hurtbox_data(hurtboxes: Array)
+signal record_velocity_data(velocity: FixedVector3, animation_name: String, frame: int)
+signal record_hurtbox_data(hurtboxes: Array, animation_name: String, frame: int)
 
 ### LIFE CYCLE ###
 func _init() -> void:
@@ -123,13 +123,25 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	%AnimationNameLabel.text = self.anim_player.current_animation
 
-	if Engine.is_editor_hint(): 
+	if Engine.is_editor_hint():
+		if self.anim_player.current_animation.is_empty():
+			return
+
+
 		if self._velocity_bake_mode:
 			var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(1.0 / 60))
-			self.record_velocity_data.emit(vel)
+			self.record_velocity_data.emit(
+				vel, 
+				str(self.anim_player.current_animation), 
+				roundi(self.anim_player.current_animation_position * 60)
+			)
 		
 		if self._hurtbox_bake_mode:
-			self.record_hurtbox_data.emit(get_tree().get_nodes_in_group("SkeletonHurtbox"))
+			self.record_hurtbox_data.emit(
+				get_tree().get_nodes_in_group("SkeletonHurtbox").duplicate(true),
+				str(self.anim_player.current_animation),
+				roundi(self.anim_player.current_animation_position * 60)
+			)
 
 		if self._velocity_bake_mode || self._hurtbox_bake_mode:
 			self.anim_player.advance(1.0 / 60)
@@ -158,7 +170,6 @@ func process_animation_data() -> void:
 
 	# set states
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
-	# if self.player == 0: print(current_frame)
 	for state: String in atk.player_states.keys():
 
 		# if self.states.has(state):
@@ -169,7 +180,6 @@ func process_animation_data() -> void:
 				continue
 			self.states.append(state)
 	
-
 # checks current animation for hitboxes & places them into the scene if necessary
 func process_animation_hitboxes() -> void:	
 	for i: FECollisionShape in self.misc_hitbox_pool:
@@ -244,12 +254,13 @@ func process_animation_hitboxes() -> void:
 		hitbox.enabled = true
 
 func get_animation_hurtboxes() -> Array:
-	var boxes: Array = self.animation_hurtbox_data.dict.get(
+	var boxes: Dictionary = self.animation_hurtbox_data.dict.get(
 		self.anim_player.current_animation
-	).get(
+	)
+	var boxes2: Array = boxes.get(
 		str(floori(self.anim_player.current_animation_position * 60))
 	)
-	return boxes
+	return boxes2
 
 # checks if current fighter is intersecting with an enemy hitbox
 func process_hitbox_intersection() -> void:

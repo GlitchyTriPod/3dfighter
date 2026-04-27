@@ -22,6 +22,7 @@ shader_parameter/dithering = true
 shader_parameter/resolution_scale = 3
 
 [node name="Stage" type="Node3D" unique_id=1275674766]
+physics_interpolation_mode = 2
 script = ExtResource("1_u2wdh")
 
 [node name="InputListener" type="Node" parent="." unique_id=177585175 groups=["network_sync"]]

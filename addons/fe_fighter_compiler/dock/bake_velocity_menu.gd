@@ -45,44 +45,42 @@ func bake_velocity_process() -> void:
     self.anim_player.play(self.anim_player.get_animation_list().get(0))
     self.anim_player.seek(0, true)
 
-    for anim: String in self.anim_player.get_animation_list():
-        if self.anim_player.get_animation(anim).loop_mode == Animation.LOOP_LINEAR:
-            self.looping_anims.append(anim)
+    # for anim: String in self.anim_player.get_animation_list():
+    #     if self.anim_player.get_animation(anim).loop_mode == Animation.LOOP_LINEAR:
+    #         self.looping_anims.append(anim)
 
-        if self.anim_player.current_animation == anim:
-            continue
-        self.anim_player.queue(anim)
+    #     if self.anim_player.current_animation == anim:
+    #         continue
+    #     self.anim_player.queue(anim)
 
 
-func update_progress_label() -> void:
+func update_progress_label(anim_name: String = "") -> void:
     var anim_list: PackedStringArray = self.anim_player.get_animation_list()
-    var progress: int = anim_list.find(self.anim_player.current_animation)
-    %ProgressLabel.text = "%s (%d/%d)" % [self.anim_player.current_animation,
+    var progress: int = anim_list.find(anim_name)
+    %ProgressLabel.text = "%s (%d/%d)" % [anim_name,
         progress if progress != -1 else anim_list.size(), 
         anim_list.size()]
     %ProgressBar.value = progress
 
 ### LISTENERS ###
 
-func _on_fighter_record_velocity_data(data: FixedVector3, velocity_data: Dictionary) -> void:
-    var frame: int = roundi(self.anim_player.current_animation_position * 60)
-    if velocity_data.has(self.anim_player.current_animation) && \
-        velocity_data[self.anim_player.current_animation].has(str(frame)):
+func _on_fighter_record_velocity_data(data: FixedVector3, anim_name: String, frame: int, velocity_data: Dictionary) -> void:
+    if velocity_data.has(anim_name) && \
+        velocity_data[anim_name].has(str(frame)):
         return
         
-    if !velocity_data.has(self.anim_player.current_animation):
-        velocity_data[self.anim_player.current_animation] = {}
+    if !velocity_data.has(anim_name):
+        velocity_data[anim_name] = {}
 
-    velocity_data[self.anim_player.current_animation][str(frame)] = data
+    velocity_data[anim_name][str(frame)] = data
 
-func _on_fighter_record_hurtbox_data(data: Array, hurtbox_data: Dictionary) -> void:
-    var frame: int = roundi(self.anim_player.current_animation_position * 60)
-    if hurtbox_data.has(self.anim_player.current_animation) && \
-        hurtbox_data[self.anim_player.current_animation].has(str(frame)):
+func _on_fighter_record_hurtbox_data(data: Array, anim_name: String, frame: int, hurtbox_data: Dictionary) -> void:
+    if hurtbox_data.has(anim_name) && \
+        hurtbox_data[anim_name].has(str(frame)):
         return
 
-    if !hurtbox_data.has(self.anim_player.current_animation):
-        hurtbox_data[self.anim_player.current_animation] = {}
+    if !hurtbox_data.has(anim_name):
+        hurtbox_data[anim_name] = {}
 
     var data_min: Array = []
     for shape: FECollisionShape in data:
@@ -92,20 +90,27 @@ func _on_fighter_record_hurtbox_data(data: Array, hurtbox_data: Dictionary) -> v
             "position": FixedVector3.from_vec3(shape.global_position)
         })
     
-    hurtbox_data[self.anim_player.current_animation][str(frame)] = data_min
+    hurtbox_data[anim_name][str(frame)] = data_min
 
 func _on_anim_player_current_animation_changed(anim_name: StringName) -> void:
+    self.update_progress_label(anim_name)
+    if anim_name.is_empty():
+        return
     var anim: Animation = self.anim_player.get_animation(anim_name)
     if anim.loop_mode == Animation.LOOP_LINEAR:
         anim.loop_mode = Animation.LOOP_NONE
 
 func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Dictionary, hurtbox_data: Dictionary) -> void:
-    self.update_progress_label()
 
     if self.looping_anims.has(anim_name):
         self.anim_player.get_animation(anim_name).loop_mode = Animation.LOOP_LINEAR
 
-    if self.anim_player.is_playing():
+    var anim_index: int = self.anim_player.get_animation_list().find(anim_name)
+    var next_anim: String = self.anim_player.get_animation_list().get(anim_index + 1)
+
+    if !next_anim.is_empty():
+        self.anim_player.play(next_anim)
+        self.anim_player.seek(0.0, true)
         return
 
     self.fighter._velocity_bake_mode = false

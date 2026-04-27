@@ -1113,7 +1113,6 @@ z = -20
 
 [sub_resource type="Resource" id="Resource_87tn4"]
 script = ExtResource("1_238x4")
-z = -20
 
 [sub_resource type="Resource" id="Resource_b0jaw"]
 script = ExtResource("1_238x4")
@@ -1213,7 +1212,6 @@ z = 26
 
 [sub_resource type="Resource" id="Resource_2cu2b"]
 script = ExtResource("1_238x4")
-z = 26
 
 [sub_resource type="Resource" id="Resource_y8jak"]
 script = ExtResource("1_238x4")
@@ -2573,7 +2571,6 @@ x = 22
 
 [sub_resource type="Resource" id="Resource_lqkk6"]
 script = ExtResource("1_238x4")
-x = 22
 
 [sub_resource type="Resource" id="Resource_cw286"]
 script = ExtResource("1_238x4")
@@ -4475,7 +4472,6 @@ z = -20
 
 [sub_resource type="Resource" id="Resource_jwkx1"]
 script = ExtResource("1_238x4")
-z = -20
 
 [sub_resource type="Resource" id="Resource_n3hdy"]
 script = ExtResource("1_238x4")
@@ -5859,7 +5855,6 @@ x = 22
 
 [sub_resource type="Resource" id="Resource_t7ppl"]
 script = ExtResource("1_238x4")
-x = 22
 
 [sub_resource type="Resource" id="Resource_nqdhl"]
 script = ExtResource("1_238x4")
@@ -7845,7 +7840,7 @@ script = ExtResource("1_238x4")
 [resource]
 script = ExtResource("2_vd1ai")
 dict = {
-&"AnimLibrary_Atropos/atro_atk_2k": {
+"AnimLibrary_Atropos/atro_atk_2k": {
 "0": SubResource("Resource_238x4"),
 "1": SubResource("Resource_vd1ai"),
 "10": SubResource("Resource_slipp"),
@@ -7895,7 +7890,7 @@ dict = {
 "8": SubResource("Resource_0vrhf"),
 "9": SubResource("Resource_c8637")
 },
-&"AnimLibrary_Atropos/atro_atk_2ka": {
+"AnimLibrary_Atropos/atro_atk_2ka": {
 "0": SubResource("Resource_efqkl"),
 "1": SubResource("Resource_rtdl5"),
 "10": SubResource("Resource_msfqc"),
@@ -7969,7 +7964,7 @@ dict = {
 "8": SubResource("Resource_ivver"),
 "9": SubResource("Resource_fu1m3")
 },
-&"AnimLibrary_Atropos/atro_atk_3p": {
+"AnimLibrary_Atropos/atro_atk_3p": {
 "0": SubResource("Resource_4ofhx"),
 "1": SubResource("Resource_dukce"),
 "10": SubResource("Resource_mofw8"),
@@ -8009,7 +8004,7 @@ dict = {
 "8": SubResource("Resource_jk1ba"),
 "9": SubResource("Resource_0p7gc")
 },
-&"AnimLibrary_Atropos/atro_stagger_rl": {
+"AnimLibrary_Atropos/atro_stagger_rl": {
 "0": SubResource("Resource_udb4o"),
 "1": SubResource("Resource_eoram"),
 "10": SubResource("Resource_0k01y"),
@@ -8083,7 +8078,7 @@ dict = {
 "8": SubResource("Resource_y0j26"),
 "9": SubResource("Resource_c5eul")
 },
-&"AnimLibrary_test_newrig/RESET": {
+"AnimLibrary_test_newrig/RESET": {
 "0": SubResource("Resource_eho6g"),
 "1": SubResource("Resource_x5ccl"),
 "10": SubResource("Resource_vp2rx"),
@@ -8145,7 +8140,7 @@ dict = {
 "8": SubResource("Resource_4ws0y"),
 "9": SubResource("Resource_tgs31")
 },
-&"AnimLibrary_test_newrig/atk_p_BAKED": {
+"AnimLibrary_test_newrig/atk_p_BAKED": {
 "0": SubResource("Resource_40esg"),
 "1": SubResource("Resource_4145j"),
 "10": SubResource("Resource_aekq3"),
@@ -8173,7 +8168,7 @@ dict = {
 "8": SubResource("Resource_6q33a"),
 "9": SubResource("Resource_vqqri")
 },
-&"AnimLibrary_test_newrig/dash_b_BAKED": {
+"AnimLibrary_test_newrig/dash_b_BAKED": {
 "0": SubResource("Resource_nqg1a"),
 "1": SubResource("Resource_chnwv"),
 "10": SubResource("Resource_lreka"),
@@ -8200,7 +8195,7 @@ dict = {
 "8": SubResource("Resource_d44pd"),
 "9": SubResource("Resource_bs2lg")
 },
-&"AnimLibrary_test_newrig/dash_f_BAKED": {
+"AnimLibrary_test_newrig/dash_f_BAKED": {
 "0": SubResource("Resource_87tn4"),
 "1": SubResource("Resource_b0jaw"),
 "10": SubResource("Resource_1t4ki"),
@@ -8227,7 +8222,7 @@ dict = {
 "8": SubResource("Resource_nn1pi"),
 "9": SubResource("Resource_gf78e")
 },
-&"AnimLibrary_test_newrig/hit_h_1_BAKED": {
+"AnimLibrary_test_newrig/hit_h_1_BAKED": {
 "0": SubResource("Resource_2cu2b"),
 "1": SubResource("Resource_y8jak"),
 "10": SubResource("Resource_0ntgs"),
@@ -8254,7 +8249,7 @@ dict = {
 "8": SubResource("Resource_ggl3o"),
 "9": SubResource("Resource_oj5rj")
 },
-&"AnimLibrary_test_newrig/idle_crouching_BAKED": {
+"AnimLibrary_test_newrig/idle_crouching_BAKED": {
 "0": SubResource("Resource_4yv3q"),
 "1": SubResource("Resource_vdf4l"),
 "10": SubResource("Resource_xas6u"),
@@ -8356,7 +8351,7 @@ dict = {
 "98": SubResource("Resource_jljcm"),
 "99": SubResource("Resource_gaefq")
 },
-&"AnimLibrary_test_newrig/idle_standing_BAKED": {
+"AnimLibrary_test_newrig/idle_standing_BAKED": {
 "0": SubResource("Resource_aoqad"),
 "1": SubResource("Resource_sqgqo"),
 "10": SubResource("Resource_y05pj"),
@@ -8558,7 +8553,7 @@ dict = {
 "98": SubResource("Resource_2hn4c"),
 "99": SubResource("Resource_ts2en")
 },
-&"AnimLibrary_test_newrig/run_f_BAKED": {
+"AnimLibrary_test_newrig/run_f_BAKED": {
 "0": SubResource("Resource_wb5nj"),
 "1": SubResource("Resource_seaqe"),
 "10": SubResource("Resource_qsy8c"),
@@ -8620,7 +8615,7 @@ dict = {
 "8": SubResource("Resource_q0spu"),
 "9": SubResource("Resource_wb1s7")
 },
-&"AnimLibrary_test_newrig/step_l_BAKED": {
+"AnimLibrary_test_newrig/step_l_BAKED": {
 "0": SubResource("Resource_hw64i"),
 "1": SubResource("Resource_vt7xy"),
 "10": SubResource("Resource_6k1cp"),
@@ -8652,7 +8647,7 @@ dict = {
 "8": SubResource("Resource_7b64p"),
 "9": SubResource("Resource_qhfp6")
 },
-&"AnimLibrary_test_newrig/step_r_BAKED": {
+"AnimLibrary_test_newrig/step_r_BAKED": {
 "0": SubResource("Resource_lqkk6"),
 "1": SubResource("Resource_cw286"),
 "10": SubResource("Resource_n8bxf"),
@@ -8684,7 +8679,7 @@ dict = {
 "8": SubResource("Resource_ihvef"),
 "9": SubResource("Resource_h8xr6")
 },
-&"AnimLibrary_test_newrig/walk_b_BAKED": {
+"AnimLibrary_test_newrig/walk_b_BAKED": {
 "0": SubResource("Resource_l1ue3"),
 "1": SubResource("Resource_2455j"),
 "10": SubResource("Resource_bgbit"),
@@ -8786,7 +8781,7 @@ dict = {
 "98": SubResource("Resource_827t6"),
 "99": SubResource("Resource_oaro6")
 },
-&"AnimLibrary_test_newrig/walk_f_BAKED": {
+"AnimLibrary_test_newrig/walk_f_BAKED": {
 "0": SubResource("Resource_t3bmc"),
 "1": SubResource("Resource_cenra"),
 "10": SubResource("Resource_4hq7w"),
@@ -8888,7 +8883,7 @@ dict = {
 "98": SubResource("Resource_mejd6"),
 "99": SubResource("Resource_eid1q")
 },
-&"AnimLibrary_test_newrig/walk_fc_BAKED": {
+"AnimLibrary_test_newrig/walk_fc_BAKED": {
 "0": SubResource("Resource_yydkj"),
 "1": SubResource("Resource_4mkm2"),
 "10": SubResource("Resource_87727"),
@@ -8940,7 +8935,7 @@ dict = {
 "8": SubResource("Resource_bvjmd"),
 "9": SubResource("Resource_lifsi")
 },
-&"AnimLibrary_test_newrig/walk_l_BAKED": {
+"AnimLibrary_test_newrig/walk_l_BAKED": {
 "0": SubResource("Resource_3sbbj"),
 "1": SubResource("Resource_8gk5d"),
 "10": SubResource("Resource_c21rn"),
@@ -9002,7 +8997,7 @@ dict = {
 "8": SubResource("Resource_whg8h"),
 "9": SubResource("Resource_ijj57")
 },
-&"AnimLibrary_test_newrig/walk_r_BAKED": {
+"AnimLibrary_test_newrig/walk_r_BAKED": {
 "0": SubResource("Resource_asmfr"),
 "1": SubResource("Resource_08ya5"),
 "10": SubResource("Resource_kpm8t"),
@@ -9064,7 +9059,7 @@ dict = {
 "8": SubResource("Resource_dwmuh"),
 "9": SubResource("Resource_mwv3s")
 },
-&"def_animations/def_atk_2p": {
+"def_animations/def_atk_2p": {
 "0": SubResource("Resource_oafev"),
 "1": SubResource("Resource_esivy"),
 "10": SubResource("Resource_skont"),
@@ -9106,7 +9101,7 @@ dict = {
 "8": SubResource("Resource_n5gsy"),
 "9": SubResource("Resource_tf7qb")
 },
-&"def_animations/def_atk_p": {
+"def_animations/def_atk_p": {
 "0": SubResource("Resource_nd702"),
 "1": SubResource("Resource_2ubkl"),
 "10": SubResource("Resource_ktfpj"),
@@ -9134,7 +9129,7 @@ dict = {
 "8": SubResource("Resource_2f4w1"),
 "9": SubResource("Resource_63w8x")
 },
-&"def_animations/def_dash_b": {
+"def_animations/def_dash_b": {
 "0": SubResource("Resource_pe020"),
 "1": SubResource("Resource_7unpn"),
 "10": SubResource("Resource_l200c"),
@@ -9161,7 +9156,7 @@ dict = {
 "8": SubResource("Resource_j7acg"),
 "9": SubResource("Resource_yuxk0")
 },
-&"def_animations/def_dash_f": {
+"def_animations/def_dash_f": {
 "0": SubResource("Resource_jwkx1"),
 "1": SubResource("Resource_n3hdy"),
 "10": SubResource("Resource_lspmf"),
@@ -9188,7 +9183,7 @@ dict = {
 "8": SubResource("Resource_b7b3v"),
 "9": SubResource("Resource_gpxhf")
 },
-&"def_animations/def_idle_crouching": {
+"def_animations/def_idle_crouching": {
 "0": SubResource("Resource_jtdyw"),
 "1": SubResource("Resource_ugcw7"),
 "10": SubResource("Resource_wkoob"),
@@ -9290,7 +9285,7 @@ dict = {
 "98": SubResource("Resource_4vp6o"),
 "99": SubResource("Resource_34dsx")
 },
-&"def_animations/def_idle_standing": {
+"def_animations/def_idle_standing": {
 "0": SubResource("Resource_iivbd"),
 "1": SubResource("Resource_yccn1"),
 "10": SubResource("Resource_2n0yr"),
@@ -9492,7 +9487,7 @@ dict = {
 "98": SubResource("Resource_ubqtw"),
 "99": SubResource("Resource_302yf")
 },
-&"def_animations/def_run_f": {
+"def_animations/def_run_f": {
 "0": SubResource("Resource_sqxxb"),
 "1": SubResource("Resource_bbmr4"),
 "10": SubResource("Resource_8aunq"),
@@ -9554,7 +9549,7 @@ dict = {
 "8": SubResource("Resource_4m53u"),
 "9": SubResource("Resource_qd0tw")
 },
-&"def_animations/def_step_l": {
+"def_animations/def_step_l": {
 "0": SubResource("Resource_7ia0y"),
 "1": SubResource("Resource_y8rgm"),
 "10": SubResource("Resource_dkstw"),
@@ -9586,7 +9581,7 @@ dict = {
 "8": SubResource("Resource_xbiih"),
 "9": SubResource("Resource_moyyn")
 },
-&"def_animations/def_step_r": {
+"def_animations/def_step_r": {
 "0": SubResource("Resource_t7ppl"),
 "1": SubResource("Resource_nqdhl"),
 "10": SubResource("Resource_ocvod"),
@@ -9618,7 +9613,7 @@ dict = {
 "8": SubResource("Resource_82oac"),
 "9": SubResource("Resource_qk0x7")
 },
-&"def_animations/def_walk_b": {
+"def_animations/def_walk_b": {
 "0": SubResource("Resource_aqceq"),
 "1": SubResource("Resource_5xn0x"),
 "10": SubResource("Resource_x1yar"),
@@ -9720,7 +9715,7 @@ dict = {
 "98": SubResource("Resource_rjlh8"),
 "99": SubResource("Resource_5vtwb")
 },
-&"def_animations/def_walk_f": {
+"def_animations/def_walk_f": {
 "0": SubResource("Resource_06eox"),
 "1": SubResource("Resource_0gb4p"),
 "10": SubResource("Resource_by1d0"),
@@ -9822,7 +9817,7 @@ dict = {
 "98": SubResource("Resource_gy1wn"),
 "99": SubResource("Resource_3doxs")
 },
-&"def_animations/def_walk_fc": {
+"def_animations/def_walk_fc": {
 "0": SubResource("Resource_kkwpv"),
 "1": SubResource("Resource_u6rc6"),
 "10": SubResource("Resource_gd30k"),
@@ -9874,7 +9869,7 @@ dict = {
 "8": SubResource("Resource_afkaw"),
 "9": SubResource("Resource_msyef")
 },
-&"def_animations/def_walk_l": {
+"def_animations/def_walk_l": {
 "0": SubResource("Resource_jfxyh"),
 "1": SubResource("Resource_b0hau"),
 "10": SubResource("Resource_bcj04"),
@@ -9936,7 +9931,7 @@ dict = {
 "8": SubResource("Resource_doiss"),
 "9": SubResource("Resource_ejns5")
 },
-&"def_animations/def_walk_r": {
+"def_animations/def_walk_r": {
 "0": SubResource("Resource_25x4m"),
 "1": SubResource("Resource_kcxj7"),
 "10": SubResource("Resource_w2kfd"),
@@ -9998,7 +9993,7 @@ dict = {
 "8": SubResource("Resource_8e575"),
 "9": SubResource("Resource_klv2v")
 },
-&"def_block_animations/def_block_h_1": {
+"def_block_animations/def_block_h_1": {
 "0": SubResource("Resource_tcm58"),
 "1": SubResource("Resource_u2r1x"),
 "10": SubResource("Resource_vm2py"),
@@ -10015,7 +10010,7 @@ dict = {
 "8": SubResource("Resource_28jwj"),
 "9": SubResource("Resource_jw407")
 },
-&"def_block_animations/def_block_l_1": {
+"def_block_animations/def_block_l_1": {
 "0": SubResource("Resource_i6qpr"),
 "1": SubResource("Resource_xv0hn"),
 "10": SubResource("Resource_hey7t"),
@@ -10037,7 +10032,7 @@ dict = {
 "8": SubResource("Resource_0txjc"),
 "9": SubResource("Resource_fbb8v")
 },
-&"def_block_animations/def_block_m_1": {
+"def_block_animations/def_block_m_1": {
 "0": SubResource("Resource_5sn6l"),
 "1": SubResource("Resource_pknpo"),
 "10": SubResource("Resource_1jror"),
@@ -10054,7 +10049,7 @@ dict = {
 "8": SubResource("Resource_fwmgi"),
 "9": SubResource("Resource_sn0ce")
 },
-&"def_hit_animations/def_hit_h1": {
+"def_hit_animations/def_hit_h1": {
 "0": SubResource("Resource_k8xo2"),
 "1": SubResource("Resource_58bty"),
 "10": SubResource("Resource_7cawb"),
@@ -10081,7 +10076,7 @@ dict = {
 "8": SubResource("Resource_d3yhu"),
 "9": SubResource("Resource_dgees")
 },
-&"def_hit_animations/def_hit_l_1": {
+"def_hit_animations/def_hit_l_1": {
 "0": SubResource("Resource_qyh2v"),
 "1": SubResource("Resource_xlpah"),
 "10": SubResource("Resource_esdcd"),
@@ -10113,7 +10108,7 @@ dict = {
 "8": SubResource("Resource_b3nab"),
 "9": SubResource("Resource_2rq0y")
 },
-&"def_hit_animations/def_hit_m_1": {
+"def_hit_animations/def_hit_m_1": {
 "0": SubResource("Resource_3ux26"),
 "1": SubResource("Resource_5mask"),
 "10": SubResource("Resource_5kx4l"),
