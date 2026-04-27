@@ -541,11 +541,9 @@ metadata/_custom_type_script = "uid://njtvuidse1o3"
 
 [node name="MiscHurtboxPool" type="Node3D" parent="." index="2" unique_id=542964256]
 unique_name_in_owner = true
-visible = false
 
 [node name="MiscHitboxPool" type="Node3D" parent="." index="3" unique_id=219107264]
 unique_name_in_owner = true
-visible = false
 
 [node name="NetworkAnimationPlayer" type="AnimationPlayer" parent="." index="4" unique_id=176765641 groups=["network_sync"]]
 unique_name_in_owner = true

@@ -7844,7 +7844,7 @@ script = ExtResource("1_238x4")
 
 [resource]
 script = ExtResource("2_vd1ai")
-resource = {
+dict = {
 &"AnimLibrary_Atropos/atro_atk_2k": {
 "0": SubResource("Resource_238x4"),
 "1": SubResource("Resource_vd1ai"),

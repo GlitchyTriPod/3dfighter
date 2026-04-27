@@ -29,4 +29,3 @@ func _network_process(_input: Dictionary) -> void:
 	#advance player animations based on inputs & game state
 	self.player_1.process_movement(_delta_int)
 	self.player_2.process_movement(_delta_int)
-

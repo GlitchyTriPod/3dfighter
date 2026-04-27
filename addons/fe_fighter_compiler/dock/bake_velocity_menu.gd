@@ -87,9 +87,9 @@ func _on_fighter_record_hurtbox_data(data: Array, hurtbox_data: Dictionary) -> v
     var data_min: Array = []
     for shape: FECollisionShape in data:
         data_min.append({
-            "fixed_sphere_radius": shape.fixed_sphere_radius,
+            "radius": shape.fixed_sphere_radius,
             "body_part": shape.body_part,
-            "fixed_position": FixedVector3.from_vec3(shape.global_position)
+            "position": FixedVector3.from_vec3(shape.global_position)
         })
     
     hurtbox_data[self.anim_player.current_animation][str(frame)] = data_min
@@ -116,7 +116,7 @@ func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Di
     toaster.push_toast("Compiling Velocity Data...")
 
     var vel_res: FighterResource = FighterResource.new()
-    vel_res.resource = velocity_data
+    vel_res.dict = velocity_data 
     vel_res.take_over_path("res://character/anim_data/%s_velocity.tres" % self.fighter.fighter_name)
     self.fighter.animation_velocity_data = vel_res
 
@@ -127,7 +127,7 @@ func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Di
     if %CheckBakeHitboxes.button_pressed:
         toaster.push_toast("Compiling Hurtbox Data...")
         var hurt_res: FighterResource = FighterResource.new()
-        hurt_res.resource = hurtbox_data
+        hurt_res.dict = hurtbox_data
         hurt_res.take_over_path("res://character/anim_data/%s_hurtbox.tres" % self.fighter.fighter_name)
         self.fighter.animation_hurtbox_data = hurt_res
 

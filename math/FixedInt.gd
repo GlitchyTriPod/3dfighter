@@ -82,9 +82,13 @@ static func sin(num: int) -> int:
 
 	var x2: int = FixedInt.mul(x, x)
 	
-	return FixedInt.mul(FixedInt.mul(sig, x), FIXED_PI - FixedInt.mul(x2,
-			FIXED_TAU - FixedInt.from_int(5) - FixedInt.mul(x2, (FIXED_PI - FixedInt.from_int(3)))
-		)) >> 1
+	return FixedInt.mul(FixedInt.mul(sig, x),
+			FIXED_PI - FixedInt.mul(x2,
+				FIXED_TAU - FixedInt.from_int(5) - FixedInt.mul(x2, 
+					FIXED_PI - FixedInt.from_int(3)
+				)
+			)
+		) >> 1
 
 static func asin(num: int) -> int:
 	if num < -FIXED_ONE || num > FIXED_ONE:

@@ -436,7 +436,6 @@ func rotate(_axis: FixedVector3, ang: int) -> FixedVector3: # <-- simplify this;
 	var s: int = FixedInt.sin(ang)
 	var c: int = FixedInt.cos(ang)
 
-
 	var x_old: int = int(self.x)
 	# var y_old := int(self.y)
 	var z_old: int = int(self.z)

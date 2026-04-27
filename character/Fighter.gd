@@ -65,8 +65,8 @@ var anim_fallback_id: String = "0"
 			
 var collision_body_offset: Vector3
 
-@onready var misc_hitbox_pool: Array = %MiscHitboxPool.get_children()
-@onready var misc_hurtbox_pool: Array = %MiscHurtboxPool.get_children()
+var misc_hitbox_pool: Array = [] # = %MiscHitboxPool.get_children()
+var misc_hurtbox_pool: Array = [] # = %MiscHurtboxPool.get_children()
 
 var is_focused: bool = false
 
@@ -79,6 +79,21 @@ signal record_velocity_data(velocity: FixedVector3)
 signal record_hurtbox_data(hurtboxes: Array)
 
 ### LIFE CYCLE ###
+func _init() -> void:
+	for i: int in range(0, 29, 1):
+		var hurtbox: FECollisionShape = FECollisionShape.new()
+		self.misc_hurtbox_pool.append(hurtbox)
+		# %MiscHurtboxPool.add_child(hurtbox)
+		hurtbox.add_to_group("Player1Hurtbox" if self.player == 0 else "Player2Hurtbox")
+	
+	for i: int in range(0, 4, 1):
+		var hitbox: FECollisionShape = FECollisionShape.new()
+		hitbox.enabled = false
+		hitbox.is_hitbox = true
+		self.misc_hitbox_pool.append(hitbox)
+		# %MiscHitboxPool.add_child(hitbox)
+		hitbox.add_to_group("Player1Hitbox" if self.player == 0 else "Player2Hitbox")
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -88,6 +103,14 @@ func _ready() -> void:
 
 		for nde: Node in get_tree().get_nodes_in_group("SkeletonHurtbox"):
 			nde.queue_free()
+
+		for nde: FECollisionShape in self.misc_hitbox_pool:
+			nde.shape_owner = self.get_path()
+			%MiscHitboxPool.add_child(nde)
+		
+		for nde: FECollisionShape in self.misc_hurtbox_pool:
+			nde.shape_owner = self.get_path()
+			%MiscHurtboxPool.add_child(nde)
 
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.anim_player.playback_default_blend_time = 0.1
@@ -148,52 +171,96 @@ func process_animation_data() -> void:
 	
 
 # checks current animation for hitboxes & places them into the scene if necessary
-func process_animation_hitboxes() -> void:
-	# if self.current_anim_id == "":
-	# 	return
-	
+func process_animation_hitboxes() -> void:	
 	for i: FECollisionShape in self.misc_hitbox_pool:
 		i.enabled = false
 		i.hitbox_attack_index = -1
 		i.hitbox_attack_name = ""
+	
+	for i: FECollisionShape in self.misc_hurtbox_pool:
+		i.enabled = false
+		i.body_part = 0
 
 	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
 	#find hitboxes
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
 	var hitbox_data: Array = []
+	var hurtbox_data: Array = []
 	# var index: int
 	if atk.hitbox_data.has("shapes"):
 		for h_b: Dictionary in atk.hitbox_data["shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
 			hitbox_data.append(h_b)
-			# index = atk.hitbox_data["shapes"].find(h_b)
-			break
+
+	if atk.hurtbox_data.has("shapes"):
+		for h_b: Dictionary in atk.hurtbox_data["shapes"]:
+			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
+				continue
+			hurtbox_data.append(h_b)
 	
+	hurtbox_data.append_array(self.get_animation_hurtboxes())
+
+	# hurtboxes
+	for shape: Dictionary in hurtbox_data:
+		var hurtbox: FECollisionShape = self.get_misc_unused_hurtbox()
+		if hurtbox == null:
+			break
+		hurtbox.fixed_position = FixedVector3.add(
+			shape.position.rotated(FixedVector3.UP, self.collision_body.fixed_rotation.y), 
+			FixedVector3.new(
+				self.collision_body.fixed_position.x,
+				0, 
+				self.collision_body.fixed_position.z
+			)
+		)
+		hurtbox.fixed_sphere_radius = shape.radius
+		if shape.has("body_part"):
+			hurtbox.body_part = shape.body_part
+		else:
+			hurtbox.body_part = 0
+		hurtbox.enabled = true
+	
+	#hitboxes
 	if hitbox_data.is_empty():
 		return
 
 	for shape: Dictionary in hitbox_data:
-		var hitbox: FECollisionShape = self.get_misc_unused_hitbox() # as FECollisionShape
+		var hitbox: FECollisionShape = self.get_misc_unused_hitbox()
 		if hitbox == null:
 			break
 		# hitbox.hitbox_attack_index = index
 		hitbox.hitbox_attack_name = atk.animation_name
-		hitbox.fixed_position = shape.position
+		hitbox.fixed_position = FixedVector3.add(
+			shape.position.rotated(FixedVector3.UP, self.collision_body.fixed_rotation.y),
+			FixedVector3.new(
+				self.collision_body.fixed_position.x,
+				0,
+				self.collision_body.fixed_position.z
+			)
+		)
 		hitbox.fixed_sphere_radius = shape.radius
 		hitbox.enabled = true
+
+func get_animation_hurtboxes() -> Array:
+	var boxes: Array = self.animation_hurtbox_data.dict.get(
+		self.anim_player.current_animation
+	).get(
+		str(floori(self.anim_player.current_animation_position * 60))
+	)
+	return boxes
 
 # checks if current fighter is intersecting with an enemy hitbox
 func process_hitbox_intersection() -> void:
 
 	var enemy_hitboxes: Array = get_tree().get_nodes_in_group(
-		"Player1MiscHitbox" if self.player != 0 else "Player2MiscHitbox"
+		"Player1Hitbox" if self.player != 0 else "Player2Hitbox"
 	)
 
 	var self_hurtboxes: Array = get_tree().get_nodes_in_group(
-		"Player1MainHurtbox" if self.player == 0 else "Player2MainHurtbox"
-	) + self.misc_hurtbox_pool
+		"Player1Hurtbox" if self.player == 0 else "Player2Hurtbox"
+	)
 
 	for hitbox: FECollisionShape in enemy_hitboxes:
 		if !hitbox.enabled || \
@@ -231,8 +298,6 @@ func process_movement(delta: int) -> void: # could use some optimizing
 
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != "":
-		# print(self.stun_reason.stun_id.split("/").get(1))
-
 		self.set_animation_order(self.movelist.get_from_id(self.stun_reason.stun_id))
 		self.reset_stun_reason()
 		self.process_root_motion(delta)
@@ -240,9 +305,6 @@ func process_movement(delta: int) -> void: # could use some optimizing
 
 	# if player is not actionable they cannot cancel current animation; keep playing
 	if !self.states.has("actionable"):
-		# if self.anim_player.is_playing():
-		# 	self.anim_player.advance(SyncManager.tick_time )#float(delta / 65536.0))
-
 		var move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 		if move.animation_name != self.anim_player.current_animation:
 			self.set_animation_order(self.movelist.get_from_ref_name(move.recovery_ref))
@@ -258,8 +320,6 @@ func process_movement(delta: int) -> void: # could use some optimizing
 	# determine animation to play
 	var next_move: FighterAnimationData = self.get_move_from_input()
 
-	# assert(!(next_move.move_name == "idle" && self.anim_player.current_animation == "def_animations/def_dash_b" ))
-
 	if next_move != null && \
 		next_move.animation_name != self.anim_player.current_animation && \
 		!self.is_current_input_ignored(inp):
@@ -272,7 +332,6 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 			self.anim_player.clear_queue()
 
 			var recovery_move: FighterAnimationData = self.movelist.get_from_ref_name(atk_data.recovery_ref)
-			# self.anim_fallback_id = self.movelist.get_move_id(recovery_move)
 
 			self.anim_player.animation_set_next(
 				atk_data.animation_name,
@@ -344,7 +403,7 @@ func process_root_motion(delta: int) -> Variant:
 
 	self.collision_body.velocity = FixedVector3.mul(
 		FixedVector3.div(
-			vel_rot, #self.get_root_motion().rotate(Vector3.UP, curr_rotation.y),
+			vel_rot,
 			delta
 		),
 		FixedInt.FIXED_ONE
@@ -355,7 +414,7 @@ func process_root_motion(delta: int) -> Variant:
 	return
 
 func get_root_motion() -> FixedVector3:
-	var vel: FixedVector3 = self.animation_velocity_data.resource.get(
+	var vel: FixedVector3 = self.animation_velocity_data.dict.get(
 		self.anim_player.current_animation
 	).get(
 		str(floori(self.anim_player.current_animation_position * 60))
@@ -424,6 +483,12 @@ func get_misc_unused_hitbox() -> Variant:
 			return i
 	return
 
+func get_misc_unused_hurtbox() -> Variant:
+	for i: FECollisionShape in self.misc_hurtbox_pool:
+		if !i.enabled:
+			return i
+	return
+
 func _network_preprocess(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
 	# emit_signal("ready_for_input_process", self)
@@ -471,22 +536,3 @@ func _load_state(state: Dictionary) -> void:
 	self.input_interpreter.input_history = state.input_history.duplicate()
 	self.current_anim_id = state.current_anim_id
 	self.anim_fallback_id = state.anim_fallback_id
-
-# 	return {
-# 		"position": self.position,
-# 		"rotation": self.rotation,
-# 		# "states": self.states,
-# 		# "stance": self.stance,
-# 		# "button_state": self.button_state,
-# 		# "di_state": self.di_state
-# 	}
-
-# 	self.position = state.position
-# 	self.rotation = state.rotation
-	# self.states = state.states
-	# self.stance = state.stance
-	# self.button_state = state.button_state
-	# self.di_state = state.di_state
-	# self.stun_reason = state.stun_reason
-	# self.current_anim_id = state.current_anim
-	# self.input_interpreter.input_history = state.input_history
