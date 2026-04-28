@@ -55,7 +55,7 @@ func _ready() -> void:
 	self.collide_with_areas = false
 	self.collide_with_bodies = false
 
-	self.debug_shape_custom_color = Color.WHITE if self.is_hitbox == false else Color.YELLOW_GREEN
+	self.debug_shape_custom_color = Color.WHITE if self.is_hitbox == false else Color.RED
 	self.set_collision_mask_value(1, false)
 
 	if Engine.is_editor_hint():

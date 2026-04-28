@@ -6,8 +6,6 @@ extends FECollisionShape
 func _ready() -> void:
 	super()
 	self.debug_shape_custom_color = Color.GREEN
-	self.remove_from_group("Player1MiscHurtbox")
-	self.remove_from_group("Player2MiscHurtbox")
 
 	if self.get_parent().player == 0:
 		self.add_to_group("Player1MainCollisionBody")

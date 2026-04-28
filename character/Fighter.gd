@@ -82,9 +82,9 @@ signal record_hurtbox_data(hurtboxes: Array, animation_name: String, frame: int)
 func _init() -> void:
 	for i: int in range(0, 29, 1):
 		var hurtbox: FECollisionShape = FECollisionShape.new()
+		hurtbox.enabled = false
 		self.misc_hurtbox_pool.append(hurtbox)
 		# %MiscHurtboxPool.add_child(hurtbox)
-		hurtbox.add_to_group("Player1Hurtbox" if self.player == 0 else "Player2Hurtbox")
 	
 	for i: int in range(0, 4, 1):
 		var hitbox: FECollisionShape = FECollisionShape.new()
@@ -92,7 +92,6 @@ func _init() -> void:
 		hitbox.is_hitbox = true
 		self.misc_hitbox_pool.append(hitbox)
 		# %MiscHitboxPool.add_child(hitbox)
-		hitbox.add_to_group("Player1Hitbox" if self.player == 0 else "Player2Hitbox")
 
 
 func _ready() -> void:
@@ -107,10 +106,12 @@ func _ready() -> void:
 		for nde: FECollisionShape in self.misc_hitbox_pool:
 			nde.shape_owner = self.get_path()
 			%MiscHitboxPool.add_child(nde)
+			nde.add_to_group("Player1Hitbox" if self.player == 0 else "Player2Hitbox")
 		
 		for nde: FECollisionShape in self.misc_hurtbox_pool:
 			nde.shape_owner = self.get_path()
 			%MiscHurtboxPool.add_child(nde)
+			nde.add_to_group("Player1Hurtbox" if self.player == 0 else "Player2Hurtbox")
 
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.anim_player.playback_default_blend_time = 0.1
@@ -163,6 +164,11 @@ func process_animation_data() -> void:
 	if atk.animation_name != self.anim_player.current_animation:
 		self.current_anim_id = self.anim_fallback_id
 		atk = self.movelist.get_from_id(current_anim_id)
+
+	# if the fighter has no currently playing animation, play the intended anim
+	if self.anim_player.current_animation.is_empty():
+		self.anim_player.play(atk.animation_name)
+		self.anim_player.seek(0, true)
 
 	for state: String in self.states:
 		if !state.ends_with("_calc"):
@@ -310,12 +316,12 @@ func process_movement(delta: int) -> void: # could use some optimizing
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != "":
 		self.set_animation_order(self.movelist.get_from_id(self.stun_reason.stun_id))
-		self.reset_stun_reason()
 		self.process_root_motion(delta)
+		self.reset_stun_reason()
 		return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
-	if !self.states.has("actionable"):
+	if !self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun"):
 		var move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 		if move.animation_name != self.anim_player.current_animation:
 			self.set_animation_order(self.movelist.get_from_ref_name(move.recovery_ref))
@@ -353,6 +359,7 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
 	self.anim_player.play(atk_data.animation_name)
+	self.anim_player.seek(0, true)
 	
 func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 	if current_input[0].button != 0:
