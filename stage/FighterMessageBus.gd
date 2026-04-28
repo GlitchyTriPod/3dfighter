@@ -26,6 +26,16 @@ func get_oppo_states(player: Fighter) -> PackedStringArray:
 		return self.player_2.states
 	return self.player_1.states
 
+func get_oppo_hitboxes(player: Fighter) -> Array:
+	if player == self.player_1:
+		return self.player_2.misc_hitbox_pool
+	return self.player_1.misc_hitbox_pool
+
+func get_oppo_hurtboxes(player: Fighter) -> Array:
+	if player == self.player_1:
+		return self.player_2.misc_hurtbox_pool
+	return self.player_1.misc_hurtbox_pool
+
 func get_char_position(player_global_position: Vector3) -> int:
 	return self.game_camera.get_char_position(player_global_position)	
 

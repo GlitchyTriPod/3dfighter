@@ -1,6 +1,6 @@
 @tool
-class_name FEFighterCollisionBody
 extends FECollisionShape
+class_name FEFighterCollisionBody
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
