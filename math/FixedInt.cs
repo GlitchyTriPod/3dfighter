@@ -1,0 +1,248 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata;
+using System.Threading.Tasks;
+using Godot;
+
+namespace FatalException.FEMath
+{
+    [Tool]
+    [GlobalClass]
+    public partial class FixedInt : GodotObject
+    {
+        public const int FIXED_ZERO = 0;
+        public const int FIXED_ONE = 65536;
+        public const int FIXED_HALF = 32768;
+        public const int FIXED_TWO = 131072;
+        public const int FIXED_PI = 205887;
+        public const int FIXED_TAU = 411774;
+        public const int FIXED_PI_DIV_2 = 102943;
+
+        public static int Sqrt64(int num)
+        {
+            if (num == FIXED_ZERO)
+            {
+                return FIXED_ZERO;
+            }
+
+            bool neg = num < FIXED_ZERO;
+            if (neg)
+            {
+                num = -num;
+            }
+            int res = FIXED_ZERO;
+            int bit = 1 << 62;
+
+            while (bit > num)
+            {
+                bit = bit >> 2;
+            }
+
+            while (bit != 0)
+            {
+                if (num >= res + bit)
+                {
+                    num -= res + bit;
+                    res = (res >> 1) + bit;
+                }
+                else
+                {
+                    res >>= 1;
+                }
+                bit >>= 2;
+            }
+
+            return neg ? -res : res;
+        }
+
+        public static int FromInt(int val)
+        {
+            return val << 16;
+        }
+
+        public static int FromFloat(float val)
+        {
+            return (int)val * 65536;
+        }
+
+        public static float ToFloat(int fixed_int)
+        {
+            return fixed_int / 65536.0f;
+        }
+
+        public static int Mul(int val1, int val2)
+        {
+            return (val1 * val2) >> 16;
+        }
+
+        public static int Div(int num, int den)
+        {
+            if (den == 0)
+            {
+                return 0;
+            }
+            return (num << 16) / den;
+        }
+
+        public static int Sin(int num)
+        {
+            int x = num % FIXED_TAU;
+            x = Div(x, FIXED_PI_DIV_2);
+
+            if (x < FIXED_ZERO)
+            {
+                x += FromInt(4);
+            }
+
+            int sig = FromInt(+1);
+            if (x > FIXED_TWO)
+            {
+                sig = -FIXED_ONE;
+                x -= FIXED_TWO;
+            }
+
+            if (x > FIXED_ONE)
+            {
+                x = FIXED_TWO - x;
+            }
+
+            int x2 = Mul(x, x);
+
+            return Mul(
+                Mul(sig, x),
+                FIXED_PI - Mul(
+                    x2,
+                    FIXED_TAU - FromInt(5) - Mul(
+                        x2,
+                        FIXED_PI - FromInt(3)
+                    )
+                )
+            ) >> 1;
+        }
+
+        public static int Asin(int num)
+        {
+            if (num < -FIXED_ONE || num > FIXED_ONE)
+            {
+                return FIXED_ZERO;
+            }
+
+            int yy = FIXED_ONE - Mul(num, num);
+            if (yy == FIXED_ZERO)
+            {
+                return num > FIXED_ZERO ? FIXED_PI_DIV_2 : -FIXED_PI_DIV_2;
+            }
+
+            return AtanDiv(num, Sqrt64(yy << 16));
+        }
+
+        public static int Cos(int num)
+        {
+            return Sin(num + FIXED_PI_DIV_2);
+        }
+
+        public static int Acos(int num)
+        {
+            if (num < -FIXED_ONE || num > FIXED_ONE)
+            {
+                return FIXED_ZERO;
+            }
+
+            if (num == -FIXED_ONE)
+            {
+                return  FIXED_PI;
+            }
+
+            int yy = FIXED_ONE - Mul(num, num);
+            return Mul(FIXED_TWO, AtanDiv(Sqrt64(yy << 16), FIXED_ONE + num));
+        }
+
+        public static int Atan(int num)
+        {
+            if (num < FIXED_ZERO)
+            {
+                return -Atan(-num);
+            }
+
+            if (num > FIXED_ONE)
+            {
+                return FIXED_PI_DIV_2 - AtanSanitized(Div(FIXED_ONE, num));
+            }
+
+            return AtanSanitized(num);
+        }
+
+        public static int Atan2(int num1, int num2)
+        {
+            if (num1 == FIXED_ZERO)
+            {
+                return num1 < FIXED_ZERO ? FIXED_PI : FIXED_ZERO;
+            }
+
+            if (num2 == FIXED_ZERO)
+            {
+                return num1 > FIXED_ZERO ? FIXED_PI_DIV_2 : -FIXED_PI_DIV_2;
+            }
+
+            int ret = AtanDiv(num1, num2);
+            if (num2 < FIXED_ZERO)
+            {
+                return num1 >= FIXED_ZERO ? ret + FIXED_PI : ret - FIXED_PI;
+            }
+
+            return ret;
+        }
+
+        public static int AtanDiv(int p_y, int p_x)
+        {
+            if (p_y < FIXED_ZERO)
+            {
+                if (p_x < FIXED_ZERO)
+                {
+                    return AtanDiv(-p_y, -p_x);
+                }
+                return -AtanDiv(-p_y, p_x);
+            }
+
+            if (p_x < FIXED_ZERO)
+            {
+                return -AtanDiv(p_y, -p_x);
+            }
+
+            if (p_y > p_x)
+            {
+                return FIXED_PI_DIV_2 - AtanSanitized(Div(p_x, p_y));
+            }
+
+            return AtanSanitized(Div(p_y, p_x));
+        }
+
+        public static int AtanSanitized(int p_x)
+        {
+            const int a = 5089;
+            const int b = -18837;
+            const int c = 65220;
+            int xx = Mul(p_x, p_x);
+
+            return Mul(Mul(Mul(a, xx) + b, xx) + c, p_x);
+        }
+
+        public static int Deg2Rads(int deg)
+        {
+            return Mul(deg, Div(FIXED_PI, 11796480));
+        }
+
+        public static int Rads2Deg(int rad)
+        {
+            return Mul(rad, Div(11796480, FIXED_PI));
+        }
+
+        public static int Lerp(int from, int to, int weight)
+        {
+            return Mul(from, FIXED_ONE - weight) + Mul(to, weight);
+        }
+    }
+
+}
+

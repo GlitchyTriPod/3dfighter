@@ -65,8 +65,13 @@ var anim_fallback_id: String = "0"
 			
 var collision_body_offset: Vector3
 
-var misc_hitbox_pool: Array = [] # = %MiscHitboxPool.get_children()
-var misc_hurtbox_pool: Array = [] # = %MiscHurtboxPool.get_children()
+var misc_hitbox_pool: Array = []
+var misc_hurtbox_pool: Array = []
+
+### use for debugging only ###
+var _debug_hitbox_pool: Array
+var _debug_hurtbox_pool: Array
+##############################
 
 var is_focused: bool = false
 
@@ -80,18 +85,28 @@ signal record_hurtbox_data(hurtboxes: Array, animation_name: String, frame: int)
 
 ### LIFE CYCLE ###
 func _init() -> void:
+	if OS.has_feature("show_hitboxes"):
+		self._debug_hitbox_pool = []
+		self._debug_hurtbox_pool = []
+
 	for i: int in range(0, 29, 1):
-		var hurtbox: FECollisionShape = FECollisionShape.new()
-		hurtbox.enabled = false
-		self.misc_hurtbox_pool.append(hurtbox)
-		# %MiscHurtboxPool.add_child(hurtbox)
+		self.misc_hurtbox_pool.append(FECollisionData.new())
+
+		if OS.has_feature("show_hitboxes"):
+			var hurtbox: FECollisionShape = FECollisionShape.new()
+			hurtbox.enabled = false
+			self._debug_hurtbox_pool.append(hurtbox)
 	
 	for i: int in range(0, 4, 1):
-		var hitbox: FECollisionShape = FECollisionShape.new()
-		hitbox.enabled = false
-		hitbox.is_hitbox = true
-		self.misc_hitbox_pool.append(hitbox)
-		# %MiscHitboxPool.add_child(hitbox)
+		var hit: FECollisionData = FECollisionData.new()
+		hit.is_hitbox = true
+		self.misc_hitbox_pool.append(hit)
+
+		if OS.has_feature("show_hitboxes"):
+			var hitbox: FECollisionShape = FECollisionShape.new()
+			hitbox.enabled = false
+			hitbox.is_hitbox = true
+			self._debug_hitbox_pool.append(hitbox)
 
 
 func _ready() -> void:
@@ -103,15 +118,16 @@ func _ready() -> void:
 		for nde: Node in get_tree().get_nodes_in_group("SkeletonHurtbox"):
 			nde.queue_free()
 
-		for nde: FECollisionShape in self.misc_hitbox_pool:
-			nde.shape_owner = self.get_path()
-			%MiscHitboxPool.add_child(nde)
-			nde.add_to_group("Player1Hitbox" if self.player == 0 else "Player2Hitbox")
-		
-		for nde: FECollisionShape in self.misc_hurtbox_pool:
-			nde.shape_owner = self.get_path()
-			%MiscHurtboxPool.add_child(nde)
-			nde.add_to_group("Player1Hurtbox" if self.player == 0 else "Player2Hurtbox")
+		if OS.has_feature("show_hitboxes"):
+			for nde: FECollisionShape in self._debug_hitbox_pool:
+				nde.shape_owner = self.get_path()
+				%MiscHitboxPool.add_child(nde)
+				nde.add_to_group("Player1Hitbox" if self.player == 0 else "Player2Hitbox")
+			
+			for nde: FECollisionShape in self._debug_hurtbox_pool:
+				nde.shape_owner = self.get_path()
+				%MiscHurtboxPool.add_child(nde)
+				nde.add_to_group("Player1Hurtbox" if self.player == 0 else "Player2Hurtbox")
 
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.anim_player.playback_default_blend_time = 0.1
@@ -187,15 +203,14 @@ func process_animation_data() -> void:
 			self.states.append(state)
 	
 # checks current animation for hitboxes & places them into the scene if necessary
-func process_animation_hitboxes() -> void:	
-	for i: FECollisionShape in self.misc_hitbox_pool:
+func process_animation_hitboxes() -> void:
+	# reset all hitboxes to default values
+	for i: FECollisionData in self.misc_hitbox_pool + self.misc_hurtbox_pool:
 		i.enabled = false
-		i.hitbox_attack_index = -1
-		i.hitbox_attack_name = ""
-	
-	for i: FECollisionShape in self.misc_hurtbox_pool:
-		i.enabled = false
-		i.body_part = 0
+
+	if OS.has_feature("show_hitboxes"):
+		for i: FECollisionShape in self._debug_hitbox_pool + self._debug_hurtbox_pool:
+			i.enabled = false
 
 	var atk: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
@@ -208,6 +223,7 @@ func process_animation_hitboxes() -> void:
 		for h_b: Dictionary in atk.hitbox_data["shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
+			h_b["is_hitbox"] = true
 			hitbox_data.append(h_b)
 
 	if atk.hurtbox_data.has("shapes"):
@@ -218,9 +234,10 @@ func process_animation_hitboxes() -> void:
 	
 	hurtbox_data.append_array(self.get_animation_hurtboxes())
 
-	# hurtboxes
-	for shape: Dictionary in hurtbox_data:
-		var hurtbox: FECollisionShape = self.get_misc_unused_hurtbox()
+	# Place hitboxes in world
+	for shape: Dictionary in hurtbox_data + hitbox_data:
+		var hurtbox: FECollisionData = self.get_misc_unused_hurtbox() if \
+			!shape.has("is_hitbox") else self.get_misc_unused_hitbox()
 		if hurtbox == null:
 			break
 		hurtbox.fixed_position = FixedVector3.add(
@@ -236,58 +253,39 @@ func process_animation_hitboxes() -> void:
 			hurtbox.body_part = shape.body_part
 		else:
 			hurtbox.body_part = 0
+		if shape.has("animation_name"):
+			hurtbox.hitbox_attack_name = shape.animation_name
 		hurtbox.enabled = true
-	
-	#hitboxes
-	if hitbox_data.is_empty():
-		return
 
-	for shape: Dictionary in hitbox_data:
-		var hitbox: FECollisionShape = self.get_misc_unused_hitbox()
-		if hitbox == null:
-			break
-		# hitbox.hitbox_attack_index = index
-		hitbox.hitbox_attack_name = atk.animation_name
-		hitbox.fixed_position = FixedVector3.add(
-			shape.position.rotated(FixedVector3.UP, self.collision_body.fixed_rotation.y),
-			FixedVector3.new(
-				self.collision_body.fixed_position.x,
-				0,
-				self.collision_body.fixed_position.z
-			)
-		)
-		hitbox.fixed_sphere_radius = shape.radius
-		hitbox.enabled = true
+		if OS.has_feature("show_hitboxes"):
+			var h_b: FECollisionShape = self.get_debug_unused_hurtbox() if \
+				hurtbox_data.has(shape) else \
+				self.get_debug_unused_hitbox()
+			h_b.copy_collision_data(hurtbox)
 
 func get_animation_hurtboxes() -> Array:
-	var boxes: Dictionary = self.animation_hurtbox_data.dict.get(
+	var boxes: Array = self.animation_hurtbox_data.dict.get(
 		self.anim_player.current_animation
-	)
-	var boxes2: Array = boxes.get(
+	).get(
 		str(floori(self.anim_player.current_animation_position * 60))
 	)
-	return boxes2
+	return boxes
 
 # checks if current fighter is intersecting with an enemy hitbox
 func process_hitbox_intersection() -> void:
 
-	var enemy_hitboxes: Array = get_tree().get_nodes_in_group(
-		"Player1Hitbox" if self.player != 0 else "Player2Hitbox"
-	)
+	var enemy_hitboxes: Array = self.message_bus.get_oppo_hitboxes(self)
 
-	var self_hurtboxes: Array = get_tree().get_nodes_in_group(
-		"Player1Hurtbox" if self.player == 0 else "Player2Hurtbox"
-	)
-
-	for hitbox: FECollisionShape in enemy_hitboxes:
+	for hitbox: FECollisionData in enemy_hitboxes:
 		if !hitbox.enabled || \
 			((hitbox.hitbox_attack_index == self.stun_reason.stun_hit && \
+			self.stun_reason.stun_hit != -1 && \
 			hitbox.hitbox_attack_name == self.stun_reason.stun_name)): 
 			continue
 
 		# Check for early break conditions here (high atk vs. crouching opp., etc.)
 
-		for hurtbox: FECollisionShape in self_hurtboxes:
+		for hurtbox: FECollisionData in self.misc_hurtbox_pool:
 			if !hurtbox.enabled:
 				continue
 			
@@ -487,6 +485,30 @@ func is_tracking_opponent() -> bool:
 		return true
 	return false
 
+func get_misc_unused_hitbox() -> Variant:
+	for i: FECollisionData in self.misc_hitbox_pool:
+		if !i.enabled:
+			return i
+	return
+
+func get_misc_unused_hurtbox() -> Variant:
+	for i: FECollisionData in self.misc_hurtbox_pool:
+		if !i.enabled:
+			return i
+	return
+
+func get_debug_unused_hitbox() -> Variant:
+	for i: FECollisionShape in self._debug_hitbox_pool:
+		if !i.enabled:
+			return i
+	return
+
+func get_debug_unused_hurtbox() -> Variant:
+	for i: FECollisionShape in self._debug_hurtbox_pool:
+		if !i.enabled:
+			return i
+	return
+
 ### LISTENERS ###
 
 func _on_window_focus_entered() -> void:
@@ -494,18 +516,6 @@ func _on_window_focus_entered() -> void:
 
 func _on_window_focus_exited() -> void:
 	self.is_focused = false
-
-func get_misc_unused_hitbox() -> Variant:
-	for i: FECollisionShape in self.misc_hitbox_pool:
-		if !i.enabled:
-			return i
-	return
-
-func get_misc_unused_hurtbox() -> Variant:
-	for i: FECollisionShape in self.misc_hurtbox_pool:
-		if !i.enabled:
-			return i
-	return
 
 func _network_preprocess(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)

@@ -1,44 +1,46 @@
 @tool
 extends Resource
-class_name FixedVector3
+class_name FixedVector3_old
 
-@export var x: int = 0:
-	set(val):
-		x = val
-		if Engine.is_editor_hint():
-			return
-		if self.x_setter_callback != null:
-			self.x_setter_callback.call()
-		if self.universal_setter_callback != null:
-			self.universal_setter_callback.call()
+# var FixedInt = load("res://math/Fixedint.cs")
 
-@export var y: int = 0:
-	set(val):
-		y = val
-		if Engine.is_editor_hint():
-			return
-		if self.y_setter_callback != null:
-			self.y_setter_callback.call()
-		if self.universal_setter_callback != null:
-			self.universal_setter_callback.call()
+@export var x: int = 0 #:
+	# set(val):
+	# 	x = val
+	# 	if Engine.is_editor_hint():
+	# 		return
+	# 	if self.x_setter_callback != null:
+	# 		self.x_setter_callback.call()
+	# 	if self.universal_setter_callback != null:
+	# 		self.universal_setter_callback.call()
 
-@export var z: int = 0:
-	set(val):
-		z = val
-		if Engine.is_editor_hint():
-			return
-		if self.z_setter_callback != null:
-			self.z_setter_callback.call()
-		if self.universal_setter_callback != null:
-			self.universal_setter_callback.call()
+@export var y: int = 0 #:
+	# set(val):
+	# 	y = val
+	# 	if Engine.is_editor_hint():
+	# 		return
+	# 	if self.y_setter_callback != null:
+	# 		self.y_setter_callback.call()
+	# 	if self.universal_setter_callback != null:
+	# 		self.universal_setter_callback.call()
+
+@export var z: int = 0 #:
+	# set(val):
+	# 	z = val
+	# 	if Engine.is_editor_hint():
+	# 		return
+	# 	if self.z_setter_callback != null:
+	# 		self.z_setter_callback.call()
+	# 	if self.universal_setter_callback != null:
+	# 		self.universal_setter_callback.call()
 
 static var UP: FixedVector3 = FixedVector3.new(0, FixedInt.FIXED_ONE, 0)
 static var RIGHT: FixedVector3 = FixedVector3.new(FixedInt.FIXED_ONE, 0, 0)
 
-var x_setter_callback: Callable = func() -> void: return
-var y_setter_callback: Callable = func() -> void: return
-var z_setter_callback: Callable = func() -> void: return
-var universal_setter_callback: Callable = func() -> void: return
+# var x_setter_callback: Callable = func() -> void: return
+# var y_setter_callback: Callable = func() -> void: return
+# var z_setter_callback: Callable = func() -> void: return
+# var universal_setter_callback: Callable = func() -> void: return
 
 func _init(x_inc: int = 0, y_inc: int = 0, z_inc: int = 0) -> void:
 	self.x = x_inc
@@ -84,7 +86,7 @@ static func sub(vec1: FixedVector3, vec2: FixedVector3) -> FixedVector3:
 static func mul(vec: FixedVector3, num: int) -> FixedVector3:
 	var ret_vec: FixedVector3 = FixedVector3.new()
 
-	ret_vec.x = FixedInt.mul(vec.x, num)
+	ret_vec.x = FixedInt.Mul(vec.x, num)
 	ret_vec.y = FixedInt.mul(vec.y, num)
 	ret_vec.z = FixedInt.mul(vec.z, num)
 
@@ -427,12 +429,12 @@ func angle_to(target: FixedVector3, _axis: Vector3 = Vector3.UP) -> int: # << CO
 	return ang
 
 func rotated(axis: FixedVector3, p_rotation: int) -> FixedVector3:
-	var v: FixedVector3 = FixedVector3.new(self.x, self.y, self.z)
+	var v: FixedVector3 = self.duplicate()
 	v.rotate(axis,  p_rotation) 
 	return v
 
 func rotate(_axis: FixedVector3, ang: int) -> FixedVector3: # <-- simplify this; focus on just XZ plane
-	
+
 	var s: int = FixedInt.sin(ang)
 	var c: int = FixedInt.cos(ang)
 

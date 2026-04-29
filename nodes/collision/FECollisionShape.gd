@@ -1,4 +1,6 @@
 @tool
+
+# This node is used for debugging purposes only, costs too much performance to use online or in production.
 extends ShapeCast3D
 class_name FECollisionShape
 
@@ -6,7 +8,7 @@ class_name FECollisionShape
 @export var fixed_sphere_radius: int = FixedInt.FIXED_HALF:
 	set(val):
 		fixed_sphere_radius = val
-		if OS.has_feature("show_collision_shapes"): # <---- VERY BAD PERFORMANCE. DEBUGGING + OFFLINE ONLY
+		if OS.has_feature("show_hitboxes"): # <---- VERY BAD PERFORMANCE. DEBUGGING + OFFLINE ONLY
 			# var sph: Shape3D = self.shape
 			self.shape.radius = float(val / 65536.0)
 			# self.shape = sph
@@ -18,10 +20,14 @@ class_name FECollisionShape
 	"head",
 	"torso",
 	"waist",
-	"arm",
-	"hand",
-	"leg",
-	"foot"
+	"left arm",
+	"right arm",
+	"left hand",
+	"right hand",
+	"left leg",
+	"right leg",
+	"left foot",
+	"right foot"
 	) var body_part: int = 0
 
 @export var is_hitbox: bool = false
@@ -55,16 +61,12 @@ func _ready() -> void:
 	self.collide_with_areas = false
 	self.collide_with_bodies = false
 
-	self.debug_shape_custom_color = Color.WHITE if self.is_hitbox == false else Color.RED
+	self.debug_shape_custom_color = Color.WHITE if self.is_hitbox == false else Color.MAGENTA
 	self.set_collision_mask_value(1, false)
-
-	if Engine.is_editor_hint():
-		return
-	
 
 # called every frame, only useful for visualization
 func _process(_delta: float) -> void:
-	if OS.has_feature("show_collision_shapes"):
+	if OS.has_feature("show_hitboxes"):
 		self.visible = self.enabled
 
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
@@ -77,3 +79,14 @@ func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> Variant:
 	if dist < combined_radius:
 		return FixedInt.sqrt_64(combined_radius - dist)
 	return false
+
+func copy_collision_data(collision_data: FECollisionData) -> void:
+	self.enabled = collision_data.enabled
+	self.fixed_position = collision_data.fixed_position
+	self.fixed_sphere_radius = collision_data.fixed_sphere_radius
+	self.hitbox_attack_name = collision_data.hitbox_attack_name
+	self.is_hitbox = collision_data.is_hitbox
+	if self.is_hitbox:
+		self.debug_shape_custom_color = Color.MAGENTA
+	else:
+		self.debug_shape_custom_color = Color.WHITE

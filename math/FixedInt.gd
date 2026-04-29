@@ -1,4 +1,4 @@
-class_name FixedInt
+class_name FixedInt_Old
 
 const FIXED_ZERO: int = 0
 const FIXED_ONE: int = 65536
@@ -67,18 +67,18 @@ static func sin(num: int) -> int:
 	x = FixedInt.div(x, FIXED_PI_DIV_2)
 
 	# Take x modulo one rotation, so [-4..+4].
-	if x < FixedInt.from_int(0):
+	if x < FIXED_ZERO: # FixedInt.from_int(0):
 		x += FixedInt.from_int(4)
 
-	var sig: int = FixedInt.from_int(+1)
-	if x > FixedInt.from_int(2):
+	var sig: int = FixedInt.FromInt(+1)
+	if x > FIXED_TWO: #FixedInt.from_int(2):
 		# Reduce domain to [0..2].
-		sig = FixedInt.from_int(-1)
-		x -= FixedInt.from_int(2)
+		sig = -FIXED_ONE #FixedInt.from_int(-1)
+		x -= FIXED_TWO #FixedInt.from_int(2)
 
-	if x > FixedInt.from_int(1):
+	if x > FIXED_ONE: #FixedInt.from_int(1):
 		# Reduce domain to [0..1].
-		x = FixedInt.from_int(2) - x
+		x = FIXED_TWO - x #FixedInt.from_int(2) - x 
 
 	var x2: int = FixedInt.mul(x, x)
 	
@@ -160,9 +160,9 @@ static func atan_div(p_y: int, p_x: int) -> int:
 # // Copyright 2019 Mike Lankamp
 # // License: MIT
 static func atan_sanitized(p_x: int) -> int:
-	var a: int = 5089   #  0.0776509570923569
-	var b: int = -18837 # -0.2874298095703125
-	var c: int = 65220  #  0.999755859375 (PI_DIV_4 - A - B)
+	const a: int = 5089   #  0.0776509570923569
+	const b: int = -18837 # -0.2874298095703125
+	const c: int = 65220  #  0.999755859375 (PI_DIV_4 - A - B)
 
 	var xx: int = FixedInt.mul(p_x, p_x)
 	return FixedInt.mul(FixedInt.mul(FixedInt.mul(a, xx) + b, xx) + c, p_x)
