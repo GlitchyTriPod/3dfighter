@@ -17,7 +17,7 @@ enum BODY_PART {
     FOOT_R
 }
 
-var fixed_sphere_radius: int = FixedInt.FIXED_HALF
+var fixed_sphere_radius: int = FixedIntGDConstant.FIXED_HALF
 
 var body_part: int = BODY_PART.NONE
 
@@ -33,11 +33,11 @@ var fixed_rotation: FixedVector3
 var enabled: bool = false
 
 func fixed_is_overlapping_with(inc_shape: FECollisionData) -> Variant:
-    var combined_radius: int = FixedInt.mul(
+    var combined_radius: int = FixedInt.Mul(
         (self.fixed_sphere_radius + inc_shape.fixed_sphere_radius), 
         (self.fixed_sphere_radius + inc_shape.fixed_sphere_radius)
     )
-    var dist: int = self.fixed_position.distance_squared_to(inc_shape.fixed_position)
+    var dist: int = self.fixed_position.DistanceSquaredTo(inc_shape.fixed_position)
     if dist < combined_radius:
-        return FixedInt.sqrt_64(combined_radius - dist)
+        return FixedInt.Sqrt64(combined_radius - dist)
     return false

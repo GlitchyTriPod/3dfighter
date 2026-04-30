@@ -5,10 +5,10 @@ extends ShapeCast3D
 class_name FECollisionShape
 
 # Radius of the sphere. use this instead of scale.
-@export var fixed_sphere_radius: int = FixedInt.FIXED_HALF:
+@export var fixed_sphere_radius: int = FixedIntGDConstant.FIXED_HALF:
 	set(val):
 		fixed_sphere_radius = val
-		if OS.has_feature("show_hitboxes"): # <---- VERY BAD PERFORMANCE. DEBUGGING + OFFLINE ONLY
+		if OS.has_feature("show_hitboxes") || Engine.is_editor_hint(): # <---- VERY BAD PERFORMANCE. DEBUGGING + OFFLINE ONLY
 			# var sph: Shape3D = self.shape
 			self.shape.radius = float(val / 65536.0)
 			# self.shape = sph
@@ -37,15 +37,15 @@ var hitbox_attack_name: String = ""
 
 var velocity: FixedVector3 = FixedVector3.new()
 
-@onready var fixed_position: FixedVector3 = FixedVector3.from_vec3(self.global_position):
+@onready var fixed_position: FixedVector3 = FixedVector3.FromVec3(self.global_position):
 	set(val):
 		fixed_position = val
-		self.global_position = FixedVector3.to_vec3(val)
+		self.global_position = FixedVector3.ToVec3(val)
 
-@onready var fixed_rotation: FixedVector3 = FixedVector3.from_vec3(self.global_rotation):
+@onready var fixed_rotation: FixedVector3 = FixedVector3.FromVec3(self.global_rotation):
 	set(val):
 		fixed_rotation = val
-		self.global_rotation = FixedVector3.to_vec3(val)
+		self.global_rotation = FixedVector3.ToVec3(val)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -71,13 +71,13 @@ func _process(_delta: float) -> void:
 
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
 func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> Variant:
-	var combined_radius: int = FixedInt.mul(
+	var combined_radius: int = FixedInt.Mul(
 		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius), 
 		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius)
 	)
-	var dist: int = self.fixed_position.distance_squared_to(inc_shape.fixed_position)
+	var dist: int = self.fixed_position.DistanceSquaredTo(inc_shape.fixed_position)
 	if dist < combined_radius:
-		return FixedInt.sqrt_64(combined_radius - dist)
+		return FixedInt.Sqrt64(combined_radius - dist)
 	return false
 
 func copy_collision_data(collision_data: FECollisionData) -> void:

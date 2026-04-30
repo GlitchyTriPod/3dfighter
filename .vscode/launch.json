@@ -8,7 +8,7 @@
             "name": "GDScript: Launch Project",
             "type": "godot",
             "request": "launch",
-            "preLaunchTask": "build",
+            // "preLaunchTask": "build",
             "project": "${workspaceFolder}",
             "address": "127.0.0.1",
             "port": 6007,

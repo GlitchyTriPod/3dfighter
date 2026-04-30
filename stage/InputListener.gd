@@ -12,7 +12,7 @@ var is_online_match : bool = false
 # # Called every network tick.
 func _network_process(_input: Dictionary) -> void:
 
-	var _delta_int: int = FixedInt.from_float(SyncManager.tick_time)
+	var _delta_int: int = FixedInt.FromFloat(SyncManager.tick_time)
 
 	# set player states based on animation data
 	self.player_1.process_animation_data()

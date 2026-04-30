@@ -14,12 +14,12 @@ var camera: Camera3D
 @onready var cam_ref1: Node3D = $ref1
 @onready var cam_ref2: Node3D = $ref2
 
-@onready var p1_screen_pos: Vector2:
+@onready var p1_screen_pos: Vector2: # bad performance sometimes????
 	get:
 		var world_pos: Vector3 = Vector3()
 		var char1: Node = self.get_parent().char_container.get_children()[0]
 		if char1 != null:
-			world_pos = FixedVector3.to_vec3(char1.collision_body.fixed_position)
+			world_pos = FixedVector3.ToVec3(char1.collision_body.fixed_position)
 		return self.camera.unproject_position(world_pos)
 
 @onready var p2_screen_pos: Vector2:
@@ -27,7 +27,7 @@ var camera: Camera3D
 		var world_pos: Vector3 = Vector3()
 		var char1: Node = self.get_parent().char_container.get_children()[1]
 		if char1 != null:
-			world_pos = FixedVector3.to_vec3(char1.collision_body.fixed_position)
+			world_pos = FixedVector3.ToVec3(char1.collision_body.fixed_position)
 		return self.camera.unproject_position(world_pos)
 
 @onready var camera_target: Node3D = self.cam_ref1 if self.default_pos == 0 else self.cam_ref2

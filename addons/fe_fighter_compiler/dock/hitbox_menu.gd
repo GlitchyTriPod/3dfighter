@@ -40,10 +40,10 @@ func _ready() -> void:
 	self.sphere.debug_shape_custom_color = Color.MAGENTA
 
 func populate_data() -> void:
-	%radiusVal.value = FixedInt.to_float(self.working_data["sphere_radius"])
-	%XposVal.value = FixedInt.to_float(self.working_data["x_pos"])
-	%YposVal.value = FixedInt.to_float(self.working_data["y_pos"])
-	%ZposVal.value = FixedInt.to_float(self.working_data["z_pos"])
+	%radiusVal.value = FixedInt.ToFloat(self.working_data["sphere_radius"])
+	%XposVal.value = FixedInt.ToFloat(self.working_data["x_pos"])
+	%YposVal.value = FixedInt.ToFloat(self.working_data["y_pos"])
+	%ZposVal.value = FixedInt.ToFloat(self.working_data["z_pos"])
 	%FrameStartVal.value = self.working_data["frame_start"]
 	%FrameEndVal.value = self.working_data["frame_end"]
 	%AttackHeightVal.selected = self.working_data["attack_height"]
@@ -70,7 +70,7 @@ func get_sphere_in_editor() -> void:
 		new_sphere.owner = EditorInterface.get_edited_scene_root()
 
 		new_sphere.fixed_sphere_radius = self.working_data["sphere_radius"]
-		new_sphere.fixed_position = FixedVector3.new(
+		new_sphere.fixed_position = FixedVector3.NewFromInt(
 			self.working_data["x_pos"],
 			self.working_data["y_pos"],
 			self.working_data["z_pos"]
@@ -94,7 +94,7 @@ func _on_update_sphere(data: Dictionary) -> void:
 			return
 	self.sphere.fixed_sphere_radius = self.working_data["sphere_radius"]
 
-	self.sphere.fixed_position = FixedVector3.new(
+	self.sphere.fixed_position = FixedVector3.NewFromInt(
 		self.working_data["x_pos"],
 		self.working_data["y_pos"],
 		self.working_data["z_pos"]
@@ -104,19 +104,19 @@ func _exit_tree() -> void:
 	self.sphere.debug_shape_custom_color = Color.YELLOW
 
 func _on_radius_val_value_changed(value: float) -> void:
-	self.working_data["sphere_radius"] = FixedInt.from_float(value)
+	self.working_data["sphere_radius"] = FixedInt.FromFloat(value)
 	self.update_sphere.emit(self.working_data)
 
 func _on_xpos_val_value_changed(value: float) -> void:
-	self.working_data["x_pos"] = FixedInt.from_float(value)
+	self.working_data["x_pos"] = FixedInt.FromFloat(value)
 	self.update_sphere.emit(self.working_data)
 
 func _on_ypos_val_value_changed(value: float) -> void:
-	self.working_data["y_pos"] = FixedInt.from_float(value)
+	self.working_data["y_pos"] = FixedInt.FromFloat(value)
 	self.update_sphere.emit(self.working_data)
 
 func _on_zpos_val_value_changed(value: float) -> void:
-	self.working_data["z_pos"] = FixedInt.from_float(value)
+	self.working_data["z_pos"] = FixedInt.FromFloat(value)
 	self.update_sphere.emit(self.working_data)
 
 func _on_frame_start_val_value_changed(value: float) -> void:

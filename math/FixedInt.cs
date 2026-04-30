@@ -11,15 +11,15 @@ namespace FatalException.FEMath
     [GlobalClass]
     public partial class FixedInt : GodotObject
     {
-        public const int FIXED_ZERO = 0;
-        public const int FIXED_ONE = 65536;
-        public const int FIXED_HALF = 32768;
-        public const int FIXED_TWO = 131072;
-        public const int FIXED_PI = 205887;
-        public const int FIXED_TAU = 411774;
-        public const int FIXED_PI_DIV_2 = 102943;
+        public const long FIXED_ZERO = 0;
+        public const long FIXED_ONE = 65536;
+        public const long FIXED_HALF = 32768;
+        public const long FIXED_TWO = 131072;
+        public const long FIXED_PI = 205887;
+        public const long FIXED_TAU = 411774;
+        public const long FIXED_PI_DIV_2 = 102943;
 
-        public static int Sqrt64(int num)
+        public static long Sqrt64(long num)
         {
             if (num == FIXED_ZERO)
             {
@@ -31,8 +31,8 @@ namespace FatalException.FEMath
             {
                 num = -num;
             }
-            int res = FIXED_ZERO;
-            int bit = 1 << 62;
+            long res = FIXED_ZERO;
+            long bit = 1 << 62;
 
             while (bit > num)
             {
@@ -56,27 +56,27 @@ namespace FatalException.FEMath
             return neg ? -res : res;
         }
 
-        public static int FromInt(int val)
+        public static long FromInt(long val)
         {
             return val << 16;
         }
 
-        public static int FromFloat(float val)
+        public static long FromFloat(float val)
         {
-            return (int)val * 65536;
+            return (int)(val * 65536.0f);
         }
 
-        public static float ToFloat(int fixed_int)
+        public static float ToFloat(long fixed_int)
         {
-            return fixed_int / 65536.0f;
+            return (float)(fixed_int / 65536.0f);
         }
 
-        public static int Mul(int val1, int val2)
+        public static long Mul(long val1, long val2)
         {
             return (val1 * val2) >> 16;
         }
 
-        public static int Div(int num, int den)
+        public static long Div(long num, long den)
         {
             if (den == 0)
             {
@@ -85,9 +85,9 @@ namespace FatalException.FEMath
             return (num << 16) / den;
         }
 
-        public static int Sin(int num)
+        public static long Sin(long num)
         {
-            int x = num % FIXED_TAU;
+            long x = num % FIXED_TAU;
             x = Div(x, FIXED_PI_DIV_2);
 
             if (x < FIXED_ZERO)
@@ -95,7 +95,7 @@ namespace FatalException.FEMath
                 x += FromInt(4);
             }
 
-            int sig = FromInt(+1);
+            long sig = FromInt(+1);
             if (x > FIXED_TWO)
             {
                 sig = -FIXED_ONE;
@@ -107,7 +107,7 @@ namespace FatalException.FEMath
                 x = FIXED_TWO - x;
             }
 
-            int x2 = Mul(x, x);
+            long x2 = Mul(x, x);
 
             return Mul(
                 Mul(sig, x),
@@ -121,14 +121,14 @@ namespace FatalException.FEMath
             ) >> 1;
         }
 
-        public static int Asin(int num)
+        public static long Asin(long num)
         {
             if (num < -FIXED_ONE || num > FIXED_ONE)
             {
                 return FIXED_ZERO;
             }
 
-            int yy = FIXED_ONE - Mul(num, num);
+            long yy = FIXED_ONE - Mul(num, num);
             if (yy == FIXED_ZERO)
             {
                 return num > FIXED_ZERO ? FIXED_PI_DIV_2 : -FIXED_PI_DIV_2;
@@ -137,12 +137,12 @@ namespace FatalException.FEMath
             return AtanDiv(num, Sqrt64(yy << 16));
         }
 
-        public static int Cos(int num)
+        public static long Cos(long num)
         {
             return Sin(num + FIXED_PI_DIV_2);
         }
 
-        public static int Acos(int num)
+        public static long Acos(long num)
         {
             if (num < -FIXED_ONE || num > FIXED_ONE)
             {
@@ -154,11 +154,11 @@ namespace FatalException.FEMath
                 return  FIXED_PI;
             }
 
-            int yy = FIXED_ONE - Mul(num, num);
+            long yy = FIXED_ONE - Mul(num, num);
             return Mul(FIXED_TWO, AtanDiv(Sqrt64(yy << 16), FIXED_ONE + num));
         }
 
-        public static int Atan(int num)
+        public static long Atan(long num)
         {
             if (num < FIXED_ZERO)
             {
@@ -173,7 +173,7 @@ namespace FatalException.FEMath
             return AtanSanitized(num);
         }
 
-        public static int Atan2(int num1, int num2)
+        public static long Atan2(long num1, long num2)
         {
             if (num1 == FIXED_ZERO)
             {
@@ -185,7 +185,7 @@ namespace FatalException.FEMath
                 return num1 > FIXED_ZERO ? FIXED_PI_DIV_2 : -FIXED_PI_DIV_2;
             }
 
-            int ret = AtanDiv(num1, num2);
+            long ret = AtanDiv(num1, num2);
             if (num2 < FIXED_ZERO)
             {
                 return num1 >= FIXED_ZERO ? ret + FIXED_PI : ret - FIXED_PI;
@@ -194,7 +194,7 @@ namespace FatalException.FEMath
             return ret;
         }
 
-        public static int AtanDiv(int p_y, int p_x)
+        public static long AtanDiv(long p_y, long p_x)
         {
             if (p_y < FIXED_ZERO)
             {
@@ -218,27 +218,27 @@ namespace FatalException.FEMath
             return AtanSanitized(Div(p_y, p_x));
         }
 
-        public static int AtanSanitized(int p_x)
+        public static long AtanSanitized(long p_x)
         {
-            const int a = 5089;
-            const int b = -18837;
-            const int c = 65220;
-            int xx = Mul(p_x, p_x);
+            const long a = 5089;
+            const long b = -18837;
+            const long c = 65220;
+            long xx = Mul(p_x, p_x);
 
             return Mul(Mul(Mul(a, xx) + b, xx) + c, p_x);
         }
 
-        public static int Deg2Rads(int deg)
+        public static long Deg2Rads(long deg)
         {
             return Mul(deg, Div(FIXED_PI, 11796480));
         }
 
-        public static int Rads2Deg(int rad)
+        public static long Rads2Deg(long rad)
         {
             return Mul(rad, Div(11796480, FIXED_PI));
         }
 
-        public static int Lerp(int from, int to, int weight)
+        public static long Lerp(long from, long to, long weight)
         {
             return Mul(from, FIXED_ONE - weight) + Mul(to, weight);
         }

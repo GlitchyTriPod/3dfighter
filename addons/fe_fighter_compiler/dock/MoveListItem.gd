@@ -125,7 +125,7 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 			var data: Dictionary = {}
 
 			data["radius"] = box.sphere_radius
-			data["position"] = FixedVector3.new(
+			data["position"] = FixedVector3.NewFromInt(
 				box.x_pos,
 				box.y_pos,
 				box.z_pos
@@ -252,7 +252,7 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 		new_sphere.owner = EditorInterface.get_edited_scene_root()
 
 		new_sphere.fixed_sphere_radius = hitbox.sphere_radius
-		new_sphere.fixed_position = FixedVector3.new(
+		new_sphere.fixed_position = FixedVector3.NewFromInt(
 			hitbox.x_pos,
 			hitbox.y_pos,
 			hitbox.z_pos
@@ -271,7 +271,7 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 		new_sphere.owner = EditorInterface.get_edited_scene_root()
 
 		new_sphere.fixed_sphere_radius = hurtbox.sphere_radius
-		new_sphere.fixed_position = FixedVector3.new(
+		new_sphere.fixed_position = FixedVector3.NewFromInt(
 			hurtbox.x_pos,
 			hurtbox.y_pos,
 			hurtbox.z_pos

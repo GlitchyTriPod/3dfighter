@@ -18,18 +18,18 @@ func is_on_floor(floor_height: int) -> bool:
 	var rem: int = self.fixed_position.y - self.fixed_sphere_radius
 	return rem <= floor_height
 
-func fixed_look_at(target: FixedVector3, axis: FixedVector3 = FixedVector3.UP) -> void:
+func fixed_look_at(target: FixedVector3, axis: FixedVector3) -> void:
 
-	var forward: FixedVector3 = FixedVector3.sub(target, self.fixed_position)
+	var forward: FixedVector3 = FixedVector3.Sub(target, self.fixed_position)
 
 	# vvv One that Needs to Fucking Work but Does :)  #-nt- 
-	var fixed_lookat_basis: Array = FixedVector3.basis_looking_at(forward, axis, true)
-	self.fixed_rotation = FixedVector3.basis_get_euler(fixed_lookat_basis)
+	var fixed_lookat_basis: Array = FixedVector3.BasisLookingAt(forward, axis, true)
+	self.fixed_rotation = FixedVector3.BasisGetEuler(fixed_lookat_basis)
 
-	if self.fixed_rotation.x != FixedInt.FIXED_ZERO:
-		self.fixed_rotation.x = FixedInt.FIXED_ZERO
-	if self.fixed_rotation.z != FixedInt.FIXED_ZERO:
-		self.fixed_rotation.z = FixedInt.FIXED_ZERO
+	if self.fixed_rotation.x != FixedIntGDConstant.FIXED_ZERO:
+		self.fixed_rotation.x = FixedIntGDConstant.FIXED_ZERO
+	if self.fixed_rotation.z != FixedIntGDConstant.FIXED_ZERO:
+		self.fixed_rotation.z = FixedIntGDConstant.FIXED_ZERO
 
 func _save_state() -> Dictionary:
 	return {
@@ -56,17 +56,17 @@ func _save_state() -> Dictionary:
 	}
 
 func _load_state(state: Dictionary) -> void:
-	self.fixed_position = FixedVector3.new(
+	self.fixed_position = FixedVector3.NewFromInt(
 		state.position.x,
 		state.position.y,
 		state.position.z
 	)
-	self.fixed_rotation = FixedVector3.new(
+	self.fixed_rotation = FixedVector3.NewFromInt(
 		state.rotation.x,
 		state.rotation.y,
 		state.rotation.z
 	)
-	self.velocity = FixedVector3.new(
+	self.velocity = FixedVector3.NewFromInt(
 		state.velocity.x,
 		state.velocity.y,
 		state.velocity.z

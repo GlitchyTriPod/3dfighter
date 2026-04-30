@@ -51,7 +51,7 @@ var screen_position: int:
 	get:
 		return self.message_bus \
 			.get_char_position( \
-				FixedVector3.to_vec3(self.collision_body.fixed_position)
+				FixedVector3.ToVec3(self.collision_body.fixed_position)
 			)
 
 @onready var collision_body: FEFighterCollisionBody = %CollisionBody
@@ -134,8 +134,8 @@ func _ready() -> void:
 		self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
 
-	get_window().focus_entered.connect(self._on_window_focus_entered)
-	get_window().focus_exited.connect(self._on_window_focus_exited)
+		get_window().focus_entered.connect(self._on_window_focus_entered)
+		get_window().focus_exited.connect(self._on_window_focus_exited)
 
 func _process(_delta: float) -> void:
 	%AnimationNameLabel.text = self.anim_player.current_animation
@@ -146,7 +146,7 @@ func _process(_delta: float) -> void:
 
 
 		if self._velocity_bake_mode:
-			var vel: FixedVector3 = self.process_root_motion(FixedInt.from_float(1.0 / 60))
+			var vel: FixedVector3 = self.process_root_motion(FixedInt.FromFloat(1.0 / 60))
 			self.record_velocity_data.emit(
 				vel, 
 				str(self.anim_player.current_animation), 
@@ -240,9 +240,12 @@ func process_animation_hitboxes() -> void:
 			!shape.has("is_hitbox") else self.get_misc_unused_hitbox()
 		if hurtbox == null:
 			break
-		hurtbox.fixed_position = FixedVector3.add(
-			shape.position.rotated(FixedVector3.UP, self.collision_body.fixed_rotation.y), 
-			FixedVector3.new(
+		hurtbox.fixed_position = FixedVector3.Add(
+			shape.position.Rotated(
+				self.collision_body.fixed_rotation.y, 
+				FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+			),
+			FixedVector3.NewFromInt(
 				self.collision_body.fixed_position.x,
 				0, 
 				self.collision_body.fixed_position.z
@@ -404,7 +407,7 @@ func process_root_motion(delta: int) -> Variant:
 	#### for use INSIDE editor only ####
 	if Engine.is_editor_hint():
 		var frame_velocity: FixedVector3 = \
-			FixedVector3.from_vec3(self.anim_player.get_root_motion_position())
+			FixedVector3.FromVec3(self.anim_player.get_root_motion_position())
 		return frame_velocity
 	#####################################
 
@@ -414,15 +417,18 @@ func process_root_motion(delta: int) -> Variant:
 	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
 
 	var vel: FixedVector3 = self.get_root_motion() #.rotate(Vector3.UP, curr_rotation.y)
-	var vel_rot: FixedVector3 = vel.rotated(FixedVector3.UP, curr_rotation.y)
+	var vel_rot: FixedVector3 = vel.Rotated(
+		curr_rotation.y, 
+		FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+	)
 
 
-	self.collision_body.velocity = FixedVector3.mul(
-		FixedVector3.div(
+	self.collision_body.velocity = FixedVector3.Mul(
+		FixedVector3.Div(
 			vel_rot,
 			delta
 		),
-		FixedInt.FIXED_ONE
+		FixedIntGDConstant.FIXED_ONE
 	)
 
 	collide_and_slide(delta)
@@ -442,9 +448,9 @@ func collide_and_slide(delta: int) -> void:
 
 	var new_position: FixedVector3 = self.collision_body.fixed_position
 
-	new_position.x += FixedInt.mul(self.collision_body.velocity.x, delta)
-	new_position.y += FixedInt.mul(self.collision_body.velocity.y, delta)
-	new_position.z += FixedInt.mul(self.collision_body.velocity.z, delta)
+	new_position.x += FixedInt.Mul(self.collision_body.velocity.x, delta)
+	new_position.y += FixedInt.Mul(self.collision_body.velocity.y, delta)
+	new_position.z += FixedInt.Mul(self.collision_body.velocity.z, delta)
 
 	######### used OUTSIDE editor only #########
 	if !Engine.is_editor_hint():
@@ -457,9 +463,9 @@ func collide_and_slide(delta: int) -> void:
 		var overlap: Variant = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 
 		if overlap is int:
-			var change: FixedVector3 = FixedVector3.mul(
-				self.collision_body.fixed_position.direction_to(oppo_collision_body.fixed_position),
-				FixedInt.div(overlap, FixedInt.FIXED_TWO)
+			var change: FixedVector3 = FixedVector3.Mul(
+				self.collision_body.fixed_position.DirectionTo(oppo_collision_body.fixed_position),
+				FixedInt.Div(overlap, FixedIntGDConstant.FIXED_TWO)
 			)
 
 			new_position.x -= change.x
@@ -471,7 +477,9 @@ func collide_and_slide(delta: int) -> void:
 		self.collision_body.fixed_position = new_position
 
 		if self.is_tracking_opponent():
-			self.collision_body.fixed_look_at(oppo_collision_body.fixed_position)
+			self.collision_body.fixed_look_at(
+				oppo_collision_body.fixed_position,
+				FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0))
 	############################################
 
 	self.position = self.collision_body.global_position - self.collision_body_offset
