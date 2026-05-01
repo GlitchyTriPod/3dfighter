@@ -124,6 +124,7 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 
 			var data: Dictionary = {}
 
+			data["is_hitbox"] = !box.is_hurtbox
 			data["radius"] = box.sphere_radius
 			data["position"] = FixedVector3.NewFromInt(
 				box.x_pos,

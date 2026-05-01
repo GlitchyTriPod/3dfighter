@@ -45,15 +45,6 @@ func bake_velocity_process() -> void:
     self.anim_player.play(self.anim_player.get_animation_list().get(0))
     self.anim_player.seek(0, true)
 
-    # for anim: String in self.anim_player.get_animation_list():
-    #     if self.anim_player.get_animation(anim).loop_mode == Animation.LOOP_LINEAR:
-    #         self.looping_anims.append(anim)
-
-    #     if self.anim_player.current_animation == anim:
-    #         continue
-    #     self.anim_player.queue(anim)
-
-
 func update_progress_label(anim_name: String = "") -> void:
     var anim_list: PackedStringArray = self.anim_player.get_animation_list()
     var progress: int = anim_list.find(anim_name)

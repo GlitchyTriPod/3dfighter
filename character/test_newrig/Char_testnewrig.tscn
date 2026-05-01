@@ -548,6 +548,7 @@ unique_name_in_owner = true
 [node name="NetworkAnimationPlayer" type="AnimationPlayer" parent="." index="4" unique_id=176765641 groups=["network_sync"]]
 unique_name_in_owner = true
 root_motion_track = NodePath("rig_deform/Skeleton3D:c_pos")
+callback_mode_process = 2
 libraries/AnimLibrary_Atropos = ExtResource("7_18r77")
 libraries/AnimLibrary_test_newrig = ExtResource("5_8ng0y")
 libraries/def_animations = ExtResource("9_dicru")

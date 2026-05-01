@@ -8,7 +8,7 @@ class_name FECollisionShape
 @export var fixed_sphere_radius: int = FixedIntGDConstant.FIXED_HALF:
 	set(val):
 		fixed_sphere_radius = val
-		if OS.has_feature("show_hitboxes") || Engine.is_editor_hint(): # <---- VERY BAD PERFORMANCE. DEBUGGING + OFFLINE ONLY
+		if OS.has_feature("show_hitboxes") || Engine.is_editor_hint: # <---- VERY BAD PERFORMANCE. DEBUGGING + OFFLINE ONLY
 			# var sph: Shape3D = self.shape
 			self.shape.radius = float(val / 65536.0)
 			# self.shape = sph

@@ -65,8 +65,8 @@ var anim_fallback_id: String = "0"
 			
 var collision_body_offset: Vector3
 
-var misc_hitbox_pool: Array = []
-var misc_hurtbox_pool: Array = []
+var misc_hitbox_pool: Array[FECollisionData] = []
+var misc_hurtbox_pool: Array[FECollisionData] = []
 
 ### use for debugging only ###
 var _debug_hitbox_pool: Array
@@ -89,20 +89,20 @@ func _init() -> void:
 		self._debug_hitbox_pool = []
 		self._debug_hurtbox_pool = []
 
-	for i: int in range(0, 29, 1):
-		self.misc_hurtbox_pool.append(FECollisionData.new())
+		# self.misc_hurtbox_pool.append(FECollisionData.new())
 
-		if OS.has_feature("show_hitboxes"):
+	# if OS.has_feature("show_hitboxes"):
+		for i: int in range(0, 29, 1):
 			var hurtbox: FECollisionShape = FECollisionShape.new()
 			hurtbox.enabled = false
 			self._debug_hurtbox_pool.append(hurtbox)
 	
-	for i: int in range(0, 4, 1):
-		var hit: FECollisionData = FECollisionData.new()
-		hit.is_hitbox = true
-		self.misc_hitbox_pool.append(hit)
+		# var hit: FECollisionData = FECollisionData.new()
+		# hit.is_hitbox = true
+		# self.misc_hitbox_pool.append(hit)
 
-		if OS.has_feature("show_hitboxes"):
+	# if OS.has_feature("show_hitboxes"):
+		for i: int in range(0, 4, 1):
 			var hitbox: FECollisionShape = FECollisionShape.new()
 			hitbox.enabled = false
 			hitbox.is_hitbox = true
@@ -204,10 +204,6 @@ func process_animation_data() -> void:
 	
 # checks current animation for hitboxes & places them into the scene if necessary
 func process_animation_hitboxes() -> void:
-	# reset all hitboxes to default values
-	for i: FECollisionData in self.misc_hitbox_pool + self.misc_hurtbox_pool:
-		i.enabled = false
-
 	if OS.has_feature("show_hitboxes"):
 		for i: FECollisionShape in self._debug_hitbox_pool + self._debug_hurtbox_pool:
 			i.enabled = false
@@ -223,48 +219,52 @@ func process_animation_hitboxes() -> void:
 		for h_b: Dictionary in atk.hitbox_data["shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
-			h_b["is_hitbox"] = true
+			# h_b["is_hitbox"] = true
 			hitbox_data.append(h_b)
 
 	if atk.hurtbox_data.has("shapes"):
 		for h_b: Dictionary in atk.hurtbox_data["shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
+			# h_b["is_hitbox"] = false
 			hurtbox_data.append(h_b)
 	
 	hurtbox_data.append_array(self.get_animation_hurtboxes())
 
-	# Place hitboxes in world
-	for shape: Dictionary in hurtbox_data + hitbox_data:
-		var hurtbox: FECollisionData = self.get_misc_unused_hurtbox() if \
-			!shape.has("is_hitbox") else self.get_misc_unused_hitbox()
-		if hurtbox == null:
-			break
-		hurtbox.fixed_position = FixedVector3.Add(
-			shape.position.Rotated(
-				self.collision_body.fixed_rotation.y, 
-				FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
-			),
-			FixedVector3.NewFromInt(
-				self.collision_body.fixed_position.x,
-				0, 
-				self.collision_body.fixed_position.z
-			)
-		)
-		hurtbox.fixed_sphere_radius = shape.radius
-		if shape.has("body_part"):
-			hurtbox.body_part = shape.body_part
-		else:
-			hurtbox.body_part = 0
-		if shape.has("animation_name"):
-			hurtbox.hitbox_attack_name = shape.animation_name
-		hurtbox.enabled = true
+	self.misc_hurtbox_pool = FECollisionData.create_from_arr(hurtbox_data)
+	self.misc_hitbox_pool = FECollisionData.create_from_arr(hitbox_data)
 
-		if OS.has_feature("show_hitboxes"):
+	### Debug only ###
+	if OS.has_feature("show_hitboxes"):
+		for shape: Dictionary in hurtbox_data + hitbox_data:
+			var hurtbox: FECollisionData = FECollisionData.new()
+			if shape.get("is_hitbox"):
+				hurtbox.is_hitbox = true
+			hurtbox.fixed_position = FixedVector3.Add(
+				shape.position.Rotated(
+					self.collision_body.fixed_rotation.y, 
+					FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+				),
+				FixedVector3.NewFromInt(
+					self.collision_body.fixed_position.x,
+					0, 
+					self.collision_body.fixed_position.z
+				)
+			)
+			hurtbox.fixed_sphere_radius = shape.radius
+			if shape.has("body_part"):
+				hurtbox.body_part = shape.body_part
+			else:
+				hurtbox.body_part = 0
+			if shape.has("animation_name"):
+				hurtbox.hitbox_attack_name = shape.animation_name
+			hurtbox.enabled = true
+
 			var h_b: FECollisionShape = self.get_debug_unused_hurtbox() if \
-				hurtbox_data.has(shape) else \
+				!hurtbox.is_hitbox else \
 				self.get_debug_unused_hitbox()
 			h_b.copy_collision_data(hurtbox)
+	#################
 
 func get_animation_hurtboxes() -> Array:
 	var boxes: Array = self.animation_hurtbox_data.dict.get(
@@ -279,18 +279,47 @@ func process_hitbox_intersection() -> void:
 
 	var enemy_hitboxes: Array = self.message_bus.get_oppo_hitboxes(self)
 
+	var enemy_position: FixedVector3 = self.message_bus.get_oppo_fixed_position(self)
+	var enemy_rotation: FixedVector3 = self.message_bus.get_oppo_fixed_rotation(self)
+
 	for hitbox: FECollisionData in enemy_hitboxes:
 		if !hitbox.enabled || \
 			((hitbox.hitbox_attack_index == self.stun_reason.stun_hit && \
 			self.stun_reason.stun_hit != -1 && \
 			hitbox.hitbox_attack_name == self.stun_reason.stun_name)): 
 			continue
+		
+		if hitbox.final_position == null:
+			hitbox.final_position = FixedVector3.Add(
+				hitbox.fixed_position.Rotated(
+					enemy_rotation.y,
+					FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+				),
+				FixedVector3.NewFromInt(
+					enemy_position.x,
+					0,
+					enemy_position.z
+				)
+			)
 
 		# Check for early break conditions here (high atk vs. crouching opp., etc.)
 
 		for hurtbox: FECollisionData in self.misc_hurtbox_pool:
 			if !hurtbox.enabled:
 				continue
+
+			if hurtbox.final_position == null:
+				hurtbox.final_position = FixedVector3.Add(
+					hurtbox.fixed_position.Rotated(
+						self.collision_body.fixed_rotation.y,
+						FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+					),
+					FixedVector3.NewFromInt(
+						self.collision_body.fixed_position.x,
+						0,
+						self.collision_body.fixed_position.z
+					)
+				)
 			
 			if hurtbox.fixed_is_overlapping_with(hitbox) is int:
 				# incoming hit detected!
@@ -299,7 +328,7 @@ func process_hitbox_intersection() -> void:
 					hitbox.hitbox_attack_name, 
 					self.message_bus.get_oppo_current_animation_id(self)
 				)
-				break
+				return
 
 func process_hit(attack_index: int, animation_name: String, animation_id: String) -> void:
 	var enemy_anim_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, animation_id)
@@ -528,6 +557,13 @@ func _on_window_focus_exited() -> void:
 func _network_preprocess(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
 	# emit_signal("ready_for_input_process", self)
+
+func _network_postprocess(_input: Dictionary) -> void:
+	self.misc_hitbox_pool = []
+	self.misc_hurtbox_pool = []
+	# if OS.has_feature("show_hitboxes"):
+	# 	self._debug_hitbox_pool = []
+	# 	self._debug_hurtbox_pool = []
 
 func _get_local_input() -> Dictionary:
 	var player_input: Dictionary = {}

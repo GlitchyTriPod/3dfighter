@@ -1143,6 +1143,7 @@ hitbox_data = {
 "start": 20
 },
 "is_grab": false,
+"is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
 "position": SubResource("Resource_v5pwb"),
@@ -1155,6 +1156,7 @@ hitbox_data = {
 "start": 20
 },
 "is_grab": false,
+"is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
 "position": SubResource("Resource_w7baa"),
@@ -1167,6 +1169,7 @@ hitbox_data = {
 "start": 20
 },
 "is_grab": false,
+"is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
 "position": SubResource("Resource_0ivfs"),

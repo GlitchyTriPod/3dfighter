@@ -5,12 +5,12 @@ using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Godot;
-// using Godot.Collections;
+using Godot.Collections;
 using FatalException.FEMath;
 
 [Tool]
 [GlobalClass]
-public partial class FixedVector3 : Resource
+public partial class FixedVector3 : Resource, IDisposable
 {
     [Export]
     public long x { get; set; }
@@ -21,8 +21,7 @@ public partial class FixedVector3 : Resource
     [Export]
     public long z { get; set; }
 
-    // public static readonly FixedVector3 UP = new FixedVector3(0, 65536, 0);
-    // public static readonly FixedVector3 RIGHT = new FixedVector3(65536, 0, 0);
+    #region CONSTRUCTORS
     
     public FixedVector3() : this(0, 0, 0) {}
 
@@ -49,8 +48,15 @@ public partial class FixedVector3 : Resource
     {
         return new FixedVector3(inc);
     }
-    
-    /* OPERATORS */
+
+    // public void Dispose()
+    // {
+        
+    // }
+
+    #endregion
+
+    #region OPERATORS
 
     public static FixedVector3 operator +(FixedVector3 left, FixedVector3 right)
     {
@@ -121,8 +127,9 @@ public partial class FixedVector3 : Resource
             FixedInt.Div(left.z, right)
         );
     }
+    #endregion
 
-    /* STATIC METHODS */
+    #region STATIC METHODS
 
     public static FixedVector3 FromVec3(Vector3 val)
     {
@@ -151,7 +158,7 @@ public partial class FixedVector3 : Resource
         );
     }
 
-    public static Godot.Collections.Array<long[]> BasisLookingAt(
+    public static Array<long[]> BasisLookingAt(
         FixedVector3 target,
         FixedVector3 upAxis,
         bool useModelFront = false)
@@ -185,7 +192,7 @@ public partial class FixedVector3 : Resource
         ];
     }
 
-    public static FixedVector3 BasisGetEuler(Godot.Collections.Array<long[]> basis)
+    public static FixedVector3 BasisGetEuler(Array<long[]> basis)
     {
         // only implementing YXZ euler order for now
         FixedVector3 euler = new FixedVector3();
@@ -225,8 +232,9 @@ public partial class FixedVector3 : Resource
         }
         return euler;
     }
+    #endregion
 
-    /* METHODS */
+    #region  METHODS
 
     public long Dot(FixedVector3 vec2)
     {
@@ -401,4 +409,5 @@ public partial class FixedVector3 : Resource
             this.y == FixedInt.FIXED_ZERO &&
             this.z == FixedInt.FIXED_ZERO;
     }
+    #endregion
 }

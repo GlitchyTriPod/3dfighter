@@ -51,3 +51,16 @@ func get_oppo_fixed_position(player: Fighter) -> FixedVector3:
 
 	return oppo.collision_body.fixed_position if oppo.collision_body != null \
 		else FixedVector3.new()
+
+func get_oppo_fixed_rotation(player: Fighter) -> FixedVector3:
+	var oppo: Fighter
+	if player == self.player_1:
+		oppo = self.player_2
+	else:
+		oppo = self.player_1
+
+	if oppo == null:
+		return FixedVector3.new()
+
+	return oppo.collision_body.fixed_rotation if oppo.collision_body != null \
+		else FixedVector3.new()
