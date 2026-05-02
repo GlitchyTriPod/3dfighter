@@ -22,7 +22,7 @@ func fixed_look_at(target: FixedVector3, axis: FixedVector3) -> void:
 
 	var forward: FixedVector3 = FixedVector3.Sub(target, self.fixed_position)
 
-	# vvv One that Needs to Fucking Work but Does :)  #-nt- 
+	# vvv costing a lot of performance? -- possibly convert to Quaternion
 	var fixed_lookat_basis: Array = FixedVector3.BasisLookingAt(forward, axis, true)
 	self.fixed_rotation = FixedVector3.BasisGetEuler(fixed_lookat_basis)
 

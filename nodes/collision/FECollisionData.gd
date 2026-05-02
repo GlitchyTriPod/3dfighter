@@ -1,5 +1,5 @@
 @tool
-extends Resource
+extends WeakRef
 class_name FECollisionData
 
 enum BODY_PART {
@@ -34,8 +34,26 @@ var final_position: FixedVector3
 
 var enabled: bool = false
 
+static var _pool: Array[FECollisionData] = []
+
+static func pool_get() -> FECollisionData:
+	if _pool.is_empty():
+		return FECollisionData.new()
+	return _pool.pop_back()
+
+static func pool_return(data: FECollisionData) -> void:
+	data.reset()
+	_pool.append(data)
+
+static func pool_return_arr(data_arr: Array[FECollisionData]) -> void:
+	for i: FECollisionData in data_arr:
+		pool_return(i)
+
+static func empty_pool() -> void:
+	_pool.clear()
+
 static func create_from_data(data: Variant) -> FECollisionData:
-	var col_data: FECollisionData = FECollisionData.new()
+	var col_data: FECollisionData = pool_get()
 	col_data.fixed_sphere_radius = data["radius"]
 	if data.has("is_hitbox"):
 		col_data.is_hitbox = data["is_hitbox"]
@@ -54,7 +72,18 @@ static func create_from_arr(data_arr: Array) -> Array[FECollisionData]:
 		ret_arr.append(FECollisionData.create_from_data(i))
 	return ret_arr
 
-func fixed_is_overlapping_with(inc_shape: FECollisionData) -> Variant:
+func reset() -> void:
+	self.fixed_sphere_radius = fixed_sphere_radius
+	self.body_part = body_part
+	self.is_hitbox = is_hitbox
+	self.hitbox_attack_name = hitbox_attack_name
+	self.hitbox_attack_index = hitbox_attack_index
+	self.fixed_position = null
+	self.fixed_rotation = null
+	self.enabled = false
+	self.final_position = null
+
+func fixed_is_overlapping_with(inc_shape: FECollisionData) -> int:
 	var combined_radius: int = FixedInt.Mul(
 		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius), 
 		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius)
@@ -62,4 +91,4 @@ func fixed_is_overlapping_with(inc_shape: FECollisionData) -> Variant:
 	var dist: int = self.final_position.DistanceSquaredTo(inc_shape.final_position)
 	if dist < combined_radius:
 		return FixedInt.Sqrt64(combined_radius - dist)
-	return false
+	return 0

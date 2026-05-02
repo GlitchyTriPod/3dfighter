@@ -19,8 +19,8 @@ func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
 		self.add_to_list(i)
 
 func get_default_anim_id_from_name(anim_name: String) -> String:
-	for move_id: String in self.move_list.keys():
-		var move: FighterAnimationData = self.move_list.get(move_id)
+	for move_id: String in self.move_list:
+		var move: FighterAnimationData = self.move_list[move_id]
 		if anim_name == move.animation_name:
 			return move_id
 	return "0"
@@ -32,7 +32,8 @@ func get_move_id(move: FighterAnimationData) -> String:
 	return self.move_list.find_key(move)
 
 func get_from_ref_name(ref_name: String) -> Variant:
-	for move: FighterAnimationData in self.move_list.values():
+	for move_key: String in self.move_list:
+		var move: FighterAnimationData = self.move_list[move_key]
 		if !move.is_reference:
 			continue
 		if move.move_name == ref_name.substr(4):
@@ -46,7 +47,9 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 
 	### selecting valid moves ###
 
-	for move: FighterAnimationData in self.move_list.values():
+	for move_key: String in self.move_list:
+		var move: FighterAnimationData = self.move_list[move_key]
+
 		if (move.input_di_map.back() == inputs[0]["di"] || \
 
 			# this check is to specifically get neutral di input moves in the event there is no
@@ -97,7 +100,6 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 
 	### selecting move ###
 
-	# inputs.reverse()
 	for move: FighterAnimationData in possible_moves:
 
 
@@ -132,8 +134,6 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 
 			return move
 			# break
-
-		# assert(move.move_name != "walk_l_LEFT")
 
 		# move does not have a motion input
 		return move

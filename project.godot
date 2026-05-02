@@ -45,7 +45,7 @@ project/assembly_name="3dFighter"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/delta_rollback/plugin.cfg", "res://addons/fe_fighter_compiler/plugin.cfg")
+enabled=PackedStringArray("res://addons/delta_rollback/plugin.cfg", "res://addons/fe_fighter_compiler/plugin.cfg")
 
 [filesystem]
 
@@ -183,8 +183,6 @@ sync_debug={
 [network]
 
 rollback/classes/message_serializer="uid://b8ahiut0y2ub"
-rollback/debug/rollback_ticks=2
-rollback/debug/random_rollback_ticks=4
 
 [physics]
 

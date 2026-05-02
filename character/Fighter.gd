@@ -14,7 +14,7 @@ var stun_reason: Dictionary = {
 }
 
 # vvv TODO: change this to PackedStringArray
-var states: PackedStringArray = []
+var states: Array[String] = []
 
 @export var movelist: FighterMovelist
 
@@ -110,9 +110,9 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
-	else:
+	if !Engine.is_editor_hint():
+	# 	self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
+	# else:
 		%AddonSpheres.queue_free()
 
 		for nde: Node in get_tree().get_nodes_in_group("SkeletonHurtbox"):
@@ -186,16 +186,15 @@ func process_animation_data() -> void:
 		self.anim_player.play(atk.animation_name)
 		self.anim_player.seek(0, true)
 
-	for state: String in self.states:
-		if !state.ends_with("_calc"):
-			self.states.erase(state)
+	self.states = self.states.filter(
+		func(state: String) -> bool:
+			return state.ends_with("_calc")
+	)
 
 	# set states
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
-	for state: String in atk.player_states.keys():
-
-		# if self.states.has(state):
-		var state_data: Variant = atk.player_states.get(state)
+	for state: Variant in atk.player_states:
+		var state_data: Variant = atk.player_states[state]
 		if current_frame >= state_data.start && \
 			current_frame < state_data.end:
 			if self.states.has(state):
@@ -321,7 +320,7 @@ func process_hitbox_intersection() -> void:
 					)
 				)
 			
-			if hurtbox.fixed_is_overlapping_with(hitbox) is int:
+			if hurtbox.fixed_is_overlapping_with(hitbox) > 0:
 				# incoming hit detected!
 				self.process_hit(
 					hitbox.hitbox_attack_index, 
@@ -389,7 +388,7 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
 	self.anim_player.play(atk_data.animation_name)
-	self.anim_player.seek(0, true)
+	self.anim_player.seek(0)
 	
 func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 	if current_input[0].button != 0:
@@ -451,7 +450,6 @@ func process_root_motion(delta: int) -> Variant:
 		FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
 	)
 
-
 	self.collision_body.velocity = FixedVector3.Mul(
 		FixedVector3.Div(
 			vel_rot,
@@ -477,21 +475,16 @@ func collide_and_slide(delta: int) -> void:
 
 	var new_position: FixedVector3 = self.collision_body.fixed_position
 
-	new_position.x += FixedInt.Mul(self.collision_body.velocity.x, delta)
-	new_position.y += FixedInt.Mul(self.collision_body.velocity.y, delta)
-	new_position.z += FixedInt.Mul(self.collision_body.velocity.z, delta)
+	new_position = FixedVector3.Add(new_position, FixedVector3.Mul(self.collision_body.velocity, delta))
 
 	######### used OUTSIDE editor only #########
 	if !Engine.is_editor_hint():
 
-		var oppo_collision_body : FEFighterCollisionBody = get_tree().get_nodes_in_group(
-			"Player2MainCollisionBody" if self.player == 0 \
-			else "Player1MainCollisionBody"
-		)[0] # this group should never be empty, and should only have 1 member
+		var oppo_collision_body: FEFighterCollisionBody = self.message_bus.get_oppo_collision_body(self)
 
-		var overlap: Variant = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
+		var overlap: int = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 
-		if overlap is int:
+		if overlap > 0:
 			var change: FixedVector3 = FixedVector3.Mul(
 				self.collision_body.fixed_position.DirectionTo(oppo_collision_body.fixed_position),
 				FixedInt.Div(overlap, FixedIntGDConstant.FIXED_TWO)
@@ -559,11 +552,10 @@ func _network_preprocess(input: Dictionary) -> void:
 	# emit_signal("ready_for_input_process", self)
 
 func _network_postprocess(_input: Dictionary) -> void:
-	self.misc_hitbox_pool = []
-	self.misc_hurtbox_pool = []
-	# if OS.has_feature("show_hitboxes"):
-	# 	self._debug_hitbox_pool = []
-	# 	self._debug_hurtbox_pool = []
+	FECollisionData.pool_return_arr(self.misc_hitbox_pool)
+	FECollisionData.pool_return_arr(self.misc_hurtbox_pool)
+	self.misc_hitbox_pool.clear()
+	self.misc_hurtbox_pool.clear()
 
 func _get_local_input() -> Dictionary:
 	var player_input: Dictionary = {}

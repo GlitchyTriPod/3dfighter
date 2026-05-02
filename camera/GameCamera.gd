@@ -14,7 +14,7 @@ var camera: Camera3D
 @onready var cam_ref1: Node3D = $ref1
 @onready var cam_ref2: Node3D = $ref2
 
-@onready var p1_screen_pos: Vector2: # bad performance sometimes????
+@onready var p1_screen_pos: Vector2: # bad performance sometimes A LOT MOTHERFUCKER????
 	get:
 		var world_pos: Vector3 = Vector3()
 		var char1: Node = self.get_parent().char_container.get_children()[0]
