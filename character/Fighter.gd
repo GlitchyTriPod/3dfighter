@@ -291,8 +291,7 @@ func process_hitbox_intersection() -> void:
 		if hitbox.final_position == null:
 			hitbox.final_position = FixedVector3.Add(
 				hitbox.fixed_position.Rotated(
-					enemy_rotation.y,
-					FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+					enemy_rotation.y
 				),
 				FixedVector3.NewFromInt(
 					enemy_position.x,
@@ -310,8 +309,7 @@ func process_hitbox_intersection() -> void:
 			if hurtbox.final_position == null:
 				hurtbox.final_position = FixedVector3.Add(
 					hurtbox.fixed_position.Rotated(
-						self.collision_body.fixed_rotation.y,
-						FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+						self.collision_body.fixed_rotation.y
 					),
 					FixedVector3.NewFromInt(
 						self.collision_body.fixed_position.x,
@@ -446,8 +444,7 @@ func process_root_motion(delta: int) -> Variant:
 
 	var vel: FixedVector3 = self.get_root_motion() #.rotate(Vector3.UP, curr_rotation.y)
 	var vel_rot: FixedVector3 = vel.Rotated(
-		curr_rotation.y, 
-		FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
+		curr_rotation.y
 	)
 
 	self.collision_body.velocity = FixedVector3.Mul(

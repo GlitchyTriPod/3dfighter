@@ -29,8 +29,10 @@ func _ready() -> void:
 		c.floor_height = self.floor_height
 		if c.player == 1:
 			self.fighter_message_bus.player_1 = c
+			self.game_camera.player_1 = c
 			continue
 		self.fighter_message_bus.player_2 = c
+		self.game_camera.player_2 = c
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # func _process(_delta):

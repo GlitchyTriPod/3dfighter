@@ -49,10 +49,17 @@ public partial class FixedVector3 : Resource, IDisposable
         return new FixedVector3(inc);
     }
 
-    // public void Dispose()
-    // {
-        
-    // }
+    public FixedVector3(Vector3 inc)
+    {
+        this.x = FixedInt.FromFloat(inc.X);
+        this.y = FixedInt.FromFloat(inc.Y);
+        this.z = FixedInt.FromFloat(inc.Z);
+    }
+
+    public static FixedVector3 NewFromVec3(Vector3 inc)
+    {
+        return new FixedVector3(inc);
+    }
 
     #endregion
 
@@ -310,14 +317,14 @@ public partial class FixedVector3 : Resource, IDisposable
         ).Normalized();
     }
 
-    public FixedVector3 Rotated(long ang, FixedVector3 axis)
+    public FixedVector3 Rotated(long ang)
     {
         FixedVector3 v = new FixedVector3(this);
-        v.Rotate(ang, axis);
+        v.Rotate(ang);
         return v;
     }
 
-    public void Rotate(long ang, FixedVector3 axis)
+    public void Rotate(long ang)
     {
         long s = FixedInt.Sin(ang);
         long c = FixedInt.Cos(ang);

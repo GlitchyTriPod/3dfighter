@@ -72,7 +72,7 @@ func _process(_delta: float) -> void:
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
 func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> int:
 	var combined_radius: int = FixedInt.Mul(
-		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius), 
+		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius),
 		(self.fixed_sphere_radius + inc_shape.fixed_sphere_radius)
 	)
 	var dist: int = self.fixed_position.DistanceSquaredTo(inc_shape.fixed_position)
