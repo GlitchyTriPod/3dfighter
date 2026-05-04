@@ -31,11 +31,6 @@ func get_oppo_hitboxes(player: Fighter) -> Array:
 		return self.player_2.misc_hitbox_pool
 	return self.player_1.misc_hitbox_pool
 
-# func get_oppo_hurtboxes(player: Fighter) -> Array:
-# 	if player == self.player_1:
-# 		return self.player_2.misc_hurtbox_pool
-# 	return self.player_1.misc_hurtbox_pool
-
 func get_oppo_collision_body(player: Fighter) -> FEFighterCollisionBody:
 	var oppo: Fighter
 	if player == self.player_1:

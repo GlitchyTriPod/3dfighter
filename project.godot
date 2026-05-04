@@ -184,7 +184,8 @@ sync_debug={
 
 rollback/classes/message_serializer="uid://b8ahiut0y2ub"
 rollback/debug/rollback_ticks=2
-rollback/debug/random_rollback_ticks=5
+rollback/debug/random_rollback_ticks=4
+rollback/debug/skip_nth_message=5
 rollback/debug/check_local_state_consistency=true
 
 [physics]

@@ -546,7 +546,6 @@ func _on_window_focus_exited() -> void:
 
 func _network_preprocess(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
-	# emit_signal("ready_for_input_process", self)
 
 func _network_postprocess(_input: Dictionary) -> void:
 	FECollisionData.pool_return_arr(self.misc_hitbox_pool)

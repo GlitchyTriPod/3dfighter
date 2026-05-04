@@ -14,8 +14,6 @@ var swap_sides: int = FixedIntGDConstant.FIXED_ONE
 
 # nodes used as reference positions for the camera
 @onready var cam_ref: FixedVector3 = FixedVector3.new()
-# @onready var ref_node: Node3D = Node3D.new()
-
 
 var player_1: Fighter
 var player_2: Fighter
@@ -44,17 +42,12 @@ var camera_fixed_position: FixedVector3 = FixedVector3.new():
 var camera_last_position: FixedVector3
 
 func _ready() -> void:
-	# self.add_child(self.ref_node)
-	# self.add_child(self.camera)
-
-	# self.p1_camera.global_position.x = 15.0
 	if self.default_pos == 0:
 		self.p1_camera.current = true
 	else:
 		self.p2_camera.current = true
 
 	self.fixed_position = FixedVector3.NewFromVec3(self.global_position)
-	# self.camera_fixed_position = FixedVector3.NewFromVec3(self.camera.global_position)
 
 func _network_preprocess(_input: Variant) -> void: # may need to shove off to c# helper function
 
@@ -98,38 +91,12 @@ func _network_preprocess(_input: Variant) -> void: # may need to shove off to c#
 	# assign positions to reference nodes
 	self.cam_ref = CameraMath.GetCameraRefPosition(dist, self.fixed_position, self.fixed_rotation.y)
 
-	# if abs(self.fixed_rotation.x) < FixedInt.FromFloat(1.309): # 75 deg.
-	# 	self.lerp_to_intended_position()
-	# else:
 	self.camera_fixed_position = CameraMath.LerpCameraPosition(
 		self.camera_fixed_position, 
 		self.cam_ref, 
 		self.smoothing_speed, 
 		SyncManager.tick_time
 	)
-
-# func lerp_to_intended_position() -> void:
-# 	if self.camera_fixed_position.DistanceSquaredTo(self.cam_ref1) \
-# 			>= self.camera_fixed_position.DistanceSquaredTo(self.cam_ref2):
-# 		self.camera_fixed_position = \
-# 			FixedVector3.Lerp(
-# 				self.camera_fixed_position, 
-# 				self.cam_ref1, 
-# 				FixedInt.Mul(
-# 					FixedInt.FromFloat(self.smoothing_speed),
-# 					FixedInt.FromFloat(SyncManager.tick_time)
-# 				)
-# 			)
-# 	else:
-# 		self.camera_fixed_position = \
-# 			FixedVector3.Lerp(
-# 				self.camera_fixed_position, 
-# 				self.cam_ref2,
-# 				FixedInt.Mul(
-# 					FixedInt.FromFloat(self.smoothing_speed), 
-# 					FixedInt.FromFloat(SyncManager.tick_time)
-# 				)
-# 			)
 
 func _process(_delta: float) -> void:	
 	var target: Vector3 = Vector3(self.global_position)
