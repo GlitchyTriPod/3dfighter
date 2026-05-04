@@ -3,180 +3,144 @@ class_name GameCamera
 
 # used when determining starting position of camera
 @export_enum("Player 1", "Player 2") var default_pos: int = 0
+var swap_sides: int = FixedIntGDConstant.FIXED_ONE
 
 # used for camera smoothing
 @export var smoothing_speed: float = 3.0
 
-@export var camera_node: NodePath
-var camera: Camera3D
+# @export var camera_node: NodePath
+@onready var p1_camera: Camera3D = %P1Camera
+@onready var p2_camera: Camera3D = %P2Camera
 
 # nodes used as reference positions for the camera
-@onready var cam_ref1: FixedVector3 = FixedVector3.new()
-@onready var cam_ref2: FixedVector3 = FixedVector3.new()
+@onready var cam_ref: FixedVector3 = FixedVector3.new()
+# @onready var ref_node: Node3D = Node3D.new()
 
-@onready var p1_screen_pos: Vector2: # bad performance sometimes A LOT MOTHERFUCKER????
-	get:
-		var world_pos: Vector3 = Vector3()
-		var char1: Node = self.get_parent().char_container.get_children()[0]
-		if char1 != null:
-			world_pos = FixedVector3.ToVec3(char1.collision_body.fixed_position)
-		return self.camera.unproject_position(world_pos)
-
-@onready var p2_screen_pos: Vector2:
-	get:
-		var world_pos: Vector3 = Vector3()
-		var char1: Node = self.get_parent().char_container.get_children()[1]
-		if char1 != null:
-			world_pos = FixedVector3.ToVec3(char1.collision_body.fixed_position)
-		return self.camera.unproject_position(world_pos)
-
-# @onready var camera_target: FixedVector3 = self.cam_ref1 if self.default_pos == 0 else self.cam_ref2
 
 var player_1: Fighter
 var player_2: Fighter
 
+var p1_screen_pos: Vector2 = Vector2()
+var p2_screen_pos: Vector2 = Vector2()
+
 var fixed_position: FixedVector3 = FixedVector3.new():
 	set(val):
 		fixed_position = val
-		self.global_position = FixedVector3.ToVec3(val)
+		self.set_global_position(FixedVector3.ToVec3(val))
 var fixed_rotation: FixedVector3 = FixedVector3.new():
 	set(val):
 		fixed_rotation = val
-		self.global_rotation = FixedVector3.ToVec3(val)
+		self.set_global_rotation(FixedVector3.ToVec3(val))
 
 var camera_fixed_position: FixedVector3 = FixedVector3.new():
 	set(val):
 		camera_fixed_position = val
 		if val != null:
-			self.camera.global_position = FixedVector3.ToVec3(val)
+			self.p1_camera.set_global_position(FixedVector3.ToVec3(val))
+			self.p2_camera.position.x = -self.p1_camera.position.x
+			self.p2_camera.position.y = self.p1_camera.position.y
+			self.p2_camera.position.z = -self.p1_camera.position.z
 
 var camera_last_position: FixedVector3
-var camera_last_target: Vector3
 
 func _ready() -> void:
-	self.camera = get_node(self.camera_node)
-	self.camera.global_position.x = 15.0 if self.default_pos == 0 else -15.0
+	# self.add_child(self.ref_node)
+	# self.add_child(self.camera)
+
+	# self.p1_camera.global_position.x = 15.0
+	if self.default_pos == 0:
+		self.p1_camera.current = true
+	else:
+		self.p2_camera.current = true
 
 	self.fixed_position = FixedVector3.NewFromVec3(self.global_position)
-	self.camera_fixed_position = FixedVector3.NewFromVec3(self.camera.global_position)
+	# self.camera_fixed_position = FixedVector3.NewFromVec3(self.camera.global_position)
 
 func _network_preprocess(_input: Variant) -> void: # may need to shove off to c# helper function
 
-	var dist: int = clampi(
-		FixedInt.Mul(
-			self.player_1.collision_body.fixed_position.DistanceTo(
-				self.player_2.collision_body.fixed_position
-			), 
-			FixedInt.FromFloat(0.75)
-		), 
-		900, 
-		1800
-	)
-	
-	self.fixed_position = FixedVector3.Div(
-		FixedVector3.Add(
-			self.player_1.collision_body.fixed_position, 
-			self.player_2.collision_body.fixed_position
-			), FixedIntGDConstant.FIXED_TWO
+	if self.default_pos == 0:
+		self.p1_screen_pos = self.p1_camera.unproject_position(
+			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
+			)
+		self.p2_screen_pos = self.p1_camera.unproject_position(
+			FixedVector3.ToVec3(self.player_2.collision_body.fixed_position)
+		)
+	else:
+		self.p1_screen_pos = self.p2_camera.unproject_position(
+			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
+			)
+		self.p2_screen_pos = self.p2_camera.unproject_position(
+			FixedVector3.ToVec3(self.player_2.collision_body.fixed_position)
 		)
 
-	# rotate self to look at player 1
+	var dist: int = CameraMath.GetDistanceClamped(
+		self.player_1.collision_body.fixed_position,
+		self.player_2.collision_body.fixed_position
+	)
+	if self.swap_sides == -1:
+		dist = -dist
+	
+	self.fixed_position = CameraMath.GetCameraTargetPosition(
+		self.player_1.collision_body.fixed_position,
+		self.player_2.collision_body.fixed_position
+	)
 
-	var fwd: FixedVector3 = FixedVector3.Sub(
-		self.player_1.collision_body.fixed_position, 
+	# rotate self to look at player 1
+	self.fixed_rotation = CameraMath.GetCameraTargetRotation(
+		self.player_1.collision_body.fixed_position,
 		self.fixed_position
 	)
 
-	var lookat_basis: Array = FixedVector3.BasisLookingAt(
-		fwd,
-		FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0),
-		true
-	)
-	self.fixed_rotation = FixedVector3.BasisGetEuler(lookat_basis)
-
-	########
+	# check if cam_ref needs to be swapped
+	if CameraMath.NeedsSideSwap(self.fixed_position, self.cam_ref, self.camera_fixed_position):
+		self.swap_sides *= -1
 
 	# assign positions to reference nodes
-	self.cam_ref1.x = FixedInt.Lerp(FixedInt.FromInt(4), FixedInt.FromInt(20), FixedInt.Div(dist - 900, 1800))
-	self.cam_ref2.x = -cam_ref1.x
-	self.cam_ref1.y = self.fixed_position.y + FixedIntGDConstant.FIXED_HALF
-	self.cam_ref2.y = self.fixed_position.y + FixedIntGDConstant.FIXED_HALF
-	self.cam_ref1.z = 0
-	self.cam_ref2.z = 0
+	self.cam_ref = CameraMath.GetCameraRefPosition(dist, self.fixed_position, self.fixed_rotation.y)
 
-	self.cam_ref1 = FixedVector3.Add(
-		self.cam_ref1.Rotated(self.fixed_rotation.y),
-		FixedVector3.NewFromFixedVec3(self.fixed_position)
-	)
-	self.cam_ref2 = FixedVector3.Add(
-		self.cam_ref2.Rotated(self.fixed_rotation.y),
-		FixedVector3.NewFromFixedVec3(self.fixed_position)
+	# if abs(self.fixed_rotation.x) < FixedInt.FromFloat(1.309): # 75 deg.
+	# 	self.lerp_to_intended_position()
+	# else:
+	self.camera_fixed_position = CameraMath.LerpCameraPosition(
+		self.camera_fixed_position, 
+		self.cam_ref, 
+		self.smoothing_speed, 
+		SyncManager.tick_time
 	)
 
-	if abs(self.fixed_rotation.x) < FixedInt.FromFloat(1.309): # 75 deg.
-		if self.default_pos == 0:
-			self.lerp_to_intended_position()
-		else:
-			self.lerp_to_intended_position(true)
-	else:
-		self.camera_fixed_position = self.cam_ref2
-
-func lerp_to_intended_position(is_p2_camera: bool = false) -> void:
-	if is_p2_camera:
-		if self.camera_fixed_position.DistanceSquaredTo(self.cam_ref1) \
-				>= self.camera_fixed_position.DistanceSquaredTo(self.cam_ref2):
-			self.camera_fixed_position = \
-				FixedVector3.Lerp(
-					self.camera_fixed_position, 
-					self.cam_ref1, 
-					FixedInt.Mul(
-						FixedInt.FromFloat(self.smoothing_speed),
-						FixedInt.FromFloat(SyncManager.tick_time)
-					)
-				)
-		else:
-			self.camera_fixed_position = \
-				FixedVector3.Lerp(
-					self.camera_fixed_position, 
-					self.cam_ref2,
-					FixedInt.Mul(
-						FixedInt.FromFloat(self.smoothing_speed), 
-						FixedInt.FromFloat(SyncManager.tick_time)
-					)
-				)
-		return
-	if self.camera_fixed_position.DistanceSquaredTo(self.cam_ref1) \
-			<= self.camera_fixed_position.DistanceSquaredTo(self.cam_ref2):
-		self.camera_fixed_position = \
-			FixedVector3.Lerp(
-				self.camera_fixed_position, 
-				self.cam_ref1, 
-				FixedInt.Mul(
-					FixedInt.FromFloat(self.smoothing_speed),
-					FixedInt.FromFloat(SyncManager.tick_time)
-				)
-			)
-	else:
-		self.camera_fixed_position = \
-			FixedVector3.Lerp(
-				self.camera_fixed_position, 
-				self.cam_ref2,
-				FixedInt.Mul(
-					FixedInt.FromFloat(self.smoothing_speed), 
-					FixedInt.FromFloat(SyncManager.tick_time)
-				)
-			)
+# func lerp_to_intended_position() -> void:
+# 	if self.camera_fixed_position.DistanceSquaredTo(self.cam_ref1) \
+# 			>= self.camera_fixed_position.DistanceSquaredTo(self.cam_ref2):
+# 		self.camera_fixed_position = \
+# 			FixedVector3.Lerp(
+# 				self.camera_fixed_position, 
+# 				self.cam_ref1, 
+# 				FixedInt.Mul(
+# 					FixedInt.FromFloat(self.smoothing_speed),
+# 					FixedInt.FromFloat(SyncManager.tick_time)
+# 				)
+# 			)
+# 	else:
+# 		self.camera_fixed_position = \
+# 			FixedVector3.Lerp(
+# 				self.camera_fixed_position, 
+# 				self.cam_ref2,
+# 				FixedInt.Mul(
+# 					FixedInt.FromFloat(self.smoothing_speed), 
+# 					FixedInt.FromFloat(SyncManager.tick_time)
+# 				)
+# 			)
 
 func _process(_delta: float) -> void:	
-	# self.camera.global_rotation = Vector3(0,0,0)
-	var target: FixedVector3 = FixedVector3.NewFromFixedVec3(self.fixed_position)
-	target.y += FixedInt.FromFloat(0.75)
-	self.camera.look_at(FixedVector3.ToVec3(target))
+	var target: Vector3 = Vector3(self.global_position)
+	target.y += 0.75
+	self.p1_camera.look_at(target)
+	self.p2_camera.look_at(target)
 
 # needs conversion to fixedint
 func get_char_position(char_position: Vector3) -> int:
 
-	var inc_position: Vector2 = self.camera.unproject_position(char_position)
+	var inc_position: Vector2 = get_viewport().get_camera_3d().unproject_position(char_position)
 
 	if inc_position == self.p1_screen_pos:
 		if self.p1_screen_pos.x < self.p2_screen_pos.x:

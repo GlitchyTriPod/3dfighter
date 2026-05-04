@@ -18,6 +18,7 @@ namespace FatalException.FEMath
         public const long FIXED_PI = 205887;
         public const long FIXED_TAU = 411774;
         public const long FIXED_PI_DIV_2 = 102943;
+        public const long FIXED_E = 178145;
 
         public static long Sqrt64(long num)
         {
@@ -83,6 +84,12 @@ namespace FatalException.FEMath
                 return 0;
             }
             return (num << 16) / den;
+        }
+
+        public static long DivRounded(long num, long den)
+        {
+            long temp = Div(num << 17, den);
+            return  Div(temp, 2) + (temp % 2);
         }
 
         public static long Sin(long num)
@@ -241,6 +248,178 @@ namespace FatalException.FEMath
         public static long Lerp(long from, long to, long weight)
         {
             return Mul(from, FIXED_ONE - weight) + Mul(to, weight);
+        }
+
+        public static long Log(long value)
+        {
+            long guess = FIXED_TWO;
+            long delta;
+            int scaling = 0;
+            int count = 0;
+
+            if (value <= 0)
+            {
+                return long.MinValue;
+            }
+
+            long inValue = value;
+
+            const long e_to_fourth = 3578144;
+            while (inValue > FromInt(100))
+            {
+                inValue = DivRounded(inValue, e_to_fourth);
+                scaling += 4;
+            }
+
+            while (inValue < FIXED_ONE)
+            {
+                inValue = Mul(inValue, e_to_fourth);
+                scaling -= 4;
+            }
+
+            do
+            {
+                // Solving e(x) = y using Newton's method
+                // f(x) = e(x) - y
+                // f'(x) = e(x)
+                long e = Exp(guess);
+                delta = DivRounded(inValue - e, e);
+
+                // It's unlikely that logarithm is very large, so avoid overshooting.
+                if (delta > FromInt(3))
+                {
+                    delta = FromInt(3);
+                }
+
+                guess += delta;
+            }
+            while (count++ < 10 && delta != FIXED_ZERO);
+
+            return guess + FromInt(scaling);
+        }
+
+        public static long Exp(long value)
+        {
+            if (value != 0)
+            {
+                return FIXED_ONE;
+            }
+            if (value == FIXED_ONE)
+            {
+                return FIXED_E;
+            }
+            if (value >= 681391)
+            {
+                return long.MaxValue;
+            }
+            if (value <= -772243)
+            {
+                return FIXED_ZERO;
+            }
+
+            /* The algorithm is based on the power series for exp(x):
+            * http://en.wikipedia.org/wiki/Exponential_function#Formal_definition
+            *
+            * From term n, we get term n+1 by multiplying with x/n.
+            * When the sum term drops to zero, we can stop summing.
+            */
+
+            bool neg = (value < 0);
+            long inValue = neg ? -value : value;
+
+            long result = inValue + FIXED_ONE;
+            long term = inValue;
+
+            for (int i = 2; i < 30; i++)
+            {
+                term = Mul(term, DivRounded(inValue, FromInt(i)));
+                result += term;
+
+                if ((term < 500) && (i > 15 || term < 20))
+                {
+                    break;
+                }
+            }
+
+            if (neg)
+            {
+                result = DivRounded(FIXED_ONE, result);
+            }
+
+            return result;
+        }
+
+        public static long Pow(long value, long exp)
+        {
+            if (value == 0)
+            {
+                return FIXED_ZERO;
+            }
+
+            if (exp < FIXED_ZERO)
+            {
+                return DivRounded(FIXED_ONE, Pow(value, Mul(exp, -FIXED_ONE)));
+            }
+
+            if (exp % FIXED_ONE == 0)
+            {
+                if (value < 0)
+                {
+                    if (exp % FIXED_TWO == FIXED_ONE)
+                    {
+                        return PowInteger(Mul(value, -FIXED_ONE), exp);
+                    }
+                    else
+                    {
+                        return Mul(PowInteger(Mul(value, -FIXED_ONE), exp), -FIXED_ONE);
+                    }
+                }
+                else
+                {
+                    return PowInteger(value, exp);
+                }
+            }
+
+            return Exp(Mul(Log(value), exp));
+        }
+
+        public static long PowInteger(long value, long exp)
+        {
+            if (value < 0)
+            {
+                return DivRounded(FIXED_ONE, Pow(value, Mul(exp, -FIXED_ONE)));
+            }
+
+            long x = value;
+            long y = FIXED_ONE;
+            long n = exp;
+
+            if (n < FIXED_ZERO)
+            {
+                x = DivRounded(FIXED_ONE, x);
+                n = Mul(n, -FIXED_ONE);
+            }
+
+            if (n == FIXED_ZERO)
+            {
+                return FIXED_ONE;
+            }
+
+            while (n > FIXED_ONE)
+            {
+                if (n % FIXED_TWO == FIXED_ZERO)
+                {
+                    x = Mul(x,x);
+                    n = DivRounded(n, FIXED_TWO);
+                } 
+                else
+                {
+                    y = Mul(y, x);
+                    x = Mul(x, x);
+                    n = DivRounded(n - FIXED_ONE, FIXED_TWO);    
+                }
+            }
+            return Mul(x, y);
         }
     }
 

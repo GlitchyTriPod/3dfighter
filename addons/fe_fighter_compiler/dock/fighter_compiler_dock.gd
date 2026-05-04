@@ -54,8 +54,8 @@ func load_movelist_data() -> void:
 	for n: Node in %MoveListView.get_child(0).get_children():
 		n.queue_free()
 	
-	for i: int in self.fighter.movelist.move_list.size():
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(i))
+	for i: String in self.fighter.movelist.move_list:
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(i)
 		self.add_movelist_item(move)
 	
 	for key: String in self.fighter.movelist.move_list:

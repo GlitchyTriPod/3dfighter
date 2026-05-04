@@ -1138,43 +1138,61 @@ hitbox_data = {
 },
 "shapes": [{
 "attack_height": 2,
+"frame_end": 22,
 "frame_range": {
 "end": 22,
 "start": 20
 },
+"frame_start": 20,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
 "position": SubResource("Resource_v5pwb"),
 "radius": 20316,
-"unblockable": false
+"sphere_radius": 20316,
+"unblockable": false,
+"x_pos": 0,
+"y_pos": 13762,
+"z_pos": 75366
 }, {
 "attack_height": 2,
+"frame_end": 22,
 "frame_range": {
 "end": 22,
 "start": 20
 },
+"frame_start": 20,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
 "position": SubResource("Resource_w7baa"),
 "radius": 25559,
-"unblockable": false
+"sphere_radius": 25559,
+"unblockable": false,
+"x_pos": -20316,
+"y_pos": 19660,
+"z_pos": 62259
 }, {
 "attack_height": 2,
+"frame_end": 22,
 "frame_range": {
 "end": 22,
 "start": 20
 },
+"frame_start": 20,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
 "position": SubResource("Resource_0ivfs"),
 "radius": 25559,
-"unblockable": false
+"sphere_radius": 25559,
+"unblockable": false,
+"x_pos": 20971,
+"y_pos": 19660,
+"z_pos": 62259
 }]
 }
 hurtbox_data = {
