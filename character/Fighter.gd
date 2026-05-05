@@ -118,12 +118,10 @@ func _ready() -> void:
 			for nde: FECollisionShape in self._debug_hitbox_pool:
 				nde.shape_owner = self.get_path()
 				%MiscHitboxPool.add_child(nde)
-				nde.add_to_group("Player1Hitbox" if self.player == 0 else "Player2Hitbox")
 			
 			for nde: FECollisionShape in self._debug_hurtbox_pool:
 				nde.shape_owner = self.get_path()
 				%MiscHurtboxPool.add_child(nde)
-				nde.add_to_group("Player1Hurtbox" if self.player == 0 else "Player2Hurtbox")
 
 		self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		self.anim_player.playback_default_blend_time = 0.1
@@ -214,6 +212,8 @@ func process_animation_hitboxes() -> void:
 		for h_b: Dictionary in atk.hitbox_data["shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
+			if !h_b.has("is_hitbox"):
+				h_b["is_hitbox"] = true
 			# h_b["is_hitbox"] = true
 			hitbox_data.append(h_b)
 
@@ -221,6 +221,9 @@ func process_animation_hitboxes() -> void:
 		for h_b: Dictionary in atk.hurtbox_data["shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
+			
+			if !h_b.has("is_hitbox"):
+				h_b["is_hitbox"] = false
 			# h_b["is_hitbox"] = false
 			hurtbox_data.append(h_b)
 	
@@ -231,35 +234,15 @@ func process_animation_hitboxes() -> void:
 
 	### Debug only ###
 	if OS.has_feature("show_hitboxes"):
-		for shape: Dictionary in hurtbox_data + hitbox_data:
-			var hurtbox: FECollisionData = FECollisionData.new()
-			if shape.get("is_hitbox"):
-				hurtbox.is_hitbox = true
-			hurtbox.fixed_position = FixedVector3.Add(
-				shape.position.Rotated(
-					self.collision_body.fixed_rotation.y, 
-					FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0)
-				),
-				FixedVector3.NewFromInt(
-					self.collision_body.fixed_position.x,
-					0, 
-					self.collision_body.fixed_position.z
-				)
-			)
-			hurtbox.fixed_sphere_radius = shape.radius
-			if shape.has("body_part"):
-				hurtbox.body_part = shape.body_part
+		for shape: FECollisionData in self.misc_hitbox_pool + self.misc_hurtbox_pool:
+			var h_b: FECollisionShape
+			if shape.is_hitbox:
+				h_b = self.get_debug_unused_hitbox()
 			else:
-				hurtbox.body_part = 0
-			if shape.has("animation_name"):
-				hurtbox.hitbox_attack_name = shape.animation_name
-			hurtbox.enabled = true
+				h_b = self.get_debug_unused_hurtbox()
+			h_b.copy_collision_data(shape)
 
-			var h_b: FECollisionShape = self.get_debug_unused_hurtbox() if \
-				!hurtbox.is_hitbox else \
-				self.get_debug_unused_hitbox()
-			h_b.copy_collision_data(hurtbox)
-	#################
+	# #################
 
 func get_animation_hurtboxes() -> Array:
 	var boxes: Array = self.animation_hurtbox_data.dict.get(
@@ -508,29 +491,24 @@ func is_tracking_opponent() -> bool:
 		return true
 	return false
 
-func get_misc_unused_hitbox() -> Variant:
-	for i: FECollisionData in self.misc_hitbox_pool:
-		if !i.enabled:
-			return i
-	return
-
-func get_misc_unused_hurtbox() -> Variant:
-	for i: FECollisionData in self.misc_hurtbox_pool:
-		if !i.enabled:
-			return i
-	return
-
 func get_debug_unused_hitbox() -> Variant:
 	for i: FECollisionShape in self._debug_hitbox_pool:
 		if !i.enabled:
 			return i
-	return
+	var new: FECollisionShape = FECollisionShape.new()
+	new.is_hitbox = true
+	self._debug_hitbox_pool.append(new)
+	%MiscHitboxPool.add_child(new)
+	return new
 
 func get_debug_unused_hurtbox() -> Variant:
 	for i: FECollisionShape in self._debug_hurtbox_pool:
 		if !i.enabled:
 			return i
-	return
+	var new: FECollisionShape = FECollisionShape.new()
+	self._debug_hurtbox_pool.append(new)
+	%MiscHurtboxPool.add_child(new)
+	return new
 
 ### LISTENERS ###
 

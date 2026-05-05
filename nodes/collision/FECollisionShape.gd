@@ -61,13 +61,17 @@ func _ready() -> void:
 	self.collide_with_areas = false
 	self.collide_with_bodies = false
 
-	self.debug_shape_custom_color = Color.WHITE if self.is_hitbox == false else Color.MAGENTA
+	#self.debug_shape_custom_color #= #Color.WHITE if self.is_hitbox == false else Color.MAGENTA
 	self.set_collision_mask_value(1, false)
 
 # called every frame, only useful for visualization
 func _process(_delta: float) -> void:
-	if OS.has_feature("show_hitboxes"):
-		self.visible = self.enabled
+	if !Engine.is_editor_hint() && OS.has_feature("show_hitboxes"):
+			self.visible = self.enabled
+			# if self.is_hitbox:
+			# 	self.debug_shape_custom_color = Color.MAGENTA
+			# else:
+			# 	self.debug_shape_custom_color = Color.WHITE
 
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
 func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> int:
@@ -82,7 +86,8 @@ func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> int:
 
 func copy_collision_data(collision_data: FECollisionData) -> void:
 	self.enabled = collision_data.enabled
-	self.fixed_position = collision_data.fixed_position
+	self.body_part = collision_data.body_part
+	self.position = FixedVector3.ToVec3(collision_data.fixed_position)
 	self.fixed_sphere_radius = collision_data.fixed_sphere_radius
 	self.hitbox_attack_name = collision_data.hitbox_attack_name
 	self.is_hitbox = collision_data.is_hitbox

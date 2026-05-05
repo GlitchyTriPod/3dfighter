@@ -14,6 +14,10 @@ func _ready() -> void:
 
 	self.add_to_group("network_sync")
 
+func _process(_delta: float) -> void:
+	if !Engine.is_editor_hint():
+		self.debug_shape_custom_color = Color.GREEN
+
 func is_on_floor(floor_height: int) -> bool:
 	var rem: int = self.fixed_position.y - self.fixed_sphere_radius
 	return rem <= floor_height
