@@ -944,6 +944,17 @@ recovery_ref = "Ref/idle"
 no_input = true
 
 [sub_resource type="Resource" id="Resource_75tm3"]
+script = ExtResource("2_cb3ny")
+x = -1966
+y = 89128
+z = 58982
+
+[sub_resource type="Resource" id="Resource_mkwg0"]
+script = ExtResource("2_cb3ny")
+y = 39321
+z = 46530
+
+[sub_resource type="Resource" id="Resource_vhnyk"]
 script = ExtResource("1_3esc5")
 move_name = "5P"
 input_di_map = [0]
@@ -957,13 +968,41 @@ hitbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
-}
+},
+"shapes": [{
+"attack_height": 0,
+"frame_range": {
+"end": 12,
+"start": 10
+},
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": false,
+"is_punch": true,
+"position": SubResource("Resource_75tm3"),
+"radius": 10485,
+"unblockable": false
+}]
 }
 hurtbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
-}
+},
+"shapes": [{
+"attack_height": 0,
+"frame_range": {
+"end": 999,
+"start": 0
+},
+"is_grab": false,
+"is_hitbox": false,
+"is_kick": false,
+"is_punch": false,
+"position": SubResource("Resource_mkwg0"),
+"radius": 17694,
+"unblockable": false
+}]
 }
 player_states = {
 "counterable": {
@@ -981,7 +1020,12 @@ player_states = {
 }
 recovery_ref = "Ref/idle"
 
-[sub_resource type="Resource" id="Resource_mkwg0"]
+[sub_resource type="Resource" id="Resource_y5tgx"]
+script = ExtResource("2_cb3ny")
+y = 54394
+z = 61603
+
+[sub_resource type="Resource" id="Resource_v5pwb"]
 script = ExtResource("1_3esc5")
 move_name = "2P"
 input_di_map = [5]
@@ -995,7 +1039,21 @@ hitbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
-}
+},
+"shapes": [{
+"attack_height": 4,
+"frame_range": {
+"end": 12,
+"start": 10
+},
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": false,
+"is_punch": true,
+"position": SubResource("Resource_y5tgx"),
+"radius": 9830,
+"unblockable": false
+}]
 }
 hurtbox_data = {
 "frame_range": {
@@ -1023,7 +1081,19 @@ player_states = {
 }
 recovery_ref = "Ref/idle_crouch"
 
-[sub_resource type="Resource" id="Resource_vhnyk"]
+[sub_resource type="Resource" id="Resource_w7baa"]
+script = ExtResource("2_cb3ny")
+x = 5898
+y = 66191
+z = 62259
+
+[sub_resource type="Resource" id="Resource_0ivfs"]
+script = ExtResource("2_cb3ny")
+x = 13762
+y = 62914
+z = 47841
+
+[sub_resource type="Resource" id="Resource_5wc0q"]
 script = ExtResource("1_3esc5")
 move_name = "3P"
 input_di_map = [4]
@@ -1037,7 +1107,34 @@ hitbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
-}
+},
+"shapes": [{
+"attack_height": 1,
+"frame_range": {
+"end": 17,
+"start": 15
+},
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": false,
+"is_punch": true,
+"position": SubResource("Resource_w7baa"),
+"radius": 11141,
+"unblockable": false
+}, {
+"attack_height": 1,
+"frame_range": {
+"end": 17,
+"start": 15
+},
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": false,
+"is_punch": true,
+"position": SubResource("Resource_0ivfs"),
+"radius": 12451,
+"unblockable": false
+}]
 }
 hurtbox_data = {
 "frame_range": {
@@ -1061,7 +1158,12 @@ player_states = {
 }
 recovery_ref = "Ref/idle"
 
-[sub_resource type="Resource" id="Resource_y5tgx"]
+[sub_resource type="Resource" id="Resource_ll7r6"]
+script = ExtResource("2_cb3ny")
+y = 15073
+z = 85196
+
+[sub_resource type="Resource" id="Resource_ysrka"]
 script = ExtResource("1_3esc5")
 move_name = "2K"
 input_di_map = [5]
@@ -1075,7 +1177,21 @@ hitbox_data = {
 "frame_range": {
 "end": -1,
 "start": -1
-}
+},
+"shapes": [{
+"attack_height": 2,
+"frame_range": {
+"end": 17,
+"start": 15
+},
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": true,
+"is_punch": false,
+"position": SubResource("Resource_ll7r6"),
+"radius": 15073,
+"unblockable": false
+}]
 }
 hurtbox_data = {
 "frame_range": {
@@ -1103,24 +1219,24 @@ player_states = {
 }
 recovery_ref = "Ref/idle_crouch"
 
-[sub_resource type="Resource" id="Resource_v5pwb"]
+[sub_resource type="Resource" id="Resource_esu6j"]
 script = ExtResource("2_cb3ny")
 y = 13762
 z = 75366
 
-[sub_resource type="Resource" id="Resource_w7baa"]
+[sub_resource type="Resource" id="Resource_i3vrb"]
 script = ExtResource("2_cb3ny")
 x = -20316
 y = 19660
 z = 62259
 
-[sub_resource type="Resource" id="Resource_0ivfs"]
+[sub_resource type="Resource" id="Resource_guade"]
 script = ExtResource("2_cb3ny")
 x = 20971
 y = 19660
 z = 62259
 
-[sub_resource type="Resource" id="Resource_5wc0q"]
+[sub_resource type="Resource" id="Resource_56s85"]
 script = ExtResource("1_3esc5")
 move_name = "2K+A"
 input_di_map = [5]
@@ -1138,61 +1254,43 @@ hitbox_data = {
 },
 "shapes": [{
 "attack_height": 2,
-"frame_end": 22,
 "frame_range": {
 "end": 22,
 "start": 20
 },
-"frame_start": 20,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
-"position": SubResource("Resource_v5pwb"),
+"position": SubResource("Resource_esu6j"),
 "radius": 20316,
-"sphere_radius": 20316,
-"unblockable": false,
-"x_pos": 0,
-"y_pos": 13762,
-"z_pos": 75366
+"unblockable": false
 }, {
 "attack_height": 2,
-"frame_end": 22,
 "frame_range": {
 "end": 22,
 "start": 20
 },
-"frame_start": 20,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
-"position": SubResource("Resource_w7baa"),
+"position": SubResource("Resource_i3vrb"),
 "radius": 25559,
-"sphere_radius": 25559,
-"unblockable": false,
-"x_pos": -20316,
-"y_pos": 19660,
-"z_pos": 62259
+"unblockable": false
 }, {
 "attack_height": 2,
-"frame_end": 22,
 "frame_range": {
 "end": 22,
 "start": 20
 },
-"frame_start": 20,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
 "is_punch": false,
-"position": SubResource("Resource_0ivfs"),
+"position": SubResource("Resource_guade"),
 "radius": 25559,
-"sphere_radius": 25559,
-"unblockable": false,
-"x_pos": 20971,
-"y_pos": 19660,
-"z_pos": 62259
+"unblockable": false
 }]
 }
 hurtbox_data = {
@@ -1217,7 +1315,7 @@ player_states = {
 }
 recovery_ref = "Ref/idle"
 
-[sub_resource type="Resource" id="Resource_ll7r6"]
+[sub_resource type="Resource" id="Resource_mivfj"]
 script = ExtResource("1_3esc5")
 move_name = "stagger_rl"
 input_di_map = [0]
@@ -1262,12 +1360,12 @@ move_list = {
 "20": SubResource("Resource_vnpyl"),
 "21": SubResource("Resource_qf73k"),
 "22": SubResource("Resource_o47sg"),
-"23": SubResource("Resource_75tm3"),
-"24": SubResource("Resource_mkwg0"),
-"25": SubResource("Resource_vhnyk"),
-"26": SubResource("Resource_y5tgx"),
-"27": SubResource("Resource_5wc0q"),
-"28": SubResource("Resource_ll7r6"),
+"23": SubResource("Resource_vhnyk"),
+"24": SubResource("Resource_v5pwb"),
+"25": SubResource("Resource_5wc0q"),
+"26": SubResource("Resource_ysrka"),
+"27": SubResource("Resource_56s85"),
+"28": SubResource("Resource_mivfj"),
 "3": SubResource("Resource_kgg6k"),
 "4": SubResource("Resource_xk686"),
 "5": SubResource("Resource_hjo88"),

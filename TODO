@@ -37,14 +37,15 @@ vvv
 
 5. Fighter creation tool
 	- hitbox assignment & viewer, string builder, move properties tool
-	- stances? <-- replace enum with state machine setup: more extensible
+	- stances? <-- replace enum with state machine setup: more extensible NOT EVEN LOL
 
 --->	CURRENT: Refactor Fighter.gd controller to use animations listed in the animationlibrary
 
 
 NEXT:	---> Need a "animation library compiler" -- must pre-bake velocity data into anims in order to cut reliability on GD root motion methods
+WOW IT NEEDED A LOT NMORE THAN THAT LOL
 
-
+DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 6. more animations
 	- launchers, juggles, bounds, wall stuns, knockdowns. throws

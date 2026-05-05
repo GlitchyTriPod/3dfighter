@@ -48,9 +48,7 @@ func bake_velocity_process() -> void:
 func update_progress_label(anim_name: String = "") -> void:
     var anim_list: PackedStringArray = self.anim_player.get_animation_list()
     var progress: int = anim_list.find(anim_name)
-    %ProgressLabel.text = "%s (%d/%d)" % [anim_name,
-        progress if progress != -1 else anim_list.size(), 
-        anim_list.size()]
+    %ProgressLabel.text = "%s (%d/%d)" % [anim_name, progress, anim_list.size()]
     %ProgressBar.value = progress
 
 ### LISTENERS ###
@@ -84,11 +82,12 @@ func _on_fighter_record_hurtbox_data(data: Array, anim_name: String, frame: int,
     hurtbox_data[anim_name][str(frame)] = data_min
 
 func _on_anim_player_current_animation_changed(anim_name: StringName) -> void:
-    self.update_progress_label(anim_name)
     if anim_name.is_empty():
         return
+    self.update_progress_label(anim_name)
     var anim: Animation = self.anim_player.get_animation(anim_name)
     if anim.loop_mode == Animation.LOOP_LINEAR:
+        self.looping_anims.append(anim_name)
         anim.loop_mode = Animation.LOOP_NONE
 
 func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Dictionary, hurtbox_data: Dictionary) -> void:
@@ -131,13 +130,13 @@ func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Di
         ResourceSaver.save(self.fighter.animation_hurtbox_data, "res://character/anim_data/%s_hurtbox.tres" % self.fighter.fighter_name)
         toaster.push_toast("Saved Hurtbox data to disk.")
 
-    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
-
+    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
     self.looping_anims.clear()
 
     %BakeButton.disabled = false
     %ExitButton.disabled = false
     %CheckBakeHitboxes.disabled = false
+    %ProgressBar.value = %ProgressBar.max_value
     $Label.text = "Bake complete!!!"
 
 func _on_bake_button_button_up() -> void:

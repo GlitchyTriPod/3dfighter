@@ -27,8 +27,8 @@ var is_hitbox: bool = false
 var hitbox_attack_index: int = -1
 var hitbox_attack_name: String = ""
 
-var fixed_position: FixedVector3
-var fixed_rotation: FixedVector3
+var fixed_position: FixedVector3 = FixedVector3.new()
+var fixed_rotation: FixedVector3 = FixedVector3.new()
 
 var final_position: FixedVector3
 

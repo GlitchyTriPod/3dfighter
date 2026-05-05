@@ -56,7 +56,7 @@ public partial class CameraMath : GodotObject
         long innerAngle = FixedInt.Acos(
             FixedInt.Div(
                 a + b - c,
-                FixedInt.Mul(2, FixedInt.Mul(a, b))
+                FixedInt.Mul(2, FixedInt.Mul(FixedInt.Sqrt64(a), FixedInt.Sqrt64(b)))
             )
         );
 

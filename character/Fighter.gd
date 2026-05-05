@@ -96,10 +96,6 @@ func _init() -> void:
 			var hurtbox: FECollisionShape = FECollisionShape.new()
 			hurtbox.enabled = false
 			self._debug_hurtbox_pool.append(hurtbox)
-	
-		# var hit: FECollisionData = FECollisionData.new()
-		# hit.is_hitbox = true
-		# self.misc_hitbox_pool.append(hit)
 
 	# if OS.has_feature("show_hitboxes"):
 		for i: int in range(0, 4, 1):
