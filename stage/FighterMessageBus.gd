@@ -65,5 +65,5 @@ func get_oppo_fixed_rotation(player: Fighter) -> FixedVector3:
 	return oppo.collision_body.fixed_rotation if oppo.collision_body != null \
 		else FixedVector3.new()
 
-func get_char_position(player_global_position: Vector3) -> int:
-	return self.game_camera.get_char_position(player_global_position)	
+func get_char_position(player: int) -> int:
+	return self.game_camera.get_char_position(player)	

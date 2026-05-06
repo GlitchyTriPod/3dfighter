@@ -50,9 +50,7 @@ var opponent_position: FixedVector3:
 var screen_position: int:
 	get:
 		return self.message_bus \
-			.get_char_position( \
-				FixedVector3.ToVec3(self.collision_body.fixed_position)
-			)
+			.get_char_position(self.player)
 
 @onready var collision_body: FEFighterCollisionBody = %CollisionBody
 
@@ -137,7 +135,6 @@ func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		if self.anim_player.current_animation.is_empty():
 			return
-
 
 		if self._velocity_bake_mode:
 			var vel: FixedVector3 = self.process_root_motion(FixedInt.FromFloat(1.0 / 60))
@@ -267,6 +264,16 @@ func process_hitbox_intersection() -> void:
 			hitbox.hitbox_attack_name == self.stun_reason.stun_name)): 
 			continue
 		
+		# Check for early break conditions here (high atk vs. crouching opp., etc.)
+		match hitbox.attack_height:
+			FECollisionData.ATTACK_HEIGHT.HIGH:
+				if self.states.has("crouching") || self.states.has("evade_high"):
+					continue
+			FECollisionData.ATTACK_HEIGHT.LOW, \
+			FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL:
+				if self.states.has("evade_low"):
+					continue
+
 		if hitbox.final_position == null:
 			hitbox.final_position = FixedVector3.Add(
 				hitbox.fixed_position.Rotated(
@@ -278,8 +285,6 @@ func process_hitbox_intersection() -> void:
 					enemy_position.z
 				)
 			)
-
-		# Check for early break conditions here (high atk vs. crouching opp., etc.)
 
 		for hurtbox: FECollisionData in self.misc_hurtbox_pool:
 			if !hurtbox.enabled:
@@ -299,18 +304,39 @@ func process_hitbox_intersection() -> void:
 			
 			if hurtbox.fixed_is_overlapping_with(hitbox) > 0:
 				# incoming hit detected!
+				var blocked: bool = false
+				if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) && \
+					(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.HIGH || \
+					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM || \
+					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
+					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
+					blocked = true
+				if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) && \
+					(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.LOW || \
+					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
+					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
+					blocked = true
+
 				self.process_hit(
 					hitbox.hitbox_attack_index, 
 					hitbox.hitbox_attack_name, 
-					self.message_bus.get_oppo_current_animation_id(self)
+					self.message_bus.get_oppo_current_animation_id(self),
+					blocked
 				)
 				return
 
-func process_hit(attack_index: int, animation_name: String, animation_id: String) -> void:
+func process_hit(attack_index: int, animation_name: String, animation_id: String, blocked: bool = false) -> void:
 	var enemy_anim_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, animation_id)
 
-	# TODO: Need to determine if this is a block or hit stun, currently only hitstun enabled
-	var stun_move: String = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
+	var stun_move: String
+
+	if blocked:
+		stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.block_animation)
+	else:
+		if self.states.has("counterable"):
+			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)
+		else:
+			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
 
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name

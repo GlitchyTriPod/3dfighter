@@ -105,18 +105,14 @@ func _process(_delta: float) -> void:
 	self.p2_camera.look_at(target)
 
 # needs conversion to fixedint
-func get_char_position(char_position: Vector3) -> int:
-
-	var inc_position: Vector2 = get_viewport().get_camera_3d().unproject_position(char_position)
-
-	if inc_position == self.p1_screen_pos:
+func get_char_position(player: int) -> int:
+	if player == 0:
 		if self.p1_screen_pos.x < self.p2_screen_pos.x:
-			return 1
-		else: return 2
-	else:
-		if self.p2_screen_pos.x < self.p1_screen_pos.x:
-			return 1
-		else: return 2
+			return 2
+		return 1
+	if self.p2_screen_pos.x < self.p1_screen_pos.x:
+		return 2
+	return 1
 
 func is_player_airborne() -> bool:
 	var chars: Array[Node] = get_parent().get_node("Chars").get_children()

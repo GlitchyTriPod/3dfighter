@@ -34,6 +34,7 @@ class_name FECollisionShape
 
 var hitbox_attack_index: int = -1
 var hitbox_attack_name: String = ""
+var attack_height: int = 0
 
 var velocity: FixedVector3 = FixedVector3.new()
 
@@ -68,10 +69,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint() && OS.has_feature("show_hitboxes"):
 			self.visible = self.enabled
-			# if self.is_hitbox:
-			# 	self.debug_shape_custom_color = Color.MAGENTA
-			# else:
-			# 	self.debug_shape_custom_color = Color.WHITE
 
 # Returns false if shapes are not overlapping. returns overlap distance if they are.
 func fixed_is_overlapping_with(inc_shape: FECollisionShape) -> int:
@@ -91,6 +88,7 @@ func copy_collision_data(collision_data: FECollisionData) -> void:
 	self.fixed_sphere_radius = collision_data.fixed_sphere_radius
 	self.hitbox_attack_name = collision_data.hitbox_attack_name
 	self.is_hitbox = collision_data.is_hitbox
+	self.attack_height = collision_data.attack_height
 	if self.is_hitbox:
 		self.debug_shape_custom_color = Color.MAGENTA
 	else:

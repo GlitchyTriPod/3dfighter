@@ -17,6 +17,14 @@ enum BODY_PART {
 	FOOT_R
 }
 
+enum ATTACK_HEIGHT {
+	HIGH,
+	MEDIUM,
+	LOW,
+	MEDIUM_SPECIAL,
+	LOW_SPECIAL
+}
+
 var fixed_sphere_radius: int = FixedIntGDConstant.FIXED_HALF
 
 var body_part: int = BODY_PART.NONE
@@ -26,6 +34,7 @@ var is_hitbox: bool = false
 # used to detect individual hit instances in multi-hit moves
 var hitbox_attack_index: int = -1
 var hitbox_attack_name: String = ""
+var attack_height: int = ATTACK_HEIGHT.HIGH
 
 var fixed_position: FixedVector3 = FixedVector3.new()
 var fixed_rotation: FixedVector3 = FixedVector3.new()
@@ -61,6 +70,8 @@ static func create_from_data(data: Variant) -> FECollisionData:
 		col_data.body_part = data["body_part"]
 	if data.has("animation_name"):
 		col_data.hitbox_attack_name = data["animation_name"]
+	if data.has("attack_height"):
+		col_data.attack_height = data["attack_height"]
 	col_data.fixed_position = data["position"]
 	col_data.enabled = true
 
@@ -78,6 +89,7 @@ func reset() -> void:
 	self.is_hitbox = is_hitbox
 	self.hitbox_attack_name = hitbox_attack_name
 	self.hitbox_attack_index = hitbox_attack_index
+	self.attack_height = ATTACK_HEIGHT.HIGH
 	self.fixed_position = null
 	self.fixed_rotation = null
 	self.enabled = false
