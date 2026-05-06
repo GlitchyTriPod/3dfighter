@@ -89,7 +89,7 @@ animation_velocity_data = ExtResource("4_dicru")
 animation_hurtbox_data = ExtResource("5_3jbgv")
 animation_library = ExtResource("7_18r77")
 
-[node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(1385852616) index="0" unique_id=1937584890]
+[node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(1764604690) index="0" unique_id=584738371]
 bones/1/position = Vector3(-0.0006799285, -0.0982314, 1.5292506)
 bones/1/rotation = Quaternion(0.06850157, 0.7532109, 0.65202224, 0.05336628)
 bones/4/position = Vector3(-0.18876514, 0.24023882, 0.65524465)
@@ -562,7 +562,7 @@ metadata/_custom_type_script = "uid://7pefdhcr1asv"
 [node name="AddonSpheres" type="Node3D" parent="." index="5" unique_id=2037840044]
 unique_name_in_owner = true
 
-[node name="AnimationPlayer" parent="." index="6" unique_id=85066067]
+[node name="AnimationPlayer" parent="." index="6" unique_id=884803343]
 active = false
 
 [node name="AnimationNameLabel" type="Label3D" parent="." index="7" unique_id=407016320]
