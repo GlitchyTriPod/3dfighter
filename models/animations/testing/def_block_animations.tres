@@ -1,0 +1,13 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://cviv8qqhngumm"]
+
+[ext_resource type="Animation" uid="uid://30qrxflrkp8w" path="res://models/animations/testing/def_block_h_1.res" id="1_7g6ks"]
+[ext_resource type="Animation" uid="uid://cun77n1diyoge" path="res://models/animations/testing/def_block_l_1.res" id="2_6xoda"]
+[ext_resource type="Animation" uid="uid://bpxsmikswfhmq" path="res://models/animations/testing/def_block_m_1.res" id="3_5ejhe"]
+
+[resource]
+resource_name = "def_block_animations"
+_data = {
+&"def_block_h_1": ExtResource("1_7g6ks"),
+&"def_block_l_1": ExtResource("2_6xoda"),
+&"def_block_m_1": ExtResource("3_5ejhe")
+}

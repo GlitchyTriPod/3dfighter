@@ -1,10 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dip4omawevgwd"]
+[gd_scene format=3 uid="uid://dip4omawevgwd"]
 
 [ext_resource type="Script" uid="uid://bydaq617qnup3" path="res://camera/GameCamera.gd" id="1_q3t33"]
 
-[node name="GameCamera" type="Node3D"]
+[node name="GameCamera" type="Node3D" unique_id=1802582179 groups=["network_sync"]]
 script = ExtResource("1_q3t33")
 
-[node name="ref1" type="Node3D" parent="."]
+[node name="Label3D" type="Label3D" parent="." unique_id=907634947]
+unique_name_in_owner = true
+visible = false
+billboard = 1
+text = "asdasda"
 
-[node name="ref2" type="Node3D" parent="."]
+[node name="P1Camera" type="Camera3D" parent="." unique_id=560416218]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.595, 0, 0)
+projection = 2
+fov = 40.0
+near = 1.245
+
+[node name="P2Camera" type="Camera3D" parent="." unique_id=1801883165]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.595, 0, 0)
+projection = 2
+near = 1.245

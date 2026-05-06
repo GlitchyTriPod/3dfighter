@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://4cuc0xlspvhl"]
+
+[ext_resource type="Script" uid="uid://bxskp1f5gk47o" path="res://addons/fe_fighter_compiler/dock/bake_velocity_menu.gd" id="1_eyxhj"]
+
+[node name="BakeVelocityMenu" type="VBoxContainer" unique_id=2097539513]
+script = ExtResource("1_eyxhj")
+
+[node name="ProgressLabel" type="Label" parent="." unique_id=858622056]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1588640546]
+unique_name_in_owner = true
+layout_mode = 2
+step = 1.0
+
+[node name="Label" type="RichTextLabel" parent="." unique_id=1616813749]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=732962256]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 44
+
+[node name="BakeButton" type="Button" parent="HBoxContainer" unique_id=1088954391]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bake Animation Velocities"
+
+[node name="ExitButton" type="Button" parent="HBoxContainer" unique_id=1736349024]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit"
+
+[node name="CheckBakeHitboxes" type="CheckBox" parent="." unique_id=853470875]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bake Skeleton Hitboxes"
+
+[connection signal="button_up" from="HBoxContainer/BakeButton" to="." method="_on_bake_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/ExitButton" to="." method="_on_exit_button_button_up"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://3nasqljy0y06"]
+[gd_scene format=3 uid="uid://3nasqljy0y06"]
 
 [ext_resource type="Environment" uid="uid://dalka1ns5gnl0" path="res://test_env.tres" id="1_cutdu"]
 [ext_resource type="Script" uid="uid://du4vguhn7pqyl" path="res://stage/Stage.gd" id="1_u2wdh"]
@@ -21,24 +21,20 @@ shader_parameter/color_depth = 3
 shader_parameter/dithering = true
 shader_parameter/resolution_scale = 3
 
-[node name="Stage" type="Node3D"]
+[node name="Stage" type="Node3D" unique_id=1275674766]
+physics_interpolation_mode = 2
 script = ExtResource("1_u2wdh")
 
-[node name="InputListener" type="Node" parent="." groups=["network_sync"]]
+[node name="InputListener" type="Node" parent="." unique_id=177585175 groups=["network_sync"]]
 script = ExtResource("2_a83cb")
 
-[node name="GameCamera" parent="." instance=ExtResource("7_6gy14")]
-camera_node = NodePath("../Camera3D2")
+[node name="GameCamera" parent="." unique_id=1718671065 instance=ExtResource("7_6gy14")]
 
-[node name="Camera3D2" type="Camera3D" parent="."]
-current = true
-fov = 40.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=337824286]
 environment = ExtResource("1_cutdu")
 camera_attributes = SubResource("CameraAttributesPhysical_1pahf")
 
-[node name="GridMap" type="GridMap" parent="."]
+[node name="GridMap" type="GridMap" parent="." unique_id=2791299]
 mesh_library = ExtResource("3_yjwoe")
 cell_center_y = false
 data = {
@@ -46,30 +42,30 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1801477845]
 transform = Transform3D(0.233027, -0.205179, 0.950579, 0.0488517, 0.978724, 0.199279, -0.971242, 0, 0.238093, 6.37969, 3.31867, 2.47637)
 visible = false
 light_color = Color(1, 0.952941, 0.976471, 1)
 shadow_bias = 0.0
 directional_shadow_mode = 0
 
-[node name="PostProcessing" type="MeshInstance3D" parent="."]
+[node name="PostProcessing" type="MeshInstance3D" parent="." unique_id=514487780]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.61555, 0)
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("BoxMesh_obluc")
 surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 
-[node name="Chars" type="Node3D" parent="."]
+[node name="Chars" type="Node3D" parent="." unique_id=419843519]
 unique_name_in_owner = true
 
-[node name="atro4" parent="Chars" instance=ExtResource("7_gxuj5")]
+[node name="atro4" parent="Chars" unique_id=291528455 instance=ExtResource("7_gxuj5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2985727)
+
+[node name="atro5" parent="Chars" unique_id=1884374165 instance=ExtResource("7_gxuj5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.995018e-08, 0, 1.2452707)
 player = 1
 
-[node name="atro5" parent="Chars" instance=ExtResource("7_gxuj5")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.995018e-08, 0, 1.2452707)
-
-[node name="debugCamera" type="Camera3D" parent="."]
+[node name="debugCamera" type="Camera3D" parent="." unique_id=902002015]
 visible = false
 script = ExtResource("9_cqpjc")

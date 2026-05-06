@@ -1,0 +1,231 @@
+[gd_scene format=3 uid="uid://htj3jlcx7ibc"]
+
+[ext_resource type="Script" uid="uid://dkhqk58bc4j2s" path="res://addons/fe_fighter_compiler/dock/hitbox_menu.gd" id="1_j6re0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6re0"]
+bg_color = Color(0.38, 0.0456, 0.0456, 1)
+
+[node name="HitboxMenu" type="GridContainer" unique_id=1448852718]
+offset_right = 452.0
+offset_bottom = 231.0
+columns = 2
+script = ExtResource("1_j6re0")
+
+[node name="radius" type="HBoxContainer" parent="." unique_id=354035226]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="radius" unique_id=146222813]
+layout_mode = 2
+text = "Sphere radius: "
+
+[node name="radiusVal" type="SpinBox" parent="radius" unique_id=1682720472]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -65536.0
+max_value = 65536.0
+step = 0.01
+allow_greater = true
+
+[node name="framestart" type="HBoxContainer" parent="." unique_id=1583110774]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="framestart" unique_id=1756086251]
+layout_mode = 2
+text = "Frame Start: "
+
+[node name="FrameStartVal" type="SpinBox" parent="framestart" unique_id=553625278]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 2147483647.0
+allow_greater = true
+
+[node name="xpos" type="HBoxContainer" parent="." unique_id=1905742591]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="xpos" unique_id=559173285]
+layout_mode = 2
+text = "X position: "
+
+[node name="XposVal" type="SpinBox" parent="xpos" unique_id=1264604897]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -65536.0
+max_value = 65536.0
+step = 0.01
+allow_greater = true
+
+[node name="frameend" type="HBoxContainer" parent="." unique_id=914300187]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="frameend" unique_id=274925490]
+layout_mode = 2
+text = "Frame end: "
+
+[node name="FrameEndVal" type="SpinBox" parent="frameend" unique_id=1316195196]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 2147483647.0
+allow_greater = true
+
+[node name="ypos" type="HBoxContainer" parent="." unique_id=551899859]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ypos" unique_id=1341446277]
+layout_mode = 2
+text = "Y position: "
+
+[node name="YposVal" type="SpinBox" parent="ypos" unique_id=1675441553]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -65536.0
+max_value = 65536.0
+step = 0.01
+allow_greater = true
+
+[node name="attackheight" type="HBoxContainer" parent="." unique_id=416393733]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="attackheight" unique_id=2098197218]
+layout_mode = 2
+text = "Attack Height: "
+
+[node name="AttackHeightVal" type="OptionButton" parent="attackheight" unique_id=387913478]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "High"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Low"
+popup/item_2/id = 2
+popup/item_3/text = "Sp. Medium"
+popup/item_3/id = 3
+popup/item_4/text = "Sp. Low"
+popup/item_4/id = 4
+
+[node name="zpos" type="HBoxContainer" parent="." unique_id=1506739507]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="zpos" unique_id=553408314]
+layout_mode = 2
+text = "Z position: "
+
+[node name="ZposVal" type="SpinBox" parent="zpos" unique_id=981027249]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -65536.0
+max_value = 65536.0
+step = 0.01
+allow_greater = true
+
+[node name="unblock" type="HBoxContainer" parent="." unique_id=2034984047]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="unblock" unique_id=346447067]
+layout_mode = 2
+text = "Unblockable: "
+
+[node name="UnblockableVal" type="CheckBox" parent="unblock" unique_id=939544555]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="punch" type="HBoxContainer" parent="." unique_id=323323753]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="punch" unique_id=769494625]
+layout_mode = 2
+text = "Is Punch?: "
+
+[node name="IsPunchVal" type="CheckBox" parent="punch" unique_id=1315392064]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="kick" type="HBoxContainer" parent="." unique_id=1695676613]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="kick" unique_id=113063756]
+layout_mode = 2
+text = "Is Kick?: "
+
+[node name="IsKickVal" type="CheckBox" parent="kick" unique_id=1018505809]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="grab" type="HBoxContainer" parent="." unique_id=523583021]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="grab" unique_id=407307681]
+layout_mode = 2
+text = "Is Grab?: "
+
+[node name="IsGrabVal" type="CheckBox" parent="grab" unique_id=381153523]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1023130209]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1789169843]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="." unique_id=1019893030]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="." unique_id=1826285287]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Confirm
+"
+
+[node name="Cancel" type="Button" parent="." unique_id=1382482431]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Cancel"
+
+[node name="MarginContainer4" type="MarginContainer" parent="." unique_id=97304575]
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="." unique_id=831877024]
+custom_minimum_size = Vector2(0, 23.645)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=42957677]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=536284]
+layout_mode = 2
+text = "Confirm Deletion:"
+
+[node name="ConfirmDeleteCheck" type="CheckBox" parent="HBoxContainer" unique_id=1476655673]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DeleteHitboxButton" type="Button" parent="." unique_id=1736523688]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_j6re0")
+disabled = true
+text = "Delete Hitbox"
+
+[connection signal="update_sphere" from="." to="." method="_on_update_sphere"]
+[connection signal="value_changed" from="radius/radiusVal" to="." method="_on_radius_val_value_changed"]
+[connection signal="value_changed" from="framestart/FrameStartVal" to="." method="_on_frame_start_val_value_changed"]
+[connection signal="value_changed" from="xpos/XposVal" to="." method="_on_xpos_val_value_changed"]
+[connection signal="value_changed" from="frameend/FrameEndVal" to="." method="_on_frame_end_val_value_changed"]
+[connection signal="value_changed" from="ypos/YposVal" to="." method="_on_ypos_val_value_changed"]
+[connection signal="item_selected" from="attackheight/AttackHeightVal" to="." method="_on_attack_height_val_item_selected"]
+[connection signal="value_changed" from="zpos/ZposVal" to="." method="_on_zpos_val_value_changed"]
+[connection signal="toggled" from="unblock/UnblockableVal" to="." method="_on_unblockable_val_toggled"]
+[connection signal="toggled" from="punch/IsPunchVal" to="." method="_on_is_punch_val_toggled"]
+[connection signal="toggled" from="kick/IsKickVal" to="." method="_on_is_kick_val_toggled"]
+[connection signal="toggled" from="grab/IsGrabVal" to="." method="_on_is_grab_val_toggled"]
+[connection signal="button_up" from="Confirm" to="." method="_on_confirm_button_up"]
+[connection signal="button_up" from="Cancel" to="." method="_on_cancel_button_up"]
+[connection signal="toggled" from="HBoxContainer/ConfirmDeleteCheck" to="." method="_on_confirm_delete_check_toggled"]
+[connection signal="button_up" from="DeleteHitboxButton" to="." method="_on_delete_hitbox_button_button_up"]

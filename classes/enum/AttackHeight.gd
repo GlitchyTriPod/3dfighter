@@ -1,0 +1,7 @@
+enum ATTACK_HEIGHT {
+    HIGH,
+    MEDIUM,
+    LOW,
+    MEDIUM_SPECIAL,
+    LOW_SPECIAL
+}

@@ -3,18 +3,24 @@ class_name InputInterpreter
 
 var input_history : Array = []
 
-func read_input(history := 0) -> Array: # <- fix this to evaluate if input frame_start matches or exceeds current_tick???
+enum BUTTON_FLAGS {
+	P = 0x01,
+	K = 0x02,
+	A = 0x04
+}
+
+func read_input(history: int = 0) -> Array[Dictionary]: 
 	if history == 0:
 		return [self.input_history.back()] # temp
-	var inputs = []
-	for i in range(clamp(self.input_history.size() - history, 0, 100), self.input_history.size()):
+	var inputs: Array[Dictionary] = []
+	for i: int in range(clamp(self.input_history.size() - history, 0, 100), self.input_history.size()):
 		inputs.push_front(self.input_history[i])
 	return inputs
 
-func interpret_input(input: Dictionary, screen_position: String):
+func interpret_input(input: Dictionary, screen_position: int) -> void:
 	
-	var di = ""
-	var button = ""
+	var di: String = ""
+	var button: String = ""
 
 	# check directional input
 	if input.has("input_directional"):
@@ -24,12 +30,12 @@ func interpret_input(input: Dictionary, screen_position: String):
 			di += "U"
 
 		if input["input_directional"].x == 1:
-			if screen_position == "LEFT":
+			if screen_position == 1:
 				di += "B"
 			else:
 				di += "F"
 		elif input["input_directional"].x == -1:
-			if screen_position == "LEFT":
+			if screen_position == 1:
 				di += "F"
 			else:
 				di += "B"
@@ -49,53 +55,45 @@ func interpret_input(input: Dictionary, screen_position: String):
 	if button == "":
 		button += "N"
 
+	# TODO: turn this into a bit mask
+	var ret_di: int
 	match di:
 		"N":
-			di = Fighter.DI_STATE.NEUTRAL
+			ret_di = Fighter.DI_STATE.NEUTRAL
 		"U":
-			di = Fighter.DI_STATE.UP
+			ret_di = Fighter.DI_STATE.UP
 		"UF":
-			di = Fighter.DI_STATE.UP_FORWARD
+			ret_di = Fighter.DI_STATE.UP_FORWARD
 		"F":
-			di = Fighter.DI_STATE.FORWARD
+			ret_di = Fighter.DI_STATE.FORWARD
 		"DF":
-			di = Fighter.DI_STATE.DOWN_FORWARD
+			ret_di = Fighter.DI_STATE.DOWN_FORWARD
 		"D":
-			di = Fighter.DI_STATE.DOWN
+			ret_di = Fighter.DI_STATE.DOWN
 		"DB":
-			di = Fighter.DI_STATE.DOWN_BACK
+			ret_di = Fighter.DI_STATE.DOWN_BACK
 		"B":
-			di = Fighter.DI_STATE.BACK
+			ret_di = Fighter.DI_STATE.BACK
 		"UB":
-			di = Fighter.DI_STATE.UP_BACK
+			ret_di = Fighter.DI_STATE.UP_BACK
 
-	match button:
-		"N":			
-			button = Fighter.BUTTON_STATE.NONE
-		"P":
-			button = Fighter.BUTTON_STATE.P
-		"K":
-			button = Fighter.BUTTON_STATE.K
-		"A":
-			button = Fighter.BUTTON_STATE.A
-		"PK":
-			button = Fighter.BUTTON_STATE.PK
-		"PA":
-			button = Fighter.BUTTON_STATE.PA
-		"KA":
-			button = Fighter.BUTTON_STATE.KA
-		"PKA":
-			button = Fighter.BUTTON_STATE.PKA
+	var ret_button: int = 0
+	if button.contains("P"):
+		ret_button |= BUTTON_FLAGS.P
+	if button.contains("K"):
+		ret_button |= BUTTON_FLAGS.K
+	if button.contains("A"):
+		ret_button |= BUTTON_FLAGS.A
 
-	var current_input := {
-			"di": di,
-			"button": button, 
+	var current_input : Dictionary = {
+			"di": ret_di,
+			"button": ret_button, 
 			"frame_start": SyncManager.current_tick,
 			"screen_pos": screen_position
 		}
 
-	var last_input = self.input_history.back()
-	if last_input == null:
+	var last_input: Dictionary = self.input_history.back() if !self.input_history.is_empty() else {}
+	if last_input.is_empty():
 		self.input_history.append(current_input)
 		return
 

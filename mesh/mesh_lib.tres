@@ -1,4 +1,4 @@
-[gd_resource type="MeshLibrary" load_steps=7 format=3 uid="uid://cjirshw7x7jtr"]
+[gd_resource type="MeshLibrary" format=3 uid="uid://cjirshw7x7jtr"]
 
 [ext_resource type="Shader" uid="uid://coacecfs0brrr" path="res://shader/ps1.gdshader" id="1_2372l"]
 [ext_resource type="Texture2D" uid="uid://vq11orckifub" path="res://icon.svg" id="2_hf6xg"]

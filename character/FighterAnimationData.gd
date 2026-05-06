@@ -1,30 +1,75 @@
-extends WeakRef
+@tool
+extends Resource
 class_name FighterAnimationData
+
+enum BUTTON_FLAGS {
+	P = 0x01,
+	K = 0x02,
+	A = 0x04
+}
 
 # var id: String
 
-var attack_name: String = ""
+@export var move_name: String = ""
 
-var input_map: Array = []
+@export var input_di_map: Array = []
+@export var input_button: int
 
-var animation_name: String = ""
+@export var animation_name: String = ""
 
-var animation_length: int
+@export var animation_length: int
 
-var attack_speed: int
+@export var required_state: String = ""
 
-var recovery_hit: int
-var recovery_block: int
-var recovery_counter: int
+@export var non_attack: bool = false
+
+@export var attack_speed: int
+
+@export var recovery_hit: String = ""
+@export var recovery_block: String = ""
+@export var has_block_recovery: bool = false
+# @export var recovery_counter: int
+
+@export var unblockable: bool
+@export var is_grab: bool
+@export var is_punch: bool
+@export var is_kick: bool
+
+@export var hit_animation: String
+@export var block_animation: String
+@export var counter_animation: String = ""
+@export var has_counter_property: bool = false
+
+@export var pushback_force: int
 
 # contains data on any hitboxes put out by the animation.
 # Keep empty if this animation does not attack the opponent
-var hitbox_data := []
+@export var hitbox_data: Dictionary = {}
 
 # contains data on misc. hurtboxes that extends the player's hit area
-var hurtbox_data := {}
+@export var hurtbox_data: Dictionary = {}
 
 # contains fighter state data based on frame ranges
-var player_states :={}
+@export var player_states: Dictionary = {}
 
 # TODO: link to other AnimationData to enable attack strings
+@export var is_reference: bool
+@export var recovery_ref: String
+
+@export var no_input: bool = false
+@export var hold_input: bool = false
+
+@export_enum("Both", "Left", "Right") var side_context: int = 0
+
+func add_inputs_arr(inputs: Array) -> void:
+    self.input_di_map = inputs.slice(0, inputs.size() - 1)
+
+    var button_val: int = 0
+    if inputs[inputs.size() - 1].contains("P"):
+        button_val |= BUTTON_FLAGS.P
+    if inputs[inputs.size() - 1].contains("K"):
+        button_val |= BUTTON_FLAGS.K
+    if inputs[inputs.size() - 1].contains("A"):
+        button_val |= BUTTON_FLAGS.A
+
+    self.input_button = button_val
