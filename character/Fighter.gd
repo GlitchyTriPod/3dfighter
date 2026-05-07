@@ -250,7 +250,7 @@ func get_animation_hurtboxes() -> Array:
 	return boxes
 
 # checks if current fighter is intersecting with an enemy hitbox
-func process_hitbox_intersection() -> void:
+func process_hitbox_intersection() -> bool:
 
 	var enemy_hitboxes: Array = self.message_bus.get_oppo_hitboxes(self)
 
@@ -323,7 +323,8 @@ func process_hitbox_intersection() -> void:
 					self.message_bus.get_oppo_current_animation_id(self),
 					blocked
 				)
-				return
+				return blocked
+	return false
 
 func process_hit(attack_index: int, animation_name: String, animation_id: String, blocked: bool = false) -> void:
 	var enemy_anim_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, animation_id)
@@ -343,7 +344,12 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 	self.stun_reason.stun_id = stun_move
 
 # processes movement for player
-func process_movement(delta: int) -> void: # could use some optimizing
+func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
+	# if attack has been blocked, check if current attack has unique on-block animation, then override.
+	if attack_blocked:
+		var anim_data: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
+		if anim_data.has_block_recovery:
+			self.stun_reason.stun_id = self.movelist.get_default_anim_id_from_name(anim_data.recovery_block)
 
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != "":
