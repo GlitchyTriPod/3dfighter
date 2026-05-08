@@ -470,6 +470,7 @@ text = "Pushback force: "
 [node name="PushbackForce" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=360649234]
 unique_name_in_owner = true
 layout_mode = 2
+step = 0.001
 
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/IsSelected" to="." method="_on_is_selected_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/IsReference" to="." method="_on_is_reference_toggled"]

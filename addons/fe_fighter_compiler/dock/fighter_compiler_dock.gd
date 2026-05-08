@@ -112,7 +112,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 
 	item.get_node("%MoveNameLabel").text = data.move_name
 	item.get_node("%ButtonInputOption").selected = data.input_button
-	item.get_node("%PushbackForce").value = data.pushback_force
+	item.get_node("%PushbackForce").value = FixedInt.ToFloat(data.pushback_force)
 	item.get_node("%NoInput").button_pressed = data.no_input if data.get("no_input") != null else false
 	item.get_node("%SideContext").selected = data.side_context if data.get("side_context") != null else 0
 	item.get_node("%RequiredState").text = data.required_state if data.get("required_state") != null else ""
@@ -336,7 +336,7 @@ func _on_compile_movelist_button_button_up() -> void:
 		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
 		anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
 		anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
-		anim_data.pushback_force = item.get_node("%PushbackForce").value
+		anim_data.pushback_force = FixedInt.FromFloat(item.get_node("%PushbackForce").value)
 		anim_data.is_reference = item.is_reference
 		anim_data.has_block_recovery = item.get_node("%OnBlockToggle").button_pressed
 		anim_data.recovery_block = item.get_node("%OnBlockOption").text

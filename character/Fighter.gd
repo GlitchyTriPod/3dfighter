@@ -10,7 +10,8 @@ class_name Fighter
 var stun_reason: Dictionary = {
 	"stun_name": "", # not really sure what im using this for rn im sure its important
 	"stun_hit": -1, # used to prevent hit registering multiple times on consecutive frames
-	"stun_id": "" # holds the id of the stun animation to be played
+	"stun_id": "", # holds the id of the stun animation to be played
+	"stun_pushback": 0 # holds the pushback force of the incoming attack
 }
 
 # vvv TODO: change this to PackedStringArray
@@ -160,7 +161,8 @@ func reset_stun_reason() -> void:
 	self.stun_reason = {
 		"stun_name": "",
 		"stun_hit": -1,
-		"stun_id": ""
+		"stun_id": "",
+		"stun_pushback": 0
 	}
 
 # checks the current animation id, sets player state based on currently playing animation
@@ -340,6 +342,7 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
+	self.stun_reason.stun_pushback = enemy_anim_data.pushback_force
 
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
@@ -351,8 +354,9 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != "":
-		self.set_animation_order(self.movelist.get_from_id(self.stun_reason.stun_id))
-		self.process_root_motion(delta)
+		var move: FighterAnimationData = self.movelist.get_from_id(self.stun_reason.stun_id)
+		self.set_animation_order(move)
+		self.process_root_motion(delta, self.stun_reason.stun_pushback)
 		self.reset_stun_reason()
 		return
 
@@ -437,7 +441,7 @@ func get_move_from_input() -> FighterAnimationData:
 
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position)
 
-func process_root_motion(delta: int) -> Variant:
+func process_root_motion(delta: int, pushback_force: int = -1) -> Variant:
 
 	#### for use INSIDE editor only ####
 	if Engine.is_editor_hint():
@@ -446,12 +450,23 @@ func process_root_motion(delta: int) -> Variant:
 		return frame_velocity
 	#####################################
 
-	# velocity rotation (to match currently facing direction)
-
-	# euler method
 	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
+	var vel: FixedVector3 = FixedVector3.NewFromFixedVec3(self.get_root_motion())
 
-	var vel: FixedVector3 = self.get_root_motion() #.rotate(Vector3.UP, curr_rotation.y)
+	# add pushback velocity to vel
+	# if !self.states.has("actionable"):
+	if pushback_force != -1 && self.collision_body.pushback_force == 0:
+		self.collision_body.pushback_force = pushback_force
+
+	self.collision_body.pushback_force = CollisionMath.CalculatePushback(
+		self.collision_body.pushback_force, self.anim_player.current_animation_position
+	)
+	
+	vel.z -= self.collision_body.pushback_force
+	# else:
+	# 	self.collision_body.pushback_force = 0
+
+	# velocity rotation (to match currently facing direction)
 	var vel_rot: FixedVector3 = vel.Rotated(
 		curr_rotation.y
 	)
@@ -493,7 +508,7 @@ func collide_and_slide(delta: int) -> void:
 		if overlap > 0:
 			var change: FixedVector3 = FixedVector3.Mul(
 				self.collision_body.fixed_position.DirectionTo(oppo_collision_body.fixed_position),
-				FixedInt.Div(overlap, FixedIntGDConstant.FIXED_TWO)
+				FixedInt.Div(abs(overlap), FixedIntGDConstant.FIXED_TWO)
 			)
 
 			new_position.x -= change.x
