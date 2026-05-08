@@ -453,8 +453,14 @@ func process_root_motion(delta: int, pushback_force: int = -1) -> Variant:
 	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
 	var vel: FixedVector3 = FixedVector3.NewFromFixedVec3(self.get_root_motion())
 
-	# add pushback velocity to vel
-	# if !self.states.has("actionable"):
+	# vel.z -= self.collision_body.pushback_force
+
+	# velocity rotation (to match currently facing direction)
+	var vel_rot: FixedVector3 = vel.Rotated(
+		curr_rotation.y
+	)
+
+	# add pushback velocity to vel_rot
 	if pushback_force != -1 && self.collision_body.pushback_force == 0:
 		self.collision_body.pushback_force = pushback_force
 
@@ -462,13 +468,11 @@ func process_root_motion(delta: int, pushback_force: int = -1) -> Variant:
 		self.collision_body.pushback_force, self.anim_player.current_animation_position
 	)
 	
-	vel.z -= self.collision_body.pushback_force
-	# else:
-	# 	self.collision_body.pushback_force = 0
-
-	# velocity rotation (to match currently facing direction)
-	var vel_rot: FixedVector3 = vel.Rotated(
-		curr_rotation.y
+	vel_rot = FixedVector3.Add( 
+		vel_rot,
+		FixedVector3.NewFromInt(0, 0, self.collision_body.pushback_force).Rotated(
+			self.message_bus.get_oppo_fixed_rotation(self).y
+		)
 	)
 
 	self.collision_body.velocity = FixedVector3.Mul(
