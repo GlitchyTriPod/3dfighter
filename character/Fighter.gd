@@ -4,7 +4,6 @@ class_name Fighter
 
 @export var fighter_name: String = "DUMMY"
 
-# @expor 
 @export_enum("1", "2") var player: int = 0
 
 var stun_reason: Dictionary = {
@@ -14,7 +13,6 @@ var stun_reason: Dictionary = {
 	"stun_pushback": 0 # holds the pushback force of the incoming attack
 }
 
-# vvv TODO: change this to PackedStringArray
 var states: Array[String] = []
 
 @export var movelist: FighterMovelist

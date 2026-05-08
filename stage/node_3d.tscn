@@ -60,10 +60,10 @@ surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 unique_name_in_owner = true
 
 [node name="atro4" parent="Chars" unique_id=291528455 instance=ExtResource("7_gxuj5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.2985727)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09746885, 0, -1.2985727)
 
 [node name="atro5" parent="Chars" unique_id=1884374165 instance=ExtResource("7_gxuj5")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.995018e-08, 0, 1.2452707)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.06753281, 0, 1.2452707)
 player = 1
 
 [node name="debugCamera" type="Camera3D" parent="." unique_id=902002015]
