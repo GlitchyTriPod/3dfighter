@@ -173,6 +173,69 @@ popup/item_6/id = 6
 popup/item_7/text = "P+K+A"
 popup/item_7/id = 7
 
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputContainer" unique_id=648433015]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="NewUpButton" type="Button" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer3" unique_id=1169249732]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "^^"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer3" unique_id=1028153986]
+layout_mode = 2
+text = "New"
+
+[node name="NewDownButton" type="Button" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer3" unique_id=394876473]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "vv
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputContainer" unique_id=810351522]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="DupeUpButton" type="Button" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer2" unique_id=661659218]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "^^"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer2" unique_id=1264861590]
+layout_mode = 2
+text = "Dupe."
+
+[node name="DupeDownButton" type="Button" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer2" unique_id=1619015484]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "vv
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputContainer" unique_id=982582376]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MoveUpButton" type="Button" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer" unique_id=94214349]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "^^"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer" unique_id=894174680]
+layout_mode = 2
+text = "Move"
+
+[node name="MoveDownButton" type="Button" parent="MarginContainer/VBoxContainer/InputContainer/VBoxContainer" unique_id=1760042740]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "vv
+"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=594384805]
 layout_mode = 2
 
@@ -413,6 +476,12 @@ layout_mode = 2
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/MoveAnimationOption" to="." method="_on_move_animation_option_item_selected"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/AddDirectionalInput" to="." method="_on_add_directional_input_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/RemoveDirectionalInput" to="." method="_on_remove_directional_input_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer3/NewUpButton" to="." method="_on_new_up_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer3/NewDownButton" to="." method="_on_new_down_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer2/DupeUpButton" to="." method="_on_dupe_up_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer2/DupeDownButton" to="." method="_on_dupe_down_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer/MoveUpButton" to="." method="_on_move_up_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer/MoveDownButton" to="." method="_on_move_down_button_button_up"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NoInput" to="." method="_on_no_input_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NonAttackToggle" to="." method="_on_non_attack_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]

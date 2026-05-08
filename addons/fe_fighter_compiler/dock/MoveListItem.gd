@@ -8,8 +8,10 @@ signal is_unselected
 signal animation_changed(anim_name: String)
 signal animation_frame_changed(frame: float)
 
-signal request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String)
+signal request_new_item(index: int)
+signal request_duplicate_item(data: FighterAnimationData, index: int)
 
+signal request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String)
 signal request_movelist_refs
 
 const animation_state = preload("res://addons/fe_fighter_compiler/dock/animation_state.tscn")
@@ -20,6 +22,8 @@ const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButto
 @export var block_animations: AnimationLibrary
 
 @onready var move_animation_option : OptionButton = %MoveAnimationOption
+
+var source_data: FighterAnimationData
 
 var character_animations: AnimationLibrary = null
 
@@ -45,12 +49,6 @@ var anim_names: PackedStringArray:
 		if self.character_animations != null:
 			for name: StringName in self.character_animations.get_animation_list():
 				arr.append("%s/%s" % [self.character_animations.resource_name, name])
-
-		# arr = self.default_animations.get_animation_list() + \
-		# 	self.hit_animations.get_animation_list() + \
-		# 	self.block_animations.get_animation_list()
-		# # if self.character_animations != null:
-		# # 	arr += self.character_animations.get_animation_list()
 
 		return arr		
 
@@ -178,9 +176,6 @@ func add_hitbox(is_hurtbox: bool = false, data: Dictionary = {}):
 
 	# await button.ready
 	button.update_data(data)
-
-# func load_refs() -> void:
-# 	pass
 
 # ======================
 
@@ -316,3 +311,21 @@ func _on_non_attack_toggled(toggled_on: bool) -> void:
 	%OnCounterOpponentToggle.disabled = toggled_on
 	%AddHitbox.disabled = toggled_on
 	%AddHurtbox.disabled = toggled_on
+
+func _on_move_up_button_button_up() -> void:
+	get_parent().move_child(self, clampi(self.get_index() - 1, 0, 10000))
+
+func _on_move_down_button_button_up() -> void:
+	get_parent().move_child(self, clampi(self.get_index() + 1, 0, 10000))
+
+func _on_new_up_button_button_up() -> void:
+	self.request_new_item.emit(clampi(self.get_index(), 0, 10000))
+
+func _on_new_down_button_button_up() -> void:
+	self.request_new_item.emit(clampi(self.get_index() + 1, 0, 10000))
+
+func _on_dupe_up_button_button_up() -> void:
+	self.request_duplicate_item.emit(self.source_data, clampi(self.get_index(), 0, 10000))
+
+func _on_dupe_down_button_button_up() -> void:
+	self.request_duplicate_item.emit(self.source_data, clampi(self.get_index() + 1, 0, 10000))

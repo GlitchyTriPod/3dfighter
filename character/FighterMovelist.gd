@@ -43,7 +43,7 @@ func get_from_ref_name(ref_name: String) -> Variant:
 func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray, screen_position: int) -> FighterAnimationData:
 
 	# var ret_val: FighterAnimationData = null
-	var possible_moves: Array[FighterAnimationData] = [ ]
+	var possible_moves: Array[FighterAnimationData] = []
 
 	### selecting valid moves ###
 

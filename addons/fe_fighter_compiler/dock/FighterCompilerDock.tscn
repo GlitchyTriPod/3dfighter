@@ -93,10 +93,23 @@ size_flags_horizontal = 10
 size_flags_vertical = 8
 text = "Remove Move"
 
-[node name="ReattachButton" type="Button" parent="MainView" unique_id=1753352958]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainView" unique_id=1492640027]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="MainView/HBoxContainer" unique_id=543630325]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Hide Non-Attacks (will reorder list)"
+
+[node name="EmptyListButton" type="Button" parent="MainView/HBoxContainer" unique_id=860108812]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Empty List"
+
+[node name="ReattachButton" type="Button" parent="MainView/HBoxContainer" unique_id=1753352958]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 text = "Reattach To Fighter Scene"
 
 [connection signal="animation_frame_changed" from="." to="." method="_on_animation_frame_changed"]
@@ -107,4 +120,6 @@ text = "Reattach To Fighter Scene"
 [connection signal="button_up" from="MainView/AnimationControls/SeekForward" to="." method="_on_seek_forward_button_up"]
 [connection signal="button_up" from="MainView/MoveListControls/Add Move" to="." method="_on_add_move_button_up"]
 [connection signal="button_up" from="MainView/MoveListControls/Remove Move" to="." method="_on_remove_move_button_up"]
-[connection signal="button_up" from="MainView/ReattachButton" to="." method="_on_reattach_button_button_up"]
+[connection signal="toggled" from="MainView/HBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="button_up" from="MainView/HBoxContainer/EmptyListButton" to="." method="_on_empty_list_button_button_up"]
+[connection signal="button_up" from="MainView/HBoxContainer/ReattachButton" to="." method="_on_reattach_button_button_up"]

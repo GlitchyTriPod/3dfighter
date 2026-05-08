@@ -33,6 +33,7 @@ func _ready() -> void:
 
 	self.attach_to_fighter_scene()
 	self.load_animation_data()
+	self.load_movelist_data()
 
 func load_animation_data() -> void:
 
@@ -53,17 +54,19 @@ func load_animation_data() -> void:
 func load_movelist_data() -> void:
 	for n: Node in %MoveListView.get_child(0).get_children():
 		n.queue_free()
+
+	# self.fighter.movelist.move_list.sort()
 	
-	for i: String in self.fighter.movelist.move_list:
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(i)
+	for key: int in self.fighter.movelist.move_list.size():
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
 		self.add_movelist_item(move)
 	
-	for key: String in self.fighter.movelist.move_list:
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(key)
+	for key: int in self.fighter.movelist.move_list.size():
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
 		self.check_and_mark_movelist_ref(move)
 
-	for key: String in self.fighter.movelist.move_list:
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(key)
+	for key: int in self.fighter.movelist.move_list.size():
+		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
 		self.refresh_movelist_refs(move)
 
 func attach_to_fighter_scene() -> void:
@@ -82,7 +85,7 @@ func attach_to_fighter_scene() -> void:
 	%MoveListControls.visible = true
 	%MoveListView.visible = true
 
-func add_movelist_item(data: FighterAnimationData = null) -> void:	
+func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> void:	
 	var item: MoveListItem = self.move_list_item.instantiate()
 
 	item.character_animations = self.fighter.animation_library
@@ -91,15 +94,21 @@ func add_movelist_item(data: FighterAnimationData = null) -> void:
 	item.is_unselected.connect(self._on_MoveListItem_is_unselected)
 	item.request_hitbox_menu.connect(self._on_MoveListItem_request_hitbox_menu)
 	item.request_movelist_refs.connect(self._on_MoveListItem_request_movelist_refs)
+	item.request_new_item.connect(self._on_MoveListItem_request_new_item)
+	item.request_duplicate_item.connect(self._on_MoveListItem_request_duplicate_item)
 
 	self.animation_frame_changed.connect(item._on_dock_animation_frame_changed)
 	self.reload_movelistitem_refs.connect(item._on_FighterCompilerDock_reload_movelistitem_refs)
 
 	%MoveListView.get_child(0).add_child(item)
+	if index != -1:
+		%MoveListView.get_child(0).move_child(item, index)
 
 	if data == null:
 		item.emit_signal("request_movelist_refs") # need to emit this to populate refs on new list item
 		return # return if there is no data to populate
+
+	item.source_data = data
 
 	item.get_node("%MoveNameLabel").text = data.move_name
 	item.get_node("%ButtonInputOption").selected = data.input_button
@@ -240,13 +249,21 @@ func _on_MoveListItem_is_unselected() -> void:
 func _on_MoveListItem_request_movelist_refs() -> void:
 	self.reload_movelistitem_refs.emit(self.get_movelist_refs())
 
+func _on_MoveListItem_request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String) -> void:
+	self.request_hitbox_menu.emit(hitbox, idx, name)
+
+func _on_MoveListItem_request_new_item(index: int) -> void:
+	self.add_movelist_item(null, index)
+
+func _on_MoveListItem_request_duplicate_item(data: FighterAnimationData, index: int) -> void:
+	self.add_movelist_item(data, index)
+	var toaster: EditorToaster = EditorInterface.get_editor_toaster()
+	toaster.push_toast("Movelist item duplicated. If data is incorrect, try compiling before duping.")
+
 func _on_animation_selector_item_selected(index: int) -> void:
 	self.anim_player.play(%AnimationSelector.get_item_text(index))
 	self.anim_player.seek(0.0)
 	self.animation_frame_changed.emit(0.0)
-
-func _on_MoveListItem_request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String) -> void:
-	self.request_hitbox_menu.emit(hitbox, idx, name)
 
 func _on_seek_forward_button_up() -> void:
 	if self.anim_player.current_animation_position >= self.anim_player.current_animation_length:
@@ -357,3 +374,20 @@ func _on_reattach_button_button_up() -> void:
 	self.attach_to_fighter_scene()
 	self.load_animation_data()
 	self.load_movelist_data()
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	if !toggled_on:
+		for item: MoveListItem in %MoveListView.get_child(0).get_children():
+			if !item.visible:
+				item.visible = true;
+		return
+	var count: int = 0
+	for item: MoveListItem in %MoveListView.get_child(0).get_children():
+		if item.get_node("%NonAttackToggle").button_pressed:
+			item.visible = false
+			%MoveListView.get_child(0).move_child(item, count)
+			count += 1
+
+func _on_empty_list_button_button_up() -> void:
+	for n: Node in %MoveListView.get_child(0).get_children():
+		n.queue_free()

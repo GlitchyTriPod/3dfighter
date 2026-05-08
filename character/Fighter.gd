@@ -249,11 +249,9 @@ func get_animation_hurtboxes() -> Array:
 	)
 	return boxes
 
-# checks if current fighter is intersecting with an enemy hitbox
+# checks if current fighter is intersecting with an enemy hitbox & returns true if intersection was found
 func process_hitbox_intersection() -> bool:
-
 	var enemy_hitboxes: Array = self.message_bus.get_oppo_hitboxes(self)
-
 	var enemy_position: FixedVector3 = self.message_bus.get_oppo_fixed_position(self)
 	var enemy_rotation: FixedVector3 = self.message_bus.get_oppo_fixed_rotation(self)
 
