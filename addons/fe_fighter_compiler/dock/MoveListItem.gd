@@ -13,6 +13,7 @@ signal request_duplicate_item(data: FighterAnimationData, index: int)
 
 signal request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String)
 signal request_movelist_refs
+signal request_update_tree
 
 const animation_state = preload("res://addons/fe_fighter_compiler/dock/animation_state.tscn")
 const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButton.tscn")
@@ -34,6 +35,8 @@ var move_name: String:
 var selected: bool = false
 var is_reference: bool = false
 var no_input: bool = false
+
+var move_type: int = 0
 
 var anim_names: PackedStringArray:
 	get:
@@ -63,19 +66,25 @@ func _ready() -> void:
 	%OnBlockOpponentOption.clear()
 	%OnHitOpponentOption.clear()
 	%OnCounterOpponentOption.clear()
+	%OnHitOption.clear()
+	%OnCounterOption.clear()
+	%OnAirHitOption.clear()
+	%OnBackHitOpponentOption.clear()
 
 	for name: StringName in self.anim_names:
 		%MoveAnimationOption.add_item(name)
 	for name: StringName in self.anim_names: # used for stagger effects on blocked attacks
 		%OnBlockOption.add_item(name)
+		%OnHitOption.add_item(name)
+		%OnCounterOption.add_item(name)
 	for name: StringName in self.block_animations.get_animation_list():
 		%OnBlockOpponentOption.add_item("%s/%s" % [self.block_animations.resource_name, name])
 	for name: StringName in self.hit_animations.get_animation_list():
 		%OnHitOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 		%OnCounterOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
+		%OnBackHitOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
+		%OnAirHitOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 	%MoveData.folded = true
-
-	# self.theme
 
 # ======================
 
@@ -177,6 +186,21 @@ func add_hitbox(is_hurtbox: bool = false, data: Dictionary = {}):
 	# await button.ready
 	button.update_data(data)
 
+func change_item_color(idx: int) -> void:
+	var stylebox: StyleBox = self.get_theme_stylebox("panel").duplicate()
+	match idx:
+		0:
+			stylebox.bg_color = Color("#515f66")
+		1:
+			stylebox.bg_color = Color("#665154")
+		3:
+			stylebox.bg_color = Color("#666551")
+		4:
+			stylebox.bg_color = Color("#635166")
+		5:
+			stylebox.bg_color = Color("#51665a")			
+	self.add_theme_stylebox_override("panel", stylebox)
+
 # ======================
 
 func _on_is_selected_toggled(toggled_on: bool) -> void:
@@ -202,16 +226,16 @@ func _on_remove_directional_input_button_up() -> void:
 	%InputSequence.get_child(%InputSequence.get_child_count() - 2).free()
 
 func _on_on_block_toggle_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		%OnBlockOption.disabled = false
-		return
-	%OnBlockOption.disabled = true
+	%OnBlockOption.disabled = !toggled_on
 
 func _on_on_counter_opponent_toggle_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		%OnCounterOpponentOption.disabled = false
-		return
-	%OnCounterOpponentOption.disabled = true
+	%OnCounterOpponentOption.disabled = !toggled_on
+
+func _on_on_hit_toggle_toggled(toggled_on: bool) -> void:
+	%OnHitOption.disabled = !toggled_on
+
+func _on_on_counter_toggle_toggled(toggled_on: bool) -> void:
+	%OnCounterOption.disabled = !toggled_on
 
 # add player state
 func _on_button_button_up() -> void:
@@ -329,3 +353,8 @@ func _on_dupe_up_button_button_up() -> void:
 
 func _on_dupe_down_button_button_up() -> void:
 	self.request_duplicate_item.emit(self.source_data, clampi(self.get_index() + 1, 0, 10000))
+
+func _on_move_type_item_selected(index: int) -> void:
+	self.move_type = index
+	self.change_item_color(index)
+	self.request_update_tree.emit()

@@ -8,9 +8,8 @@ enum BUTTON_FLAGS {
 	A = 0x04
 }
 
-# var id: String
-
 @export var move_name: String = ""
+@export var move_type: int = 0
 
 @export var input_di_map: Array = []
 @export var input_button: int
@@ -20,15 +19,20 @@ enum BUTTON_FLAGS {
 @export var animation_length: int
 
 @export var required_state: String = ""
+@export var prohibit_state: String = ""
 
 @export var non_attack: bool = false
 
 @export var attack_speed: int
 
 @export var recovery_hit: String = ""
+@export var has_hit_recovery: String = ""
+
+@export var recovery_ch: String = ""
+@export var has_ch_recovery: bool = false
+
 @export var recovery_block: String = ""
 @export var has_block_recovery: bool = false
-# @export var recovery_counter: int
 
 @export var unblockable: bool
 @export var is_grab: bool
@@ -39,8 +43,15 @@ enum BUTTON_FLAGS {
 @export var block_animation: String
 @export var counter_animation: String = ""
 @export var has_counter_property: bool = false
+@export var air_hit_animation: String = ""
+@export var back_hit_animation: String = ""
+
+@export var face_attacker_on_hit: bool = false
 
 @export var pushback_force: int
+@export var pushback_direction: int
+@export var launch_force: int
+@export var launch_direction: int
 
 # contains data on any hitboxes put out by the animation.
 # Keep empty if this animation does not attack the opponent

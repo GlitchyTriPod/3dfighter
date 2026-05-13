@@ -19,7 +19,7 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0.4, 0.316, 0.33, 1)
+bg_color = Color(0.31764707, 0.37254903, 0.4, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
@@ -65,6 +65,22 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "[Insert Move Name Here]"
+
+[node name="MoveType" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1925790693]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 5
+popup/item_0/text = "Movement"
+popup/item_0/id = 1
+popup/item_1/text = "Attack"
+popup/item_1/id = 0
+popup/item_2/text = "Ground Option"
+popup/item_2/id = 2
+popup/item_3/text = "Hit Stun"
+popup/item_3/id = 3
+popup/item_4/text = "Block Stun"
+popup/item_4/id = 4
 
 [node name="IsReference" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=867133847]
 unique_name_in_owner = true
@@ -272,6 +288,10 @@ popup/item_1/id = 1
 popup/item_2/text = "Right Side Only"
 popup/item_2/id = 2
 
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1256480749]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=774657519]
 layout_mode = 2
 
@@ -285,9 +305,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "[State Name]"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=781033478]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=620477499]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "         Prohibit State: "
+
+[node name="ProhibitState" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=252171507]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "[State Name]"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=382091988]
 layout_mode = 2
@@ -302,114 +329,204 @@ title = "Move Data"
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData" unique_id=1980212798]
 layout_mode = 2
 
-[node name="RecoveryAnim" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=112517000]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=632517299]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/RecoveryAnim" unique_id=1553379716]
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer" unique_id=387878468]
 layout_mode = 2
-text = "Recovery: "
+size_flags_horizontal = 3
 
-[node name="OnRecoveryRef" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/RecoveryAnim" unique_id=758581160]
+[node name="RecoveryAnim" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=112517000]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/RecoveryAnim" unique_id=1553379716]
+layout_mode = 2
+text = "Recovers to: "
+
+[node name="OnRecoveryRef" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/RecoveryAnim" unique_id=758581160]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=767845979]
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1567512433]
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="States" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=152215116]
+[node name="OnBlockOpponent" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=686566733]
 layout_mode = 2
 
-[node name="OnBlock" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=1062495980]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnBlockOpponent" unique_id=563616549]
+layout_mode = 2
+text = "On Block [Opp]: "
+
+[node name="OnBlockOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnBlockOpponent" unique_id=611756235]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=405285444]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="OnHitOpponent" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=200233825]
 layout_mode = 2
 
-[node name="OnBlockToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock" unique_id=592705806]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnHitOpponent" unique_id=1001776957]
+layout_mode = 2
+text = "On Hit [Opp]: "
+
+[node name="OnHitOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnHitOpponent" unique_id=1065372970]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer7" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1321911684]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="OnCounterOpponent" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=694485273]
+layout_mode = 2
+
+[node name="OnCounterOpponentToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCounterOpponent" unique_id=521943509]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock" unique_id=1896759007]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCounterOpponent" unique_id=209452962]
+layout_mode = 2
+text = "On C. Hit [Opp]: "
+
+[node name="OnCounterOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCounterOpponent" unique_id=1383074540]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+
+[node name="MarginContainer8" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=2125250220]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="OnBackHit" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=921869294]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnBackHit" unique_id=1079659162]
+layout_mode = 2
+text = "On Back Hit [Opp]: "
+
+[node name="OnBackHitOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnBackHit" unique_id=1530776719]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer" unique_id=1921473228]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OnBlock" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1062495980]
+layout_mode = 2
+
+[node name="OnBlockToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnBlock" unique_id=592705806]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnBlock" unique_id=1896759007]
 layout_mode = 2
 text = "On Block: "
 
-[node name="OnBlockOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock" unique_id=955476103]
+[node name="OnBlockOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnBlock" unique_id=955476103]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
 
-[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=1567512433]
+[node name="MarginContainer8" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=163600547]
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="OnBlockOpponent" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=686566733]
+[node name="OnHit" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=215305433]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlockOpponent" unique_id=563616549]
-layout_mode = 2
-text = "On Block [Opponent]: "
-
-[node name="OnBlockOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlockOpponent" unique_id=611756235]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=405285444]
-layout_mode = 2
-theme_override_constants/margin_bottom = 10
-
-[node name="OnHitOpponent" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=200233825]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnHitOpponent" unique_id=1001776957]
-layout_mode = 2
-text = "On Hit [Opponent]: "
-
-[node name="OnHitOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnHitOpponent" unique_id=1065372970]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=1321911684]
-layout_mode = 2
-theme_override_constants/margin_bottom = 10
-
-[node name="OnCounterOpponent" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=694485273]
-layout_mode = 2
-
-[node name="OnCounterOpponentToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent" unique_id=521943509]
+[node name="OnHitToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnHit" unique_id=1676391772]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent" unique_id=209452962]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnHit" unique_id=1006721854]
 layout_mode = 2
-text = "On Counter Hit [Opponent]: "
+text = "On Hit: "
 
-[node name="OnCounterOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent" unique_id=1383074540]
+[node name="OnHitOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnHit" unique_id=156628034]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=1055411568]
+[node name="MarginContainer9" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1986810296]
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="States" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=1657422750]
+[node name="OnCounter" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=959363893]
 layout_mode = 2
 
-[node name="DefaultStates" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/States" unique_id=143984956]
+[node name="OnCounterToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnCounter" unique_id=180031129]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/States/DefaultStates" unique_id=1356475157]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnCounter" unique_id=185779625]
+layout_mode = 2
+text = "On C. Hit: "
+
+[node name="OnCounterOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnCounter" unique_id=617065652]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+
+[node name="MarginContainer10" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=909437311]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="OnAirHit" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2069304626]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnAirHit" unique_id=2125620975]
+layout_mode = 2
+text = "  On Air Hit: "
+
+[node name="OnAirHitOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnAirHit" unique_id=1701594993]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer11" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=244572703]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="FaceAttacker" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=567216807]
+layout_mode = 2
+
+[node name="TargetFaceAttackerHit" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/FaceAttacker" unique_id=1977878306]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Target Faces Attacker When Hit"
+
+[node name="MarginContainer8" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=1055411568]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="States" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=1657422750]
+layout_mode = 2
+
+[node name="DefaultStates" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=143984956]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/DefaultStates" unique_id=1356475157]
 layout_mode = 2
 text = "States:"
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/States/DefaultStates" unique_id=1639723574]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/DefaultStates" unique_id=1639723574]
 layout_mode = 2
 text = "+ Add State"
 
-[node name="DefaultStatesContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/States" unique_id=1910212240]
+[node name="DefaultStatesContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States" unique_id=1910212240]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 2
@@ -465,14 +582,66 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=1373372125]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Pushback force: "
 
 [node name="PushbackForce" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=360649234]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 step = 0.001
 
+[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=1410804028]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 10
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=1662619643]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pushback Direction: "
+
+[node name="PushbackDirection" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=877005948]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -90.0
+max_value = 90.0
+
+[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=1332595174]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 10
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=1258854894]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Launch Force: "
+
+[node name="LaunchForce" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=437494340]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.001
+
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=677323174]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 10
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=2078152850]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Launch Direction: "
+
+[node name="LaunchDirection" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=2034633006]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 90.0
+
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/IsSelected" to="." method="_on_is_selected_toggled"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer2/MoveType" to="." method="_on_move_type_item_selected"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/IsReference" to="." method="_on_is_reference_toggled"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/MoveAnimationOption" to="." method="_on_move_animation_option_item_selected"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/HBoxContainer/InputSequence/VBoxContainer/AddDirectionalInput" to="." method="_on_add_directional_input_button_up"]
@@ -485,8 +654,10 @@ step = 0.001
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer/MoveDownButton" to="." method="_on_move_down_button_button_up"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NoInput" to="." method="_on_no_input_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NonAttackToggle" to="." method="_on_non_attack_toggled"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/OnCounterOpponent/OnCounterOpponentToggle" to="." method="_on_on_counter_opponent_toggle_toggled"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/States/DefaultStates/Button" to="." method="_on_button_button_up"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCounterOpponent/OnCounterOpponentToggle" to="." method="_on_on_counter_opponent_toggle_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnHit/OnHitToggle" to="." method="_on_on_hit_toggle_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnCounter/OnCounterToggle" to="." method="_on_on_counter_toggle_toggled"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/DefaultStates/Button" to="." method="_on_button_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Hit_Hurt_boxes/HitboxContainer/HBoxContainer/AddHitbox" to="." method="_on_add_hitbox_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Hit_Hurt_boxes/HurtboxContainer/HBoxContainer/AddHurtbox" to="." method="_on_add_hurtbox_button_up"]

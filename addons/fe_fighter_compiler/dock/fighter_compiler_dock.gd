@@ -4,9 +4,7 @@ class_name FighterCompilerDock
 
 signal request_hitbox_menu(node: HitboxButton, idx: int, name: String)
 signal request_bake_velocity_menu()
-
 signal animation_frame_changed(frame: float)
-
 signal reload_movelistitem_refs(refs: Array)
 
 const move_list_item: Resource = preload('res://addons/fe_fighter_compiler/dock/MoveListItem.tscn')
@@ -54,8 +52,6 @@ func load_animation_data() -> void:
 func load_movelist_data() -> void:
 	for n: Node in %MoveListView.get_child(0).get_children():
 		n.queue_free()
-
-	# self.fighter.movelist.move_list.sort()
 	
 	for key: int in self.fighter.movelist.move_list.size():
 		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
@@ -111,16 +107,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	item.source_data = data
 
 	item.get_node("%MoveNameLabel").text = data.move_name
-	item.get_node("%ButtonInputOption").selected = data.input_button
-	item.get_node("%PushbackForce").value = FixedInt.ToFloat(data.pushback_force)
-	item.get_node("%NoInput").button_pressed = data.no_input if data.get("no_input") != null else false
-	item.get_node("%SideContext").selected = data.side_context if data.get("side_context") != null else 0
-	item.get_node("%RequiredState").text = data.required_state if data.get("required_state") != null else ""
-	item.get_node("%HoldInput").button_pressed = data.hold_input if data.get("hold_input") != null else false
-	item.get_node("%HoldInput").disabled = item.get_node("%NoInput").button_pressed
-	item.get_node("%OnBlockToggle").button_pressed = data.has_block_recovery if data.get("has_block_recovery") != null else false
-	item.get_node("%OnCounterOpponentToggle").button_pressed = data.has_counter_property if data.get("has_counter_property") != null else false
-	item.get_node("%NonAttackToggle").button_pressed = data.non_attack if data.get("non_attack") != null else false
+	item.get_node("%MoveType").selected = data.move_type if data.get("move_type") != null else 0
 
 	#animation for move
 	for i: int in item.get_node("%MoveAnimationOption").item_count:
@@ -138,10 +125,43 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 				.add_sibling(di_option)
 		di_option.selected = data.input_di_map[i]
 
+	item.get_node("%ButtonInputOption").selected = data.input_button
+
+	item.get_node("%NoInput").button_pressed = data.no_input if data.get("no_input") != null else false
+	item.get_node("%HoldInput").button_pressed = data.hold_input if data.get("hold_input") != null else false
+	item.get_node("%HoldInput").disabled = item.get_node("%NoInput").button_pressed
+	item.get_node("%NonAttackToggle").button_pressed = data.non_attack if data.get("non_attack") != null else false
+	item.get_node("%SideContext").selected = data.side_context if data.get("side_context") != null else 0
+
+	item.get_node("%TargetFaceAttackerHit").button_pressed = data.face_attacker_on_hit if data.get("face_attacker_on_hit") != null else false
+
+	item.get_node("%RequiredState").text = data.required_state if data.get("required_state") != null else ""
+	item.get_node("%ProhibitState").text = data.prohibit_state if data.get("prohibit_state") != null else ""
+
+	item.get_node("%OnBlockToggle").button_pressed = data.has_block_recovery if data.get("has_block_recovery") != null else false
+	item.get_node("%OnCounterOpponentToggle").button_pressed = data.has_counter_property if data.get("has_counter_property") != null else false
+
+	item.get_node("%PushbackForce").value = FixedInt.ToFloat(data.pushback_force)
+	item.get_node("%PushbackDirection").value = FixedInt.ToFloat(data.pushback_direction if data.get("pushback_direction") != null else 0)
+	item.get_node("%LaunchForce").value = FixedInt.ToFloat(data.launch_force if data.get("launch_force") != null else 0)
+	item.get_node("%LaunchDirection").value = FixedInt.ToFloat(data.launch_direction if data.get("launch_direction") != null else 0)
+
 	# blocked attack animation (attacker)
 	for i: int in item.get_node("%OnBlockOption").item_count:
 		if str(data.recovery_block) == item.get_node("%OnBlockOption").get_item_text(i):
 			item.get_node("%OnBlockOption").selected = i
+			break
+
+	# hit landed animation (attacker)
+	for i: int in item.get_node("%OnHitOption").item_count:
+		if data.recovery_hit == item.get_node("%OnHitOption").get_item_text(i):
+			item.get_node("%OnHitOption").selected = i
+			break
+	
+	# hit landed counter (attacker)
+	for i: int in item.get_node("%OnCounterOption").item_count:
+		if data.recover_ch == item.get_node("%OnCounterOption").get_item_text(i):
+			item.get_node("%OnCounterOption").selected = i
 			break
 
 	# blocked attack animation (Opponent)
@@ -160,6 +180,18 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	for i: int in item.get_node("%OnCounterOpponentOption").item_count:
 		if data.counter_animation == item.get_node("%OnCounterOpponentOption").get_item_text(i):
 			item.get_node("%OnCounterOpponentOption").selected = i
+			break
+
+	# back hit anim (opponent)
+	for i: int in item.get_node("%OnBackHitOpponentOption").item_count:
+		if data.back_hit_animation == item.get_node("%OnBackHitOpponentOption").get_item_text(i):
+			item.get_node("%OnBackHitOpponentOption").selected = i
+			break
+
+	# air hit (opponent)
+	for i: int in item.get_node("%OnAirHitOption").item_count:
+		if data.air_hit_animation == item.get_node("%OnAirHitOption").get_item_text(i):
+			item.get_node("%OnAirHitOption").selected = i
 			break
 
 	# frame data here??? do i even need to do anything with that?
@@ -330,29 +362,47 @@ func _on_compile_movelist_button_button_up() -> void:
 		var inputs: Array = []
 
 		anim_data.move_name = item.move_name
-		anim_data.add_inputs_arr(item.get_input_map())
-		anim_data.animation_name = item.get_animation_name()
-		anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
-		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
-		anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
-		anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
-		anim_data.pushback_force = FixedInt.FromFloat(item.get_node("%PushbackForce").value)
+		anim_data.move_type = item.get_node("%MoveType").selected
 		anim_data.is_reference = item.is_reference
-		anim_data.has_block_recovery = item.get_node("%OnBlockToggle").button_pressed
-		anim_data.recovery_block = item.get_node("%OnBlockOption").text
-		anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
+
+		anim_data.animation_name = item.get_animation_name()
+
+		anim_data.add_inputs_arr(item.get_input_map())
+
 		anim_data.no_input = item.get_node("%NoInput").button_pressed
-		anim_data.side_context = item.get_node("%SideContext").selected
-		anim_data.required_state = item.get_node("%RequiredState").text
 		anim_data.hold_input = item.get_node("%HoldInput").button_pressed
 		anim_data.non_attack = item.get_node("%NonAttackToggle").button_pressed
+		anim_data.side_context = item.get_node("%SideContext").selected
 
-		# add frame data here???
+		anim_data.required_state = item.get_node("%RequiredState").text
+		anim_data.prohibit_state = item.get_node("%ProhibitState").text
+
+		anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
+		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
+		anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
+		anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
+		anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
+		anim_data.back_hit_animation = item.get_node("%OnBackHitOpponentOption").text
+
+		anim_data.has_hit_recovery = item.get_node("%OnHitToggle").button_pressed
+		anim_data.recovery_hit = item.get_node("%OnHitOption").text
+		anim_data.has_block_recovery = item.get_node("%OnBlockToggle").button_pressed
+		anim_data.recovery_block = item.get_node("%OnBlockOption").text
+		anim_data.has_ch_recovery = item.get_node("%OnCounterToggle").button_pressed
+		anim_data.recovery_ch = item.get_node("%OnCounterOption").text
+		anim_data.air_hit_animation = item.get_node("%OnAirHitOption").text
+
+		anim_data.face_attacker_on_hit = item.get_node("%TargetFaceAttackerHit").button_pressed
+
+		anim_data.player_states = item.get_state_data()
 
 		anim_data.hitbox_data = item.get_hitbox_data()
 		anim_data.hurtbox_data = item.get_hitbox_data(true)
 
-		anim_data.player_states = item.get_state_data()
+		anim_data.pushback_force = FixedInt.FromFloat(item.get_node("%PushbackForce").value)
+		anim_data.pushback_direction = FixedInt.FromFloat(item.get_node("%PushbackDirection").value)
+		anim_data.launch_force = FixedInt.FromFloat(item.get_node("%LaunchForce").value)
+		anim_data.launch_direction = FixedInt.FromFloat(item.get_node("%LaunchDirection").value)
 
 		move_list.add_to_list(anim_data)
 
