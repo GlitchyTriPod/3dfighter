@@ -26,7 +26,7 @@ enum BUTTON_FLAGS {
 @export var attack_speed: int
 
 @export var recovery_hit: String = ""
-@export var has_hit_recovery: String = ""
+@export var has_hit_recovery: bool = false
 
 @export var recovery_ch: String = ""
 @export var has_ch_recovery: bool = false

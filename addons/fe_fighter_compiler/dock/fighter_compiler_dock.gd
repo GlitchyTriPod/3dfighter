@@ -64,6 +64,11 @@ func load_movelist_data() -> void:
 	for key: int in self.fighter.movelist.move_list.size():
 		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
 		self.refresh_movelist_refs(move)
+	
+	self.build_tree()
+
+func build_tree() -> void:
+	pass
 
 func attach_to_fighter_scene() -> void:
 	if EditorInterface.get_edited_scene_root() is FighterCompilerDock:
@@ -72,14 +77,14 @@ func attach_to_fighter_scene() -> void:
 	if EditorInterface.get_edited_scene_root() is not Fighter:
 		%SelectFighterLabel.visible = true
 		%MoveListControls.visible = false
-		%MoveListView.visible = false
+		%MoveListContainer.visible = false
 		return
 
 	self.fighter = EditorInterface.get_edited_scene_root()
 
 	%SelectFighterLabel.visible = false
 	%MoveListControls.visible = true
-	%MoveListView.visible = true
+	%MoveListContainer.visible = true
 
 func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> void:	
 	var item: MoveListItem = self.move_list_item.instantiate()
@@ -108,6 +113,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 
 	item.get_node("%MoveNameLabel").text = data.move_name
 	item.get_node("%MoveType").selected = data.move_type if data.get("move_type") != null else 0
+	item.get_node("%MoveType").emit_signal("item_selected", item.get_node("%MoveType").selected)
 
 	#animation for move
 	for i: int in item.get_node("%MoveAnimationOption").item_count:
@@ -139,6 +145,8 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	item.get_node("%ProhibitState").text = data.prohibit_state if data.get("prohibit_state") != null else ""
 
 	item.get_node("%OnBlockToggle").button_pressed = data.has_block_recovery if data.get("has_block_recovery") != null else false
+	item.get_node("%OnHitToggle").button_pressed = data.has_hit_recovery if data.get("has_hit_recovery") != null else false
+	item.get_node("%OnCounterToggle").button_pressed = data.has_ch_recovery if data.get("has_ch_recovery") != null else false
 	item.get_node("%OnCounterOpponentToggle").button_pressed = data.has_counter_property if data.get("has_counter_property") != null else false
 
 	item.get_node("%PushbackForce").value = FixedInt.ToFloat(data.pushback_force)
@@ -148,7 +156,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 
 	# blocked attack animation (attacker)
 	for i: int in item.get_node("%OnBlockOption").item_count:
-		if str(data.recovery_block) == item.get_node("%OnBlockOption").get_item_text(i):
+		if data.recovery_block == item.get_node("%OnBlockOption").get_item_text(i):
 			item.get_node("%OnBlockOption").selected = i
 			break
 
@@ -160,7 +168,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	
 	# hit landed counter (attacker)
 	for i: int in item.get_node("%OnCounterOption").item_count:
-		if data.recover_ch == item.get_node("%OnCounterOption").get_item_text(i):
+		if data.recovery_ch == item.get_node("%OnCounterOption").get_item_text(i):
 			item.get_node("%OnCounterOption").selected = i
 			break
 

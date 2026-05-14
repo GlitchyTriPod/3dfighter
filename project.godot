@@ -45,7 +45,7 @@ project/assembly_name="3dFighter"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/delta_rollback/plugin.cfg")
+enabled=PackedStringArray("res://addons/delta_rollback/plugin.cfg", "res://addons/fe_fighter_compiler/plugin.cfg")
 
 [filesystem]
 

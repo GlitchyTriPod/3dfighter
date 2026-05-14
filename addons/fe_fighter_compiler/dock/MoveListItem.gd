@@ -36,7 +36,10 @@ var selected: bool = false
 var is_reference: bool = false
 var no_input: bool = false
 
-var move_type: int = 0
+var move_type: int = 0:
+	set(val):
+		move_type = val
+		self.change_item_color(val)
 
 var anim_names: PackedStringArray:
 	get:
@@ -193,11 +196,11 @@ func change_item_color(idx: int) -> void:
 			stylebox.bg_color = Color("#515f66")
 		1:
 			stylebox.bg_color = Color("#665154")
-		3:
+		2:
 			stylebox.bg_color = Color("#666551")
-		4:
+		3:
 			stylebox.bg_color = Color("#635166")
-		5:
+		4:
 			stylebox.bg_color = Color("#51665a")			
 	self.add_theme_stylebox_override("panel", stylebox)
 

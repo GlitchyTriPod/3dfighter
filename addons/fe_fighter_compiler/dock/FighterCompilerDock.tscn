@@ -56,7 +56,6 @@ text = ">>"
 
 [node name="SelectFighterLabel" type="Label" parent="MainView" unique_id=1187049873]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 6
 text = "Open a Fighter scene to edit a movelist."
@@ -65,11 +64,13 @@ vertical_alignment = 1
 
 [node name="MoveListContainer" type="HBoxContainer" parent="MainView" unique_id=330117581]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="MoveListTree" type="Tree" parent="MainView/MoveListContainer" unique_id=2099422299]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
