@@ -73,6 +73,8 @@ func _ready() -> void:
 	%OnCounterOption.clear()
 	%OnAirHitOption.clear()
 	%OnBackHitOpponentOption.clear()
+	%OnGroundHitOption.clear()
+	%OnCrouchBlockOpponentOption.clear()
 
 	for name: StringName in self.anim_names:
 		%MoveAnimationOption.add_item(name)
@@ -82,11 +84,13 @@ func _ready() -> void:
 		%OnCounterOption.add_item(name)
 	for name: StringName in self.block_animations.get_animation_list():
 		%OnBlockOpponentOption.add_item("%s/%s" % [self.block_animations.resource_name, name])
+		%OnCrouchBlockOpponentOption.add_item("%s/%s" % [self.block_animations.resource_name, name])
 	for name: StringName in self.hit_animations.get_animation_list():
 		%OnHitOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 		%OnCounterOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 		%OnBackHitOpponentOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 		%OnAirHitOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
+		%OnGroundHitOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 	%MoveData.folded = true
 
 # ======================
@@ -150,6 +154,7 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 			data["is_grab"] = box.is_grab
 			data["is_punch"] = box.is_punch
 			data["is_kick"] = box.is_kick
+			data["hits_grounded"] = box.hits_grounded
 
 			val["shapes"].append(data)
 
@@ -239,6 +244,9 @@ func _on_on_hit_toggle_toggled(toggled_on: bool) -> void:
 
 func _on_on_counter_toggle_toggled(toggled_on: bool) -> void:
 	%OnCounterOption.disabled = !toggled_on
+
+func _on_on_crouch_block_opponent_toggle_toggled(toggled_on: bool) -> void:
+	%OnCrouchBlockOpponentOption.disabled = !toggled_on
 
 # add player state
 func _on_button_button_up() -> void:
@@ -335,9 +343,20 @@ func _on_non_attack_toggled(toggled_on: bool) -> void:
 	%OnBlockOpponentOption.disabled = toggled_on
 	%OnHitOpponentOption.disabled = toggled_on
 	%OnBlockToggle.disabled = toggled_on
+	%OnCrouchBlockOpponentToggle.disabled = toggled_on
+	%OnHitToggle.disabled = toggled_on
+	%OnCounterToggle.disabled = toggled_on
 	%OnCounterOpponentToggle.disabled = toggled_on
+	%OnBackHitOpponentOption.disabled = toggled_on
+	%OnAirHitOption.disabled = toggled_on
+	%OnGroundHitOption.disabled = toggled_on
+	%TargetFaceAttackerHit.disabled = toggled_on
 	%AddHitbox.disabled = toggled_on
 	%AddHurtbox.disabled = toggled_on
+	%PushbackForce.editable = !toggled_on
+	%PushbackDirection.editable = !toggled_on
+	%LaunchForce.editable = !toggled_on
+	%LaunchDirection.editable = !toggled_on
 
 func _on_move_up_button_button_up() -> void:
 	get_parent().move_child(self, clampi(self.get_index() - 1, 0, 10000))

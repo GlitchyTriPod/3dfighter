@@ -364,6 +364,27 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="MarginContainer9" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=434224328]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="OnCrouchBlock" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=404852815]
+layout_mode = 2
+
+[node name="OnCrouchBlockOpponentToggle" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCrouchBlock" unique_id=483250586]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCrouchBlock" unique_id=538086874]
+layout_mode = 2
+text = "On Crouch Block [Opp]: "
+
+[node name="OnCrouchBlockOpponentOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCrouchBlock" unique_id=1833361774]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+
 [node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=405285444]
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
@@ -492,6 +513,22 @@ layout_mode = 2
 text = "  On Air Hit: "
 
 [node name="OnAirHitOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnAirHit" unique_id=1701594993]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer12" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=379576270]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="OnGroundHit" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=755472746]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnGroundHit" unique_id=1280439375]
+layout_mode = 2
+text = "  On Ground Hit: "
+
+[node name="OnGroundHitOption" type="OptionButton" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnGroundHit" unique_id=1973071404]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -654,6 +691,7 @@ max_value = 90.0
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer/MoveDownButton" to="." method="_on_move_down_button_button_up"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NoInput" to="." method="_on_no_input_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NonAttackToggle" to="." method="_on_non_attack_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCrouchBlock/OnCrouchBlockOpponentToggle" to="." method="_on_on_crouch_block_opponent_toggle_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCounterOpponent/OnCounterOpponentToggle" to="." method="_on_on_counter_opponent_toggle_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnHit/OnHitToggle" to="." method="_on_on_hit_toggle_toggled"]

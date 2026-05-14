@@ -5,25 +5,23 @@
 [ext_resource type="Animation" uid="uid://m3jaxkh4by65" path="res://models/animations/testing/def_dash_b.res" id="2_qbaii"]
 [ext_resource type="Animation" uid="uid://d267uypc4t3mu" path="res://models/animations/testing/def_dash_f.res" id="3_ssyyt"]
 [ext_resource type="Animation" uid="uid://bhi076yj2tf7e" path="res://models/animations/testing/def_idle_crouching.res" id="4_xi0io"]
-[ext_resource type="Animation" uid="uid://dmbkx48s5kcbd" path="res://models/animations/testing/def_ground_faceup.res" id="5_ha1xk"]
+[ext_resource type="Animation" uid="uid://db0cc6fl7upk2" path="res://models/animations/testing/def_ground_faceup.res" id="5_ha1xk"]
 [ext_resource type="Animation" uid="uid://bujtffhilcqwk" path="res://models/animations/testing/def_idle_standing.res" id="5_pb8e7"]
 [ext_resource type="Animation" uid="uid://benkn1a43lx0l" path="res://models/animations/testing/def_run_f.res" id="6_2sdl1"]
-[ext_resource type="Animation" uid="uid://cnexx81a0tkqv" path="res://models/animations/testing/def_ground_hit_1.res" id="6_7fswf"]
-[ext_resource type="Animation" uid="uid://dl5tlj3ktp38x" path="res://models/animations/testing/def_ground_hit_2.res" id="7_28mr6"]
 [ext_resource type="Animation" uid="uid://kf4kr8dmavyc" path="res://models/animations/testing/def_step_l.res" id="7_byvdc"]
-[ext_resource type="Animation" uid="uid://bamero6y2ans8" path="res://models/animations/testing/def_ground_roll_l.res" id="8_2cbml"]
+[ext_resource type="Animation" uid="uid://oegw86fn53mp" path="res://models/animations/testing/def_ground_roll_l.res" id="8_2cbml"]
 [ext_resource type="Animation" uid="uid://dbe7hf2xjlv7i" path="res://models/animations/testing/def_step_r.res" id="8_k46sr"]
-[ext_resource type="Animation" uid="uid://cmofsgbsct4ir" path="res://models/animations/testing/def_ground_roll_r.res" id="9_8jg5p"]
+[ext_resource type="Animation" uid="uid://xegsf2g4d8xb" path="res://models/animations/testing/def_ground_roll_r.res" id="9_8jg5p"]
 [ext_resource type="Animation" uid="uid://bqj8tc24tgwtu" path="res://models/animations/testing/def_walk_b.res" id="9_q4s7h"]
 [ext_resource type="Animation" uid="uid://d2rk5d8mccnah" path="res://models/animations/testing/def_walk_f.res" id="10_72ljn"]
-[ext_resource type="Animation" uid="uid://dtperwch4227c" path="res://models/animations/testing/def_ground_wakeup_g.res" id="10_vj082"]
+[ext_resource type="Animation" uid="uid://dxnxhw4ovysi8" path="res://models/animations/testing/def_ground_wakeup_g.res" id="10_vj082"]
 [ext_resource type="Animation" uid="uid://dxcxbucuc7hkd" path="res://models/animations/testing/def_walk_fc.res" id="11_cr2uu"]
-[ext_resource type="Animation" uid="uid://dwlmvnode1xnl" path="res://models/animations/testing/def_ground_wakeup_l.res" id="11_oy21e"]
+[ext_resource type="Animation" uid="uid://co8scmahcris" path="res://models/animations/testing/def_ground_wakeup_l.res" id="11_oy21e"]
 [ext_resource type="Animation" uid="uid://cgle8hsc6hiet" path="res://models/animations/testing/def_walk_l.res" id="12_ha1xk"]
-[ext_resource type="Animation" uid="uid://kisx604r7gxi" path="res://models/animations/testing/def_ground_wakeup_m.res" id="12_k13j7"]
-[ext_resource type="Animation" uid="uid://dbtou5p86eyb2" path="res://models/animations/testing/def_ground_wakeup_p.res" id="13_3buti"]
+[ext_resource type="Animation" uid="uid://b3dwbtp6ii3ii" path="res://models/animations/testing/def_ground_wakeup_m.res" id="12_k13j7"]
+[ext_resource type="Animation" uid="uid://o26wq6cvkaqx" path="res://models/animations/testing/def_ground_wakeup_p.res" id="13_3buti"]
 [ext_resource type="Animation" uid="uid://bj63nbwv2mpr7" path="res://models/animations/testing/def_walk_r.res" id="13_7fswf"]
-[ext_resource type="Animation" uid="uid://b0bb1oe8neh3h" path="res://models/animations/testing/def_ground_wakeup_pk.res" id="14_03n3b"]
+[ext_resource type="Animation" uid="uid://dkkg8iav25n5f" path="res://models/animations/testing/def_ground_wakeup_pk.res" id="14_03n3b"]
 
 [resource]
 resource_name = "def_animations"
@@ -33,8 +31,6 @@ _data = {
 &"def_dash_b": ExtResource("2_qbaii"),
 &"def_dash_f": ExtResource("3_ssyyt"),
 &"def_ground_faceup": ExtResource("5_ha1xk"),
-&"def_ground_hit_1": ExtResource("6_7fswf"),
-&"def_ground_hit_2": ExtResource("7_28mr6"),
 &"def_ground_roll_l": ExtResource("8_2cbml"),
 &"def_ground_roll_r": ExtResource("9_8jg5p"),
 &"def_ground_wakeup_g": ExtResource("10_vj082"),

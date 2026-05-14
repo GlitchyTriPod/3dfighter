@@ -41,9 +41,12 @@ enum BUTTON_FLAGS {
 
 @export var hit_animation: String
 @export var block_animation: String
+@export var crouch_block_animation: String = ""
+@export var has_crouch_block_property: bool = false
 @export var counter_animation: String = ""
 @export var has_counter_property: bool = false
 @export var air_hit_animation: String = ""
+@export var ground_hit_animation: String = ""
 @export var back_hit_animation: String = ""
 
 @export var face_attacker_on_hit: bool = false

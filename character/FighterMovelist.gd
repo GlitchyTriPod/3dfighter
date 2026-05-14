@@ -59,6 +59,9 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 			self.is_valid_button_press(move.input_button, inputs[0]["button"]) && \
 			(move.side_context == 0 || screen_position == move.side_context) && \
 			(self.has_valid_states(move, player_states) if !move.required_state.is_empty() else true):
+			
+			# assert(move.move_name != "ground_wakeup_g_high")
+
 			possible_moves.append(move)
 	
 	### determining move priority ###
@@ -69,6 +72,8 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 	)
 	temp_arr_state_moves.sort_custom(
 		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
+			if a.input_button == b.input_button:
+				return a.input_di_map[0] > b.input_di_map[0]
 			return a.input_button > b.input_button
 	)
 
@@ -101,7 +106,7 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 	### selecting move ###
 
 	for move: FighterAnimationData in possible_moves:
-
+		# assert(!player_states.has("grounded"))
 
 		# checking for motion input
 		if move.input_di_map.size() > 1:

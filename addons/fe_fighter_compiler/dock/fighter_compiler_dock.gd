@@ -145,6 +145,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	item.get_node("%ProhibitState").text = data.prohibit_state if data.get("prohibit_state") != null else ""
 
 	item.get_node("%OnBlockToggle").button_pressed = data.has_block_recovery if data.get("has_block_recovery") != null else false
+	item.get_node("%OnCrouchBlockOpponentToggle").button_pressed = data.has_crouch_block_property if data.get("has_crouch_block_property") != null else false
 	item.get_node("%OnHitToggle").button_pressed = data.has_hit_recovery if data.get("has_hit_recovery") != null else false
 	item.get_node("%OnCounterToggle").button_pressed = data.has_ch_recovery if data.get("has_ch_recovery") != null else false
 	item.get_node("%OnCounterOpponentToggle").button_pressed = data.has_counter_property if data.get("has_counter_property") != null else false
@@ -178,6 +179,12 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 			item.get_node("%OnBlockOpponentOption").selected = i
 			break
 
+	# crouch blocked attack animation (Opponent)
+	for i: int in item.get_node("%OnCrouchBlockOpponentOption").item_count:
+		if data.crouch_block_animation == item.get_node("%OnCrouchBlockOpponentOption").get_item_text(i):
+			item.get_node("%OnCrouchBlockOpponentOption").selected = i
+			break
+
 	# hit animation (opponent)
 	for i:int in item.get_node("%OnHitOpponentOption").item_count:
 		if data.hit_animation == item.get_node("%OnHitOpponentOption").get_item_text(i):
@@ -200,6 +207,12 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	for i: int in item.get_node("%OnAirHitOption").item_count:
 		if data.air_hit_animation == item.get_node("%OnAirHitOption").get_item_text(i):
 			item.get_node("%OnAirHitOption").selected = i
+			break
+
+	# ground hit (opponent)
+	for i: int in item.get_node("%OnGroundHitOption").item_count:
+		if data.ground_hit_animation == item.get_node("%OnGroundHitOption").get_item_text(i):
+			item.get_node("%OnGroundHitOption").selected = i
 			break
 
 	# frame data here??? do i even need to do anything with that?
@@ -387,6 +400,8 @@ func _on_compile_movelist_button_button_up() -> void:
 
 		anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
 		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
+		anim_data.has_crouch_block_property = item.get_node("%OnCrouchBlockOpponentToggle").button_pressed
+		anim_data.crouch_block_animation = item.get_node("%OnCrouchBlockOpponentOption").text
 		anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
 		anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
 		anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
@@ -399,6 +414,7 @@ func _on_compile_movelist_button_button_up() -> void:
 		anim_data.has_ch_recovery = item.get_node("%OnCounterToggle").button_pressed
 		anim_data.recovery_ch = item.get_node("%OnCounterOption").text
 		anim_data.air_hit_animation = item.get_node("%OnAirHitOption").text
+		anim_data.ground_hit_animation = item.get_node("%OnGroundHitOption").text
 
 		anim_data.face_attacker_on_hit = item.get_node("%TargetFaceAttackerHit").button_pressed
 

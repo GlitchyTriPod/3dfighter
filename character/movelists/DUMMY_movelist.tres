@@ -16,8 +16,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -56,8 +58,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -96,8 +100,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -140,8 +146,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -184,8 +192,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -228,8 +238,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -271,8 +283,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -323,8 +337,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -375,8 +391,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -426,8 +444,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -478,8 +498,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -530,8 +552,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -582,8 +606,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -635,8 +661,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -686,8 +714,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -737,8 +767,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -788,8 +820,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -839,8 +873,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -881,8 +917,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -943,8 +981,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1004,8 +1044,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1065,8 +1107,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1127,8 +1171,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1189,8 +1235,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1250,8 +1298,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1302,7 +1352,7 @@ side_context = 2
 script = ExtResource("1_3esc5")
 move_name = "ground_roll_r_RIGHT_BACK"
 move_type = 2
-input_di_map = [5]
+input_di_map = [1]
 animation_name = "def_animations/def_ground_roll_l"
 required_state = "grounded, back_turned_calc"
 non_attack = true
@@ -1311,8 +1361,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1372,8 +1424,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1416,8 +1470,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1461,8 +1517,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1503,7 +1561,7 @@ script = ExtResource("1_3esc5")
 move_name = "ground_pk"
 move_type = 2
 input_di_map = [0]
-input_button = 4
+input_button = 3
 animation_name = "def_animations/def_ground_wakeup_pk"
 required_state = "grounded"
 recovery_hit = "def_animations/def_atk_2p"
@@ -1511,8 +1569,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_m_3"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 983
 hitbox_data = {
@@ -1526,6 +1586,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -1539,6 +1600,7 @@ hitbox_data = {
 "end": 24,
 "start": 22
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -1593,8 +1655,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_l_1"
 block_animation = "def_block_animations/def_block_l_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_l_1"
 pushback_force = 1310
 hitbox_data = {
@@ -1608,6 +1672,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -1621,6 +1686,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -1679,8 +1745,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 1310
 hitbox_data = {
@@ -1694,6 +1762,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -1707,6 +1776,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -1743,7 +1813,7 @@ script = ExtResource("1_3esc5")
 move_name = "ground_hit_1"
 move_type = 3
 input_di_map = [0]
-animation_name = "def_animations/def_ground_hit_1"
+animation_name = "def_hit_animations/def_ground_hit_1"
 required_state = "grounded"
 non_attack = true
 recovery_hit = "def_animations/def_atk_2p"
@@ -1751,8 +1821,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1780,7 +1852,7 @@ script = ExtResource("1_3esc5")
 move_name = "ground_hit_2"
 move_type = 3
 input_di_map = [0]
-animation_name = "def_animations/def_ground_hit_2"
+animation_name = "def_hit_animations/def_ground_hit_2"
 required_state = "grounded"
 non_attack = true
 recovery_hit = "def_animations/def_atk_2p"
@@ -1788,8 +1860,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1824,8 +1898,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1864,8 +1940,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1904,8 +1982,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1948,8 +2028,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -1984,8 +2066,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -2020,8 +2104,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -2056,8 +2142,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -2092,8 +2180,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -2136,8 +2226,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 hitbox_data = {
 "frame_range": {
@@ -2173,8 +2265,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_h1"
 block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 983
 hitbox_data = {
@@ -2188,6 +2282,7 @@ hitbox_data = {
 "end": 12,
 "start": 10
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": false,
@@ -2243,8 +2338,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_m_1"
 block_animation = "def_block_animations/def_block_m_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 1638
 hitbox_data = {
@@ -2258,6 +2355,7 @@ hitbox_data = {
 "end": 17,
 "start": 15
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": false,
@@ -2271,6 +2369,7 @@ hitbox_data = {
 "end": 17,
 "start": 15
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": false,
@@ -2319,8 +2418,11 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_m_1"
 block_animation = "def_block_animations/def_block_m_1"
+crouch_block_animation = "def_block_animations/def_block_l_1"
+has_crouch_block_property = true
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 655
 hitbox_data = {
@@ -2334,6 +2436,7 @@ hitbox_data = {
 "end": 12,
 "start": 10
 },
+"hits_grounded": false,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": false,
@@ -2396,10 +2499,12 @@ animation_name = "AnimLibrary_Atropos/atro_atk_1pa"
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
-hit_animation = "def_hit_animations/def_hit_h1"
-block_animation = "def_block_animations/def_block_h_1"
+hit_animation = "def_hit_animations/def_hit_knd_1"
+block_animation = "def_block_animations/def_block_m_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_2"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 1966
 hitbox_data = {
@@ -2413,6 +2518,7 @@ hitbox_data = {
 "end": 21,
 "start": 19
 },
+"hits_grounded": true,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": false,
@@ -2426,6 +2532,7 @@ hitbox_data = {
 "end": 21,
 "start": 19
 },
+"hits_grounded": true,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": false,
@@ -2439,6 +2546,7 @@ hitbox_data = {
 "end": 21,
 "start": 19
 },
+"hits_grounded": true,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": false,
@@ -2491,8 +2599,10 @@ recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
 hit_animation = "def_hit_animations/def_hit_l_1"
 block_animation = "def_block_animations/def_block_l_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 1310
 hitbox_data = {
@@ -2506,6 +2616,7 @@ hitbox_data = {
 "end": 17,
 "start": 15
 },
+"hits_grounded": true,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -2571,10 +2682,13 @@ recovery_block = "AnimLibrary_Atropos/atro_stagger_rl"
 has_block_recovery = true
 hit_animation = "def_hit_animations/def_hit_l_1"
 block_animation = "def_block_animations/def_block_l_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
 counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_2"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 pushback_force = 1900
+pushback_direction = 2949120
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -2586,6 +2700,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": true,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -2599,6 +2714,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": true,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,
@@ -2612,6 +2728,7 @@ hitbox_data = {
 "end": 22,
 "start": 20
 },
+"hits_grounded": true,
 "is_grab": false,
 "is_hitbox": true,
 "is_kick": true,

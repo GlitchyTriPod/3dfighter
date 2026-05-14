@@ -36,6 +36,12 @@ var hitbox_attack_index: int = -1
 var hitbox_attack_name: String = ""
 var attack_height: int = ATTACK_HEIGHT.HIGH
 
+var is_punch: bool = false
+var is_kick: bool = false
+var is_grab: bool = false
+var unblockable: bool = false
+var hits_grounded: bool = false
+
 var fixed_position: FixedVector3 = FixedVector3.new()
 var fixed_rotation: FixedVector3 = FixedVector3.new()
 
@@ -72,6 +78,14 @@ static func create_from_data(data: Variant) -> FECollisionData:
 		col_data.hitbox_attack_name = data["animation_name"]
 	if data.has("attack_height"):
 		col_data.attack_height = data["attack_height"]
+	if data.has("is_punch"):
+		col_data.is_punch = data["is_punch"]
+	if data.has("is_kick"):
+		col_data.is_kick = data["is_kick"]
+	if data.has("unblockable"):
+		col_data.unblockable = data["unblockable"]
+	if data.has("hits_grounded"):
+		col_data.hits_grounded = data["hits_grounded"]
 	col_data.fixed_position = data["position"]
 	col_data.enabled = true
 

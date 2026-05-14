@@ -19,7 +19,8 @@ var data: Dictionary = {
 	"unblockable": false,
 	"is_punch": false,
 	"is_kick": false,
-	"is_grab": false
+	"is_grab": false,
+	"hits_grounded": false
 }
 
 var working_data: Dictionary
@@ -50,7 +51,8 @@ func populate_data() -> void:
 	%UnblockableVal.button_pressed = self.working_data["unblockable"]
 	%IsPunchVal.button_pressed = self.working_data["is_punch"]
 	%IsKickVal.button_pressed = self.working_data["is_kick"]
-	%IsGrabVal.button_pressed = self.working_data["is_grab"]	
+	%IsGrabVal.button_pressed = self.working_data["is_grab"]
+	%HitsGrounded.button_pressed = self.working_data["hits_grounded"]
 
 func get_sphere_in_editor() -> void:
 	var active_spheres: Array = EditorInterface.get_edited_scene_root() \
@@ -139,6 +141,9 @@ func _on_is_kick_val_toggled(toggled_on: bool) -> void:
 
 func _on_is_grab_val_toggled(toggled_on: bool) -> void:
 	self.working_data["is_grab"] = toggled_on
+
+func _on_hits_grounded_toggled(toggled_on: bool) -> void:
+	self.working_data["hits_grounded"] = toggled_on
 
 func _on_confirm_button_up() -> void:
 	self.apply_hitbox_changes()

@@ -6,23 +6,24 @@ signal clicked(source: HitboxButton)
 
 @export var is_hurtbox := false
 
-var sphere_radius := 0
+var sphere_radius: int = 0
 
-var x_pos := 0
-var y_pos := 0
-var z_pos := 0
+var x_pos: int = 0
+var y_pos: int = 0
+var z_pos: int = 0
 
-var frame_start := 0
-var frame_end := 0
+var frame_start: int = 0
+var frame_end: int = 0
 
 var attack_height: int
 
 # Yet to be implemented
-var unblockable := false
-var is_grab := false
+var unblockable: bool = false
+var is_grab: bool = false
 
-var is_punch := false
-var is_kick := false
+var is_punch: bool = false
+var is_kick: bool = false
+var hits_grounded: bool = false
 
 # ===========================
 
@@ -52,7 +53,8 @@ func get_data() -> Dictionary:
 		"unblockable": self.unblockable,
 		"is_punch": self.is_punch,
 		"is_kick": self.is_kick,
-		"is_grab": self.is_grab
+		"is_grab": self.is_grab,
+		"hits_grounded": self.hits_grounded
 	}
 
 func update_data(data: Dictionary):
@@ -67,6 +69,8 @@ func update_data(data: Dictionary):
 	self.is_punch = data['is_punch']
 	self.is_kick = data['is_kick']
 	self.is_grab = data['is_grab']
+	if data.has("hits_grounded"):
+		self.hits_grounded = data["hits_grounded"]
 	self.update_text()
 
 func _on_HitboxMenu_request_hitbox_removal() -> void:
