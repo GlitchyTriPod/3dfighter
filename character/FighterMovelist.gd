@@ -41,8 +41,6 @@ func get_from_ref_name(ref_name: String) -> Variant:
 	return false
 
 func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray, screen_position: int) -> FighterAnimationData:
-
-	# var ret_val: FighterAnimationData = null
 	var possible_moves: Array[FighterAnimationData] = []
 
 	### selecting valid moves ###
@@ -72,6 +70,8 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 	)
 	temp_arr_state_moves.sort_custom(
 		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
+			if a.required_state.split(", ").size() > b.required_state.split(", ").size():
+				return true
 			if a.input_button == b.input_button:
 				return a.input_di_map[0] > b.input_di_map[0]
 			return a.input_button > b.input_button
@@ -158,10 +158,13 @@ func is_valid_button_press(move_input: int, button_mask: int) -> bool:
 	return false
 
 func has_valid_states(move: FighterAnimationData, player_states: PackedStringArray) -> bool:
+
 	var states: PackedStringArray = move.required_state.split(", ")
+	var match_count: int = 0
 
 	for state: String in states:
 		if player_states.has(state):
-			return true
+			match_count += 1
+	# assert(move.move_name != "ground_roll_l_LEFT_BACK")
 	
-	return false
+	return match_count >= states.size()

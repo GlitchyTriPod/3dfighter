@@ -2,6 +2,20 @@
 extends Node3D
 class_name Fighter
 
+enum DI_STATE {
+	NEUTRAL,
+	UP,
+	UP_FORWARD,
+	FORWARD,
+	DOWN_FORWARD,
+	DOWN,
+	DOWN_BACK,
+	BACK,
+	UP_BACK
+}
+
+const state_calc_functions: Resource = preload("res://character/FighterStateCalc.gd")
+
 @export var fighter_name: String = "DUMMY"
 
 @export_enum("1", "2") var player: int = 0
@@ -14,6 +28,7 @@ var stun_reason: Dictionary = {
 }
 
 var states: Array[String] = []
+var state_data: Dictionary = {}
 
 @export var movelist: FighterMovelist
 
@@ -21,18 +36,6 @@ var states: Array[String] = []
 @export var animation_hurtbox_data: FighterResource
 
 @export var animation_library: AnimationLibrary
-
-enum DI_STATE {
-	NEUTRAL,
-	UP,
-	UP_FORWARD,
-	FORWARD,
-	DOWN_FORWARD,
-	DOWN,
-	DOWN_BACK,
-	BACK,
-	UP_BACK
-}
 
 var message_bus: FighterMessageBus
 
@@ -86,15 +89,11 @@ func _init() -> void:
 		self._debug_hitbox_pool = []
 		self._debug_hurtbox_pool = []
 
-		# self.misc_hurtbox_pool.append(FECollisionData.new())
-
-	# if OS.has_feature("show_hitboxes"):
 		for i: int in range(0, 29, 1):
 			var hurtbox: FECollisionShape = FECollisionShape.new()
 			hurtbox.enabled = false
 			self._debug_hurtbox_pool.append(hurtbox)
 
-	# if OS.has_feature("show_hitboxes"):
 		for i: int in range(0, 4, 1):
 			var hitbox: FECollisionShape = FECollisionShape.new()
 			hitbox.enabled = false
@@ -104,8 +103,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():
-	# 	self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
-	# else:
 		%AddonSpheres.queue_free()
 
 		for nde: Node in get_tree().get_nodes_in_group("SkeletonHurtbox"):
@@ -129,7 +126,7 @@ func _ready() -> void:
 		get_window().focus_exited.connect(self._on_window_focus_exited)
 
 func _process(_delta: float) -> void:
-	%AnimationNameLabel.text = self.anim_player.current_animation
+	%DebugLabel.text = str(self.states.has("back_turned_calc"))
 
 	if Engine.is_editor_hint():
 		if self.anim_player.current_animation.is_empty():
@@ -152,6 +149,10 @@ func _process(_delta: float) -> void:
 
 		if self._velocity_bake_mode || self._hurtbox_bake_mode:
 			self.anim_player.advance(1.0 / 60)
+
+	else:
+		self.position = self.collision_body.global_position - self.collision_body_offset
+		self.rotation = self.collision_body.global_rotation
 
 ### METHODS ###
 
@@ -185,13 +186,18 @@ func process_animation_data() -> void:
 	# set states
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
 	for state: Variant in atk.player_states:
-		var state_data: Variant = atk.player_states[state]
-		if current_frame >= state_data.start && \
-			current_frame < state_data.end:
+		var state_dat: Variant = atk.player_states[state]
+		if current_frame >= state_dat.start && \
+			current_frame < state_dat.end:
 			if self.states.has(state):
 				continue
 			self.states.append(state)
 	
+# checks current game state, applies
+func process_calculated_states() -> void:
+	for method: Callable in self.state_calc_functions.methods:
+		method.call(self)
+
 # checks current animation for hitboxes & places them into the scene if necessary
 func process_animation_hitboxes() -> void:
 	if OS.has_feature("show_hitboxes"):
@@ -211,7 +217,6 @@ func process_animation_hitboxes() -> void:
 				continue
 			if !h_b.has("is_hitbox"):
 				h_b["is_hitbox"] = true
-			# h_b["is_hitbox"] = true
 			hitbox_data.append(h_b)
 
 	if atk.hurtbox_data.has("shapes"):
@@ -221,7 +226,6 @@ func process_animation_hitboxes() -> void:
 			
 			if !h_b.has("is_hitbox"):
 				h_b["is_hitbox"] = false
-			# h_b["is_hitbox"] = false
 			hurtbox_data.append(h_b)
 	
 	hurtbox_data.append_array(self.get_animation_hurtboxes())
@@ -495,44 +499,44 @@ func get_root_motion() -> FixedVector3:
 	return vel
 
 func collide_and_slide(delta: int) -> void:
-
 	var new_position: FixedVector3 = self.collision_body.fixed_position
-
 	new_position = FixedVector3.Add(new_position, FixedVector3.Mul(self.collision_body.velocity, delta))
 
-	######### used OUTSIDE editor only #########
-	if !Engine.is_editor_hint():
+	if Engine.is_editor_hint():
+		return
 
-		var oppo_collision_body: FEFighterCollisionBody = self.message_bus.get_oppo_collision_body(self)
+	var oppo_collision_body: FEFighterCollisionBody = self.message_bus.get_oppo_collision_body(self)
 
-		var overlap: int = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
+	var overlap: int = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 
-		if overlap > 0:
-			var change: FixedVector3 = FixedVector3.Mul(
-				self.collision_body.fixed_position.DirectionTo(oppo_collision_body.fixed_position),
-				FixedInt.Div(abs(overlap), FixedIntGDConstant.FIXED_TWO)
-			)
+	if overlap > 0:
+		var change: FixedVector3 = FixedVector3.Mul(
+			self.collision_body.fixed_position.DirectionTo(oppo_collision_body.fixed_position),
+			FixedInt.Div(abs(overlap), FixedIntGDConstant.FIXED_TWO)
+		)
 
-			new_position.x -= change.x
-			# new_position.y -= change.y 
-			new_position.z -= change.z
+		new_position.x -= change.x
+		# new_position.y -= change.y 
+		new_position.z -= change.z
 
-		# TODO: Collision with walls
+	# TODO: Collision with walls
 
-		self.collision_body.fixed_position = new_position
+	self.collision_body.fixed_position = new_position
+	# if self.player == 0: 
+	# 	print(self.collision_body.fixed_rotation.y)
 
-		if self.is_tracking_opponent():
-			self.collision_body.fixed_look_at(
-				oppo_collision_body.fixed_position,
-				FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0))
-	############################################
-
-	self.position = self.collision_body.global_position - self.collision_body_offset
-	self.rotation = self.collision_body.global_rotation
+	if self.is_tracking_opponent():
+		self.collision_body.fixed_look_at(
+			oppo_collision_body.fixed_position,
+			FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0),
+			self.states.has("inverse_track_opp"),
+			self.states.has("lerp_rotation"),
+			delta
+		)
 
 func is_tracking_opponent() -> bool:
 	var oppo_states: PackedStringArray = self.message_bus.get_oppo_states(self)
-	if self.states.has("track_opp") || \
+	if self.states.has("track_opp") || self.states.has("inverse_track_opp") || \
 		(self.states.has("track_right") && oppo_states.has("left_movement")) || \
 		(self.states.has("track_left") && oppo_states.has("right_movement")):
 		return true
@@ -610,10 +614,14 @@ func _save_state() -> Dictionary:
 	return {
 		"input_history": self.input_interpreter.input_history.duplicate(),
 		"current_anim_id": self.current_anim_id,
-		"anim_fallback_id": self.anim_fallback_id
+		"anim_fallback_id": self.anim_fallback_id,
+		# "states": self.states.duplicate(),
+		"state_data": self.state_data.duplicate()
 	}
 
 func _load_state(state: Dictionary) -> void:
 	self.input_interpreter.input_history = state.input_history.duplicate()
 	self.current_anim_id = state.current_anim_id
 	self.anim_fallback_id = state.anim_fallback_id
+	# self.states = state.states.duplicate()
+	self.state_data = state.state_data.duplicate()

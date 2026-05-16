@@ -18,6 +18,10 @@ func _network_process(_input: Dictionary) -> void:
 	self.player_1.process_animation_data()
 	self.player_2.process_animation_data()
 
+	# set player states based on calculations
+	self.player_1.process_calculated_states()
+	self.player_2.process_calculated_states()
+
 	# enable/disable hit/hurtboxes for player based on anim data
 	self.player_1.process_animation_hitboxes()
 	self.player_2.process_animation_hitboxes()

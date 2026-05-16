@@ -416,5 +416,10 @@ public partial class FixedVector3 : Resource, IDisposable
 			this.y == FixedInt.FIXED_ZERO &&
 			this.z == FixedInt.FIXED_ZERO;
 	}
+	
+	public long AngleTo(FixedVector3 target)
+	{
+		return FixedInt.Atan2(this.Cross(target).Length(), this.Dot(target));
+	}
 	#endregion
 }

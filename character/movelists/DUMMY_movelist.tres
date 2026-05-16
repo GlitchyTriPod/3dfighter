@@ -947,6 +947,10 @@ player_states = {
 "end": 999,
 "start": 0
 },
+"lerp_rotation": {
+"end": 7,
+"start": 0
+},
 "recovery_ignore_input_DOWN": {
 "end": 5,
 "start": 0
@@ -1005,6 +1009,10 @@ player_states = {
 },
 "grounded": {
 "end": 999,
+"start": 0
+},
+"lerp_rotation": {
+"end": 8,
 "start": 0
 },
 "recovery_ignore_input_DOWN": {
@@ -1078,6 +1086,10 @@ player_states = {
 "end": 999,
 "start": 0
 },
+"lerp_rotation": {
+"end": 8,
+"start": 0
+},
 "recovery_ignore_input_DOWN": {
 "end": 5,
 "start": 0
@@ -1135,6 +1147,10 @@ player_states = {
 },
 "inverse_track_opp": {
 "end": 999,
+"start": 0
+},
+"lerp_rotation": {
+"end": 8,
 "start": 0
 },
 "recovery_ignore_input_DOWN": {
@@ -1201,6 +1217,10 @@ player_states = {
 "end": 999,
 "start": 0
 },
+"lerp_rotation": {
+"end": 8,
+"start": 0
+},
 "recovery_ignore_input_DOWN": {
 "end": 5,
 "start": 0
@@ -1259,6 +1279,10 @@ player_states = {
 },
 "grounded": {
 "end": 999,
+"start": 0
+},
+"lerp_rotation": {
+"end": 8,
 "start": 0
 },
 "recovery_ignore_input_DOWN": {
@@ -1332,6 +1356,10 @@ player_states = {
 "end": 999,
 "start": 0
 },
+"lerp_rotation": {
+"end": 8,
+"start": 0
+},
 "recovery_ignore_input_DOWN": {
 "end": 5,
 "start": 0
@@ -1389,6 +1417,10 @@ player_states = {
 },
 "inverse_track_opp": {
 "end": 999,
+"start": 0
+},
+"lerp_rotation": {
+"end": 8,
 "start": 0
 },
 "recovery_ignore_input_DOWN": {
@@ -1450,6 +1482,10 @@ player_states = {
 "end": 999,
 "start": 25
 },
+"lerp_rotation": {
+"end": 999,
+"start": 0
+},
 "track_opp": {
 "end": 999,
 "start": 0
@@ -1496,6 +1532,10 @@ player_states = {
 "end": 999,
 "start": 30
 },
+"lerp_rotation": {
+"end": 999,
+"start": 0
+},
 "track_opp": {
 "end": 999,
 "start": 0
@@ -1541,7 +1581,7 @@ player_states = {
 },
 "guard_high": {
 "end": 999,
-"start": 17
+"start": 20
 }
 }
 recovery_ref = "Ref/idle"
