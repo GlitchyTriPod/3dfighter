@@ -3,6 +3,7 @@ extends FECollisionShape
 class_name FEFighterCollisionBody
 
 var pushback_force: int = 0
+var pushback_angle: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

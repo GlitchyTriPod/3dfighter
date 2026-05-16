@@ -1587,268 +1587,6 @@ player_states = {
 recovery_ref = "Ref/idle"
 
 [sub_resource type="Resource" id="Resource_0ivfs"]
-script = ExtResource("2_cb3ny")
-y = 70123
-z = 53739
-
-[sub_resource type="Resource" id="Resource_5wc0q"]
-script = ExtResource("2_cb3ny")
-y = 55705
-z = 63569
-
-[sub_resource type="Resource" id="Resource_ll7r6"]
-script = ExtResource("1_3esc5")
-move_name = "ground_pk"
-move_type = 2
-input_di_map = [0]
-input_button = 3
-animation_name = "def_animations/def_ground_wakeup_pk"
-required_state = "grounded"
-recovery_hit = "def_animations/def_atk_2p"
-recovery_ch = "def_animations/def_atk_2p"
-recovery_block = "def_animations/def_atk_2p"
-hit_animation = "def_hit_animations/def_hit_m_3"
-block_animation = "def_block_animations/def_block_h_1"
-crouch_block_animation = "def_block_animations/def_block_h_1"
-counter_animation = "def_hit_animations/def_hit_h1"
-air_hit_animation = "def_hit_animations/def_hit_h1"
-ground_hit_animation = "def_hit_animations/def_ground_hit_1"
-back_hit_animation = "def_hit_animations/def_hit_h1"
-pushback_force = 983
-hitbox_data = {
-"frame_range": {
-"end": -1,
-"start": -1
-},
-"shapes": [{
-"attack_height": 1,
-"frame_range": {
-"end": 22,
-"start": 20
-},
-"hits_grounded": false,
-"is_grab": false,
-"is_hitbox": true,
-"is_kick": true,
-"is_punch": false,
-"position": SubResource("Resource_0ivfs"),
-"radius": 20316,
-"unblockable": false
-}, {
-"attack_height": 1,
-"frame_range": {
-"end": 24,
-"start": 22
-},
-"hits_grounded": false,
-"is_grab": false,
-"is_hitbox": true,
-"is_kick": true,
-"is_punch": false,
-"position": SubResource("Resource_5wc0q"),
-"radius": 19660,
-"unblockable": false
-}]
-}
-hurtbox_data = {
-"frame_range": {
-"end": -1,
-"start": -1
-}
-}
-player_states = {
-"airborne": {
-"end": 30,
-"start": 4
-},
-"counterable": {
-"end": 21,
-"start": 0
-},
-"punishable": {
-"end": 999,
-"start": 24
-}
-}
-recovery_ref = "Ref/idle"
-
-[sub_resource type="Resource" id="Resource_ysrka"]
-script = ExtResource("2_cb3ny")
-y = 7864
-z = 91095
-
-[sub_resource type="Resource" id="Resource_esu6j"]
-script = ExtResource("2_cb3ny")
-y = 9175
-z = 60293
-
-[sub_resource type="Resource" id="Resource_i3vrb"]
-script = ExtResource("1_3esc5")
-move_name = "ground_l"
-move_type = 2
-input_di_map = [5]
-input_button = 2
-animation_name = "def_animations/def_ground_wakeup_l"
-required_state = "grounded"
-recovery_hit = "def_animations/def_atk_2p"
-recovery_ch = "def_animations/def_atk_2p"
-recovery_block = "def_animations/def_atk_2p"
-hit_animation = "def_hit_animations/def_hit_l_1"
-block_animation = "def_block_animations/def_block_l_1"
-crouch_block_animation = "def_block_animations/def_block_h_1"
-counter_animation = "def_hit_animations/def_hit_h1"
-air_hit_animation = "def_hit_animations/def_hit_h1"
-ground_hit_animation = "def_hit_animations/def_ground_hit_1"
-back_hit_animation = "def_hit_animations/def_hit_l_1"
-pushback_force = 1310
-hitbox_data = {
-"frame_range": {
-"end": -1,
-"start": -1
-},
-"shapes": [{
-"attack_height": 2,
-"frame_range": {
-"end": 22,
-"start": 20
-},
-"hits_grounded": false,
-"is_grab": false,
-"is_hitbox": true,
-"is_kick": true,
-"is_punch": false,
-"position": SubResource("Resource_ysrka"),
-"radius": 15728,
-"unblockable": false
-}, {
-"attack_height": 2,
-"frame_range": {
-"end": 22,
-"start": 20
-},
-"hits_grounded": false,
-"is_grab": false,
-"is_hitbox": true,
-"is_kick": true,
-"is_punch": false,
-"position": SubResource("Resource_esu6j"),
-"radius": 20316,
-"unblockable": false
-}]
-}
-hurtbox_data = {
-"frame_range": {
-"end": -1,
-"start": -1
-}
-}
-player_states = {
-"counterable": {
-"end": 21,
-"start": 0
-},
-"crouching": {
-"end": 40,
-"start": 0
-},
-"punishable": {
-"end": 999,
-"start": 22
-},
-"track_opp": {
-"end": 2,
-"start": 0
-}
-}
-recovery_ref = "Ref/idle"
-
-[sub_resource type="Resource" id="Resource_guade"]
-script = ExtResource("2_cb3ny")
-y = 71434
-z = 72089
-
-[sub_resource type="Resource" id="Resource_56s85"]
-script = ExtResource("2_cb3ny")
-y = 64880
-z = 39321
-
-[sub_resource type="Resource" id="Resource_mivfj"]
-script = ExtResource("1_3esc5")
-move_name = "ground_m"
-move_type = 2
-input_di_map = [0]
-input_button = 2
-animation_name = "def_animations/def_ground_wakeup_m"
-required_state = "grounded"
-recovery_hit = "def_animations/def_atk_2p"
-recovery_ch = "def_animations/def_atk_2p"
-recovery_block = "def_animations/def_atk_2p"
-hit_animation = "def_hit_animations/def_hit_h1"
-block_animation = "def_block_animations/def_block_h_1"
-crouch_block_animation = "def_block_animations/def_block_h_1"
-counter_animation = "def_hit_animations/def_hit_h1"
-air_hit_animation = "def_hit_animations/def_hit_h1"
-ground_hit_animation = "def_hit_animations/def_ground_hit_1"
-back_hit_animation = "def_hit_animations/def_hit_h1"
-pushback_force = 1310
-hitbox_data = {
-"frame_range": {
-"end": -1,
-"start": -1
-},
-"shapes": [{
-"attack_height": 1,
-"frame_range": {
-"end": 22,
-"start": 20
-},
-"hits_grounded": false,
-"is_grab": false,
-"is_hitbox": true,
-"is_kick": true,
-"is_punch": false,
-"position": SubResource("Resource_guade"),
-"radius": 20316,
-"unblockable": false
-}, {
-"attack_height": 1,
-"frame_range": {
-"end": 22,
-"start": 20
-},
-"hits_grounded": false,
-"is_grab": false,
-"is_hitbox": true,
-"is_kick": true,
-"is_punch": false,
-"position": SubResource("Resource_56s85"),
-"radius": 19005,
-"unblockable": false
-}]
-}
-hurtbox_data = {
-"frame_range": {
-"end": -1,
-"start": -1
-}
-}
-player_states = {
-"counterable": {
-"end": 21,
-"start": 0
-},
-"punishable": {
-"end": 999,
-"start": 22
-},
-"track_opp": {
-"end": 2,
-"start": 0
-}
-}
-recovery_ref = "Ref/idle"
-
-[sub_resource type="Resource" id="Resource_kmy80"]
 script = ExtResource("1_3esc5")
 move_name = "ground_hit_1"
 move_type = 3
@@ -1887,7 +1625,7 @@ player_states = {
 recovery_ref = "Ref/ground_faceup"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_1ej0k"]
+[sub_resource type="Resource" id="Resource_5wc0q"]
 script = ExtResource("1_3esc5")
 move_name = "ground_hit_2"
 move_type = 3
@@ -1926,7 +1664,7 @@ player_states = {
 recovery_ref = "Ref/ground_faceup"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_4ve75"]
+[sub_resource type="Resource" id="Resource_ll7r6"]
 script = ExtResource("1_3esc5")
 move_name = "block_h_1"
 move_type = 4
@@ -1968,7 +1706,7 @@ player_states = {
 recovery_ref = "Ref/idle"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_oe1sg"]
+[sub_resource type="Resource" id="Resource_ysrka"]
 script = ExtResource("1_3esc5")
 move_name = "block_m_1"
 move_type = 4
@@ -2010,7 +1748,7 @@ player_states = {
 recovery_ref = "Ref/idle"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_on37g"]
+[sub_resource type="Resource" id="Resource_esu6j"]
 script = ExtResource("1_3esc5")
 move_name = "block_l_1"
 move_type = 4
@@ -2056,7 +1794,7 @@ player_states = {
 recovery_ref = "Ref/idle_crouch_guard"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_ahml0"]
+[sub_resource type="Resource" id="Resource_i3vrb"]
 script = ExtResource("1_3esc5")
 move_name = "hit_h_1"
 move_type = 3
@@ -2094,7 +1832,7 @@ player_states = {
 recovery_ref = "Ref/idle"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_82mi7"]
+[sub_resource type="Resource" id="Resource_guade"]
 script = ExtResource("1_3esc5")
 move_name = "hit_m_1"
 move_type = 3
@@ -2132,7 +1870,7 @@ player_states = {
 recovery_ref = "Ref/idle"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_ljo4w"]
+[sub_resource type="Resource" id="Resource_56s85"]
 script = ExtResource("1_3esc5")
 move_name = "hit_m_3"
 move_type = 3
@@ -2170,7 +1908,7 @@ player_states = {
 recovery_ref = "Ref/idle"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_yd8e0"]
+[sub_resource type="Resource" id="Resource_mivfj"]
 script = ExtResource("1_3esc5")
 move_name = "hit_l_1"
 move_type = 3
@@ -2208,7 +1946,7 @@ player_states = {
 recovery_ref = "Ref/idle"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_2gr1x"]
+[sub_resource type="Resource" id="Resource_kmy80"]
 script = ExtResource("1_3esc5")
 move_name = "hit_knd_1"
 move_type = 3
@@ -2254,7 +1992,7 @@ player_states = {
 recovery_ref = "Ref/ground_faceup"
 no_input = true
 
-[sub_resource type="Resource" id="Resource_lmbia"]
+[sub_resource type="Resource" id="Resource_1ej0k"]
 script = ExtResource("1_3esc5")
 move_name = "stagger_rl"
 move_type = 4
@@ -2286,6 +2024,268 @@ hurtbox_data = {
 is_reference = true
 recovery_ref = "Ref/idle_crouch"
 no_input = true
+
+[sub_resource type="Resource" id="Resource_4ve75"]
+script = ExtResource("2_cb3ny")
+y = 70123
+z = 53739
+
+[sub_resource type="Resource" id="Resource_oe1sg"]
+script = ExtResource("2_cb3ny")
+y = 55705
+z = 63569
+
+[sub_resource type="Resource" id="Resource_on37g"]
+script = ExtResource("1_3esc5")
+move_name = "ground_pk"
+move_type = 2
+input_di_map = [0]
+input_button = 3
+animation_name = "def_animations/def_ground_wakeup_pk"
+required_state = "grounded"
+recovery_hit = "def_animations/def_atk_2p"
+recovery_ch = "def_animations/def_atk_2p"
+recovery_block = "def_animations/def_atk_2p"
+hit_animation = "def_hit_animations/def_hit_m_3"
+block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
+air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
+back_hit_animation = "def_hit_animations/def_hit_h1"
+pushback_force = 983
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+},
+"shapes": [{
+"attack_height": 1,
+"frame_range": {
+"end": 22,
+"start": 20
+},
+"hits_grounded": false,
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": true,
+"is_punch": false,
+"position": SubResource("Resource_4ve75"),
+"radius": 20316,
+"unblockable": false
+}, {
+"attack_height": 1,
+"frame_range": {
+"end": 24,
+"start": 22
+},
+"hits_grounded": false,
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": true,
+"is_punch": false,
+"position": SubResource("Resource_oe1sg"),
+"radius": 19660,
+"unblockable": false
+}]
+}
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+player_states = {
+"airborne": {
+"end": 30,
+"start": 4
+},
+"counterable": {
+"end": 21,
+"start": 0
+},
+"punishable": {
+"end": 999,
+"start": 24
+}
+}
+recovery_ref = "Ref/idle"
+
+[sub_resource type="Resource" id="Resource_ahml0"]
+script = ExtResource("2_cb3ny")
+y = 7864
+z = 91095
+
+[sub_resource type="Resource" id="Resource_82mi7"]
+script = ExtResource("2_cb3ny")
+y = 9175
+z = 60293
+
+[sub_resource type="Resource" id="Resource_ljo4w"]
+script = ExtResource("1_3esc5")
+move_name = "ground_l"
+move_type = 2
+input_di_map = [5]
+input_button = 2
+animation_name = "def_animations/def_ground_wakeup_l"
+required_state = "grounded"
+recovery_hit = "def_animations/def_atk_2p"
+recovery_ch = "def_animations/def_atk_2p"
+recovery_block = "def_animations/def_atk_2p"
+hit_animation = "def_hit_animations/def_hit_l_1"
+block_animation = "def_block_animations/def_block_l_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
+air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
+back_hit_animation = "def_hit_animations/def_hit_l_1"
+pushback_force = 1310
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+},
+"shapes": [{
+"attack_height": 2,
+"frame_range": {
+"end": 22,
+"start": 20
+},
+"hits_grounded": false,
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": true,
+"is_punch": false,
+"position": SubResource("Resource_ahml0"),
+"radius": 15728,
+"unblockable": false
+}, {
+"attack_height": 2,
+"frame_range": {
+"end": 22,
+"start": 20
+},
+"hits_grounded": false,
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": true,
+"is_punch": false,
+"position": SubResource("Resource_82mi7"),
+"radius": 20316,
+"unblockable": false
+}]
+}
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+player_states = {
+"counterable": {
+"end": 21,
+"start": 0
+},
+"crouching": {
+"end": 40,
+"start": 0
+},
+"punishable": {
+"end": 999,
+"start": 22
+},
+"track_opp": {
+"end": 2,
+"start": 0
+}
+}
+recovery_ref = "Ref/idle"
+
+[sub_resource type="Resource" id="Resource_yd8e0"]
+script = ExtResource("2_cb3ny")
+y = 71434
+z = 72089
+
+[sub_resource type="Resource" id="Resource_2gr1x"]
+script = ExtResource("2_cb3ny")
+y = 64880
+z = 39321
+
+[sub_resource type="Resource" id="Resource_lmbia"]
+script = ExtResource("1_3esc5")
+move_name = "ground_m"
+move_type = 2
+input_di_map = [0]
+input_button = 2
+animation_name = "def_animations/def_ground_wakeup_m"
+required_state = "grounded"
+recovery_hit = "def_animations/def_atk_2p"
+recovery_ch = "def_animations/def_atk_2p"
+recovery_block = "def_animations/def_atk_2p"
+hit_animation = "def_hit_animations/def_hit_h1"
+block_animation = "def_block_animations/def_block_h_1"
+crouch_block_animation = "def_block_animations/def_block_h_1"
+counter_animation = "def_hit_animations/def_hit_h1"
+air_hit_animation = "def_hit_animations/def_hit_h1"
+ground_hit_animation = "def_hit_animations/def_ground_hit_1"
+back_hit_animation = "def_hit_animations/def_hit_h1"
+pushback_force = 1310
+hitbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+},
+"shapes": [{
+"attack_height": 1,
+"frame_range": {
+"end": 22,
+"start": 20
+},
+"hits_grounded": false,
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": true,
+"is_punch": false,
+"position": SubResource("Resource_yd8e0"),
+"radius": 20316,
+"unblockable": false
+}, {
+"attack_height": 1,
+"frame_range": {
+"end": 22,
+"start": 20
+},
+"hits_grounded": false,
+"is_grab": false,
+"is_hitbox": true,
+"is_kick": true,
+"is_punch": false,
+"position": SubResource("Resource_2gr1x"),
+"radius": 19005,
+"unblockable": false
+}]
+}
+hurtbox_data = {
+"frame_range": {
+"end": -1,
+"start": -1
+}
+}
+player_states = {
+"counterable": {
+"end": 21,
+"start": 0
+},
+"punishable": {
+"end": 999,
+"start": 22
+},
+"track_opp": {
+"end": 2,
+"start": 0
+}
+}
+recovery_ref = "Ref/idle"
 
 [sub_resource type="Resource" id="Resource_q7fdo"]
 script = ExtResource("2_cb3ny")
@@ -2546,7 +2546,8 @@ counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
 ground_hit_animation = "def_hit_animations/def_ground_hit_2"
 back_hit_animation = "def_hit_animations/def_hit_h1"
-pushback_force = 1966
+face_attacker_on_hit = true
+pushback_force = 6553
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -2727,8 +2728,8 @@ counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
 ground_hit_animation = "def_hit_animations/def_ground_hit_2"
 back_hit_animation = "def_hit_animations/def_hit_h1"
-pushback_force = 1900
-pushback_direction = 2949120
+pushback_force = 19660
+pushback_direction = 5898240
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -2825,21 +2826,21 @@ move_list = {
 "26": SubResource("Resource_y5tgx"),
 "27": SubResource("Resource_v5pwb"),
 "28": SubResource("Resource_w7baa"),
-"29": SubResource("Resource_ll7r6"),
+"29": SubResource("Resource_0ivfs"),
 "3": SubResource("Resource_kgg6k"),
-"30": SubResource("Resource_i3vrb"),
-"31": SubResource("Resource_mivfj"),
-"32": SubResource("Resource_kmy80"),
-"33": SubResource("Resource_1ej0k"),
-"34": SubResource("Resource_4ve75"),
-"35": SubResource("Resource_oe1sg"),
-"36": SubResource("Resource_on37g"),
-"37": SubResource("Resource_ahml0"),
-"38": SubResource("Resource_82mi7"),
-"39": SubResource("Resource_ljo4w"),
+"30": SubResource("Resource_5wc0q"),
+"31": SubResource("Resource_ll7r6"),
+"32": SubResource("Resource_ysrka"),
+"33": SubResource("Resource_esu6j"),
+"34": SubResource("Resource_i3vrb"),
+"35": SubResource("Resource_guade"),
+"36": SubResource("Resource_56s85"),
+"37": SubResource("Resource_mivfj"),
+"38": SubResource("Resource_kmy80"),
+"39": SubResource("Resource_1ej0k"),
 "4": SubResource("Resource_xk686"),
-"40": SubResource("Resource_yd8e0"),
-"41": SubResource("Resource_2gr1x"),
+"40": SubResource("Resource_on37g"),
+"41": SubResource("Resource_ljo4w"),
 "42": SubResource("Resource_lmbia"),
 "43": SubResource("Resource_3j1lu"),
 "44": SubResource("Resource_x02gl"),

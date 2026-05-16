@@ -24,7 +24,9 @@ var stun_reason: Dictionary = {
 	"stun_name": "", # not really sure what im using this for rn im sure its important
 	"stun_hit": -1, # used to prevent hit registering multiple times on consecutive frames
 	"stun_id": "", # holds the id of the stun animation to be played
-	"stun_pushback": 0 # holds the pushback force of the incoming attack
+	"stun_pushback": 0, # holds the pushback force of the incoming attack
+	"stun_pushback_angle": 0, # holds the angle of pushback 
+	"stun_align": false, # realigns fighter with opponent on hit if needed
 }
 
 var states: Array[String] = []
@@ -161,7 +163,9 @@ func reset_stun_reason() -> void:
 		"stun_name": "",
 		"stun_hit": -1,
 		"stun_id": "",
-		"stun_pushback": 0
+		"stun_pushback": 0,
+		"stun_pushback_angle": 0,
+		"stun_align": false,
 	}
 
 # checks the current animation id, sets player state based on currently playing animation
@@ -267,6 +271,9 @@ func process_hitbox_intersection() -> bool:
 			continue
 		
 		# Check for early break conditions here (high atk vs. crouching opp., etc.)
+		if !hitbox.hits_grounded && self.states.has("grounded"):
+			continue
+
 		match hitbox.attack_height:
 			FECollisionData.ATTACK_HEIGHT.HIGH:
 				if self.states.has("crouching") || self.states.has("evade_high"):
@@ -307,17 +314,19 @@ func process_hitbox_intersection() -> bool:
 			if hurtbox.fixed_is_overlapping_with(hitbox) > 0:
 				# incoming hit detected!
 				var blocked: bool = false
-				if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) && \
-					(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.HIGH || \
-					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM || \
-					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
-					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
-					blocked = true
-				if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) && \
-					(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.LOW || \
-					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
-					hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
-					blocked = true
+
+				if !self.states.has("back_turned_calc"): # cannot block attacks from behind
+					if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) && \
+						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.HIGH || \
+						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM || \
+						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
+						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
+						blocked = true
+					if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) && \
+						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.LOW || \
+						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
+						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
+						blocked = true
 
 				self.process_hit(
 					hitbox.hitbox_attack_index, 
@@ -334,10 +343,15 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 	var stun_move: String
 
 	if blocked:
-		stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.block_animation)
+		if self.states.has("crouching") && enemy_anim_data.has_crouch_block_property:
+			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.crouch_block_animation)
+		else:
+			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.block_animation)
 	else:
 		if self.states.has("counterable"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)
+		elif self.states.has("grounded"):
+			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.ground_hit_animation)
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
 
@@ -345,6 +359,8 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
 	self.stun_reason.stun_pushback = enemy_anim_data.pushback_force
+	self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+	self.stun_reason.stun_align = enemy_anim_data.face_attacker_on_hit
 
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
@@ -358,7 +374,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	if self.stun_reason.stun_id != "":
 		var move: FighterAnimationData = self.movelist.get_from_id(self.stun_reason.stun_id)
 		self.set_animation_order(move)
-		self.process_root_motion(delta, self.stun_reason.stun_pushback)
+		self.process_root_motion(delta, self.stun_reason.stun_pushback, self.stun_reason.stun_pushback_angle)
 		self.reset_stun_reason()
 		return
 
@@ -388,16 +404,16 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 
 func set_animation_order(atk_data: FighterAnimationData) -> void:
 	if !atk_data.recovery_ref.is_empty():
-			self.anim_player.clear_queue()
+		self.anim_player.clear_queue()
 
-			var recovery_move: FighterAnimationData = self.movelist.get_from_ref_name(atk_data.recovery_ref)
+		var recovery_move: FighterAnimationData = self.movelist.get_from_ref_name(atk_data.recovery_ref)
 
-			self.anim_player.animation_set_next(
-				atk_data.animation_name,
-				recovery_move.animation_name
-			)
+		self.anim_player.animation_set_next(
+			atk_data.animation_name,
+			recovery_move.animation_name
+		)
 
-			self.anim_fallback_id = self.movelist.get_move_id(recovery_move)
+		self.anim_fallback_id = self.movelist.get_move_id(recovery_move)
 
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
 	self.anim_player.play(atk_data.animation_name)
@@ -443,7 +459,7 @@ func get_move_from_input() -> FighterAnimationData:
 
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position)
 
-func process_root_motion(delta: int, pushback_force: int = -1) -> Variant:
+func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: int = 999) -> Variant:
 
 	#### for use INSIDE editor only ####
 	if Engine.is_editor_hint():
@@ -455,12 +471,14 @@ func process_root_motion(delta: int, pushback_force: int = -1) -> Variant:
 	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
 	var vel: FixedVector3 = FixedVector3.NewFromFixedVec3(self.get_root_motion())
 
-	# vel.z -= self.collision_body.pushback_force
-
 	# velocity rotation (to match currently facing direction)
 	var vel_rot: FixedVector3 = vel.Rotated(
 		curr_rotation.y
 	)
+
+	# apply the pushback angle
+	if pushback_angle != 999:
+		self.collision_body.pushback_angle = pushback_angle	
 
 	# add pushback velocity to vel_rot
 	if pushback_force != -1 && self.collision_body.pushback_force == 0:
@@ -473,7 +491,7 @@ func process_root_motion(delta: int, pushback_force: int = -1) -> Variant:
 	vel_rot = FixedVector3.Add( 
 		vel_rot,
 		FixedVector3.NewFromInt(0, 0, self.collision_body.pushback_force).Rotated(
-			self.message_bus.get_oppo_fixed_rotation(self).y
+			self.message_bus.get_oppo_fixed_rotation(self).y + self.collision_body.pushback_angle
 		)
 	)
 
@@ -522,10 +540,8 @@ func collide_and_slide(delta: int) -> void:
 	# TODO: Collision with walls
 
 	self.collision_body.fixed_position = new_position
-	# if self.player == 0: 
-	# 	print(self.collision_body.fixed_rotation.y)
 
-	if self.is_tracking_opponent():
+	if self.is_tracking_opponent() || self.stun_reason.stun_align:
 		self.collision_body.fixed_look_at(
 			oppo_collision_body.fixed_position,
 			FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0),
