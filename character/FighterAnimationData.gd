@@ -8,70 +8,80 @@ enum BUTTON_FLAGS {
 	A = 0x04
 }
 
-@export var move_name: String = ""
-@export var move_type: int = 0
+@export_storage var move_name: String = ""
+@export_storage var move_type: int = 0
 
-@export var input_di_map: Array = []
-@export var input_button: int
+@export_storage var input_di_map: Array = []
+@export_storage var input_button: int
 
-@export var animation_name: String = ""
+@export_storage var animation_name: String = ""
 
-@export var animation_length: int
+@export_storage var animation_length: int
 
-@export var required_state: String = ""
-@export var prohibit_state: String = ""
+@export_storage var required_state: String = ""
+@export_storage var prohibit_state: String = ""
 
-@export var non_attack: bool = false
+@export_storage var non_attack: bool = false
 
-@export var attack_speed: int
+@export_storage var attack_speed: int
 
-@export var recovery_hit: String = ""
-@export var has_hit_recovery: bool = false
+@export_storage var recovery_hit: String = ""
+@export_storage var has_hit_recovery: bool = false
 
-@export var recovery_ch: String = ""
-@export var has_ch_recovery: bool = false
+@export_storage var recovery_ch: String = ""
+@export_storage var has_ch_recovery: bool = false
 
-@export var recovery_block: String = ""
-@export var has_block_recovery: bool = false
+@export_storage var recovery_block: String = ""
+@export_storage var has_block_recovery: bool = false
 
-@export var unblockable: bool
-@export var is_grab: bool
-@export var is_punch: bool
-@export var is_kick: bool
+@export_storage var unblockable: bool
+@export_storage var is_grab: bool
+@export_storage var is_punch: bool
+@export_storage var is_kick: bool
 
-@export var hit_animation: String
-@export var block_animation: String
-@export var crouch_block_animation: String = ""
-@export var has_crouch_block_property: bool = false
-@export var counter_animation: String = ""
-@export var has_counter_property: bool = false
-@export var air_hit_animation: String = ""
-@export var ground_hit_animation: String = ""
-@export var back_hit_animation: String = ""
+@export_storage var hit_animation: String
+@export_storage var block_animation: String
+@export_storage var crouch_block_animation: String = ""
+@export_storage var has_crouch_block_property: bool = false
+@export_storage var counter_animation: String = ""
+@export_storage var has_counter_property: bool = false
+@export_storage var air_hit_animation: String = ""
+@export_storage var ground_hit_animation: String = ""
+@export_storage var back_hit_animation: String = ""
 
-@export var face_attacker_on_hit: bool = false
+@export_storage var face_attacker_on_hit: bool = false
 
-@export var pushback_force: int
-@export var pushback_direction: int
-@export var launch_force: int
-@export var launch_direction: int
+@export_storage var pushback_force: int
+@export_storage var pushback_direction: int
+@export_storage var launch_force: int
+@export_storage var launch_direction: int
+
+@export_storage var pushback_mod_on_hit: int = 0
+@export_storage var pushback_mod_on_counter: int = 0
+@export_storage var pushback_mod_on_ground_hit: int = 0
+@export_storage var pushback_mod_on_block: int = 0
+
+@export_storage var pushback_angle_on_hit: bool = true
+@export_storage var pushback_angle_on_counter: bool = true
+@export_storage var pushback_angle_on_ground_hit: bool = true
+@export_storage var pushback_angle_on_block: bool = true
 
 # contains data on any hitboxes put out by the animation.
 # Keep empty if this animation does not attack the opponent
-@export var hitbox_data: Dictionary = {}
+@export_storage var hitbox_data: Dictionary = {}
 
 # contains data on misc. hurtboxes that extends the player's hit area
-@export var hurtbox_data: Dictionary = {}
+@export_storage var hurtbox_data: Dictionary = {}
 
 # contains fighter state data based on frame ranges
-@export var player_states: Dictionary = {}
+@export_storage var player_states: Dictionary = {}
 
 # TODO: link to other AnimationData to enable attack strings
-@export var is_reference: bool
-@export var recovery_ref: String
+@export_storage var is_reference: bool
+@export_storage var recovery_ref: String
 
-@export var no_input: bool = false
-@export var hold_input: bool = false
+@export_storage var no_input: bool = false
+@export_storage var hold_input: bool = false
 
 @export_enum("Both", "Left", "Right") var side_context: int = 0
 

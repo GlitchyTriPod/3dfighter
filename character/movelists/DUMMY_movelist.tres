@@ -2548,6 +2548,7 @@ ground_hit_animation = "def_hit_animations/def_ground_hit_2"
 back_hit_animation = "def_hit_animations/def_hit_h1"
 face_attacker_on_hit = true
 pushback_force = 6553
+pushback_mod_on_ground_hit = 13107
 hitbox_data = {
 "frame_range": {
 "end": -1,
@@ -2728,8 +2729,12 @@ counter_animation = "def_hit_animations/def_hit_h1"
 air_hit_animation = "def_hit_animations/def_hit_h1"
 ground_hit_animation = "def_hit_animations/def_ground_hit_2"
 back_hit_animation = "def_hit_animations/def_hit_h1"
-pushback_force = 19660
-pushback_direction = 5898240
+pushback_force = 3276
+pushback_direction = 4915200
+pushback_mod_on_ground_hit = 16384
+pushback_angle_on_hit = false
+pushback_angle_on_counter = false
+pushback_angle_on_block = false
 hitbox_data = {
 "frame_range": {
 "end": -1,

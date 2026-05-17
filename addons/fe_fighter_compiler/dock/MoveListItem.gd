@@ -357,6 +357,14 @@ func _on_non_attack_toggled(toggled_on: bool) -> void:
 	%PushbackDirection.editable = !toggled_on
 	%LaunchForce.editable = !toggled_on
 	%LaunchDirection.editable = !toggled_on
+	%PushbackForceModOnHit.editable = !toggled_on
+	%PushbackForceModOnCounter.editable = !toggled_on
+	%PushbackForceModOnGroundHit.editable = !toggled_on
+	%PushbackForceModOnBlock.editable = !toggled_on
+	%ApplyPushbackAngleOnBlock.disabled = toggled_on
+	%ApplyPushbackAngleOnGroundHit.disabled = toggled_on
+	%ApplyPushbackAngleOnHit.disabled = toggled_on
+
 
 func _on_move_up_button_button_up() -> void:
 	get_parent().move_child(self, clampi(self.get_index() - 1, 0, 10000))

@@ -342,24 +342,40 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 
 	var stun_move: String
 
+	self.stun_reason.stun_pushback = enemy_anim_data.pushback_force
+
 	if blocked:
 		if self.states.has("crouching") && enemy_anim_data.has_crouch_block_property:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.crouch_block_animation)
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.block_animation)
+
+		if enemy_anim_data.pushback_angle_on_block:
+			self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+		self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_block
+
 	else:
 		if self.states.has("counterable"):
-			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)
+			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)			
+			if enemy_anim_data.pushback_angle_on_counter:
+				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_counter
+
 		elif self.states.has("grounded"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.ground_hit_animation)
+			if enemy_anim_data.pushback_angle_on_ground_hit:
+				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_ground_hit
+
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
-
+			if enemy_anim_data.pushback_angle_on_hit:
+				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
+			
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
-	self.stun_reason.stun_pushback = enemy_anim_data.pushback_force
-	self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 	self.stun_reason.stun_align = enemy_anim_data.face_attacker_on_hit
 
 # processes movement for player

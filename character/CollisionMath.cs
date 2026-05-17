@@ -25,4 +25,36 @@ public partial class CollisionMath : GodotObject
             )
         );
     }
+
+    public static bool CalculateBackturned(long currentRotationAng, long facingTowardAng)
+    {
+        long diff = Math.Abs(currentRotationAng - facingTowardAng);;
+
+        if (Math.Abs(currentRotationAng) > 102944 && 
+            Math.Abs(facingTowardAng) > 102944 && 
+            ((currentRotationAng < 0 && facingTowardAng > 0) ||
+            (currentRotationAng > 0 && facingTowardAng < 0))
+        )
+        {
+            long trueRotationDef = FixedInt.FIXED_PI - Math.Abs(currentRotationAng);
+            long trueRotationDes = FixedInt.FIXED_PI - Math.Abs(facingTowardAng);
+
+            if (currentRotationAng < 0)
+            {
+                trueRotationDef *= -1;
+            }
+            if (facingTowardAng < 0)
+            {
+                trueRotationDes *= -1;
+            }
+
+            diff = Math.Abs(trueRotationDef - trueRotationDes);
+        }
+        
+        if (diff > 114382)
+        {
+            return true;
+        }
+        return false;
+    }
 }

@@ -160,11 +160,15 @@ func is_valid_button_press(move_input: int, button_mask: int) -> bool:
 func has_valid_states(move: FighterAnimationData, player_states: PackedStringArray) -> bool:
 
 	var states: PackedStringArray = move.required_state.split(", ")
+	var prohibited_states: PackedStringArray = move.prohibit_state.split(", ")
 	var match_count: int = 0
+
+	for state: String in prohibited_states:
+		if player_states.has(state):
+			return false
 
 	for state: String in states:
 		if player_states.has(state):
 			match_count += 1
-	# assert(move.move_name != "ground_roll_l_LEFT_BACK")
 	
 	return match_count >= states.size()

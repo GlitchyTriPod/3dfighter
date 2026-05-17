@@ -150,11 +150,6 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	item.get_node("%OnCounterToggle").button_pressed = data.has_ch_recovery if data.get("has_ch_recovery") != null else false
 	item.get_node("%OnCounterOpponentToggle").button_pressed = data.has_counter_property if data.get("has_counter_property") != null else false
 
-	item.get_node("%PushbackForce").value = FixedInt.ToFloat(data.pushback_force)
-	item.get_node("%PushbackDirection").value = FixedInt.ToFloat(data.pushback_direction if data.get("pushback_direction") != null else 0)
-	item.get_node("%LaunchForce").value = FixedInt.ToFloat(data.launch_force if data.get("launch_force") != null else 0)
-	item.get_node("%LaunchDirection").value = FixedInt.ToFloat(data.launch_direction if data.get("launch_direction") != null else 0)
-
 	# blocked attack animation (attacker)
 	for i: int in item.get_node("%OnBlockOption").item_count:
 		if data.recovery_block == item.get_node("%OnBlockOption").get_item_text(i):
@@ -244,6 +239,21 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 			i["frame_start"] = i["frame_range"]["start"]
 			i["frame_end"] = i["frame_range"]["end"]
 			item.add_hitbox(true, i)
+
+	item.get_node("%PushbackForce").value = FixedInt.ToFloat(data.pushback_force)
+	item.get_node("%PushbackDirection").value = FixedInt.ToFloat(data.pushback_direction if data.get("pushback_direction") != null else 0)
+	item.get_node("%LaunchForce").value = FixedInt.ToFloat(data.launch_force if data.get("launch_force") != null else 0)
+	item.get_node("%LaunchDirection").value = FixedInt.ToFloat(data.launch_direction if data.get("launch_direction") != null else 0)
+
+	item.get_node('%PushbackForceModOnHit').value = FixedInt.ToFloat(data.pushback_mod_on_hit if data.get("pushback_mod_on_hit") != null else 0)
+	item.get_node('%PushbackForceModOnCounter').value = FixedInt.ToFloat(data.pushback_mod_on_counter if data.get("pushback_mod_on_counter") != null else 0)
+	item.get_node('%PushbackForceModOnGroundHit').value = FixedInt.ToFloat(data.pushback_mod_on_ground_hit if data.get("pushback_mod_on_ground_hit") != null else 0)
+	item.get_node('%PushbackForceModOnBlock').value = FixedInt.ToFloat(data.pushback_mod_on_block if data.get("pushback_mod_on_block") != null else 0)
+
+	item.get_node("%ApplyPushbackAngleOnHit").button_pressed = data.pushback_angle_on_hit if data.get("pushback_angle_on_hit") != null else true
+	item.get_node("%ApplyPushbackAngleOnCounter").button_pressed = data.pushback_angle_on_counter if data.get("pushback_angle_on_counter") != null else true
+	item.get_node("%ApplyPushbackAngleOnGroundHit").button_pressed = data.pushback_angle_on_ground_hit if data.get("pushback_angle_on_ground_hit") != null else true
+	item.get_node("%ApplyPushbackAngleOnBlock").button_pressed = data.pushback_angle_on_block if data.get("pushback_angle_on_block") != null else true
 
 func check_and_mark_movelist_ref(data: FighterAnimationData) -> void:
 	var move: Variant = self.get_movelistitem_from_animationdata(data)
@@ -427,6 +437,16 @@ func _on_compile_movelist_button_button_up() -> void:
 		anim_data.pushback_direction = FixedInt.FromFloat(item.get_node("%PushbackDirection").value)
 		anim_data.launch_force = FixedInt.FromFloat(item.get_node("%LaunchForce").value)
 		anim_data.launch_direction = FixedInt.FromFloat(item.get_node("%LaunchDirection").value)
+
+		anim_data.pushback_mod_on_hit = FixedInt.FromFloat(item.get_node('%PushbackForceModOnHit').value)
+		anim_data.pushback_mod_on_counter = FixedInt.FromFloat(item.get_node('%PushbackForceModOnCounter').value)
+		anim_data.pushback_mod_on_ground_hit = FixedInt.FromFloat(item.get_node('%PushbackForceModOnGroundHit').value)
+		anim_data.pushback_mod_on_block = FixedInt.FromFloat(item.get_node('%PushbackForceModOnBlock').value)
+
+		anim_data.pushback_angle_on_hit = item.get_node("%ApplyPushbackAngleOnHit").button_pressed
+		anim_data.pushback_angle_on_counter = item.get_node("%ApplyPushbackAngleOnCounter").button_pressed
+		anim_data.pushback_angle_on_ground_hit = item.get_node("%ApplyPushbackAngleOnGroundHit").button_pressed
+		anim_data.pushback_angle_on_block = item.get_node("%ApplyPushbackAngleOnBlock").button_pressed
 
 		move_list.add_to_list(anim_data)
 
