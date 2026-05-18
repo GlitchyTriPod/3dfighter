@@ -61,10 +61,7 @@ func load_movelist_data() -> void:
 		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
 		self.refresh_movelist_refs(move)
 	
-	self.build_tree()
-
-func build_tree() -> void:
-	pass
+	self.update_tree()
 
 func attach_to_fighter_scene() -> void:
 	if EditorInterface.get_edited_scene_root() is FighterCompilerDock:
@@ -86,10 +83,13 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1, paren
 	var item: MoveListItem = self.move_list_item.instantiate()
 
 	item.character_animations = self.fighter.animation_library
+	
 
 	self.connect_MoveListItem_signals(item)
 
 	if parent_item != null:
+		item.parent_item = parent_item
+		
 		parent_item.get_node("%ExtensionMovelist").add_child(item)
 
 		item.get_node("%IsReference").disabled = true
@@ -97,9 +97,6 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1, paren
 		item.get_node('%NewDownButton').disabled = true
 		item.get_node('%DupeUpButton').disabled = true
 		item.get_node('%DupeDownButton').disabled = true
-
-		if parent_item.get_node("%ExtensionScrollContainer").custom_minimum_size == Vector2(0,0):
-			parent_item.get_node("%ExtensionScrollContainer").custom_minimum_size = Vector2(0,1000)
 
 	else:
 		%MoveListView.get_child(0).add_child(item)
@@ -353,7 +350,8 @@ func update_tree() -> void:
 		self.add_to_tree(move, tree_item)
 
 func add_to_tree(item: FighterAnimationData, tree_item: TreeItem) -> void:
-	# var tree_item: TreeItem = root.create_item()
+	var move_list_item: MoveListItem = self.get_movelistitem_from_animationdata(item)
+	
 	match item.move_type:
 		0:
 			tree_item.set_custom_bg_color(0, Color('#515f66'))
@@ -365,16 +363,16 @@ func add_to_tree(item: FighterAnimationData, tree_item: TreeItem) -> void:
 			tree_item.set_custom_bg_color(0, Color('#635166'))
 		4:
 			tree_item.set_custom_bg_color(0, Color('#51665a'))
-	
-	tree_item.set_text(0, item.move_name)
+
+	move_list_item.tree_item = tree_item
+	tree_item.set_text(0, move_list_item.move_name)
+	tree_item.set_metadata(0, move_list_item)
+
+	# tree_item.add_button(0, Texture2D.new())
 
 	for extension: FighterAnimationData in item.extensions:
 		var child_item: TreeItem = tree_item.create_child()
 		self.add_to_tree(extension, child_item)
-	
-	tree_item.set_metadata(0, self.get_movelistitem_from_animationdata(item))
-
-	return
 
 func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 	var anim_data: FighterAnimationData = FighterAnimationData.new()
@@ -571,7 +569,6 @@ func _on_reattach_button_button_up() -> void:
 	self.attach_to_fighter_scene()
 	self.load_animation_data()
 	self.load_movelist_data()
-	self.update_tree()
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	if !toggled_on:
@@ -589,3 +586,11 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 func _on_empty_list_button_button_up() -> void:
 	for n: Node in %MoveListView.get_child(0).get_children():
 		n.queue_free()
+		%MoveListTree.clear()
+
+func _on_move_list_tree_item_selected() -> void:
+	var item: TreeItem = %MoveListTree.get_selected()
+	var move_list_item: MoveListItem = item.get_metadata(0)
+	if move_list_item != null: 
+		move_list_item.select(true)
+		%MoveListView.ensure_control_visible(move_list_item)

@@ -37,6 +37,7 @@ offset_bottom = 631.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7e60s")
 script = ExtResource("1_15l3u")
 default_animations = ExtResource("2_a8qxq")
@@ -647,24 +648,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 step = 0.001
 
-[node name="FoldableContainer" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer" unique_id=2129432979]
+[node name="PushbackForceModifiers" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer" unique_id=2129432979]
+unique_name_in_owner = true
 layout_mode = 2
 folded = true
 title = "Pushback Force Modifiers"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer" unique_id=737973177]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers" unique_id=737973177]
 visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=1410614786]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer" unique_id=1410614786]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1379332828]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer" unique_id=1379332828]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Mod. on Hit"
 
-[node name="PushbackForceModOnHit" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=270251580]
+[node name="PushbackForceModOnHit" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer" unique_id=270251580]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
@@ -672,15 +674,15 @@ min_value = -50.0
 max_value = 50.0
 step = 0.001
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=264682042]
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer" unique_id=264682042]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer4" unique_id=694466274]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer4" unique_id=694466274]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Mod. on Counter hit"
 
-[node name="PushbackForceModOnCounter" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer4" unique_id=761792295]
+[node name="PushbackForceModOnCounter" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer4" unique_id=761792295]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
@@ -688,15 +690,15 @@ min_value = -50.0
 max_value = 50.0
 step = 0.001
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=1971802460]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer" unique_id=1971802460]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer2" unique_id=2048567089]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer2" unique_id=2048567089]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Mod. on ground hit"
 
-[node name="PushbackForceModOnGroundHit" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer2" unique_id=1658450357]
+[node name="PushbackForceModOnGroundHit" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer2" unique_id=1658450357]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
@@ -704,15 +706,15 @@ min_value = -50.0
 max_value = 50.0
 step = 0.001
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=1023393637]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer" unique_id=1023393637]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer3" unique_id=1453284457]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer3" unique_id=1453284457]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Mod. on block"
 
-[node name="PushbackForceModOnBlock" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer3" unique_id=1316993502]
+[node name="PushbackForceModOnBlock" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer/PushbackForceModifiers/VBoxContainer/HBoxContainer3" unique_id=1316993502]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
@@ -743,66 +745,67 @@ size_flags_horizontal = 3
 min_value = -90.0
 max_value = 90.0
 
-[node name="FoldableContainer" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2" unique_id=868048208]
+[node name="PushbackDirectionOptions" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2" unique_id=868048208]
+unique_name_in_owner = true
 layout_mode = 2
 folded = true
 title = "Pushback Direction Options"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer" unique_id=1165401438]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions" unique_id=1165401438]
 visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer" unique_id=1842694157]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer" unique_id=1842694157]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1566584416]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer" unique_id=1566584416]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Apply on hit"
 
-[node name="ApplyPushbackAngleOnHit" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1967364394]
+[node name="ApplyPushbackAngleOnHit" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer" unique_id=1967364394]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 button_pressed = true
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer" unique_id=688296947]
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer" unique_id=688296947]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer4" unique_id=1211785161]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer4" unique_id=1211785161]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Apply on Counter hit"
 
-[node name="ApplyPushbackAngleOnCounter" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer4" unique_id=1431053791]
+[node name="ApplyPushbackAngleOnCounter" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer4" unique_id=1431053791]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 button_pressed = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer" unique_id=1404293748]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer" unique_id=1404293748]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer2" unique_id=1924706903]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer2" unique_id=1924706903]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Apply on ground hit"
 
-[node name="ApplyPushbackAngleOnGroundHit" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer2" unique_id=1293343600]
+[node name="ApplyPushbackAngleOnGroundHit" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer2" unique_id=1293343600]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 button_pressed = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer" unique_id=1242451703]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer" unique_id=1242451703]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer3" unique_id=1267734811]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer3" unique_id=1267734811]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Apply on block"
 
-[node name="ApplyPushbackAngleOnBlock" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/FoldableContainer/VBoxContainer/HBoxContainer3" unique_id=846024109]
+[node name="ApplyPushbackAngleOnBlock" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer2/PushbackDirectionOptions/VBoxContainer/HBoxContainer3" unique_id=846024109]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
@@ -856,34 +859,35 @@ max_value = 90.0
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="FoldableContainer" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=980747735]
+[node name="ExtensionOptions" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=980747735]
+unique_name_in_owner = true
 layout_mode = 2
 folded = true
-title = "String Options"
+title = "Extension Options"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer" unique_id=688961251]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions" unique_id=688961251]
 visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=1961357021]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer" unique_id=1961357021]
 layout_mode = 2
 
-[node name="AddStringExtension" type="Button" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1298369367]
+[node name="AddStringExtension" type="Button" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=1298369367]
 unique_name_in_owner = true
 layout_mode = 2
 text = "+ Add Extension"
 
-[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1975095889]
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=1975095889]
 custom_minimum_size = Vector2(14.225, 0)
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=979619031]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=979619031]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Extension Buffer Start: "
 
-[node name="ExtensionBufferStart" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=2000606984]
+[node name="ExtensionBufferStart" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=2000606984]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -1.0
@@ -891,18 +895,18 @@ max_value = 999.0
 value = -1.0
 rounded = true
 
-[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=73977426]
+[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=73977426]
 custom_minimum_size = Vector2(14.225, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_bottom = 10
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1690034133]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=1690034133]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Extension Execute Window: "
 
-[node name="ExtensionExecuteStart" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=2051021208]
+[node name="ExtensionExecuteStart" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=2051021208]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -1.0
@@ -910,12 +914,12 @@ max_value = 999.0
 value = -1.0
 rounded = true
 
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=134092702]
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=134092702]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "<->"
 
-[node name="ExtensionExecuteEnd" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=2045429226]
+[node name="ExtensionExecuteEnd" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer" unique_id=2045429226]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -1.0
@@ -923,12 +927,7 @@ max_value = 999.0
 value = -1.0
 rounded = true
 
-[node name="ExtensionScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=2134016803]
-unique_name_in_owner = true
-layout_mode = 2
-follow_focus = true
-
-[node name="ExtensionMovelist" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/ExtensionScrollContainer" unique_id=1728439671]
+[node name="ExtensionMovelist" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer" unique_id=1728439671]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -956,4 +955,4 @@ size_flags_horizontal = 3
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/DefaultStates/Button" to="." method="_on_button_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Hit_Hurt_boxes/HitboxContainer/HBoxContainer/AddHitbox" to="." method="_on_add_hitbox_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Hit_Hurt_boxes/HurtboxContainer/HBoxContainer/AddHurtbox" to="." method="_on_add_hurtbox_button_up"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer/AddStringExtension" to="." method="_on_add_string_extension_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/ExtensionOptions/VBoxContainer/HBoxContainer/AddStringExtension" to="." method="_on_add_string_extension_button_up"]

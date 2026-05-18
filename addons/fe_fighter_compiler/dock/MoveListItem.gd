@@ -16,6 +16,7 @@ signal request_duplicate_item(data: FighterAnimationData, index: int)
 signal request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String)
 signal request_movelist_refs
 signal request_update_tree
+signal request_treeitem_update_text(text: String)
 
 signal request_connect_MoveListItem_signals(anim_name: String, item: MoveListItem)
 
@@ -30,7 +31,11 @@ const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButto
 
 @onready var move_animation_option : OptionButton = %MoveAnimationOption
 
+var parent_item: MoveListItem
+
 var source_data: FighterAnimationData
+
+var tree_item: TreeItem
 
 var character_animations: AnimationLibrary = null
 
@@ -99,12 +104,28 @@ func _ready() -> void:
 		%OnGroundHitOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 	%MoveData.folded = true
 
-	# self.request_update_tree.emit()
-
 # ======================
+func select(collapse_options: bool = false) -> void:
+	%IsSelected.button_pressed = true
+	if collapse_options:
+		%MoveData.folded = true
+		%ExtensionOptions.folded = true
+		%PushbackForceModifiers.folded = true
+		%PushbackDirectionOptions.folded = true
+	
+	#check if item is extension, expand parent move data if needed
+	if self.parent_item != null:
+		self.parent_item.expand_recursive()
 
 func deselect():
 	%IsSelected.button_pressed = false
+
+func expand_recursive() -> void:
+	%MoveData.expand()
+	%ExtensionOptions.expand()
+
+	if self.parent_item != null:
+		self.parent_item.expand_recursive()
 
 func get_input_map() -> Array:
 	var val: Array = []
@@ -220,6 +241,9 @@ func change_item_color(idx: int) -> void:
 func set_animation_length_label(anim_langth: float) -> void:
 	%AnimationLengthLabel.text = "%d Frames" % ceili(anim_langth * 60)
 
+func update_tree_item_text(new_text: String, tree_item: TreeItem) -> void:
+	tree_item.set_text(0, new_text)
+
 # ======================
 
 func _on_is_selected_toggled(toggled_on: bool) -> void:
@@ -229,6 +253,7 @@ func _on_is_selected_toggled(toggled_on: bool) -> void:
 		var stylebox: StyleBox = self.get_theme_stylebox("panel").duplicate()
 		stylebox.border_color = Color("#3d5ff9")
 		self.add_theme_stylebox_override("panel", stylebox)
+		self.grab_focus()
 	else:
 		self.is_unselected.emit()
 		var stylebox: StyleBox = self.get_theme_stylebox("panel").duplicate()
@@ -403,6 +428,7 @@ func _on_move_type_item_selected(index: int) -> void:
 func _on_add_string_extension_button_up() -> void:
 	var new_item: MoveListItem = self_resource.instantiate()
 	new_item.character_animations = self.character_animations
+	new_item.parent_item = self
 
 	self.request_connect_MoveListItem_signals.emit(new_item)
 
@@ -416,8 +442,6 @@ func _on_add_string_extension_button_up() -> void:
 
 	new_item.emit_signal("request_movelist_refs")
 
-	if %ExtensionScrollContainer.custom_minimum_size == Vector2(0,0):
-		%ExtensionScrollContainer.custom_minimum_size = Vector2(0, 1000)
-
 func _on_move_name_label_text_changed(new_text: String) -> void:
-	self.request_update_tree.emit()
+	if self.tree_item != null:
+		self.update_tree_item_text(new_text, self.tree_item)

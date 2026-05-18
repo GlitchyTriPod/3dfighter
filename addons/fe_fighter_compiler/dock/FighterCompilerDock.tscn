@@ -133,6 +133,7 @@ text = "Reattach To Fighter Scene"
 [connection signal="item_selected" from="MainView/AnimationControls/AnimationSelector" to="." method="_on_animation_selector_item_selected"]
 [connection signal="button_up" from="MainView/AnimationControls/SeekBack" to="." method="_on_seek_back_button_up"]
 [connection signal="button_up" from="MainView/AnimationControls/SeekForward" to="." method="_on_seek_forward_button_up"]
+[connection signal="item_selected" from="MainView/MoveListContainer/MoveListTree" to="." method="_on_move_list_tree_item_selected"]
 [connection signal="button_up" from="MainView/MoveListControls/Add Move" to="." method="_on_add_move_button_up"]
 [connection signal="button_up" from="MainView/MoveListControls/Remove Move" to="." method="_on_remove_move_button_up"]
 [connection signal="toggled" from="MainView/HBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
