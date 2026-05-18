@@ -372,7 +372,7 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 			if enemy_anim_data.pushback_angle_on_hit:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
-			
+
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
@@ -472,7 +472,6 @@ func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 
 func get_move_from_input() -> FighterAnimationData:
 	var inputs: Array[Dictionary] = self.input_interpreter.read_input(10)
-
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position)
 
 func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: int = 999) -> Variant:

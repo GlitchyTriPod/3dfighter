@@ -19,11 +19,7 @@ var fighter: Fighter
 
 var selected_item: MoveListItem
 
-# var process: bool = false
-
 func _ready() -> void:
-	# self.process = true
-
 	var root: Node = EditorInterface.get_edited_scene_root()
 
 	if root is not Fighter:
@@ -86,24 +82,29 @@ func attach_to_fighter_scene() -> void:
 	%MoveListControls.visible = true
 	%MoveListContainer.visible = true
 
-func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> void:	
+func add_movelist_item(data: FighterAnimationData = null, index: int = -1, parent_item: MoveListItem = null) -> void:	
 	var item: MoveListItem = self.move_list_item.instantiate()
 
 	item.character_animations = self.fighter.animation_library
 
-	item.is_selected.connect(self._on_MoveListItem_is_selected)
-	item.is_unselected.connect(self._on_MoveListItem_is_unselected)
-	item.request_hitbox_menu.connect(self._on_MoveListItem_request_hitbox_menu)
-	item.request_movelist_refs.connect(self._on_MoveListItem_request_movelist_refs)
-	item.request_new_item.connect(self._on_MoveListItem_request_new_item)
-	item.request_duplicate_item.connect(self._on_MoveListItem_request_duplicate_item)
+	self.connect_MoveListItem_signals(item)
 
-	self.animation_frame_changed.connect(item._on_dock_animation_frame_changed)
-	self.reload_movelistitem_refs.connect(item._on_FighterCompilerDock_reload_movelistitem_refs)
+	if parent_item != null:
+		parent_item.get_node("%ExtensionMovelist").add_child(item)
 
-	%MoveListView.get_child(0).add_child(item)
-	if index != -1:
-		%MoveListView.get_child(0).move_child(item, index)
+		item.get_node("%IsReference").disabled = true
+		item.get_node('%NewUpButton').disabled = true
+		item.get_node('%NewDownButton').disabled = true
+		item.get_node('%DupeUpButton').disabled = true
+		item.get_node('%DupeDownButton').disabled = true
+
+		if parent_item.get_node("%ExtensionScrollContainer").custom_minimum_size == Vector2(0,0):
+			parent_item.get_node("%ExtensionScrollContainer").custom_minimum_size = Vector2(0,1000)
+
+	else:
+		%MoveListView.get_child(0).add_child(item)
+		if index != -1:
+			%MoveListView.get_child(0).move_child(item, index)
 
 	if data == null:
 		item.emit_signal("request_movelist_refs") # need to emit this to populate refs on new list item
@@ -119,6 +120,9 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	for i: int in item.get_node("%MoveAnimationOption").item_count:
 		if data.animation_name == item.get_node("%MoveAnimationOption").get_item_text(i):
 			item.get_node("%MoveAnimationOption").selected = i
+			item.set_animation_length_label(
+				self.anim_player.get_animation(data.animation_name).length
+			)
 			break
 
 	#directional input sequence
@@ -255,13 +259,34 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1) -> vo
 	item.get_node("%ApplyPushbackAngleOnGroundHit").button_pressed = data.pushback_angle_on_ground_hit if data.get("pushback_angle_on_ground_hit") != null else true
 	item.get_node("%ApplyPushbackAngleOnBlock").button_pressed = data.pushback_angle_on_block if data.get("pushback_angle_on_block") != null else true
 
+	item.get_node("%ExtensionBufferStart").value = data.extension_buffer_start if data.get("extension_buffer_start") != null else -1
+	item.get_node("%ExtensionExecuteStart").value = data.extension_execute_start if data.get("extension_execute_start") != null else -1
+	item.get_node("%ExtensionExecuteEnd").value = data.extension_execute_end if data.get("extension_execute_end") != null else -1
+
+	for extension: FighterAnimationData in data.extensions:
+		self.add_movelist_item(extension, -1, item)
+
+func connect_MoveListItem_signals(item: MoveListItem) -> void:
+	item.is_selected.connect(self._on_MoveListItem_is_selected)
+	item.is_unselected.connect(self._on_MoveListItem_is_unselected)
+	item.request_hitbox_menu.connect(self._on_MoveListItem_request_hitbox_menu)
+	item.request_movelist_refs.connect(self._on_MoveListItem_request_movelist_refs)
+	item.request_new_item.connect(self._on_MoveListItem_request_new_item)
+	item.request_duplicate_item.connect(self._on_MoveListItem_request_duplicate_item)
+	item.request_connect_MoveListItem_signals.connect(self.connect_MoveListItem_signals)
+	item.request_animation_length.connect(self._on_MoveListItem_request_animation_length)
+	item.request_update_tree.connect(self.update_tree)
+
+	self.animation_frame_changed.connect(item._on_dock_animation_frame_changed)
+	self.reload_movelistitem_refs.connect(item._on_FighterCompilerDock_reload_movelistitem_refs)
+
 func check_and_mark_movelist_ref(data: FighterAnimationData) -> void:
 	var move: Variant = self.get_movelistitem_from_animationdata(data)
 	if move is MoveListItem:
 		move.get_node("%IsReference").button_pressed = data.is_reference
 
 func get_movelistitem_from_animationdata(data: FighterAnimationData) -> Variant:
-	var movelist: Array = %MoveListView.get_child(0).get_children()
+	var movelist: Array = get_tree().get_nodes_in_group("MoveListItems") #%MoveListView.get_child(0).get_children()
 	for move: MoveListItem in movelist:
 		if move.move_name == data.move_name:
 			return move
@@ -274,6 +299,8 @@ func refresh_movelist_refs(data: FighterAnimationData) -> void:
 			if data.recovery_ref == move.get_node("%OnRecoveryRef").get_item_text(i):
 				move.get_node("%OnRecoveryRef").selected = i
 				break
+	for extension: FighterAnimationData in data.extensions:
+		self.refresh_movelist_refs(extension)
 
 func empty_hitbox_visuals():
 	var spheres: Array = EditorInterface.get_edited_scene_root().get_node("AddonSpheres").get_children()
@@ -288,12 +315,142 @@ func get_movelist_refs() -> Array:
 		refs.append(i)
 	return refs
 
+func update_tree() -> void:
+	%MoveListTree.clear()
+	var root: TreeItem = %MoveListTree.create_item()
+
+	var root_movement: TreeItem = root.create_child()
+	var root_attack: TreeItem = root.create_child()
+	var root_ground_option: TreeItem = root.create_child()
+	var root_hit_stun: TreeItem = root.create_child()
+	var root_block_stun: TreeItem = root.create_child()
+
+	root_movement.set_custom_bg_color(0, Color('#515f66'))
+	root_movement.set_text(0, 'Movement')
+	root_attack.set_custom_bg_color(0, Color("#665154"))
+	root_attack.set_text(0, 'Attacks')
+	root_ground_option.set_custom_bg_color(0, Color("#666551"))
+	root_ground_option.set_text(0, "Ground Options")
+	root_hit_stun.set_custom_bg_color(0, Color("#635166"))
+	root_hit_stun.set_text(0, "Hit Stun")
+	root_block_stun.set_custom_bg_color(0, Color("#51665a"))
+	root_block_stun.set_text(0, 'Block Stun')
+
+	for move: FighterAnimationData in self.fighter.movelist.move_list.values():
+		var tree_item: TreeItem # = self.add_to_tree(move, root)
+		match move.move_type:
+			0:
+				tree_item = root_movement.create_child()
+			1:
+				tree_item = root_attack.create_child()
+			2:
+				tree_item = root_ground_option.create_child()
+			3:
+				tree_item = root_hit_stun.create_child()
+			4:
+				tree_item = root_block_stun.create_child()
+
+		self.add_to_tree(move, tree_item)
+
+func add_to_tree(item: FighterAnimationData, tree_item: TreeItem) -> void:
+	# var tree_item: TreeItem = root.create_item()
+	match item.move_type:
+		0:
+			tree_item.set_custom_bg_color(0, Color('#515f66'))
+		1:
+			tree_item.set_custom_bg_color(0, Color('#665154'))
+		2:
+			tree_item.set_custom_bg_color(0, Color('#666551'))
+		3:
+			tree_item.set_custom_bg_color(0, Color('#635166'))
+		4:
+			tree_item.set_custom_bg_color(0, Color('#51665a'))
+	
+	tree_item.set_text(0, item.move_name)
+
+	for extension: FighterAnimationData in item.extensions:
+		var child_item: TreeItem = tree_item.create_child()
+		self.add_to_tree(extension, child_item)
+	
+	tree_item.set_metadata(0, self.get_movelistitem_from_animationdata(item))
+
+	return
+
+func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
+	var anim_data: FighterAnimationData = FighterAnimationData.new()
+	var inputs: Array = []
+
+	anim_data.move_name = item.move_name
+	anim_data.move_type = item.get_node("%MoveType").selected
+	anim_data.is_reference = item.is_reference
+
+	anim_data.animation_name = item.get_animation_name()
+
+	anim_data.add_inputs_arr(item.get_input_map())
+
+	anim_data.no_input = item.get_node("%NoInput").button_pressed
+	anim_data.hold_input = item.get_node("%HoldInput").button_pressed
+	anim_data.non_attack = item.get_node("%NonAttackToggle").button_pressed
+	anim_data.side_context = item.get_node("%SideContext").selected
+
+	anim_data.required_state = item.get_node("%RequiredState").text
+	anim_data.prohibit_state = item.get_node("%ProhibitState").text
+
+	anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
+	anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
+	anim_data.has_crouch_block_property = item.get_node("%OnCrouchBlockOpponentToggle").button_pressed
+	anim_data.crouch_block_animation = item.get_node("%OnCrouchBlockOpponentOption").text
+	anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
+	anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
+	anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
+	anim_data.back_hit_animation = item.get_node("%OnBackHitOpponentOption").text
+
+	anim_data.has_hit_recovery = item.get_node("%OnHitToggle").button_pressed
+	anim_data.recovery_hit = item.get_node("%OnHitOption").text
+	anim_data.has_block_recovery = item.get_node("%OnBlockToggle").button_pressed
+	anim_data.recovery_block = item.get_node("%OnBlockOption").text
+	anim_data.has_ch_recovery = item.get_node("%OnCounterToggle").button_pressed
+	anim_data.recovery_ch = item.get_node("%OnCounterOption").text
+	anim_data.air_hit_animation = item.get_node("%OnAirHitOption").text
+	anim_data.ground_hit_animation = item.get_node("%OnGroundHitOption").text
+
+	anim_data.face_attacker_on_hit = item.get_node("%TargetFaceAttackerHit").button_pressed
+
+	anim_data.player_states = item.get_state_data()
+
+	anim_data.hitbox_data = item.get_hitbox_data()
+	anim_data.hurtbox_data = item.get_hitbox_data(true)
+
+	anim_data.pushback_force = FixedInt.FromFloat(item.get_node("%PushbackForce").value)
+	anim_data.pushback_direction = FixedInt.FromFloat(item.get_node("%PushbackDirection").value)
+	anim_data.launch_force = FixedInt.FromFloat(item.get_node("%LaunchForce").value)
+	anim_data.launch_direction = FixedInt.FromFloat(item.get_node("%LaunchDirection").value)
+
+	anim_data.pushback_mod_on_hit = FixedInt.FromFloat(item.get_node('%PushbackForceModOnHit').value)
+	anim_data.pushback_mod_on_counter = FixedInt.FromFloat(item.get_node('%PushbackForceModOnCounter').value)
+	anim_data.pushback_mod_on_ground_hit = FixedInt.FromFloat(item.get_node('%PushbackForceModOnGroundHit').value)
+	anim_data.pushback_mod_on_block = FixedInt.FromFloat(item.get_node('%PushbackForceModOnBlock').value)
+
+	anim_data.pushback_angle_on_hit = item.get_node("%ApplyPushbackAngleOnHit").button_pressed
+	anim_data.pushback_angle_on_counter = item.get_node("%ApplyPushbackAngleOnCounter").button_pressed
+	anim_data.pushback_angle_on_ground_hit = item.get_node("%ApplyPushbackAngleOnGroundHit").button_pressed
+	anim_data.pushback_angle_on_block = item.get_node("%ApplyPushbackAngleOnBlock").button_pressed
+
+	anim_data.extension_buffer_start = item.get_node("%ExtensionBufferStart").value
+	anim_data.extension_execute_start = item.get_node("%ExtensionExecuteStart").value
+	anim_data.extension_execute_end = item.get_node("%ExtensionExecuteEnd").value
+
+	for extension: MoveListItem in item.get_node('%ExtensionMovelist').get_children():
+		anim_data.extensions.append(self.compile_MoveListItem(extension))
+
+	return anim_data
+
 # =========================
 
 func _on_MoveListItem_is_selected(move: MoveListItem) -> void:
 	self.selected_item = move
 
-	for item: MoveListItem in %MoveListView.get_child(0).get_children():
+	for item: MoveListItem in get_tree().get_nodes_in_group("MoveListItems"): #%MoveListView.get_child(0).get_children():
 		if item == move:
 			continue
 		item.deselect()
@@ -322,6 +479,10 @@ func _on_MoveListItem_request_duplicate_item(data: FighterAnimationData, index: 
 	self.add_movelist_item(data, index)
 	var toaster: EditorToaster = EditorInterface.get_editor_toaster()
 	toaster.push_toast("Movelist item duplicated. If data is incorrect, try compiling before duping.")
+
+func _on_MoveListItem_request_animation_length(anim_name: String, item: MoveListItem) -> void:
+	var anim: Animation = self.anim_player.get_animation(anim_name)
+	item.set_animation_length_label(anim.length)
 
 func _on_animation_selector_item_selected(index: int) -> void:
 	self.anim_player.play(%AnimationSelector.get_item_text(index))
@@ -373,7 +534,7 @@ func _on_remove_move_button_up() -> void:
 
 	self.animation_frame_changed.emit(self.anim_player.current_animation_position * 60)
 
-	for item: MoveListItem in %MoveListView.get_child(0).get_children():
+	for item: MoveListItem in get_tree().get_nodes_in_group("MoveListItems"): #%MoveListView.get_child(0).get_children():
 		if item.selected:
 			item.deselect()
 			item.queue_free()
@@ -389,65 +550,7 @@ func _on_compile_movelist_button_button_up() -> void:
 	var move_list: FighterMovelist = FighterMovelist.new()
 
 	for item: MoveListItem in %MoveListView.get_child(0).get_children():
-		var anim_data: FighterAnimationData = FighterAnimationData.new()
-		var inputs: Array = []
-
-		anim_data.move_name = item.move_name
-		anim_data.move_type = item.get_node("%MoveType").selected
-		anim_data.is_reference = item.is_reference
-
-		anim_data.animation_name = item.get_animation_name()
-
-		anim_data.add_inputs_arr(item.get_input_map())
-
-		anim_data.no_input = item.get_node("%NoInput").button_pressed
-		anim_data.hold_input = item.get_node("%HoldInput").button_pressed
-		anim_data.non_attack = item.get_node("%NonAttackToggle").button_pressed
-		anim_data.side_context = item.get_node("%SideContext").selected
-
-		anim_data.required_state = item.get_node("%RequiredState").text
-		anim_data.prohibit_state = item.get_node("%ProhibitState").text
-
-		anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
-		anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
-		anim_data.has_crouch_block_property = item.get_node("%OnCrouchBlockOpponentToggle").button_pressed
-		anim_data.crouch_block_animation = item.get_node("%OnCrouchBlockOpponentOption").text
-		anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
-		anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
-		anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
-		anim_data.back_hit_animation = item.get_node("%OnBackHitOpponentOption").text
-
-		anim_data.has_hit_recovery = item.get_node("%OnHitToggle").button_pressed
-		anim_data.recovery_hit = item.get_node("%OnHitOption").text
-		anim_data.has_block_recovery = item.get_node("%OnBlockToggle").button_pressed
-		anim_data.recovery_block = item.get_node("%OnBlockOption").text
-		anim_data.has_ch_recovery = item.get_node("%OnCounterToggle").button_pressed
-		anim_data.recovery_ch = item.get_node("%OnCounterOption").text
-		anim_data.air_hit_animation = item.get_node("%OnAirHitOption").text
-		anim_data.ground_hit_animation = item.get_node("%OnGroundHitOption").text
-
-		anim_data.face_attacker_on_hit = item.get_node("%TargetFaceAttackerHit").button_pressed
-
-		anim_data.player_states = item.get_state_data()
-
-		anim_data.hitbox_data = item.get_hitbox_data()
-		anim_data.hurtbox_data = item.get_hitbox_data(true)
-
-		anim_data.pushback_force = FixedInt.FromFloat(item.get_node("%PushbackForce").value)
-		anim_data.pushback_direction = FixedInt.FromFloat(item.get_node("%PushbackDirection").value)
-		anim_data.launch_force = FixedInt.FromFloat(item.get_node("%LaunchForce").value)
-		anim_data.launch_direction = FixedInt.FromFloat(item.get_node("%LaunchDirection").value)
-
-		anim_data.pushback_mod_on_hit = FixedInt.FromFloat(item.get_node('%PushbackForceModOnHit').value)
-		anim_data.pushback_mod_on_counter = FixedInt.FromFloat(item.get_node('%PushbackForceModOnCounter').value)
-		anim_data.pushback_mod_on_ground_hit = FixedInt.FromFloat(item.get_node('%PushbackForceModOnGroundHit').value)
-		anim_data.pushback_mod_on_block = FixedInt.FromFloat(item.get_node('%PushbackForceModOnBlock').value)
-
-		anim_data.pushback_angle_on_hit = item.get_node("%ApplyPushbackAngleOnHit").button_pressed
-		anim_data.pushback_angle_on_counter = item.get_node("%ApplyPushbackAngleOnCounter").button_pressed
-		anim_data.pushback_angle_on_ground_hit = item.get_node("%ApplyPushbackAngleOnGroundHit").button_pressed
-		anim_data.pushback_angle_on_block = item.get_node("%ApplyPushbackAngleOnBlock").button_pressed
-
+		var anim_data: FighterAnimationData = self.compile_MoveListItem(item)
 		move_list.add_to_list(anim_data)
 
 	# done?
@@ -468,6 +571,7 @@ func _on_reattach_button_button_up() -> void:
 	self.attach_to_fighter_scene()
 	self.load_animation_data()
 	self.load_movelist_data()
+	self.update_tree()
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	if !toggled_on:

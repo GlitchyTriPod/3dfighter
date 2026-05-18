@@ -55,6 +55,7 @@ import/fbx/enabled=true
 [global_group]
 
 network_sync="descriptor group for nodes participating in rollback."
+MoveListItems=""
 
 [importer_defaults]
 

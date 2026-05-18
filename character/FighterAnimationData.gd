@@ -11,6 +11,8 @@ enum BUTTON_FLAGS {
 @export_storage var move_name: String = ""
 @export_storage var move_type: int = 0
 
+@export_storage var is_reference: bool
+
 @export_storage var input_di_map: Array = []
 @export_storage var input_button: int
 
@@ -21,6 +23,8 @@ enum BUTTON_FLAGS {
 @export_storage var required_state: String = ""
 @export_storage var prohibit_state: String = ""
 
+@export_storage var no_input: bool = false
+@export_storage var hold_input: bool = false
 @export_storage var non_attack: bool = false
 
 @export_storage var attack_speed: int
@@ -39,6 +43,7 @@ enum BUTTON_FLAGS {
 @export_storage var is_punch: bool
 @export_storage var is_kick: bool
 
+@export_storage var recovery_ref: String
 @export_storage var hit_animation: String
 @export_storage var block_animation: String
 @export_storage var crouch_block_animation: String = ""
@@ -50,6 +55,16 @@ enum BUTTON_FLAGS {
 @export_storage var back_hit_animation: String = ""
 
 @export_storage var face_attacker_on_hit: bool = false
+
+# contains data on any hitboxes put out by the animation.
+# Keep empty if this animation does not attack the opponent
+@export_storage var hitbox_data: Dictionary = {}
+
+# contains data on misc. hurtboxes that extends the player's hit area
+@export_storage var hurtbox_data: Dictionary = {}
+
+# contains fighter state data based on frame ranges
+@export_storage var player_states: Dictionary = {}
 
 @export_storage var pushback_force: int
 @export_storage var pushback_direction: int
@@ -66,22 +81,11 @@ enum BUTTON_FLAGS {
 @export_storage var pushback_angle_on_ground_hit: bool = true
 @export_storage var pushback_angle_on_block: bool = true
 
-# contains data on any hitboxes put out by the animation.
-# Keep empty if this animation does not attack the opponent
-@export_storage var hitbox_data: Dictionary = {}
+@export_storage var extension_buffer_start: int = -1
+@export_storage var extension_execute_start: int = -1
+@export_storage var extension_execute_end: int = -1
 
-# contains data on misc. hurtboxes that extends the player's hit area
-@export_storage var hurtbox_data: Dictionary = {}
-
-# contains fighter state data based on frame ranges
-@export_storage var player_states: Dictionary = {}
-
-# TODO: link to other AnimationData to enable attack strings
-@export_storage var is_reference: bool
-@export_storage var recovery_ref: String
-
-@export_storage var no_input: bool = false
-@export_storage var hold_input: bool = false
+@export_storage var extensions: Array[FighterAnimationData] = []
 
 @export_enum("Both", "Left", "Right") var side_context: int = 0
 

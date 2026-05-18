@@ -30,7 +30,7 @@ anti_aliasing = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp5y0"]
 bg_color = Color(0.11659999, 0.1683, 0.22, 1)
 
-[node name="MoveListItem" type="PanelContainer" unique_id=830020828]
+[node name="MoveListItem" type="PanelContainer" unique_id=830020828 groups=["MoveListItems"]]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 631.0
@@ -87,10 +87,23 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Use as ref"
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1654229171]
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=850610443]
 layout_mode = 2
-theme_override_font_sizes/font_size = 13
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1654229171]
+layout_mode = 2
 text = "Animation:"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1551958336]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Animation Length:"
+
+[node name="AnimationLengthLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1211078445]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "XX Frames"
 
 [node name="MoveAnimationOption" type="OptionButton" parent="MarginContainer/VBoxContainer" unique_id=719206318]
 unique_name_in_owner = true
@@ -839,7 +852,89 @@ layout_mode = 2
 size_flags_horizontal = 3
 max_value = 90.0
 
+[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=783730089]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="FoldableContainer" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer" unique_id=980747735]
+layout_mode = 2
+folded = true
+title = "String Options"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer" unique_id=688961251]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=1961357021]
+layout_mode = 2
+
+[node name="AddStringExtension" type="Button" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1298369367]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+ Add Extension"
+
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1975095889]
+custom_minimum_size = Vector2(14.225, 0)
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=979619031]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Extension Buffer Start: "
+
+[node name="ExtensionBufferStart" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=2000606984]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -1.0
+max_value = 999.0
+value = -1.0
+rounded = true
+
+[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=73977426]
+custom_minimum_size = Vector2(14.225, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_bottom = 10
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=1690034133]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Extension Execute Window: "
+
+[node name="ExtensionExecuteStart" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=2051021208]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -1.0
+max_value = 999.0
+value = -1.0
+rounded = true
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=134092702]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "<->"
+
+[node name="ExtensionExecuteEnd" type="SpinBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer" unique_id=2045429226]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -1.0
+max_value = 999.0
+value = -1.0
+rounded = true
+
+[node name="ExtensionScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer" unique_id=2134016803]
+unique_name_in_owner = true
+layout_mode = 2
+follow_focus = true
+
+[node name="ExtensionMovelist" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/ExtensionScrollContainer" unique_id=1728439671]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/IsSelected" to="." method="_on_is_selected_toggled"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer2/MoveNameLabel" to="." method="_on_move_name_label_text_changed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer2/MoveType" to="." method="_on_move_type_item_selected"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/IsReference" to="." method="_on_is_reference_toggled"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/MoveAnimationOption" to="." method="_on_move_animation_option_item_selected"]
@@ -861,3 +956,4 @@ max_value = 90.0
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/States/DefaultStates/Button" to="." method="_on_button_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Hit_Hurt_boxes/HitboxContainer/HBoxContainer/AddHitbox" to="." method="_on_add_hitbox_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Hit_Hurt_boxes/HurtboxContainer/HBoxContainer/AddHurtbox" to="." method="_on_add_hurtbox_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/FoldableContainer/VBoxContainer/HBoxContainer/AddStringExtension" to="." method="_on_add_string_extension_button_up"]

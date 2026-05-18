@@ -2,6 +2,8 @@
 extends PanelContainer
 class_name MoveListItem
 
+const self_resource: Resource = preload('res://addons/fe_fighter_compiler/dock/MoveListItem.tscn')
+
 signal is_selected(source)
 signal is_unselected
 
@@ -14,6 +16,10 @@ signal request_duplicate_item(data: FighterAnimationData, index: int)
 signal request_hitbox_menu(hitbox: HitboxButton, idx: int, name: String)
 signal request_movelist_refs
 signal request_update_tree
+
+signal request_connect_MoveListItem_signals(anim_name: String, item: MoveListItem)
+
+signal request_animation_length(item: MoveListItem)
 
 const animation_state = preload("res://addons/fe_fighter_compiler/dock/animation_state.tscn")
 const hitbox_button = preload("res://addons/fe_fighter_compiler/dock/HitboxButton.tscn")
@@ -59,7 +65,7 @@ var anim_names: PackedStringArray:
 		return arr		
 
 func _ready() -> void:
-	if EditorInterface.get_edited_scene_root() == self:
+	if EditorInterface.get_edited_scene_root() is MoveListItem:
 		return
 
 	self.move_name = %MoveNameLabel.text
@@ -92,6 +98,8 @@ func _ready() -> void:
 		%OnAirHitOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 		%OnGroundHitOption.add_item("%s/%s" % [self.hit_animations.resource_name, name])
 	%MoveData.folded = true
+
+	# self.request_update_tree.emit()
 
 # ======================
 
@@ -209,6 +217,9 @@ func change_item_color(idx: int) -> void:
 			stylebox.bg_color = Color("#51665a")			
 	self.add_theme_stylebox_override("panel", stylebox)
 
+func set_animation_length_label(anim_langth: float) -> void:
+	%AnimationLengthLabel.text = "%d Frames" % ceili(anim_langth * 60)
+
 # ======================
 
 func _on_is_selected_toggled(toggled_on: bool) -> void:
@@ -313,6 +324,7 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 
 func _on_move_animation_option_item_selected(index: int) -> void:
 	self.animation_changed.emit(%MoveAnimationOption.get_item_text(index))
+	self.request_animation_length.emit(%MoveAnimationOption.get_item_text(index), self)
 
 func _on_is_reference_toggled(toggled_on: bool) -> void:
 	if toggled_on:
@@ -365,7 +377,6 @@ func _on_non_attack_toggled(toggled_on: bool) -> void:
 	%ApplyPushbackAngleOnGroundHit.disabled = toggled_on
 	%ApplyPushbackAngleOnHit.disabled = toggled_on
 
-
 func _on_move_up_button_button_up() -> void:
 	get_parent().move_child(self, clampi(self.get_index() - 1, 0, 10000))
 
@@ -387,4 +398,26 @@ func _on_dupe_down_button_button_up() -> void:
 func _on_move_type_item_selected(index: int) -> void:
 	self.move_type = index
 	self.change_item_color(index)
+	self.request_update_tree.emit()
+
+func _on_add_string_extension_button_up() -> void:
+	var new_item: MoveListItem = self_resource.instantiate()
+	new_item.character_animations = self.character_animations
+
+	self.request_connect_MoveListItem_signals.emit(new_item)
+
+	%ExtensionMovelist.add_child(new_item)
+
+	new_item.get_node("%IsReference").disabled = true
+	new_item.get_node('%NewUpButton').disabled = true
+	new_item.get_node('%NewDownButton').disabled = true
+	new_item.get_node('%DupeUpButton').disabled = true
+	new_item.get_node('%DupeDownButton').disabled = true
+
+	new_item.emit_signal("request_movelist_refs")
+
+	if %ExtensionScrollContainer.custom_minimum_size == Vector2(0,0):
+		%ExtensionScrollContainer.custom_minimum_size = Vector2(0, 1000)
+
+func _on_move_name_label_text_changed(new_text: String) -> void:
 	self.request_update_tree.emit()
