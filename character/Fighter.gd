@@ -487,6 +487,13 @@ func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 
 func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool = false) -> FighterAnimationData:
 	var inputs: Array[Dictionary] = self.input_interpreter.read_input(10)
+
+	# only register new button presses
+	# currently this prevents all movement when a button is held; needs to change
+	if inputs[0]["button"] != 0 &&  \
+		(inputs[0]['frame_start'] != SyncManager.current_tick || inputs[0]['button'] <= inputs[1]['button']):
+		return current_move
+
 	if current_move.extension_possible(self.anim_player.current_animation_position, check_buffer):
 		var new_move: FighterAnimationData = self.movelist.get_from_input(
 			inputs, 
