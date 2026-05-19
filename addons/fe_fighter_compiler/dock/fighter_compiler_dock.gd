@@ -49,17 +49,17 @@ func load_movelist_data() -> void:
 	for n: Node in %MoveListView.get_child(0).get_children():
 		n.queue_free()
 	
-	for key: int in self.fighter.movelist.move_list.size():
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
-		self.add_movelist_item(move)
+	for key: FighterAnimationData in self.fighter.movelist.move_list.values():
+		# var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
+		self.add_movelist_item(key)
 	
-	for key: int in self.fighter.movelist.move_list.size():
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
-		self.check_and_mark_movelist_ref(move)
+	for key: FighterAnimationData in self.fighter.movelist.move_list.values():
+		# var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
+		self.check_and_mark_movelist_ref(key)
 
-	for key: int in self.fighter.movelist.move_list.size():
-		var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
-		self.refresh_movelist_refs(move)
+	for key: FighterAnimationData in self.fighter.movelist.move_list.values():
+		# var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
+		self.refresh_movelist_refs(key)
 	
 	self.update_tree()
 
@@ -79,11 +79,13 @@ func attach_to_fighter_scene() -> void:
 	%MoveListControls.visible = true
 	%MoveListContainer.visible = true
 
-func add_movelist_item(data: FighterAnimationData = null, index: int = -1, parent_item: MoveListItem = null) -> void:	
+func add_movelist_item(data: FighterAnimationData = null, index: int = -1, parent_item: MoveListItem = null) -> void:
+	if data.get('is_extension_only') != null && data.is_extension_only && parent_item == null:
+		return
+
 	var item: MoveListItem = self.move_list_item.instantiate()
 
 	item.character_animations = self.fighter.animation_library
-	
 
 	self.connect_MoveListItem_signals(item)
 
@@ -138,6 +140,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1, paren
 	item.get_node("%HoldInput").button_pressed = data.hold_input if data.get("hold_input") != null else false
 	item.get_node("%HoldInput").disabled = item.get_node("%NoInput").button_pressed
 	item.get_node("%NonAttackToggle").button_pressed = data.non_attack if data.get("non_attack") != null else false
+	item.get_node("%NonBufferable").button_pressed = data.non_bufferable if data.get("non_bufferable") != null else false
 	item.get_node("%SideContext").selected = data.side_context if data.get("side_context") != null else 0
 
 	item.get_node("%TargetFaceAttackerHit").button_pressed = data.face_attacker_on_hit if data.get("face_attacker_on_hit") != null else false
@@ -242,9 +245,9 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1, paren
 			item.add_hitbox(true, i)
 
 	item.get_node("%PushbackForce").value = FixedInt.ToFloat(data.pushback_force)
-	item.get_node("%PushbackDirection").value = FixedInt.ToFloat(data.pushback_direction if data.get("pushback_direction") != null else 0)
+	item.get_node("%PushbackDirection").value = FixedInt.ToFloat(FixedInt.Rads2Deg(data.pushback_direction if data.get("pushback_direction") != null else 0))
 	item.get_node("%LaunchForce").value = FixedInt.ToFloat(data.launch_force if data.get("launch_force") != null else 0)
-	item.get_node("%LaunchDirection").value = FixedInt.ToFloat(data.launch_direction if data.get("launch_direction") != null else 0)
+	item.get_node("%LaunchDirection").value = FixedInt.ToFloat(FixedInt.Rads2Deg(data.launch_direction if data.get("launch_direction") != null else 0))
 
 	item.get_node('%PushbackForceModOnHit').value = FixedInt.ToFloat(data.pushback_mod_on_hit if data.get("pushback_mod_on_hit") != null else 0)
 	item.get_node('%PushbackForceModOnCounter').value = FixedInt.ToFloat(data.pushback_mod_on_counter if data.get("pushback_mod_on_counter") != null else 0)
@@ -334,6 +337,8 @@ func update_tree() -> void:
 	root_block_stun.set_text(0, 'Block Stun')
 
 	for move: FighterAnimationData in self.fighter.movelist.move_list.values():
+		if move.is_extension_only:
+			continue
 		var tree_item: TreeItem # = self.add_to_tree(move, root)
 		match move.move_type:
 			0:
@@ -378,6 +383,8 @@ func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 	var anim_data: FighterAnimationData = FighterAnimationData.new()
 	var inputs: Array = []
 
+	anim_data.is_extension_only = false
+
 	anim_data.move_name = item.move_name
 	anim_data.move_type = item.get_node("%MoveType").selected
 	anim_data.is_reference = item.is_reference
@@ -389,6 +396,7 @@ func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 	anim_data.no_input = item.get_node("%NoInput").button_pressed
 	anim_data.hold_input = item.get_node("%HoldInput").button_pressed
 	anim_data.non_attack = item.get_node("%NonAttackToggle").button_pressed
+	anim_data.non_bufferable = item.get_node("%NonBufferable").button_pressed
 	anim_data.side_context = item.get_node("%SideContext").selected
 
 	anim_data.required_state = item.get_node("%RequiredState").text
@@ -420,9 +428,9 @@ func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 	anim_data.hurtbox_data = item.get_hitbox_data(true)
 
 	anim_data.pushback_force = FixedInt.FromFloat(item.get_node("%PushbackForce").value)
-	anim_data.pushback_direction = FixedInt.FromFloat(item.get_node("%PushbackDirection").value)
+	anim_data.pushback_direction = FixedInt.Deg2Rads(FixedInt.FromFloat(item.get_node("%PushbackDirection").value))
 	anim_data.launch_force = FixedInt.FromFloat(item.get_node("%LaunchForce").value)
-	anim_data.launch_direction = FixedInt.FromFloat(item.get_node("%LaunchDirection").value)
+	anim_data.launch_direction = FixedInt.Deg2Rads(FixedInt.FromFloat(item.get_node("%LaunchDirection").value))
 
 	anim_data.pushback_mod_on_hit = FixedInt.FromFloat(item.get_node('%PushbackForceModOnHit').value)
 	anim_data.pushback_mod_on_counter = FixedInt.FromFloat(item.get_node('%PushbackForceModOnCounter').value)

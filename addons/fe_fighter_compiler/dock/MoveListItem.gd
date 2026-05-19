@@ -105,13 +105,8 @@ func _ready() -> void:
 	%MoveData.folded = true
 
 # ======================
-func select(collapse_options: bool = false) -> void:
+func select(_collapse_options: bool = false) -> void:
 	%IsSelected.button_pressed = true
-	if collapse_options:
-		%MoveData.folded = true
-		%ExtensionOptions.folded = true
-		%PushbackForceModifiers.folded = true
-		%PushbackDirectionOptions.folded = true
 	
 	#check if item is extension, expand parent move data if needed
 	if self.parent_item != null:

@@ -12,6 +12,7 @@ input_di_map = [0]
 animation_name = "def_animations/def_idle_standing"
 prohibit_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -54,6 +55,7 @@ input_di_map = [3]
 animation_name = "def_animations/def_walk_f"
 prohibit_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -96,6 +98,7 @@ input_di_map = [4]
 animation_name = "def_animations/def_walk_fc"
 prohibit_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -142,6 +145,7 @@ input_di_map = [5]
 animation_name = "def_animations/def_idle_crouching"
 prohibit_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -188,6 +192,7 @@ input_di_map = [6]
 animation_name = "def_animations/def_idle_crouching"
 prohibit_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -233,6 +238,7 @@ input_di_map = [7]
 animation_name = "def_animations/def_walk_b"
 prohibit_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -333,6 +339,7 @@ animation_name = "def_animations/def_run_f"
 required_state = "f_dash"
 prohibit_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -658,6 +665,7 @@ required_state = "step_left"
 prohibit_state = "grounded"
 hold_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -711,6 +719,7 @@ required_state = "step_left"
 prohibit_state = "grounded"
 hold_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -764,6 +773,7 @@ required_state = "step_right"
 prohibit_state = "grounded"
 hold_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -817,6 +827,7 @@ required_state = "step_right"
 prohibit_state = "grounded"
 hold_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -869,6 +880,7 @@ input_di_map = [0]
 animation_name = "def_animations/def_ground_faceup"
 required_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -912,6 +924,7 @@ animation_name = "def_animations/def_ground_roll_l"
 required_state = "grounded"
 prohibit_state = "back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -980,6 +993,7 @@ animation_name = "def_animations/def_ground_roll_r"
 required_state = "grounded"
 prohibit_state = "back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1047,6 +1061,7 @@ input_di_map = [1]
 animation_name = "def_animations/def_ground_roll_r"
 required_state = "grounded, back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1114,6 +1129,7 @@ input_di_map = [5]
 animation_name = "def_animations/def_ground_roll_l"
 required_state = "grounded, back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1182,6 +1198,7 @@ animation_name = "def_animations/def_ground_roll_l"
 required_state = "grounded"
 prohibit_state = "back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1250,6 +1267,7 @@ animation_name = "def_animations/def_ground_roll_r"
 required_state = "grounded"
 prohibit_state = "back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1317,6 +1335,7 @@ input_di_map = [5]
 animation_name = "def_animations/def_ground_roll_r"
 required_state = "grounded, back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1384,6 +1403,7 @@ input_di_map = [1]
 animation_name = "def_animations/def_ground_roll_l"
 required_state = "grounded, back_turned_calc"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1451,6 +1471,7 @@ input_di_map = [7]
 animation_name = "def_animations/def_ground_wakeup_g"
 required_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1501,6 +1522,7 @@ input_di_map = [6]
 animation_name = "def_animations/def_ground_wakeup_g"
 required_state = "grounded"
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1595,6 +1617,7 @@ animation_name = "def_hit_animations/def_ground_hit_1"
 required_state = "grounded"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1634,6 +1657,7 @@ animation_name = "def_hit_animations/def_ground_hit_2"
 required_state = "grounded"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1672,6 +1696,7 @@ input_di_map = [0]
 animation_name = "def_block_animations/def_block_h_1"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1714,6 +1739,7 @@ input_di_map = [0]
 animation_name = "def_block_animations/def_block_m_1"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1756,6 +1782,7 @@ input_di_map = [0]
 animation_name = "def_block_animations/def_block_l_1"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1802,6 +1829,7 @@ input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_h1"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1840,6 +1868,7 @@ input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_m_1"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1878,6 +1907,7 @@ input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_m_3"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1916,6 +1946,7 @@ input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_l_1"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -1954,6 +1985,7 @@ input_di_map = [0]
 animation_name = "def_hit_animations/def_hit_knd_1"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -2001,6 +2033,7 @@ input_di_map = [0]
 animation_name = "AnimLibrary_Atropos/atro_stagger_rl"
 no_input = true
 non_attack = true
+non_bufferable = true
 recovery_hit = "def_animations/def_atk_2p"
 recovery_ch = "def_animations/def_atk_2p"
 recovery_block = "def_animations/def_atk_2p"
@@ -2297,6 +2330,7 @@ z = 68812
 script = ExtResource("1_3esc5")
 move_name = "5P_P_PA"
 move_type = 1
+is_extension_only = true
 input_di_map = [0]
 input_button = 5
 animation_name = "AnimLibrary_Atropos/atro_atk_p_p_pa"
@@ -2361,6 +2395,7 @@ z = 58982
 script = ExtResource("1_3esc5")
 move_name = "5P_P"
 move_type = 1
+is_extension_only = true
 input_di_map = [0]
 input_button = 1
 animation_name = "AnimLibrary_Atropos/atro_atk_p_p"
@@ -2935,7 +2970,7 @@ player_states = {
 }
 }
 pushback_force = 3276
-pushback_direction = 4915200
+pushback_direction = 85725
 pushback_mod_on_ground_hit = 16384
 pushback_angle_on_hit = false
 pushback_angle_on_counter = false
@@ -2944,53 +2979,55 @@ pushback_angle_on_block = false
 [resource]
 script = ExtResource("2_thd5g")
 move_list = {
-"0": SubResource("Resource_thd5g"),
-"1": SubResource("Resource_cb3ny"),
-"10": SubResource("Resource_xnc4f"),
-"11": SubResource("Resource_xw2ue"),
-"12": SubResource("Resource_mmhuh"),
-"13": SubResource("Resource_0phls"),
-"14": SubResource("Resource_8a4wv"),
-"15": SubResource("Resource_sxvbv"),
-"16": SubResource("Resource_s86rg"),
-"17": SubResource("Resource_12wqm"),
-"18": SubResource("Resource_uvnue"),
-"19": SubResource("Resource_cpqky"),
-"2": SubResource("Resource_08nhi"),
-"20": SubResource("Resource_vnpyl"),
-"21": SubResource("Resource_qf73k"),
-"22": SubResource("Resource_o47sg"),
-"23": SubResource("Resource_75tm3"),
-"24": SubResource("Resource_mkwg0"),
-"25": SubResource("Resource_vhnyk"),
-"26": SubResource("Resource_y5tgx"),
-"27": SubResource("Resource_v5pwb"),
-"28": SubResource("Resource_w7baa"),
-"29": SubResource("Resource_0ivfs"),
-"3": SubResource("Resource_kgg6k"),
-"30": SubResource("Resource_5wc0q"),
-"31": SubResource("Resource_ll7r6"),
-"32": SubResource("Resource_ysrka"),
-"33": SubResource("Resource_esu6j"),
-"34": SubResource("Resource_i3vrb"),
-"35": SubResource("Resource_guade"),
-"36": SubResource("Resource_56s85"),
-"37": SubResource("Resource_mivfj"),
-"38": SubResource("Resource_kmy80"),
-"39": SubResource("Resource_1ej0k"),
-"4": SubResource("Resource_xk686"),
-"40": SubResource("Resource_on37g"),
-"41": SubResource("Resource_ljo4w"),
-"42": SubResource("Resource_lmbia"),
-"43": SubResource("Resource_2q26m"),
-"44": SubResource("Resource_f6e2h"),
-"45": SubResource("Resource_cpdm0"),
-"46": SubResource("Resource_ykkmn"),
-"47": SubResource("Resource_bat1e"),
-"48": SubResource("Resource_mqtpn"),
-"5": SubResource("Resource_hjo88"),
-"6": SubResource("Resource_2yxrc"),
-"7": SubResource("Resource_p0c22"),
-"8": SubResource("Resource_3o56v"),
-"9": SubResource("Resource_sqnrw")
+"_0": SubResource("Resource_thd5g"),
+"_1": SubResource("Resource_cb3ny"),
+"_10": SubResource("Resource_xnc4f"),
+"_11": SubResource("Resource_xw2ue"),
+"_12": SubResource("Resource_mmhuh"),
+"_13": SubResource("Resource_0phls"),
+"_14": SubResource("Resource_8a4wv"),
+"_15": SubResource("Resource_sxvbv"),
+"_16": SubResource("Resource_s86rg"),
+"_17": SubResource("Resource_12wqm"),
+"_18": SubResource("Resource_uvnue"),
+"_19": SubResource("Resource_cpqky"),
+"_2": SubResource("Resource_08nhi"),
+"_20": SubResource("Resource_vnpyl"),
+"_21": SubResource("Resource_qf73k"),
+"_22": SubResource("Resource_o47sg"),
+"_23": SubResource("Resource_75tm3"),
+"_24": SubResource("Resource_mkwg0"),
+"_25": SubResource("Resource_vhnyk"),
+"_26": SubResource("Resource_y5tgx"),
+"_27": SubResource("Resource_v5pwb"),
+"_28": SubResource("Resource_w7baa"),
+"_29": SubResource("Resource_0ivfs"),
+"_3": SubResource("Resource_kgg6k"),
+"_30": SubResource("Resource_5wc0q"),
+"_31": SubResource("Resource_ll7r6"),
+"_32": SubResource("Resource_ysrka"),
+"_33": SubResource("Resource_esu6j"),
+"_34": SubResource("Resource_i3vrb"),
+"_35": SubResource("Resource_guade"),
+"_36": SubResource("Resource_56s85"),
+"_37": SubResource("Resource_mivfj"),
+"_38": SubResource("Resource_kmy80"),
+"_39": SubResource("Resource_1ej0k"),
+"_4": SubResource("Resource_xk686"),
+"_40": SubResource("Resource_on37g"),
+"_41": SubResource("Resource_ljo4w"),
+"_42": SubResource("Resource_lmbia"),
+"_43": SubResource("Resource_2q26m"),
+"_43_43": SubResource("Resource_d36m4"),
+"_43_43_43": SubResource("Resource_3j1lu"),
+"_46": SubResource("Resource_f6e2h"),
+"_47": SubResource("Resource_cpdm0"),
+"_48": SubResource("Resource_ykkmn"),
+"_49": SubResource("Resource_bat1e"),
+"_5": SubResource("Resource_hjo88"),
+"_50": SubResource("Resource_mqtpn"),
+"_6": SubResource("Resource_2yxrc"),
+"_7": SubResource("Resource_p0c22"),
+"_8": SubResource("Resource_3o56v"),
+"_9": SubResource("Resource_sqnrw")
 }

@@ -62,8 +62,10 @@ var input_interpreter: InputInterpreter = InputInterpreter.new()
 
 @onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
 
-var current_anim_id: String = "0" # Movelist item, NOT animation name
-var anim_fallback_id: String = "0"
+var current_anim_id: String = "_0" # Movelist item, NOT animation name
+var anim_fallback_id: String = "_0"
+
+var buffer_anim_id: String = ""
 			
 var collision_body_offset: Vector3
 
@@ -128,7 +130,8 @@ func _ready() -> void:
 		get_window().focus_exited.connect(self._on_window_focus_exited)
 
 func _process(_delta: float) -> void:
-	%DebugLabel.text = str(self.states.has("back_turned_calc"))
+	if !Engine.is_editor_hint():
+		%DebugLabel.text = self.buffer_anim_id
 
 	if Engine.is_editor_hint():
 		if self.anim_player.current_animation.is_empty():
@@ -380,11 +383,12 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
+	var current_move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
+
 	# if attack has been blocked, check if current attack has unique on-block animation, then override.
 	if attack_blocked:
-		var anim_data: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
-		if anim_data.has_block_recovery:
-			self.stun_reason.stun_id = self.movelist.get_default_anim_id_from_name(anim_data.recovery_block)
+		if current_move.has_block_recovery:
+			self.stun_reason.stun_id = self.movelist.get_default_anim_id_from_name(current_move.recovery_block)
 
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != "":
@@ -395,13 +399,18 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
-	if !self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun"):
-		var move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
-		if move.animation_name != self.anim_player.current_animation:
-			self.set_animation_order(self.movelist.get_from_ref_name(move.recovery_ref))
+	if (!self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun")) && \
+		!current_move.extension_possible(self.anim_player.current_animation_position):
+	
+		# check for input buffer
+		if current_move.extension_possible(self.anim_player.current_animation_position, true) || states.has("input_buffer"):
+			var new_move: FighterAnimationData = self.get_move_from_input(current_move, true)
+			if new_move.move_name != "idle" && new_move.move_name != current_move.move_name:
+				self.buffer_anim_id = self.movelist.get_move_id(new_move)
 
+		if current_move.animation_name != self.anim_player.current_animation:
+			self.set_animation_order(self.movelist.get_from_ref_name(current_move.recovery_ref))
 		self.process_root_motion(delta)
-
 		return
 
 	var inp: Array[Dictionary] = self.input_interpreter.read_input()
@@ -409,7 +418,13 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		return
 
 	# determine animation to play
-	var next_move: FighterAnimationData = self.get_move_from_input()
+	var next_move: FighterAnimationData 
+	#check for buffered move
+	if !self.buffer_anim_id.is_empty():
+		next_move = self.movelist.get_from_id(self.buffer_anim_id)
+		self.buffer_anim_id = ""
+	else:
+		next_move = self.get_move_from_input(current_move)
 
 	if next_move != null && \
 		next_move.animation_name != self.anim_player.current_animation && \
@@ -470,9 +485,20 @@ func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 				
 	return false
 
-func get_move_from_input() -> FighterAnimationData:
+func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool = false) -> FighterAnimationData:
 	var inputs: Array[Dictionary] = self.input_interpreter.read_input(10)
-	return self.movelist.get_from_input(inputs, self.states, self.screen_position)
+	if current_move.extension_possible(self.anim_player.current_animation_position, check_buffer):
+		var new_move: FighterAnimationData = self.movelist.get_from_input(
+			inputs, 
+			self.states, 
+			self.screen_position, 
+			check_buffer, 
+			current_move.extensions
+		)
+		if new_move.move_name == "idle":
+			return current_move
+		return new_move
+	return self.movelist.get_from_input(inputs, self.states, self.screen_position, check_buffer)
 
 func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: int = 999) -> Variant:
 
@@ -646,6 +672,7 @@ func _save_state() -> Dictionary:
 		"input_history": self.input_interpreter.input_history.duplicate(),
 		"current_anim_id": self.current_anim_id,
 		"anim_fallback_id": self.anim_fallback_id,
+		"buffer_anim_id": self.buffer_anim_id,
 		# "states": self.states.duplicate(),
 		"state_data": self.state_data.duplicate()
 	}
@@ -654,5 +681,6 @@ func _load_state(state: Dictionary) -> void:
 	self.input_interpreter.input_history = state.input_history.duplicate()
 	self.current_anim_id = state.current_anim_id
 	self.anim_fallback_id = state.anim_fallback_id
+	self.buffer_anim_id = state.buffer_anim_id
 	# self.states = state.states.duplicate()
 	self.state_data = state.state_data.duplicate()

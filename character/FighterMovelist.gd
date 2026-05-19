@@ -10,8 +10,12 @@ enum BUTTON_FLAGS {
 	A = 0x04
 }
 
-func add_to_list(move: FighterAnimationData) -> void:
-	var key: String = str(self.move_list.size()) 
+func add_to_list(move: FighterAnimationData, parent_key: String = "") -> void:
+	var key: String = "%s_%d" % [parent_key, self.move_list.size()]
+	if !move.extensions.is_empty():
+		for extension: FighterAnimationData in move.extensions:
+			extension.is_extension_only = true
+			self.add_to_list(extension, key)
 	self.move_list.get_or_add(key, move)
 
 func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
@@ -23,7 +27,7 @@ func get_default_anim_id_from_name(anim_name: String) -> String:
 		var move: FighterAnimationData = self.move_list[move_id]
 		if anim_name == move.animation_name:
 			return move_id
-	return "0"
+	return "_0"
 
 func get_from_id(move_id: String) -> FighterAnimationData:
 	return self.move_list.get(move_id)
@@ -40,13 +44,20 @@ func get_from_ref_name(ref_name: String) -> Variant:
 			return move
 	return false
 
-func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray, screen_position: int) -> FighterAnimationData:
+func get_from_input(inputs: Array[Dictionary], 
+	player_states: PackedStringArray, 
+	screen_position: int,
+	bufferable: bool = false,
+	extensions: Array[FighterAnimationData] = []
+	) -> FighterAnimationData:
+
 	var possible_moves: Array[FighterAnimationData] = []
 
 	### selecting valid moves ###
 
-	for move_key: String in self.move_list:
-		var move: FighterAnimationData = self.move_list[move_key]
+	for move: FighterAnimationData in self.move_list.values() if extensions.is_empty() else extensions:
+		if extensions.is_empty() && move.is_extension_only:
+			continue
 
 		if (move.input_di_map.back() == inputs[0]["di"] || \
 
@@ -56,10 +67,8 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 
 			self.is_valid_button_press(move.input_button, inputs[0]["button"]) && \
 			(move.side_context == 0 || screen_position == move.side_context) && \
-			(self.has_valid_states(move, player_states) if !move.required_state.is_empty() else true):
+			(self.has_valid_states(move, player_states, bufferable) if !move.required_state.is_empty() else true):
 			
-			# assert(move.move_name != "ground_wakeup_g_high")
-
 			possible_moves.append(move)
 	
 	### determining move priority ###
@@ -106,15 +115,12 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 	### selecting move ###
 
 	for move: FighterAnimationData in possible_moves:
-		# assert(!player_states.has("grounded"))
-
 		# checking for motion input
 		if move.input_di_map.size() > 1:
 			if move.input_di_map.size() > inputs.size() || \
 				SyncManager.current_tick - inputs[0].frame_start >= 6:
 				continue
 				
-
 			# we already checked that the last part of the input matches, no need to recheck
 			var passes_check: bool = true
 			var di_map: Array = move.input_di_map.duplicate_deep()
@@ -122,7 +128,8 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 											# vvv this allows for 1 entry on input leniency, input does not need to be frame perfect
 			var input_history_offset: int = 1 if inputs[1]["di"] == di_map[0] else 0
 			for i: int in range(1, di_map.size()):
-				if di_map[i] != inputs[i + input_history_offset]["di"]:
+				if i + input_history_offset >= di_map.size() || \
+					di_map[i] != inputs[i + input_history_offset]["di"]:
 					passes_check = false
 					break
 
@@ -138,26 +145,25 @@ func get_from_input(inputs: Array[Dictionary], player_states: PackedStringArray,
 				continue
 
 			return move
-			# break
 
 		# move does not have a motion input
 		return move
 		# ...is that legit all it needs??? lol
-
-	return self.move_list.get("0")
+	return self.move_list.get("_0")
 
 func is_valid_button_press(move_input: int, button_mask: int) -> bool:
-	if ((move_input & BUTTON_FLAGS.P and button_mask & BUTTON_FLAGS.P) || \
-		(move_input & BUTTON_FLAGS.K and button_mask & BUTTON_FLAGS.K) || \
-		(move_input & BUTTON_FLAGS.A and button_mask & BUTTON_FLAGS.A) || \
-		(move_input == 0 && button_mask == 0)) && \
+	if move_input > button_mask || \
+		(move_input & BUTTON_FLAGS.P && !(button_mask & BUTTON_FLAGS.P)) || \
+		(move_input & BUTTON_FLAGS.K && !(button_mask & BUTTON_FLAGS.K)) || \
+		(move_input & BUTTON_FLAGS.A && !(button_mask & BUTTON_FLAGS.A)):
+		return false
+	return true
 
-		# this check makes sure that the selected move requires less or equal button presses than the actual input
-		move_input <= button_mask:
-		return true
-	return false
+func has_valid_states(move: FighterAnimationData, player_states: PackedStringArray, bufferable: bool) -> bool:
+	if bufferable && move.non_bufferable:
+		return false
 
-func has_valid_states(move: FighterAnimationData, player_states: PackedStringArray) -> bool:
+	assert(!bufferable)
 
 	var states: PackedStringArray = move.required_state.split(", ")
 	var prohibited_states: PackedStringArray = move.prohibit_state.split(", ")

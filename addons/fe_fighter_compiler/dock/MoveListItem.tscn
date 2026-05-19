@@ -285,6 +285,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Non-Attack"
 
+[node name="NonBufferable" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1755969515]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Non-Bufferable"
+
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1422325716]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -947,6 +952,7 @@ size_flags_horizontal = 3
 [connection signal="button_up" from="MarginContainer/VBoxContainer/InputContainer/VBoxContainer/MoveDownButton" to="." method="_on_move_down_button_button_up"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NoInput" to="." method="_on_no_input_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NonAttackToggle" to="." method="_on_non_attack_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/NonBufferable" to="." method="_on_non_attack_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCrouchBlock/OnCrouchBlockOpponentToggle" to="." method="_on_on_crouch_block_opponent_toggle_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer/OnCounterOpponent/OnCounterOpponentToggle" to="." method="_on_on_counter_opponent_toggle_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer/OnBlock/OnBlockToggle" to="." method="_on_on_block_toggle_toggled"]

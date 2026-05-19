@@ -12,6 +12,7 @@ enum BUTTON_FLAGS {
 @export_storage var move_type: int = 0
 
 @export_storage var is_reference: bool
+@export_storage var is_extension_only: bool = false
 
 @export_storage var input_di_map: Array = []
 @export_storage var input_button: int
@@ -26,6 +27,7 @@ enum BUTTON_FLAGS {
 @export_storage var no_input: bool = false
 @export_storage var hold_input: bool = false
 @export_storage var non_attack: bool = false
+@export_storage var non_bufferable: bool = false
 
 @export_storage var attack_speed: int
 
@@ -101,3 +103,17 @@ func add_inputs_arr(inputs: Array) -> void:
         button_val |= BUTTON_FLAGS.A
 
     self.input_button = button_val
+
+func extension_possible(anim_position: float, check_buffer: bool = false) -> bool:
+    if self.extensions.is_empty():
+        return false
+
+    var current_frame: int = floori(anim_position * 60)
+    if check_buffer:
+        if current_frame >= self.extension_buffer_start && current_frame < self.extension_execute_end:
+            return true
+    else:
+        if current_frame >= self.extension_execute_start && current_frame < self.extension_execute_end:
+            return true
+
+    return false
