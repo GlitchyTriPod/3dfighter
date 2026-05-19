@@ -56,7 +56,7 @@ func get_from_input(inputs: Array[Dictionary],
 	### selecting valid moves ###
 
 	for move: FighterAnimationData in self.move_list.values() if extensions.is_empty() else extensions:
-		if extensions.is_empty() && move.is_extension_only:
+		if (extensions.is_empty() && move.is_extension_only) || move.no_input:
 			continue
 
 		if (move.input_di_map.back() == inputs[0]["di"] || \
@@ -72,45 +72,22 @@ func get_from_input(inputs: Array[Dictionary],
 			possible_moves.append(move)
 	
 	### determining move priority ###
-	
-	var temp_arr_state_moves: Array[FighterAnimationData] = possible_moves.filter(
-		func(move: FighterAnimationData) -> bool:
-			return !move.required_state.is_empty()
-	)
-	temp_arr_state_moves.sort_custom(
-		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
-			if a.required_state.split(", ").size() > b.required_state.split(", ").size():
-				return true
-			if a.input_button == b.input_button:
-				return a.input_di_map[0] > b.input_di_map[0]
-			return a.input_button > b.input_button
-	)
 
-	var temp_arr_motion_inputs: Array[FighterAnimationData] = possible_moves.filter(
-		func(move: FighterAnimationData) -> bool:
-			return move.input_di_map.size() > 1
-	)
-	temp_arr_motion_inputs.sort_custom(
+	possible_moves.sort_custom(
 		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
-			if a.input_di_map.size() > b.input_di_map.size():
+			if (!a.required_state.is_empty() && b.required_state.is_empty()) || \
+				a.required_state.split(', ').size() > b.required_state.split(', ').size():
 				return true
-			if a.input_di_map.size() == b.input_di_map.size():
-				return a.input_button > b.input_button
+			elif a.required_state.is_empty() && !b.required_state.is_empty():
+				return false
+			elif a.required_state.split(', ').size() == b.required_state.split(', ').size():
+				if a.input_di_map.size() == b.input_di_map.size():
+					if a.input_button == b.input_button:
+						return a.input_di_map.back() > b.input_di_map.back()
+					return a.input_button > b.input_button
+				return a.input_di_map.size() >= b.input_di_map.size()
 			return false
 	)
-
-	var temp_arr_normal_inputs: Array[FighterAnimationData] = possible_moves.filter(
-		func(move: FighterAnimationData) -> bool:
-			return move.input_di_map.size() <= 1
-	)
-	temp_arr_normal_inputs.sort_custom(
-		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
-			if a.input_button == b.input_button:
-				return a.input_di_map[0] > b.input_di_map[0]
-			return a.input_button > b.input_button
-	)
-
-	possible_moves = temp_arr_state_moves + temp_arr_motion_inputs + temp_arr_normal_inputs
 
 	### selecting move ###
 

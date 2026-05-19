@@ -41,11 +41,11 @@ public partial class CollisionMath : GodotObject
 
             if (currentRotationAng < 0)
             {
-                trueRotationDef *= -1;
+                trueRotationDef = -trueRotationDef;
             }
             if (facingTowardAng < 0)
             {
-                trueRotationDes *= -1;
+                trueRotationDes = -trueRotationDes;
             }
 
             diff = Math.Abs(trueRotationDef - trueRotationDes);
