@@ -20,6 +20,14 @@ public partial class CameraMath : GodotObject
         );
     }
 
+    public static bool IsPlayerOnLeftSide(FixedVector3 cameraPosition, FixedVector3 refPosition, FixedVector3 player1Position)
+    {
+        FixedVector3 cameraRotation = GetCameraTargetRotation(refPosition, cameraPosition);
+        FixedVector3 targetRotation = GetCameraTargetRotation(player1Position, cameraPosition);
+        long dist = cameraRotation.y - targetRotation.y;
+        return dist < 0;
+    }
+
     public static FixedVector3 GetCameraTargetPosition(FixedVector3 p1, FixedVector3 p2)
     {
         return FixedVector3.Div(

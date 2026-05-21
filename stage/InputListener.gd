@@ -4,12 +4,12 @@ class_name InputListener
 @onready var player_1: Fighter = get_node("../Chars").get_child(0)
 @onready var player_2: Fighter = get_node("../Chars").get_child(1)
 
-var is_p1_local : bool = true
-var is_p2_local : bool = true
+var is_p1_local: bool = true
+var is_p2_local: bool = true
 
 var is_online_match : bool = false
 
-# # Called every network tick.
+# Called every network tick.
 func _network_process(_input: Dictionary) -> void:
 
 	var _delta_int: int = FixedInt.FromFloat(SyncManager.tick_time)

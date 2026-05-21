@@ -145,8 +145,8 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1, paren
 
 	item.get_node("%TargetFaceAttackerHit").button_pressed = data.face_attacker_on_hit if data.get("face_attacker_on_hit") != null else false
 
-	item.get_node("%RequiredState").text = data.required_state if data.get("required_state") != null else ""
-	item.get_node("%ProhibitState").text = data.prohibit_state if data.get("prohibit_state") != null else ""
+	item.get_node("%RequiredState").text = ', '.join(data.required_state)	
+	item.get_node("%ProhibitState").text = ', '.join(data.prohibit_state)
 
 	item.get_node("%OnBlockToggle").button_pressed = data.has_block_recovery if data.get("has_block_recovery") != null else false
 	item.get_node("%OnCrouchBlockOpponentToggle").button_pressed = data.has_crouch_block_property if data.get("has_crouch_block_property") != null else false
@@ -385,11 +385,11 @@ func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 
 	anim_data.is_extension_only = false
 
-	anim_data.move_name = item.move_name
+	anim_data.move_name = StringName(item.move_name)
 	anim_data.move_type = item.get_node("%MoveType").selected
 	anim_data.is_reference = item.is_reference
 
-	anim_data.animation_name = item.get_animation_name()
+	anim_data.animation_name = StringName(item.get_animation_name())
 
 	anim_data.add_inputs_arr(item.get_input_map())
 
@@ -399,26 +399,33 @@ func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 	anim_data.non_bufferable = item.get_node("%NonBufferable").button_pressed
 	anim_data.side_context = item.get_node("%SideContext").selected
 
-	anim_data.required_state = item.get_node("%RequiredState").text
-	anim_data.prohibit_state = item.get_node("%ProhibitState").text
+	if item.get_node('%RequiredState').text.is_empty():
+		anim_data.required_state = []
+	else:
+		anim_data.required_state = item.get_node("%RequiredState").text.split(', ')
 
-	anim_data.recovery_ref = item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected)
-	anim_data.block_animation = item.get_node("%OnBlockOpponentOption").text
+	if item.get_node("%ProhibitState").text.is_empty():
+		anim_data.prohibit_state = []
+	else:
+		anim_data.prohibit_state = item.get_node("%ProhibitState").text.split(', ')
+
+	anim_data.recovery_ref = StringName(item.get_node("%OnRecoveryRef").get_item_text(item.get_node("%OnRecoveryRef").selected))
+	anim_data.block_animation = StringName(item.get_node("%OnBlockOpponentOption").text)
 	anim_data.has_crouch_block_property = item.get_node("%OnCrouchBlockOpponentToggle").button_pressed
-	anim_data.crouch_block_animation = item.get_node("%OnCrouchBlockOpponentOption").text
-	anim_data.hit_animation = item.get_node("%OnHitOpponentOption").text
+	anim_data.crouch_block_animation = StringName(item.get_node("%OnCrouchBlockOpponentOption").text)
+	anim_data.hit_animation = StringName(item.get_node("%OnHitOpponentOption").text)
 	anim_data.has_counter_property = item.get_node("%OnCounterOpponentToggle").button_pressed
-	anim_data.counter_animation = item.get_node("%OnCounterOpponentOption").text
-	anim_data.back_hit_animation = item.get_node("%OnBackHitOpponentOption").text
+	anim_data.counter_animation = StringName(item.get_node("%OnCounterOpponentOption").text)
+	anim_data.back_hit_animation = StringName(item.get_node("%OnBackHitOpponentOption").text)
 
 	anim_data.has_hit_recovery = item.get_node("%OnHitToggle").button_pressed
-	anim_data.recovery_hit = item.get_node("%OnHitOption").text
+	anim_data.recovery_hit = StringName(item.get_node("%OnHitOption").text)
 	anim_data.has_block_recovery = item.get_node("%OnBlockToggle").button_pressed
-	anim_data.recovery_block = item.get_node("%OnBlockOption").text
+	anim_data.recovery_block = StringName(item.get_node("%OnBlockOption").text)
 	anim_data.has_ch_recovery = item.get_node("%OnCounterToggle").button_pressed
-	anim_data.recovery_ch = item.get_node("%OnCounterOption").text
-	anim_data.air_hit_animation = item.get_node("%OnAirHitOption").text
-	anim_data.ground_hit_animation = item.get_node("%OnGroundHitOption").text
+	anim_data.recovery_ch = StringName(item.get_node("%OnCounterOption").text)
+	anim_data.air_hit_animation = StringName(item.get_node("%OnAirHitOption").text)
+	anim_data.ground_hit_animation = StringName(item.get_node("%OnGroundHitOption").text)
 
 	anim_data.face_attacker_on_hit = item.get_node("%TargetFaceAttackerHit").button_pressed
 

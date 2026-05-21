@@ -133,8 +133,8 @@ func get_input_map() -> Array:
 func get_animation_name():
 	return %MoveAnimationOption.text
 
-func get_hitbox_data(is_hurtbox := false) -> Dictionary:
-	var val: Dictionary = {}
+func get_hitbox_data(is_hurtbox := false) -> Dictionary[StringName, Variant]:
+	var val: Dictionary[StringName, Variant] = {}
 
 	var boxes: Array
 
@@ -146,13 +146,13 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 	else:
 		boxes = %HitboxGrid.get_children()
 
-	val["frame_range"] = {
-		"start": frame_start,
-		"end": frame_end
+	val[&"frame_range"] = {
+		&"start": frame_start,
+		&"end": frame_end
 	}
 	
 	if !boxes.is_empty():
-		val["shapes"] = []
+		val[&"shapes"] = []
 		for box: HitboxButton in boxes:
 
 			if box.frame_start < frame_start || frame_start == -1:
@@ -162,37 +162,37 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary:
 
 			var data: Dictionary = {}
 
-			data["is_hitbox"] = !box.is_hurtbox
-			data["radius"] = box.sphere_radius
-			data["position"] = FixedVector3.NewFromInt(
+			data[&"is_hitbox"] = !box.is_hurtbox
+			data[&"radius"] = box.sphere_radius
+			data[&"position"] = FixedVector3.NewFromInt(
 				box.x_pos,
 				box.y_pos,
 				box.z_pos
 			)
-			data["frame_range"] = {
-				"start": box.frame_start,
-				"end": box.frame_end
+			data[&"frame_range"] = {
+				&"start": box.frame_start,
+				&"end": box.frame_end
 			}
-			data["attack_height"] = box.attack_height
-			data["unblockable"] = box.unblockable
-			data["is_grab"] = box.is_grab
-			data["is_punch"] = box.is_punch
-			data["is_kick"] = box.is_kick
-			data["hits_grounded"] = box.hits_grounded
+			data[&"attack_height"] = box.attack_height
+			data[&"unblockable"] = box.unblockable
+			data[&"is_grab"] = box.is_grab
+			data[&"is_punch"] = box.is_punch
+			data[&"is_kick"] = box.is_kick
+			data[&"hits_grounded"] = box.hits_grounded
 
-			val["shapes"].append(data)
+			val[&"shapes"].append(data)
 
 	return val
 
-func get_state_data() -> Dictionary:
-	var val: Dictionary = {}
+func get_state_data() -> Dictionary[StringName, Dictionary]:
+	var val: Dictionary[StringName, Dictionary] = {}
 
 	for state: AnimationState in %DefaultStatesContainer.get_children():
 		val.merge(state.get_state_data())
 
 	return val
 
-func add_player_state(data: Dictionary = {}, state_name: String = "") -> void:
+func add_player_state(data: Dictionary = {}, state_name: StringName = &"") -> void:
 	var anim_state: AnimationState = self.animation_state.instantiate()
 	%DefaultStatesContainer.add_child(anim_state)
 	if data.is_empty():

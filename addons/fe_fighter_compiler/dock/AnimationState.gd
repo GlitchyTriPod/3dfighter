@@ -2,9 +2,9 @@
 extends HBoxContainer
 class_name AnimationState
 
-var state_name : String:
+var state_name: StringName:
 	get:
-		return %StateName.text
+		return StringName(%StateName.text)
 
 var frame_start := 0:
 	get:
@@ -13,11 +13,11 @@ var frame_end := 0:
 	get:
 		return int(%FrameEnd.value)
 
-func get_state_data() -> Dictionary:
-	var val = {}
+func get_state_data() -> Dictionary[StringName, Dictionary]:
+	var val: Dictionary[StringName, Dictionary] = {}
 	val.get_or_add(self.state_name, {
-		"start": self.frame_start,
-		"end": self.frame_end
+		&"start": self.frame_start,
+		&"end": self.frame_end
 	})
 	return val
 

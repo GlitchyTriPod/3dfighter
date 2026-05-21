@@ -52,24 +52,27 @@ func _ready() -> void:
 func _network_preprocess(_input: Variant) -> void: # may need to shove off to c# helper function
 
 	if self.default_pos == 0:
-		self.p1_screen_pos = self.p1_camera.unproject_position(
+		self.p1_screen_pos = self.p1_camera.unproject_position( # < NEEDS to change. not deterministic
 			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
 			)
-		self.p2_screen_pos = self.p1_camera.unproject_position(
-			FixedVector3.ToVec3(self.player_2.collision_body.fixed_position)
-		)
+		if self.p1_screen_pos.x > 0.5:
+			self.p2_screen_pos.x = self.p1_screen_pos.x - 0.5
+		else:
+			self.p2_screen_pos.x = self.p1_screen_pos.x + 0.5
 	else:
-		self.p1_screen_pos = self.p2_camera.unproject_position(
-			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
-			)
 		self.p2_screen_pos = self.p2_camera.unproject_position(
-			FixedVector3.ToVec3(self.player_2.collision_body.fixed_position)
-		)
+			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
+			)		
+		if self.p2_screen_pos.x > 0.5:
+			self.p1_screen_pos.x = self.p2_screen_pos.x - 0.5
+		else:
+			self.p1_screen_pos.x = self.p2_screen_pos.x + 0.5
 
 	var dist: int = CameraMath.GetDistanceClamped(
 		self.player_1.collision_body.fixed_position,
 		self.player_2.collision_body.fixed_position
 	)
+
 	if self.swap_sides == -1:
 		dist = -dist
 	
@@ -86,7 +89,7 @@ func _network_preprocess(_input: Variant) -> void: # may need to shove off to c#
 
 	# check if cam_ref needs to be swapped
 	if CameraMath.NeedsSideSwap(self.fixed_position, self.cam_ref, self.camera_fixed_position):
-		self.swap_sides *= -1
+		self.swap_sides = -self.swap_sides
 
 	# assign positions to reference nodes
 	self.cam_ref = CameraMath.GetCameraRefPosition(dist, self.fixed_position, self.fixed_rotation.y)
@@ -104,15 +107,15 @@ func _process(_delta: float) -> void:
 	self.p1_camera.look_at(target)
 	self.p2_camera.look_at(target)
 
-# needs conversion to fixedint
+
 func get_char_position(player: int) -> int:
 	if player == 0:
 		if self.p1_screen_pos.x < self.p2_screen_pos.x:
-			return 2
-		return 1
-	if self.p2_screen_pos.x < self.p1_screen_pos.x:
+			return 1
 		return 2
-	return 1
+	if self.p2_screen_pos.x < self.p1_screen_pos.x:
+		return 1
+	return 2
 
 func is_player_airborne() -> bool:
 	var chars: Array[Node] = get_parent().get_node("Chars").get_children()

@@ -5,7 +5,7 @@ var player_1 : Fighter
 var player_2 : Fighter
 var game_camera : GameCamera
 
-func get_oppo_current_animation_data(player: Fighter, id: String) -> FighterAnimationData:
+func get_oppo_current_animation_data(player: Fighter, id: StringName) -> FighterAnimationData:
 	var oppo: Fighter
 	if player == self.player_1:
 		oppo = self.player_2
@@ -13,7 +13,7 @@ func get_oppo_current_animation_data(player: Fighter, id: String) -> FighterAnim
 		oppo = self.player_1
 	return oppo.movelist.get_from_id(id)
 	
-func get_oppo_current_animation_id(player: Fighter) -> String:
+func get_oppo_current_animation_id(player: Fighter) -> StringName:
 	var oppo: Fighter
 	if player == self.player_1:
 		oppo = self.player_2
@@ -21,7 +21,7 @@ func get_oppo_current_animation_id(player: Fighter) -> String:
 		oppo = self.player_1
 	return oppo.current_anim_id
 
-func get_oppo_states(player: Fighter) -> Array[String]:
+func get_oppo_states(player: Fighter) -> PackedStringArray:
 	if player == self.player_1:
 		return self.player_2.states
 	return self.player_1.states

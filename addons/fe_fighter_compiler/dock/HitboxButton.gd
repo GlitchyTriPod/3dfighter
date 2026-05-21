@@ -43,18 +43,18 @@ func _on_button_up() -> void:
 
 func get_data() -> Dictionary:
 	return {
-		"sphere_radius": self.sphere_radius,
-		"x_pos": self.x_pos,
-		"y_pos": self.y_pos,
-		"z_pos": self.z_pos,
-		"frame_start": self.frame_start,
-		"frame_end": self.frame_end,
-		"attack_height": self.attack_height,
-		"unblockable": self.unblockable,
-		"is_punch": self.is_punch,
-		"is_kick": self.is_kick,
-		"is_grab": self.is_grab,
-		"hits_grounded": self.hits_grounded
+		&"sphere_radius": self.sphere_radius,
+		&"x_pos": self.x_pos,
+		&"y_pos": self.y_pos,
+		&"z_pos": self.z_pos,
+		&"frame_start": self.frame_start,
+		&"frame_end": self.frame_end,
+		&"attack_height": self.attack_height,
+		&"unblockable": self.unblockable,
+		&"is_punch": self.is_punch,
+		&"is_kick": self.is_kick,
+		&"is_grab": self.is_grab,
+		&"hits_grounded": self.hits_grounded
 	}
 
 func update_data(data: Dictionary):

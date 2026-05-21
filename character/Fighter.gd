@@ -2,6 +2,20 @@
 extends Node3D
 class_name Fighter
 
+@onready var PLAYER_INPUT_LEFT: StringName = StringName("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))
+@onready var PLAYER_INPUT_RIGHT: StringName = StringName("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))
+@onready var PLAYER_INPUT_UP: StringName = StringName("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))
+@onready var PLAYER_INPUT_DOWN: StringName = StringName("INPUT_DOWN_P" + str(1 if self.is_online else (self.player + 1)))
+@onready var PLAYER_INPUT_PUNCH: StringName = StringName("INPUT_PUNCH_P" + str(1 if self.is_online else (self.player + 1)))
+@onready var PLAYER_INPUT_KICK: StringName = StringName("INPUT_KICK_P" + str(1 if self.is_online else (self.player + 1)))
+@onready var PLAYER_INPUT_ABILITY: StringName = StringName("INPUT_ABILITY_P" + str(1 if self.is_online else (self.player + 1)))
+
+enum BUTTON_FLAGS {
+	P = 0x01,
+	K = 0x02,
+	A = 0x04
+}
+
 enum DI_STATE {
 	NEUTRAL,
 	UP,
@@ -20,17 +34,17 @@ const state_calc_functions: Resource = preload("res://character/FighterStateCalc
 
 @export_enum("1", "2") var player: int = 0
 
-var stun_reason: Dictionary = {
-	"stun_name": "", # not really sure what im using this for rn im sure its important
-	"stun_hit": -1, # used to prevent hit registering multiple times on consecutive frames
-	"stun_id": "", # holds the id of the stun animation to be played
-	"stun_pushback": 0, # holds the pushback force of the incoming attack
-	"stun_pushback_angle": 0, # holds the angle of pushback 
-	"stun_align": false, # realigns fighter with opponent on hit if needed
+var stun_reason: Dictionary[StringName, Variant] = {
+	&"stun_name": "", # not really sure what im using this for rn im sure its important
+	&"stun_hit": -1, # used to prevent hit registering multiple times on consecutive frames
+	&"stun_id": "", # holds the id of the stun animation to be played
+	&"stun_pushback": 0, # holds the pushback force of the incoming attack
+	&"stun_pushback_angle": 0, # holds the angle of pushback 
+	&"stun_align": false, # realigns fighter with opponent on hit if needed
 }
 
-var states: Array[String] = []
-var state_data: Dictionary = {}
+var states: PackedStringArray = []
+var state_data: Dictionary[StringName, Variant] = {}
 
 @export var movelist: FighterMovelist
 
@@ -62,10 +76,10 @@ var input_interpreter: InputInterpreter = InputInterpreter.new()
 
 @onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
 
-var current_anim_id: String = "_0" # Movelist item, NOT animation name
-var anim_fallback_id: String = "_0"
+var current_anim_id: StringName = &"_0" # Movelist item, NOT animation name
+var anim_fallback_id: StringName = &"_0"
 
-var buffer_anim_id: String = ""
+var buffer_anim_id: StringName = &""
 			
 var collision_body_offset: Vector3
 
@@ -109,7 +123,7 @@ func _ready() -> void:
 	if !Engine.is_editor_hint():
 		%AddonSpheres.queue_free()
 
-		for nde: Node in get_tree().get_nodes_in_group("SkeletonHurtbox"):
+		for nde: Node in get_tree().get_nodes_in_group(&"SkeletonHurtbox"):
 			nde.queue_free()
 
 		if OS.has_feature("show_hitboxes"):
@@ -147,7 +161,7 @@ func _process(_delta: float) -> void:
 		
 		if self._hurtbox_bake_mode:
 			self.record_hurtbox_data.emit(
-				get_tree().get_nodes_in_group("SkeletonHurtbox").duplicate(true),
+				get_tree().get_nodes_in_group(&"SkeletonHurtbox").duplicate(true),
 				str(self.anim_player.current_animation),
 				roundi(self.anim_player.current_animation_position * 60)
 			)
@@ -162,14 +176,12 @@ func _process(_delta: float) -> void:
 ### METHODS ###
 
 func reset_stun_reason() -> void:
-	self.stun_reason = {
-		"stun_name": "",
-		"stun_hit": -1,
-		"stun_id": "",
-		"stun_pushback": 0,
-		"stun_pushback_angle": 0,
-		"stun_align": false,
-	}
+	self.stun_reason.set(&"stun_name", "")
+	self.stun_reason.set(&"stun_hit", -1)
+	self.stun_reason.set(&"stun_id", &"")
+	self.stun_reason.set(&"stun_pushback", 0)
+	self.stun_reason.set(&"stun_pushback_angle", 0)
+	self.stun_reason.set(&"stun_align", false)
 
 # checks the current animation id, sets player state based on currently playing animation
 func process_animation_data() -> void:
@@ -185,15 +197,17 @@ func process_animation_data() -> void:
 		self.anim_player.play(atk.animation_name)
 		self.anim_player.seek(0, true)
 
-	self.states = self.states.filter(
-		func(state: String) -> bool:
-			return state.ends_with("_calc")
-	)
+	var temp_states: PackedStringArray = []
+	for state_name: StringName in self.states:
+		if self.state_data.has(state_name):
+			temp_states.append(state_name)
+			continue
+	self.states = temp_states
 
 	# set states
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
-	for state: Variant in atk.player_states:
-		var state_dat: Variant = atk.player_states[state]
+	for state: StringName in atk.player_states:
+		var state_dat: Dictionary = atk.player_states[state]
 		if current_frame >= state_dat.start && \
 			current_frame < state_dat.end:
 			if self.states.has(state):
@@ -218,21 +232,21 @@ func process_animation_hitboxes() -> void:
 	var hitbox_data: Array = []
 	var hurtbox_data: Array = []
 	# var index: int
-	if atk.hitbox_data.has("shapes"):
-		for h_b: Dictionary in atk.hitbox_data["shapes"]:
+	if atk.hitbox_data.has(&"shapes"):
+		for h_b: Dictionary in atk.hitbox_data[&"shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
-			if !h_b.has("is_hitbox"):
-				h_b["is_hitbox"] = true
+			if !h_b.has(&"is_hitbox"):
+				h_b[&"is_hitbox"] = true
 			hitbox_data.append(h_b)
 
-	if atk.hurtbox_data.has("shapes"):
-		for h_b: Dictionary in atk.hurtbox_data["shapes"]:
+	if atk.hurtbox_data.has(&"shapes"):
+		for h_b: Dictionary in atk.hurtbox_data[&"shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
 				continue
 			
-			if !h_b.has("is_hitbox"):
-				h_b["is_hitbox"] = false
+			if !h_b.has(&"is_hitbox"):
+				h_b[&"is_hitbox"] = false
 			hurtbox_data.append(h_b)
 	
 	hurtbox_data.append_array(self.get_animation_hurtboxes())
@@ -274,16 +288,16 @@ func process_hitbox_intersection() -> bool:
 			continue
 		
 		# Check for early break conditions here (high atk vs. crouching opp., etc.)
-		if !hitbox.hits_grounded && self.states.has("grounded"):
+		if !hitbox.hits_grounded && self.states.has(&"grounded"):
 			continue
 
 		match hitbox.attack_height:
 			FECollisionData.ATTACK_HEIGHT.HIGH:
-				if self.states.has("crouching") || self.states.has("evade_high"):
+				if self.states.has(&"crouching") || self.states.has(&"evade_high"):
 					continue
 			FECollisionData.ATTACK_HEIGHT.LOW, \
 			FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL:
-				if self.states.has("evade_low"):
+				if self.states.has(&"evade_low"):
 					continue
 
 		if hitbox.final_position == null:
@@ -318,14 +332,14 @@ func process_hitbox_intersection() -> bool:
 				# incoming hit detected!
 				var blocked: bool = false
 
-				if !self.states.has("back_turned_calc"): # cannot block attacks from behind
-					if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) && \
+				if !self.states.has(&"back_turned_calc"): # cannot block attacks from behind
+					if (self.states.has(&"guard_high") || self.states.has(&"neutral_guard_high")) && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.HIGH || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
 						blocked = true
-					if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) && \
+					if (self.states.has(&"guard_low") || self.states.has(&"neutral_guard_low")) && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.LOW || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
@@ -340,15 +354,15 @@ func process_hitbox_intersection() -> bool:
 				return blocked
 	return false
 
-func process_hit(attack_index: int, animation_name: String, animation_id: String, blocked: bool = false) -> void:
+func process_hit(attack_index: int, animation_name: StringName, animation_id: StringName, blocked: bool = false) -> void:
 	var enemy_anim_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, animation_id)
 
-	var stun_move: String
+	var stun_move: StringName
 
 	self.stun_reason.stun_pushback = enemy_anim_data.pushback_force
 
 	if blocked:
-		if self.states.has("crouching") && enemy_anim_data.has_crouch_block_property:
+		if self.states.has(&"crouching") && enemy_anim_data.has_crouch_block_property:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.crouch_block_animation)
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.block_animation)
@@ -358,13 +372,13 @@ func process_hit(attack_index: int, animation_name: String, animation_id: String
 		self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_block
 
 	else:
-		if self.states.has("counterable"):
+		if self.states.has(&"counterable"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)			
 			if enemy_anim_data.pushback_angle_on_counter:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_counter
 
-		elif self.states.has("grounded"):
+		elif self.states.has(&"grounded"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.ground_hit_animation)
 			if enemy_anim_data.pushback_angle_on_ground_hit:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
@@ -399,13 +413,13 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
-	if (!self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun")) && \
+	if (!self.states.has(&"actionable") || self.states.has(&"hit_stun") || self.states.has(&"block_stun")) && \
 		!current_move.extension_possible(self.anim_player.current_animation_position):
 	
 		# check for input buffer
-		if current_move.extension_possible(self.anim_player.current_animation_position, true) || states.has("input_buffer"):
+		if current_move.extension_possible(self.anim_player.current_animation_position, true) || states.has(&"input_buffer"):
 			var new_move: FighterAnimationData = self.get_move_from_input(current_move, true)
-			if new_move.move_name != "idle" && new_move.move_name != current_move.move_name:
+			if new_move.move_name != &"idle" && new_move.move_name != current_move.move_name:
 				self.buffer_anim_id = self.movelist.get_move_id(new_move)
 
 		if current_move.animation_name != self.anim_player.current_animation:
@@ -422,7 +436,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	#check for buffered move
 	if !self.buffer_anim_id.is_empty():
 		next_move = self.movelist.get_from_id(self.buffer_anim_id)
-		self.buffer_anim_id = ""
+		self.buffer_anim_id = &""
 	else:
 		next_move = self.get_move_from_input(current_move)
 
@@ -456,31 +470,31 @@ func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 
 	match current_input[0].di:
 		DI_STATE.NEUTRAL:
-			if self.states.has("recovery_ignore_input_NEUTRAL"):
+			if self.states.has(&"recovery_ignore_input_NEUTRAL"):
 				return true
 		DI_STATE.UP:
-			if self.states.has("recovery_ignore_input_UP"):
+			if self.states.has(&"recovery_ignore_input_UP"):
 				return true
 		DI_STATE.UP_FORWARD:
-			if self.states.has("recovery_ignore_input_UP_FORWARD"):
+			if self.states.has(&"recovery_ignore_input_UP_FORWARD"):
 				return true
 		DI_STATE.FORWARD:
-			if self.states.has("recovery_ignore_input_FORWARD"):
+			if self.states.has(&"recovery_ignore_input_FORWARD"):
 				return true
 		DI_STATE.DOWN_FORWARD:
-			if self.states.has("recovery_ignore_input_DOWN_FORWARD"):
+			if self.states.has(&"recovery_ignore_input_DOWN_FORWARD"):
 				return true
 		DI_STATE.DOWN:
-			if self.states.has("recovery_ignore_input_DOWN"):
+			if self.states.has(&"recovery_ignore_input_DOWN"):
 				return true
 		DI_STATE.DOWN_BACK:
-			if self.states.has("recovery_ignore_input_DOWN_BACK"):
+			if self.states.has(&"recovery_ignore_input_DOWN_BACK"):
 				return true
 		DI_STATE.BACK:
-			if self.states.has("recovery_ignore_input_BACK"):
+			if self.states.has(&"recovery_ignore_input_BACK"):
 				return true
 		DI_STATE.UP_BACK:
-			if self.states.has("recovery_ignore_input_UP_BACK"):
+			if self.states.has(&"recovery_ignore_input_UP_BACK"):
 				return true
 				
 	return false
@@ -490,8 +504,8 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 
 	# only register new button presses
 	# currently this prevents all movement when a button is held; needs to change
-	if inputs[0]["button"] != 0 &&  \
-		(inputs[0]['frame_start'] != SyncManager.current_tick || inputs[0]['button'] <= inputs[1]['button']):
+	if inputs[0][&"button"] != 0 &&  \
+		(inputs[0][&'frame_start'] != SyncManager.current_tick || inputs[0][&'button'] <= inputs[1][&'button']):
 		return current_move
 
 	if current_move.extension_possible(self.anim_player.current_animation_position, check_buffer):
@@ -502,7 +516,7 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 			check_buffer, 
 			current_move.extensions
 		)
-		if new_move.move_name == "idle":
+		if new_move.move_name == &"idle":
 			return current_move
 		return new_move
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position, check_buffer)
@@ -593,16 +607,16 @@ func collide_and_slide(delta: int) -> void:
 		self.collision_body.fixed_look_at(
 			oppo_collision_body.fixed_position,
 			FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0),
-			self.states.has("inverse_track_opp"),
-			self.states.has("lerp_rotation"),
+			self.states.has(&"inverse_track_opp"),
+			self.states.has(&"lerp_rotation"),
 			delta
 		)
 
 func is_tracking_opponent() -> bool:
 	var oppo_states: PackedStringArray = self.message_bus.get_oppo_states(self)
-	if self.states.has("track_opp") || self.states.has("inverse_track_opp") || \
-		(self.states.has("track_right") && oppo_states.has("left_movement")) || \
-		(self.states.has("track_left") && oppo_states.has("right_movement")):
+	if self.states.has(&"track_opp") || self.states.has(&"inverse_track_opp") || \
+		(self.states.has(&"track_right") && oppo_states.has(&"left_movement")) || \
+		(self.states.has(&"track_left") && oppo_states.has(&"right_movement")):
 		return true
 	return false
 
@@ -642,35 +656,27 @@ func _network_postprocess(_input: Dictionary) -> void:
 	self.misc_hitbox_pool.clear()
 	self.misc_hurtbox_pool.clear()
 
-func _get_local_input() -> Dictionary:
-	var player_input: Dictionary = {}
 
-	if !self.is_focused:
-		
+func _get_local_input() -> Dictionary:
+	var player_input: Dictionary[StringName, Variant] = {
+		&"input_directional": Vector2i(
+			int(Input.is_action_pressed(PLAYER_INPUT_LEFT)) - \
+			int(Input.is_action_pressed(PLAYER_INPUT_RIGHT)),
+			int(Input.is_action_pressed(PLAYER_INPUT_UP)) - \
+			int(Input.is_action_pressed(PLAYER_INPUT_DOWN))
+		),
+		&"input_button": 0
+	}
+
+	if !self.is_focused:		
 		return player_input
 
-	var dir: Vector2i = Vector2i(
-		int(Input.is_action_pressed("INPUT_LEFT_P" + str(1 if self.is_online else (self.player + 1)))) - \
-		int(Input.is_action_pressed("INPUT_RIGHT_P" + str(1 if self.is_online else (self.player + 1)))),
-		int(Input.is_action_pressed("INPUT_UP_P" + str(1 if self.is_online else (self.player + 1)))) - \
-		int(Input.is_action_pressed("INPUT_DOWN_P" + str(1 if self.is_online else (self.player + 1))))
-	)
-
-	if dir != Vector2i.ZERO:
-		player_input["input_directional"] = dir
-
-	if Input.is_action_pressed("INPUT_PUNCH_P" + str(1 if self.is_online else (self.player + 1))):
-		if !player_input.has("input_button"):
-			player_input["input_button"] = {}
-		player_input["input_button"]["p"] = true
-	if Input.is_action_pressed("INPUT_KICK_P" + str(1 if self.is_online else (self.player + 1))):
-		if !player_input.has("input_button"):
-			player_input["input_button"] = {}
-		player_input["input_button"]["k"] = true
-	if Input.is_action_pressed("INPUT_ABILITY_P" + str(1 if self.is_online else (self.player + 1))):
-		if !player_input.has("input_button"):
-			player_input["input_button"] = {}
-		player_input["input_button"]["a"] = true
+	if Input.is_action_pressed(PLAYER_INPUT_PUNCH):
+		player_input[&"input_button"] |= BUTTON_FLAGS.P
+	if Input.is_action_pressed(PLAYER_INPUT_KICK):
+		player_input[&"input_button"] |= BUTTON_FLAGS.K
+	if Input.is_action_pressed(PLAYER_INPUT_ABILITY):
+		player_input[&"input_button"] |= BUTTON_FLAGS.A
 
 	return player_input
 

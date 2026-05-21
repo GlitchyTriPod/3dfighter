@@ -33,7 +33,7 @@ var is_hitbox: bool = false
 
 # used to detect individual hit instances in multi-hit moves
 var hitbox_attack_index: int = -1
-var hitbox_attack_name: String = ""
+var hitbox_attack_name: StringName = &""
 var attack_height: int = ATTACK_HEIGHT.HIGH
 
 var is_punch: bool = false
@@ -69,24 +69,24 @@ static func empty_pool() -> void:
 
 static func create_from_data(data: Variant) -> FECollisionData:
 	var col_data: FECollisionData = pool_get()
-	col_data.fixed_sphere_radius = data["radius"]
-	if data.has("is_hitbox"):
-		col_data.is_hitbox = data["is_hitbox"]
-	if data.has("body_part"):
-		col_data.body_part = data["body_part"]
-	if data.has("animation_name"):
-		col_data.hitbox_attack_name = data["animation_name"]
-	if data.has("attack_height"):
-		col_data.attack_height = data["attack_height"]
-	if data.has("is_punch"):
-		col_data.is_punch = data["is_punch"]
-	if data.has("is_kick"):
-		col_data.is_kick = data["is_kick"]
-	if data.has("unblockable"):
-		col_data.unblockable = data["unblockable"]
-	if data.has("hits_grounded"):
-		col_data.hits_grounded = data["hits_grounded"]
-	col_data.fixed_position = data["position"]
+	col_data.fixed_sphere_radius = data[&"radius"]
+	if data.has(&"is_hitbox"):
+		col_data.is_hitbox = data[&"is_hitbox"]
+	if data.has(&"body_part"):
+		col_data.body_part = data[&"body_part"]
+	if data.has(&"animation_name"):
+		col_data.hitbox_attack_name = data[&"animation_name"]
+	if data.has(&"attack_height"):
+		col_data.attack_height = data[&"attack_height"]
+	if data.has(&"is_punch"):
+		col_data.is_punch = data[&"is_punch"]
+	if data.has(&"is_kick"):
+		col_data.is_kick = data[&"is_kick"]
+	if data.has(&"unblockable"):
+		col_data.unblockable = data[&"unblockable"]
+	if data.has(&"hits_grounded"):
+		col_data.hits_grounded = data[&"hits_grounded"]
+	col_data.fixed_position = data[&"position"]
 	col_data.enabled = true
 
 	return col_data
