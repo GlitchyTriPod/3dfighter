@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using FatalException.FEMath;
 using Godot;
@@ -38,14 +39,11 @@ public partial class CameraMath : GodotObject
     public static FixedVector3 GetCameraTargetRotation(FixedVector3 p1, FixedVector3 position)
     {
         FixedVector3 fwd = p1 - position;
-        // Array<long[]> lookat_basis = FixedVector3.BasisLookingAt(
-        //     fwd, new FixedVector3(0, FixedInt.FIXED_ONE, 0), true
-        // );
-        return FixedVector3.BasisGetEuler(fwd);
+        return FixedVector3.BasisGetEuler(fwd, true);
 
     }
 
-    public static Array<FixedVector3> GetCameraRefPosition(FixedVector3 p1Position, FixedVector3 p2Position)
+    public static Array<FixedVector3> GetCameraRefPosition(FixedVector3 p1Position, FixedVector3 p2Position, bool IsP2Camera)
     {
         long distance = GetDistanceClamped(p1Position, p2Position);       
         FixedVector3 newPosition = GetCameraTargetPosition(p1Position, p2Position);
@@ -53,15 +51,25 @@ public partial class CameraMath : GodotObject
 
         FixedVector3 newRef = new FixedVector3(
             -FixedInt.Lerp(FixedInt.FromInt(4), FixedInt.FromInt(11), FixedInt.Div(distance - 900, 1800)),
-            newPosition.y + FixedInt.FromFloat(0.25f),
+            0, 
             0
         );
+
+        FixedVector3 retRef;
+        if (IsP2Camera)
+        {
+            retRef = newRef.Rotated(angle.y) - newPosition;
+        }
+        else
+        {
+            retRef = newRef.Rotated(angle.y) + newPosition;
+        }
+        retRef.y = newPosition.y + FixedInt.FromFloat(0.7f);
 
         Array<FixedVector3> ret = [
             newPosition,
             angle,
-            newRef.Rotated(angle.y) + newPosition
-
+            retRef
         ];
 
         return ret;

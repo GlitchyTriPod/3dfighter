@@ -199,51 +199,93 @@ public partial class FixedVector3 : RefCounted
 		];
 	}
 
-	public static FixedVector3 BasisGetEuler(
-		FixedVector3 target
-	) //(Array<long[]> basis)
+	public static FixedVector3 BasisGetEuler(FixedVector3 target, bool y_first) 
 	{
 		Array<long[]> basis = BasisLookingAt(
 			target,
 			new FixedVector3(0, FixedInt.FIXED_ONE, 0),
-			true);
-
-		// only implementing YXZ euler order for now
+			true
+		);
+		
 		FixedVector3 euler = new FixedVector3();
-		long m12 = basis[1][2];
 
-		if (m12 < FixedInt.FIXED_ONE - 1)
-		{
-			if (m12 > -(FixedInt.FIXED_ONE - 1))
+		if (y_first)
+		{ // YXZ rotation
+			long m12 = basis[1][2];
+
+			if (m12 < FixedInt.FIXED_ONE - 1)
 			{
-				if (basis[1][0] == 0 &&
-					basis[0][1] == 0 &&
-					basis[0][2] == 0 &&
-					basis[2][0] == 0 &&
-					basis[0][0] == FixedInt.FIXED_ONE)
+				if (m12 > -(FixedInt.FIXED_ONE - 1))
 				{
-					euler.x = FixedInt.Atan2(-m12, basis[1][1]);
-					euler.y = 0;
+					if (basis[1][0] == 0 &&
+						basis[0][1] == 0 &&
+						basis[0][2] == 0 &&
+						basis[2][0] == 0 &&
+						basis[0][0] == FixedInt.FIXED_ONE)
+					{
+						euler.x = FixedInt.Atan2(-m12, basis[1][1]);
+						euler.y = 0;
+						euler.z = 0;
+					}
+
+					euler.x = FixedInt.Asin(-m12);
+					euler.y = FixedInt.Atan2(basis[0][2], basis[2][2]);
+					euler.z = FixedInt.Atan2(basis[1][0], basis[1][1]);
+				}
+				else
+				{ // m12 == -1
+					euler.x = FixedInt.FIXED_PI_DIV_2;
+					euler.y = FixedInt.Atan2(basis[0][1], basis[0][0]);
 					euler.z = 0;
 				}
-
-				euler.x = FixedInt.Asin(-m12);
-				euler.y = FixedInt.Atan2(basis[0][2], basis[2][2]);
-				euler.z = FixedInt.Atan2(basis[1][0], basis[1][1]);
 			}
 			else
-			{ // m12 == -1
-				euler.x = FixedInt.FIXED_PI_DIV_2;
-				euler.y = FixedInt.Atan2(basis[0][1], basis[0][0]);
+			{ // m12 == 1
+				euler.x = -FixedInt.FIXED_PI_DIV_2;
+				euler.y = -FixedInt.Atan2(basis[0][1], basis[0][0]);
+				euler.z = 0;
+			}			
+		}
+		else
+		{ // XYZ rotation	
+			long sy = basis[0][2];
+
+			if (sy < (FixedInt.FIXED_ONE - 1))
+			{
+				if (sy > -(FixedInt.FIXED_ONE - 1))
+				{
+					if (basis[1][0] == 0 &&
+						basis[0][1] == 0 &&
+						basis[1][2] == 0 &&
+						basis[2][1] == 0 &&
+						basis[1][1] == FixedInt.FIXED_ONE)
+					{
+						euler.x = 0;
+						euler.y = FixedInt.Atan2(basis[0][2], basis[0][0]);
+						euler.z = 0;
+					}
+					else
+					{
+						euler.x = FixedInt.Atan2(-basis[1][2], basis[2][2]);
+						euler.y = FixedInt.Asin(sy);
+						euler.z = FixedInt.Atan2(-basis[0][1], basis[0][0]);
+					}
+				}
+				else
+				{
+					euler.x = FixedInt.Atan2(basis[2][1], basis[1][1]);
+					euler.y = -FixedInt.FIXED_PI_DIV_2;
+					euler.z = 0; 
+				}
+			}
+			else
+			{
+				euler.x = FixedInt.Atan2(basis[2][1], basis[1][1]);
+				euler.y = FixedInt.FIXED_PI_DIV_2;
 				euler.z = 0;
 			}
 		}
-		else
-		{ // m12 == 1
-			euler.x = -FixedInt.FIXED_PI_DIV_2;
-			euler.y = -FixedInt.Atan2(basis[0][1], basis[0][0]);
-			euler.z = 0;
-		}
+
 		return euler;
 	}
 	#endregion

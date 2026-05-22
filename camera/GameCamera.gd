@@ -18,17 +18,11 @@ var swap_sides: int = FixedIntGDConstant.FIXED_ONE
 var player_1: Fighter
 var player_2: Fighter
 
-var p1_screen_pos: Vector2 = Vector2()
-var p2_screen_pos: Vector2 = Vector2()
+var p1_screen_pos: int = 1
+var p2_screen_pos: int = 2
 
 var fixed_position: FixedVector3 = FixedVector3.new()
-	# set(val):
-	# 	fixed_position = val
-	# 	self.set_global_position(FixedVector3.ToVec3(val))
 var fixed_rotation: FixedVector3 = FixedVector3.new()
-	# set(val):
-	# 	fixed_rotation = val
-	# 	self.set_global_rotation(FixedVector3.ToVec3(val))
 
 var camera_fixed_position: FixedVector3 = FixedVector3.new():
 	set(val):
@@ -39,7 +33,8 @@ var camera_fixed_position: FixedVector3 = FixedVector3.new():
 			self.p2_camera.position.y = self.p1_camera.position.y
 			self.p2_camera.position.z = -self.p1_camera.position.z
 
-var camera_last_position: FixedVector3
+# might use this in the future for specific animations (grabs?)
+var lock_camera: bool = false
 
 func _ready() -> void:
 	if self.default_pos == 0:
@@ -51,87 +46,51 @@ func _ready() -> void:
 
 func _network_preprocess(_input: Variant) -> void: # may need to shove off to c# helper function
 
-	if self.default_pos == 0:
-		self.p1_screen_pos = self.p1_camera.unproject_position( # < NEEDS to change. not deterministic
-			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
-		)
-		if self.p1_screen_pos.x > 0.5:
-			self.p2_screen_pos.x = self.p1_screen_pos.x - 0.5
+	# if x rotation (pitch) is > 90 deg, players have swapped sides
+	if abs(self.fixed_rotation.x) > FixedIntGDConstant.FIXED_PI_DIV_2:
+		if self.default_pos == 0:
+			self.p1_screen_pos = 1
+			self.p2_screen_pos = 2
 		else:
-			self.p2_screen_pos.x = self.p1_screen_pos.x + 0.5
+			self.p1_screen_pos = 2
+			self.p2_screen_pos = 1
 	else:
-		self.p2_screen_pos = self.p2_camera.unproject_position(
-			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
-		)		
-		if self.p2_screen_pos.x > 0.5:
-			self.p1_screen_pos.x = self.p2_screen_pos.x - 0.5
+		if self.default_pos == 0:
+			self.p1_screen_pos = 2
+			self.p2_screen_pos = 1
 		else:
-			self.p1_screen_pos.x = self.p2_screen_pos.x + 0.5
-
-	# var dist: int = CameraMath.GetDistanceClamped(
-	# 	self.player_1.collision_body.fixed_position,
-	# 	self.player_2.collision_body.fixed_position
-	# )
-
-	# if self.swap_sides == -FixedIntGDConstant.FIXED_ONE:
-	# 	dist = -dist
-	
-	# self.fixed_position = CameraMath.GetCameraTargetPosition(
-	# 	self.player_1.collision_body.fixed_position,
-	# 	self.player_2.collision_body.fixed_position
-	# )
-
-	# # rotate self to look at player 1
-	# self.fixed_rotation = CameraMath.GetCameraTargetRotation(
-	# 	self.player_1.collision_body.fixed_position,
-	# 	self.fixed_position
-	# )
+			self.p1_screen_pos = 1
+			self.p2_screen_pos = 2
 	
 	var values: Array[FixedVector3] = CameraMath.GetCameraRefPosition(
 		self.player_1.collision_body.fixed_position,
-		self.player_2.collision_body.fixed_position
+		self.player_2.collision_body.fixed_position,
+		self.default_pos != 0
 	) 
 
 	self.fixed_position = values[0]
 	self.fixed_rotation = values[1]
 	self.cam_ref = values[2]
 
-	# self.cam_ref = CameraMath.GetCameraRefPosition(
-	# 	self.player_1.collision_body.fixed_position,
-	# 	self.player_2.collision_body.fixed_position, 
-	# 	self.fixed_position, 
-	# 	self.fixed_rotation.y
-	# )
-
-	# check if cam_ref needs to be swapped
-	# if CameraMath.NeedsSideSwap(self.fixed_position, self.cam_ref, self.camera_fixed_position):
-	# 	self.swap_sides = -self.swap_sides
-
-	# assign positions to reference nodes
-	# self.cam_ref = CameraMath.GetCameraRefPosition(dist, self.fixed_position, self.fixed_rotation.y)
 
 	self.camera_fixed_position = CameraMath.LerpCameraPosition(
 		self.camera_fixed_position, 
-		self.cam_ref, 
+		self.cam_ref,
 		self.smoothing_speed, 
 		SyncManager.tick_time
 	)
 
 func _process(_delta: float) -> void:	
-	var target: Vector3 = FixedVector3.ToVec3(self.fixed_position) #self.global_position
-	target.y += 0.75
+	var target: Vector3 = FixedVector3.ToVec3(self.fixed_position) 
+	target.y += 0.6
 	self.p1_camera.look_at(target)
 	self.p2_camera.look_at(target)
 
 
 func get_char_position(player: int) -> int:
 	if player == 0:
-		if self.p1_screen_pos.x < self.p2_screen_pos.x:
-			return 1
-		return 2
-	if self.p2_screen_pos.x < self.p1_screen_pos.x:
-		return 1
-	return 2
+		return self.p1_screen_pos
+	return self.p2_screen_pos
 
 func is_player_airborne() -> bool:
 	var chars: Array[Node] = get_parent().get_node("Chars").get_children()
@@ -143,11 +102,6 @@ func is_player_airborne() -> bool:
 
 func _save_state() -> Dictionary:
 	return {
-		"camera_position": {
-			"x": self.camera_fixed_position.x,
-			"y": self.camera_fixed_position.y,
-			"z": self.camera_fixed_position.z
-		},
 		"position": {
 			"x": self.fixed_position.x,
 			"y": self.fixed_position.y,
@@ -161,11 +115,6 @@ func _save_state() -> Dictionary:
 	}
 
 func _load_state(state:Dictionary) -> void:
-	self.camera_fixed_position = FixedVector3.NewFromInt(
-		state.camera_position.x,
-		state.camera_position.y,
-		state.camera_position.z
-	)
 	self.fixed_position = FixedVector3.NewFromInt(
 		state.position.x,
 		state.position.y,

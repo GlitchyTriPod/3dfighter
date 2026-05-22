@@ -78,8 +78,6 @@ func get_from_input(inputs: Array[Dictionary],
 	if inputs[0][&"di"] == 7:
 		pass
 
-	# var possible_moves: Array[FighterAnimationData] = []
-
 	### selecting valid moves ###
 
 	for move: FighterAnimationData in self.move_list_arr if extensions.is_empty() else extensions:
@@ -95,12 +93,9 @@ func get_from_input(inputs: Array[Dictionary],
 			self.is_valid_button_press(move.input_button, inputs[0][&"button"]) && \
 			(move.side_context == 0 || screen_position == move.side_context) && \
 			(self.has_valid_states(move, player_states, bufferable)):
-			
-			# possible_moves.append(move)
 
-	### selecting move ###
+			### selecting move ###
 
-			# for move: FighterAnimationData in possible_moves:
 			# checking for motion input
 			if move.input_di_map.size() > 1:
 				if move.input_di_map.size() > inputs.size() || \
@@ -134,7 +129,7 @@ func get_from_input(inputs: Array[Dictionary],
 
 			# move does not have a motion input
 			return move
-			# ...is that legit all it needs??? lol
+		# continue loop
 	return self.move_list.get(&"_0")
 
 func is_valid_button_press(move_input: int, button_mask: int) -> bool:

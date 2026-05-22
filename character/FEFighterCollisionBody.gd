@@ -36,7 +36,7 @@ func fixed_look_at(
     else:
         forward = FixedVector3.Sub(target, self.fixed_position)
 
-    var final_rotation: FixedVector3 = FixedVector3.BasisGetEuler(forward)
+    var final_rotation: FixedVector3 = FixedVector3.BasisGetEuler(forward, true)
     
     if lerp_rotation:
         self.fixed_rotation = FixedVector3.Lerp(
@@ -54,7 +54,7 @@ func fixed_look_at(
 
 func get_look_at(target: FixedVector3) -> FixedVector3:
     var forward: FixedVector3 = FixedVector3.Sub(target, self.fixed_position)
-    return FixedVector3.BasisGetEuler(forward)
+    return FixedVector3.BasisGetEuler(forward, true)
 
 func _save_state() -> Dictionary:
     return {
