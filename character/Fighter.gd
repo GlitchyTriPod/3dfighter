@@ -231,8 +231,8 @@ func process_animation_hitboxes() -> void:
 
 	#find hitboxes
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
-	var hitbox_data: Array = []
-	var hurtbox_data: Array = []
+	var hitbox_data: Array[Dictionary] = []
+	var hurtbox_data: Array[Dictionary] = []
 	# var index: int
 	if atk.hitbox_data.has(&"shapes"):
 		for h_b: Dictionary in atk.hitbox_data[&"shapes"]:
@@ -569,8 +569,10 @@ func get_root_motion() -> FixedVector3:
 	return vel
 
 func collide_and_slide(delta: int) -> void:
-	var new_position: FixedVector3 = self.collision_body.fixed_position
-	new_position = FixedVector3.Add(new_position, FixedVector3.Mul(self.collision_body.velocity, delta))
+	var new_position: FixedVector3 = FixedVector3.Add(
+		self.collision_body.fixed_position, 
+		FixedVector3.Mul(self.collision_body.velocity, delta)
+	)
 
 	if Engine.is_editor_hint():
 		return
@@ -580,23 +582,21 @@ func collide_and_slide(delta: int) -> void:
 	var overlap: int = self.collision_body.fixed_is_overlapping_with(oppo_collision_body)
 
 	if overlap > 0:
-		var change: FixedVector3 = FixedVector3.Mul(
-			self.collision_body.fixed_position.DirectionTo(oppo_collision_body.fixed_position),
-			FixedInt.Div(abs(overlap), FixedIntGDConstant.FIXED_TWO)
+		var change: FixedVector3 = CollisionMath.CalculateCollisionPushback(
+			self.collision_body.get_look_at(oppo_collision_body.fixed_position).y, overlap
 		)
 
 		new_position.x -= change.x
-		# new_position.y -= change.y 
+		# # new_position.y -= change.y 
 		new_position.z -= change.z
 
 	# TODO: Collision with walls
 
 	self.collision_body.fixed_position = new_position
 
-	if self.is_tracking_opponent() || self.stun_reason.stun_align:
+	if self.is_tracking_opponent() || self.stun_reason.stun_align: 
 		self.collision_body.fixed_look_at(
 			oppo_collision_body.fixed_position,
-			FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0),
 			self.states.has("inverse_track_opp"),
 			self.states.has("lerp_rotation"),
 			delta

@@ -38,10 +38,10 @@ public partial class CameraMath : GodotObject
     public static FixedVector3 GetCameraTargetRotation(FixedVector3 p1, FixedVector3 position)
     {
         FixedVector3 fwd = p1 - position;
-        Array<long[]> lookat_basis = FixedVector3.BasisLookingAt(
-            fwd, new FixedVector3(0, FixedInt.FIXED_ONE, 0), true
-        );
-        return FixedVector3.BasisGetEuler(lookat_basis);
+        // Array<long[]> lookat_basis = FixedVector3.BasisLookingAt(
+        //     fwd, new FixedVector3(0, FixedInt.FIXED_ONE, 0), true
+        // );
+        return FixedVector3.BasisGetEuler(fwd);
 
     }
 

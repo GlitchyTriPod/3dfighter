@@ -199,8 +199,15 @@ public partial class FixedVector3 : RefCounted
 		];
 	}
 
-	public static FixedVector3 BasisGetEuler(Array<long[]> basis)
+	public static FixedVector3 BasisGetEuler(
+		FixedVector3 target
+	) //(Array<long[]> basis)
 	{
+		Array<long[]> basis = BasisLookingAt(
+			target,
+			new FixedVector3(0, FixedInt.FIXED_ONE, 0),
+			true);
+
 		// only implementing YXZ euler order for now
 		FixedVector3 euler = new FixedVector3();
 		long m12 = basis[1][2];

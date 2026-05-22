@@ -67,7 +67,7 @@ static func pool_return_arr(data_arr: Array[FECollisionData]) -> void:
 static func empty_pool() -> void:
 	_pool.clear()
 
-static func create_from_data(data: Variant) -> FECollisionData:
+static func create_from_data(data: Dictionary) -> FECollisionData:
 	var col_data: FECollisionData = pool_get()
 	col_data.fixed_sphere_radius = data[&"radius"]
 	if data.has(&"is_hitbox"):
@@ -91,9 +91,9 @@ static func create_from_data(data: Variant) -> FECollisionData:
 
 	return col_data
 
-static func create_from_arr(data_arr: Array) -> Array[FECollisionData]:
+static func create_from_arr(data_arr: Array[Dictionary]) -> Array[FECollisionData]:
 	var ret_arr: Array[FECollisionData] = []
-	for i: Variant in data_arr:
+	for i: Dictionary in data_arr:
 		ret_arr.append(FECollisionData.create_from_data(i))
 	return ret_arr
 

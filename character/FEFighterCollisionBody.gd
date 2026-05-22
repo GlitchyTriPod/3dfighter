@@ -26,8 +26,7 @@ func is_on_floor(floor_height: int) -> bool:
     return rem <= floor_height
 
 func fixed_look_at(
-    target: FixedVector3, 
-    axis: FixedVector3, 
+    target: FixedVector3,
     invert: bool = false,
     lerp_rotation: bool = false, 
     delta: int = 0) -> void:
@@ -37,8 +36,7 @@ func fixed_look_at(
     else:
         forward = FixedVector3.Sub(target, self.fixed_position)
 
-    var fixed_lookat_basis: Array = FixedVector3.BasisLookingAt(forward, axis, true)
-    var final_rotation: FixedVector3 = FixedVector3.BasisGetEuler(fixed_lookat_basis)
+    var final_rotation: FixedVector3 = FixedVector3.BasisGetEuler(forward)
     
     if lerp_rotation:
         self.fixed_rotation = FixedVector3.Lerp(
@@ -54,10 +52,9 @@ func fixed_look_at(
     if self.fixed_rotation.z != FixedIntGDConstant.FIXED_ZERO:
         self.fixed_rotation.z = FixedIntGDConstant.FIXED_ZERO
 
-func get_look_at(target: FixedVector3, axis: FixedVector3) -> FixedVector3:
+func get_look_at(target: FixedVector3) -> FixedVector3:
     var forward: FixedVector3 = FixedVector3.Sub(target, self.fixed_position)
-    var fixed_lookat_basis: Array = FixedVector3.BasisLookingAt(forward, axis, true)
-    return FixedVector3.BasisGetEuler(fixed_lookat_basis)
+    return FixedVector3.BasisGetEuler(forward)
 
 func _save_state() -> Dictionary:
     return {

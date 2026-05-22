@@ -40,6 +40,12 @@ public partial class CollisionMath : GodotObject
         return finalVelocity / delta;
     }
 
+    public static FixedVector3 CalculateCollisionPushback(long p1Rotation, long overlap)
+    {
+        FixedVector3 pushback = new FixedVector3(0, 0, FixedInt.Mul(overlap, FixedInt.FromInt(20)));
+        return pushback.Rotated(p1Rotation);
+    }
+
     public static bool CalculateBackturned(long currentRotationAng, long facingTowardAng)
     {
         long diff = Math.Abs(currentRotationAng - facingTowardAng);;
