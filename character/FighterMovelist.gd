@@ -152,8 +152,5 @@ func has_valid_states(move: FighterAnimationData, player_states: PackedStringArr
 	for state: String in move.required_state:
 		if player_states.has(state):
 			match_count += 1
-	
-	if move.move_name == &"walk_b":
-		pass
 
 	return match_count >= move.required_state.size()

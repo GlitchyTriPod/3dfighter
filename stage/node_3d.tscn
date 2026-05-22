@@ -29,7 +29,6 @@ script = ExtResource("1_u2wdh")
 script = ExtResource("2_a83cb")
 
 [node name="GameCamera" parent="." unique_id=1718671065 instance=ExtResource("7_6gy14")]
-default_pos = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=337824286]
 environment = ExtResource("1_cutdu")

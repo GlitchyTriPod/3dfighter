@@ -418,11 +418,32 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		!current_move.extension_possible(self.anim_player.current_animation_position):
 	
 		# check for input buffer
-		if states.has("input_buffer") || current_move.extension_possible(self.anim_player.current_animation_position, true):
+		if current_move.extension_possible(self.anim_player.current_animation_position, true):
 			var new_move: FighterAnimationData = self.get_move_from_input(current_move, true)
 			if new_move.move_name != &"idle" && new_move.move_name != current_move.move_name:
-				self.buffer_anim_id = self.movelist.get_move_id(new_move)
+				if self.buffer_anim_id != &"":
+					var buffered_move: FighterAnimationData = self.movelist.get_from_id(self.buffer_anim_id)
+					if new_move != buffered_move && \
+						new_move.input_button > buffered_move.input_button:
+						if new_move.input_di_map.size() >= buffered_move.input_di_map.size():
+							self.buffer_anim_id = self.movelist.get_move_id(new_move)
+				else:
+					self.buffer_anim_id = self.movelist.get_move_id(new_move)
+			pass
 
+		elif self.states.has("input_buffer"):
+			var new_move: FighterAnimationData = self.get_move_from_input(current_move, true)
+			if new_move.move_name != &"idle":
+				if self.buffer_anim_id != &"":
+					var buffered_move: FighterAnimationData = self.movelist.get_from_id(self.buffer_anim_id)
+					if new_move != buffered_move && \
+						new_move.input_button > buffered_move.input_button:
+						if new_move.input_di_map.size() >= buffered_move.input_di_map.size():
+							self.buffer_anim_id = self.movelist.get_move_id(new_move)
+				else:
+					self.buffer_anim_id = self.movelist.get_move_id(new_move)
+
+		# if animation player and move animation does not match, fall back to recovery move
 		if current_move.animation_name != self.anim_player.current_animation:
 			self.set_animation_order(self.movelist.get_from_ref_name(current_move.recovery_ref))
 		self.process_root_motion(delta)
@@ -435,7 +456,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	# determine animation to play
 	var next_move: FighterAnimationData 
 	#check for buffered move
-	if !self.buffer_anim_id.is_empty():
+	if self.buffer_anim_id != &"":
 		next_move = self.movelist.get_from_id(self.buffer_anim_id)
 		self.buffer_anim_id = &""
 	else:
@@ -506,8 +527,9 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 	# only register new button presses
 	# currently this prevents all movement when a button is held; needs to change
 	if inputs[0][&"button"] != 0 &&  \
-		(inputs[0][&'frame_start'] != SyncManager.current_tick || inputs[0][&'button'] <= inputs[1][&'button']):
-		return current_move
+		(inputs[0][&'frame_start'] != SyncManager.current_tick || \
+		inputs[0][&'button'] <= inputs[1][&'button']):
+		return self.movelist.get_from_id(&"_0")
 
 	if current_move.extension_possible(self.anim_player.current_animation_position, check_buffer):
 		var new_move: FighterAnimationData = self.movelist.get_from_input(
@@ -518,6 +540,8 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 			current_move.extensions
 		)
 		if new_move.move_name == &"idle":
+			if self.buffer_anim_id != &"":
+				return self.movelist.get_from_id(self.buffer_anim_id)
 			return current_move
 		return new_move
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position, check_buffer)

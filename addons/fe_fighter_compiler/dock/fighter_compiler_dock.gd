@@ -48,20 +48,31 @@ func load_animation_data() -> void:
 func load_movelist_data() -> void:
 	for n: Node in %MoveListView.get_child(0).get_children():
 		n.queue_free()
+
+	var move_list_sorted: Array[FighterAnimationData] = self.get_move_list_sorted()
 	
-	for key: FighterAnimationData in self.fighter.movelist.move_list.values():
-		# var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
+	for key: FighterAnimationData in move_list_sorted: #
 		self.add_movelist_item(key)
 	
-	for key: FighterAnimationData in self.fighter.movelist.move_list.values():
-		# var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
+	for key: FighterAnimationData in move_list_sorted: 
 		self.check_and_mark_movelist_ref(key)
 
-	for key: FighterAnimationData in self.fighter.movelist.move_list.values():
-		# var move: FighterAnimationData = self.fighter.movelist.move_list.get(str(key))
+	for key: FighterAnimationData in move_list_sorted: 
 		self.refresh_movelist_refs(key)
 	
-	self.update_tree()
+	self.update_tree(move_list_sorted)
+
+func get_move_list_sorted() -> Array[FighterAnimationData]:
+	var move_list_sorted: Array[FighterAnimationData] = self.fighter.movelist.move_list.values()
+	move_list_sorted.sort_custom(
+		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
+			if a.move_type < b.move_type:
+				return true
+			elif a.move_type > b.move_type:
+				return false
+			return a.move_name > b.move_name
+	)
+	return move_list_sorted
 
 func attach_to_fighter_scene() -> void:
 	if EditorInterface.get_edited_scene_root() is FighterCompilerDock:
@@ -315,7 +326,10 @@ func get_movelist_refs() -> Array:
 		refs.append(i)
 	return refs
 
-func update_tree() -> void:
+func update_tree(move_list_sorted: Array[FighterAnimationData] = []) -> void:
+	if move_list_sorted.is_empty():
+		move_list_sorted = self.get_move_list_sorted()
+
 	%MoveListTree.clear()
 	var root: TreeItem = %MoveListTree.create_item()
 
@@ -336,10 +350,10 @@ func update_tree() -> void:
 	root_block_stun.set_custom_bg_color(0, Color("#51665a"))
 	root_block_stun.set_text(0, 'Block Stun')
 
-	for move: FighterAnimationData in self.fighter.movelist.move_list.values():
+	for move: FighterAnimationData in move_list_sorted:
 		if move.is_extension_only:
 			continue
-		var tree_item: TreeItem # = self.add_to_tree(move, root)
+		var tree_item: TreeItem 
 		match move.move_type:
 			0:
 				tree_item = root_movement.create_child()
@@ -372,8 +386,6 @@ func add_to_tree(item: FighterAnimationData, tree_item: TreeItem) -> void:
 	move_list_item.tree_item = tree_item
 	tree_item.set_text(0, move_list_item.move_name)
 	tree_item.set_metadata(0, move_list_item)
-
-	# tree_item.add_button(0, Texture2D.new())
 
 	for extension: FighterAnimationData in item.extensions:
 		var child_item: TreeItem = tree_item.create_child()
