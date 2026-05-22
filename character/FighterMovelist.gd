@@ -10,6 +10,12 @@ enum BUTTON_FLAGS {
 	A = 0x04
 }
 
+var move_list_arr: Array[FighterAnimationData]
+
+# func _init() -> void:
+# 	if !Engine.is_editor_hint():
+# 		self.create_and_sort_move_list_arr()
+
 func add_to_list(move: FighterAnimationData, parent_key: StringName = &"") -> void:
 	var key: StringName = StringName("%s_%d" % [parent_key, self.move_list.size()])
 	if !move.extensions.is_empty():
@@ -21,6 +27,24 @@ func add_to_list(move: FighterAnimationData, parent_key: StringName = &"") -> vo
 func add_arr_to_list(moves: Array[FighterAnimationData]) -> void:
 	for i: FighterAnimationData in moves:
 		self.add_to_list(i)
+
+func create_and_sort_move_list_arr() -> void:
+	self.move_list_arr = self.move_list.values()
+	self.move_list_arr.sort_custom(
+		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
+			if (!a.required_state.is_empty() && b.required_state.is_empty()) || \
+				a.required_state.size() > b.required_state.size():
+				return true
+			elif a.required_state.is_empty() && !b.required_state.is_empty():
+				return false
+			elif a.required_state.size() == b.required_state.size():
+				if a.input_di_map.size() == b.input_di_map.size():
+					if a.input_button == b.input_button:
+						return a.input_di_map.get(a.input_di_map.size() - 1) > b.input_di_map.get(b.input_di_map.size() - 1)
+					return a.input_button > b.input_button
+				return a.input_di_map.size() >= b.input_di_map.size()
+			return false
+	)
 
 func get_default_anim_id_from_name(anim_name: StringName) -> StringName:
 	for move_id: StringName in self.move_list:
@@ -54,15 +78,13 @@ func get_from_input(inputs: Array[Dictionary],
 	if inputs[0][&"di"] == 7:
 		pass
 
-	var possible_moves: Array[FighterAnimationData] = []
+	# var possible_moves: Array[FighterAnimationData] = []
 
 	### selecting valid moves ###
 
-	for move: FighterAnimationData in self.move_list.values() if extensions.is_empty() else extensions:
+	for move: FighterAnimationData in self.move_list_arr if extensions.is_empty() else extensions:
 		if (extensions.is_empty() && move.is_extension_only) || move.no_input:
 			continue
-
-		# assert(move.move_name != &"walk_b")
 
 		if (move.input_di_map.get(move.input_di_map.size() - 1) == inputs[0][&"di"] || \
 
@@ -74,63 +96,45 @@ func get_from_input(inputs: Array[Dictionary],
 			(move.side_context == 0 || screen_position == move.side_context) && \
 			(self.has_valid_states(move, player_states, bufferable)):
 			
-			possible_moves.append(move)
-	
-	### determining move priority ###
-
-	possible_moves.sort_custom(
-		func(a: FighterAnimationData, b: FighterAnimationData) -> bool:
-			if (!a.required_state.is_empty() && b.required_state.is_empty()) || \
-				a.required_state.size() > b.required_state.size():
-				return true
-			elif a.required_state.is_empty() && !b.required_state.is_empty():
-				return false
-			elif a.required_state.size() == b.required_state.size():
-				if a.input_di_map.size() == b.input_di_map.size():
-					if a.input_button == b.input_button:
-						return a.input_di_map.get(a.input_di_map.size() - 1) > b.input_di_map.get(b.input_di_map.size() - 1)
-					return a.input_button > b.input_button
-				return a.input_di_map.size() >= b.input_di_map.size()
-			return false
-	)
+			# possible_moves.append(move)
 
 	### selecting move ###
 
-	for move: FighterAnimationData in possible_moves:
-		# checking for motion input
-		if move.input_di_map.size() > 1:
-			if move.input_di_map.size() > inputs.size() || \
-				SyncManager.current_tick - inputs[0].frame_start >= 6:
-				continue
-				
-			# we already checked that the last part of the input matches, no need to recheck
-			var passes_check: bool = true
-			var di_map: Array = move.input_di_map.duplicate()
-			di_map.reverse()
-											# vvv this allows for 1 entry on input leniency, input does not need to be frame perfect
-			var input_history_offset: int = 1 if inputs[1][&"di"] == di_map[0] else 0
-			for i: int in range(1, di_map.size()):
-				if i + input_history_offset >= di_map.size() || \
-					di_map[i] != inputs[i + input_history_offset][&"di"]:
-					passes_check = false
-					break
-
-				if (inputs[i + input_history_offset - 1].frame_start \
-					if i + input_history_offset - 1 >= 0 \
-					else SyncManager.current_tick) \
-					- inputs[i + input_history_offset].frame_start >= 6:
+			# for move: FighterAnimationData in possible_moves:
+			# checking for motion input
+			if move.input_di_map.size() > 1:
+				if move.input_di_map.size() > inputs.size() || \
+					SyncManager.current_tick - inputs[0].frame_start >= 6:
+					continue
 					
-					passes_check = false
-					break
-				
-			if passes_check == false:
-				continue
+				# we already checked that the last part of the input matches, no need to recheck
+				var passes_check: bool = true
+				var di_map: Array = move.input_di_map.duplicate()
+				di_map.reverse()
+												# vvv this allows for 1 entry on input leniency, input does not need to be frame perfect
+				var input_history_offset: int = 1 if inputs[1][&"di"] == di_map[0] else 0
+				for i: int in range(1, di_map.size()):
+					if i + input_history_offset >= di_map.size() || \
+						di_map[i] != inputs[i + input_history_offset][&"di"]:
+						passes_check = false
+						break
 
+					if (inputs[i + input_history_offset - 1].frame_start \
+						if i + input_history_offset - 1 >= 0 \
+						else SyncManager.current_tick) \
+						- inputs[i + input_history_offset].frame_start >= 6:
+						
+						passes_check = false
+						break
+					
+				if passes_check == false:
+					continue
+
+				return move
+
+			# move does not have a motion input
 			return move
-
-		# move does not have a motion input
-		return move
-		# ...is that legit all it needs??? lol
+			# ...is that legit all it needs??? lol
 	return self.move_list.get(&"_0")
 
 func is_valid_button_press(move_input: int, button_mask: int) -> bool:
@@ -145,12 +149,12 @@ func has_valid_states(move: FighterAnimationData, player_states: PackedStringArr
 	if bufferable && move.non_bufferable:
 		return false
 
-	for state: StringName in move.prohibit_state:
+	for state: String in move.prohibit_state:
 		if player_states.has(state):
 			return false
 
 	var match_count: int = 0
-	for state: StringName in move.required_state:
+	for state: String in move.required_state:
 		if player_states.has(state):
 			match_count += 1
 	

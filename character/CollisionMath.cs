@@ -26,6 +26,20 @@ public partial class CollisionMath : GodotObject
         );
     }
 
+    public static FixedVector3 CalculateVelocity(
+        long delta, 
+        long pushbackForce, 
+        long pushbackAngle,
+        FixedVector3 velocityRotated, 
+        long opponentAngle
+    )
+    {
+        FixedVector3 finalVelocity = velocityRotated + new FixedVector3(0, 0, pushbackForce).Rotated(
+            opponentAngle + pushbackAngle
+        );
+        return finalVelocity / delta;
+    }
+
     public static bool CalculateBackturned(long currentRotationAng, long facingTowardAng)
     {
         long diff = Math.Abs(currentRotationAng - facingTowardAng);;

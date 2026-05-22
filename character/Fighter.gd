@@ -98,8 +98,8 @@ var is_online: bool = false
 @export_storage var _velocity_bake_mode: bool = false
 @export_storage var _hurtbox_bake_mode: bool = false
 
-signal record_velocity_data(velocity: FixedVector3, animation_name: String, frame: int)
-signal record_hurtbox_data(hurtboxes: Array, animation_name: String, frame: int)
+signal record_velocity_data(velocity: FixedVector3, animation_name: StringName, frame: int)
+signal record_hurtbox_data(hurtboxes: Array, animation_name: StringName, frame: int)
 
 ### LIFE CYCLE ###
 func _init() -> void:
@@ -140,6 +140,8 @@ func _ready() -> void:
 		self.collision_body_offset = self.collision_body.position
 		self.collision_body.top_level = true
 
+		self.movelist.create_and_sort_move_list_arr()
+
 		get_window().focus_entered.connect(self._on_window_focus_entered)
 		get_window().focus_exited.connect(self._on_window_focus_exited)
 
@@ -155,14 +157,14 @@ func _process(_delta: float) -> void:
 			var vel: FixedVector3 = self.process_root_motion(FixedInt.FromFloat(1.0 / 60))
 			self.record_velocity_data.emit(
 				vel, 
-				str(self.anim_player.current_animation), 
+				self.anim_player.current_animation, 
 				roundi(self.anim_player.current_animation_position * 60)
 			)
 		
 		if self._hurtbox_bake_mode:
 			self.record_hurtbox_data.emit(
 				get_tree().get_nodes_in_group(&"SkeletonHurtbox").duplicate(true),
-				str(self.anim_player.current_animation),
+				self.anim_player.current_animation,
 				roundi(self.anim_player.current_animation_position * 60)
 			)
 
@@ -288,16 +290,16 @@ func process_hitbox_intersection() -> bool:
 			continue
 		
 		# Check for early break conditions here (high atk vs. crouching opp., etc.)
-		if !hitbox.hits_grounded && self.states.has(&"grounded"):
+		if !hitbox.hits_grounded && self.states.has("grounded"):
 			continue
 
 		match hitbox.attack_height:
 			FECollisionData.ATTACK_HEIGHT.HIGH:
-				if self.states.has(&"crouching") || self.states.has(&"evade_high"):
+				if self.states.has("crouching") || self.states.has("evade_high"):
 					continue
 			FECollisionData.ATTACK_HEIGHT.LOW, \
 			FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL:
-				if self.states.has(&"evade_low"):
+				if self.states.has("evade_low"):
 					continue
 
 		if hitbox.final_position == null:
@@ -332,14 +334,14 @@ func process_hitbox_intersection() -> bool:
 				# incoming hit detected!
 				var blocked: bool = false
 
-				if !self.states.has(&"back_turned_calc"): # cannot block attacks from behind
-					if (self.states.has(&"guard_high") || self.states.has(&"neutral_guard_high")) && \
+				if !self.states.has("back_turned_calc"): # cannot block attacks from behind
+					if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.HIGH || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
 						blocked = true
-					if (self.states.has(&"guard_low") || self.states.has(&"neutral_guard_low")) && \
+					if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.LOW || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
@@ -362,7 +364,7 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 	self.stun_reason.stun_pushback = enemy_anim_data.pushback_force
 
 	if blocked:
-		if self.states.has(&"crouching") && enemy_anim_data.has_crouch_block_property:
+		if self.states.has("crouching") && enemy_anim_data.has_crouch_block_property:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.crouch_block_animation)
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.block_animation)
@@ -372,13 +374,13 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 		self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_block
 
 	else:
-		if self.states.has(&"counterable"):
+		if self.states.has("counterable"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)			
 			if enemy_anim_data.pushback_angle_on_counter:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_counter
 
-		elif self.states.has(&"grounded"):
+		elif self.states.has("grounded"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.ground_hit_animation)
 			if enemy_anim_data.pushback_angle_on_ground_hit:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
@@ -400,12 +402,11 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	var current_move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 
 	# if attack has been blocked, check if current attack has unique on-block animation, then override.
-	if attack_blocked:
-		if current_move.has_block_recovery:
-			self.stun_reason.stun_id = self.movelist.get_default_anim_id_from_name(current_move.recovery_block)
+	if attack_blocked && current_move.has_block_recovery:
+		self.stun_reason.stun_id = self.movelist.get_default_anim_id_from_name(current_move.recovery_block)
 
 	# check if fighter needs to be placed in a stun animation
-	if self.stun_reason.stun_id != "":
+	if self.stun_reason.stun_id != &"":
 		var move: FighterAnimationData = self.movelist.get_from_id(self.stun_reason.stun_id)
 		self.set_animation_order(move)
 		self.process_root_motion(delta, self.stun_reason.stun_pushback, self.stun_reason.stun_pushback_angle)
@@ -413,11 +414,11 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
-	if (!self.states.has(&"actionable") || self.states.has(&"hit_stun") || self.states.has(&"block_stun")) && \
+	if (!self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun")) && \
 		!current_move.extension_possible(self.anim_player.current_animation_position):
 	
 		# check for input buffer
-		if current_move.extension_possible(self.anim_player.current_animation_position, true) || states.has(&"input_buffer"):
+		if states.has("input_buffer") || current_move.extension_possible(self.anim_player.current_animation_position, true):
 			var new_move: FighterAnimationData = self.get_move_from_input(current_move, true)
 			if new_move.move_name != &"idle" && new_move.move_name != current_move.move_name:
 				self.buffer_anim_id = self.movelist.get_move_id(new_move)
@@ -470,31 +471,31 @@ func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 
 	match current_input[0].di:
 		DI_STATE.NEUTRAL:
-			if self.states.has(&"recovery_ignore_input_NEUTRAL"):
+			if self.states.has("recovery_ignore_input_NEUTRAL"):
 				return true
 		DI_STATE.UP:
-			if self.states.has(&"recovery_ignore_input_UP"):
+			if self.states.has("recovery_ignore_input_UP"):
 				return true
 		DI_STATE.UP_FORWARD:
-			if self.states.has(&"recovery_ignore_input_UP_FORWARD"):
+			if self.states.has("recovery_ignore_input_UP_FORWARD"):
 				return true
 		DI_STATE.FORWARD:
-			if self.states.has(&"recovery_ignore_input_FORWARD"):
+			if self.states.has("recovery_ignore_input_FORWARD"):
 				return true
 		DI_STATE.DOWN_FORWARD:
-			if self.states.has(&"recovery_ignore_input_DOWN_FORWARD"):
+			if self.states.has("recovery_ignore_input_DOWN_FORWARD"):
 				return true
 		DI_STATE.DOWN:
-			if self.states.has(&"recovery_ignore_input_DOWN"):
+			if self.states.has("recovery_ignore_input_DOWN"):
 				return true
 		DI_STATE.DOWN_BACK:
-			if self.states.has(&"recovery_ignore_input_DOWN_BACK"):
+			if self.states.has("recovery_ignore_input_DOWN_BACK"):
 				return true
 		DI_STATE.BACK:
-			if self.states.has(&"recovery_ignore_input_BACK"):
+			if self.states.has("recovery_ignore_input_BACK"):
 				return true
 		DI_STATE.UP_BACK:
-			if self.states.has(&"recovery_ignore_input_UP_BACK"):
+			if self.states.has("recovery_ignore_input_UP_BACK"):
 				return true
 				
 	return false
@@ -530,12 +531,8 @@ func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: i
 		return frame_velocity
 	#####################################
 
-	var curr_rotation: FixedVector3 = self.collision_body.fixed_rotation
-	var vel: FixedVector3 = FixedVector3.NewFromFixedVec3(self.get_root_motion())
-
-	# velocity rotation (to match currently facing direction)
-	var vel_rot: FixedVector3 = vel.Rotated(
-		curr_rotation.y
+	var vel_rot: FixedVector3 = self.get_root_motion().Rotated(
+		self.collision_body.fixed_rotation.y
 	)
 
 	# apply the pushback angle
@@ -549,21 +546,14 @@ func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: i
 	self.collision_body.pushback_force = CollisionMath.CalculatePushback(
 		self.collision_body.pushback_force, self.anim_player.current_animation_position
 	)
-	
-	vel_rot = FixedVector3.Add( 
-		vel_rot,
-		FixedVector3.NewFromInt(0, 0, self.collision_body.pushback_force).Rotated(
-			self.message_bus.get_oppo_fixed_rotation(self).y + self.collision_body.pushback_angle
-		)
-	)
 
-	self.collision_body.velocity = FixedVector3.Mul(
-		FixedVector3.Div(
+	self.collision_body.velocity = CollisionMath.CalculateVelocity(
+			delta,
+			self.collision_body.pushback_force,
+			self.collision_body.pushback_angle,
 			vel_rot,
-			delta
-		),
-		FixedIntGDConstant.FIXED_ONE
-	)
+			self.message_bus.get_oppo_fixed_rotation(self).y
+		)
 
 	collide_and_slide(delta)
 
@@ -607,16 +597,16 @@ func collide_and_slide(delta: int) -> void:
 		self.collision_body.fixed_look_at(
 			oppo_collision_body.fixed_position,
 			FixedVector3.NewFromInt(0, FixedIntGDConstant.FIXED_ONE, 0),
-			self.states.has(&"inverse_track_opp"),
-			self.states.has(&"lerp_rotation"),
+			self.states.has("inverse_track_opp"),
+			self.states.has("lerp_rotation"),
 			delta
 		)
 
 func is_tracking_opponent() -> bool:
 	var oppo_states: PackedStringArray = self.message_bus.get_oppo_states(self)
-	if self.states.has(&"track_opp") || self.states.has(&"inverse_track_opp") || \
-		(self.states.has(&"track_right") && oppo_states.has(&"left_movement")) || \
-		(self.states.has(&"track_left") && oppo_states.has(&"right_movement")):
+	if self.states.has("track_opp") || self.states.has("inverse_track_opp") || \
+		(self.states.has("track_right") && oppo_states.has("left_movement")) || \
+		(self.states.has("track_left") && oppo_states.has("right_movement")):
 		return true
 	return false
 

@@ -27,8 +27,8 @@ func bake_velocity_process() -> void:
     self.anim_player.stop()
     self.anim_player.clear_queue()
 
-    var velocity_data: Dictionary = {}
-    var hurtbox_data: Dictionary = {}
+    var velocity_data: Dictionary[StringName, Variant] = {}
+    var hurtbox_data: Dictionary[StringName, Variant] = {}
     
     self.fighter.record_velocity_data.connect(self._on_fighter_record_velocity_data.bind(velocity_data))
     if %CheckBakeHitboxes.button_pressed:
@@ -53,7 +53,7 @@ func update_progress_label(anim_name: String = "") -> void:
 
 ### LISTENERS ###
 
-func _on_fighter_record_velocity_data(data: FixedVector3, anim_name: String, frame: int, velocity_data: Dictionary) -> void:
+func _on_fighter_record_velocity_data(data: FixedVector3, anim_name: StringName, frame: int, velocity_data: Dictionary[StringName, Variant]) -> void:
     if velocity_data.has(anim_name) && \
         velocity_data[anim_name].has(str(frame)):
         return
@@ -63,7 +63,7 @@ func _on_fighter_record_velocity_data(data: FixedVector3, anim_name: String, fra
 
     velocity_data[anim_name][str(frame)] = data
 
-func _on_fighter_record_hurtbox_data(data: Array, anim_name: String, frame: int, hurtbox_data: Dictionary) -> void:
+func _on_fighter_record_hurtbox_data(data: Array, anim_name: StringName, frame: int, hurtbox_data: Dictionary[StringName, Variant]) -> void:
     if hurtbox_data.has(anim_name) && \
         hurtbox_data[anim_name].has(str(frame)):
         return
@@ -74,10 +74,10 @@ func _on_fighter_record_hurtbox_data(data: Array, anim_name: String, frame: int,
     var data_min: Array = []
     for shape: FECollisionShape in data:
         data_min.append({
-            "radius": shape.fixed_sphere_radius,
-            "body_part": shape.body_part,
-            "position": FixedVector3.FromVec3(shape.global_position),
-            "is_hitbox": shape.is_hitbox
+            &"radius": shape.fixed_sphere_radius,
+            &"body_part": shape.body_part,
+            &"position": FixedVector3.FromVec3(shape.global_position),
+            &"is_hitbox": shape.is_hitbox
         })
     
     hurtbox_data[anim_name][str(frame)] = data_min
@@ -91,7 +91,7 @@ func _on_anim_player_current_animation_changed(anim_name: StringName) -> void:
         self.looping_anims.append(anim_name)
         anim.loop_mode = Animation.LOOP_NONE
 
-func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Dictionary, hurtbox_data: Dictionary) -> void:
+func _on_anim_player_animation_finished(anim_name: StringName, velocity_data: Dictionary, hurtbox_data: Dictionary[StringName, Variant]) -> void:
 
     if self.looping_anims.has(anim_name):
         self.anim_player.get_animation(anim_name).loop_mode = Animation.LOOP_LINEAR

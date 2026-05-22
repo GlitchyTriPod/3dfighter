@@ -9,10 +9,13 @@ var is_p2_local: bool = true
 
 var is_online_match : bool = false
 
+@onready var _delta_int: int = FixedInt.FromFloat(SyncManager.tick_time)
+
 # Called every network tick.
 func _network_process(_input: Dictionary) -> void:
 
-	var _delta_int: int = FixedInt.FromFloat(SyncManager.tick_time)
+	if self._delta_int == 0:
+		self._delta_int = FixedInt.FromFloat(SyncManager.tick_time)
 
 	# set player states based on animation data
 	self.player_1.process_animation_data()
@@ -31,5 +34,5 @@ func _network_process(_input: Dictionary) -> void:
 	var p2_blocked: bool = self.player_2.process_hitbox_intersection()
 
 	#advance player animations based on inputs & game state
-	self.player_1.process_movement(_delta_int, p2_blocked)
-	self.player_2.process_movement(_delta_int, p1_blocked)
+	self.player_1.process_movement(self._delta_int, p2_blocked)
+	self.player_2.process_movement(self._delta_int, p1_blocked)

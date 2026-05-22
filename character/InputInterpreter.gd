@@ -18,52 +18,14 @@ func read_input(history: int = 0) -> Array[Dictionary]:
 	return inputs
 
 func interpret_input(input: Dictionary, screen_position: int) -> void:
-	
-	# var di: String = ""
-	# var button: String = ""
-
-	# check directional input
-	# if input.has(&"input_directional"):
-	# 	if input["input_directional"].y == -1:
-	# 		di += "D"
-	# 	elif input["input_directional"].y == 1:
-	# 		di += "U"
-
-	# 	if input["input_directional"].x == 1:
-	# 		if screen_position == 1:
-	# 			di += "B"
-	# 		else:
-	# 			di += "F"
-	# 	elif input["input_directional"].x == -1:
-	# 		if screen_position == 1:
-	# 			di += "F"
-	# 		else:
-	# 			di += "B"
-
-	# if di == "":
-	# 	di += "N"
-
-	# # check button inputs
-	# if input.has("input_button"):
-	# 	if input["input_button"].has("p"):
-	# 		button += "P"
-	# 	if input["input_button"].has("k"):
-	# 		button += "K"
-	# 	if input["input_button"].has("a"):
-	# 		button += "A"
-	
-	# if button == "":
-	# 	button += "N"
-
-	# TODO: turn this into a bit mask
 	var ret_di: int
 	match input.get(&"input_directional"):
 		Vector2i.ZERO:
 			ret_di = Fighter.DI_STATE.NEUTRAL
 		Vector2i.UP:
-			ret_di = Fighter.DI_STATE.UP
+			ret_di = Fighter.DI_STATE.DOWN # yes, seriously.
 		Vector2i.DOWN:
-			ret_di = Fighter.DI_STATE.DOWN
+			ret_di = Fighter.DI_STATE.UP
 		Vector2i.LEFT:
 			if screen_position == 1:
 				ret_di = Fighter.DI_STATE.BACK
@@ -94,35 +56,6 @@ func interpret_input(input: Dictionary, screen_position: int) -> void:
 				ret_di = Fighter.DI_STATE.UP_BACK
 			else:
 				ret_di = Fighter.DI_STATE.UP_FORWARD
-		
-
-	# match di:
-	# 	"N":
-	# 		ret_di = Fighter.DI_STATE.NEUTRAL
-	# 	"U":
-	# 		ret_di = Fighter.DI_STATE.UP
-	# 	"UF":
-	# 		ret_di = Fighter.DI_STATE.UP_FORWARD
-	# 	"F":
-	# 		ret_di = Fighter.DI_STATE.FORWARD
-	# 	"DF":
-	# 		ret_di = Fighter.DI_STATE.DOWN_FORWARD
-	# 	"D":
-	# 		ret_di = Fighter.DI_STATE.DOWN
-	# 	"DB":
-	# 		ret_di = Fighter.DI_STATE.DOWN_BACK
-	# 	"B":
-	# 		ret_di = Fighter.DI_STATE.BACK
-	# 	"UB":
-	# 		ret_di = Fighter.DI_STATE.UP_BACK
-
-	# var ret_button: int = 0
-	# if button.contains("P"):
-	# 	ret_button |= BUTTON_FLAGS.P
-	# if button.contains("K"):
-	# 	ret_button |= BUTTON_FLAGS.K
-	# if button.contains("A"):
-	# 	ret_button |= BUTTON_FLAGS.A
 
 	var current_input: Dictionary[StringName, Variant] = {
 			&"di": ret_di,

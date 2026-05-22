@@ -302,9 +302,9 @@ selected = 0
 item_count = 3
 popup/item_0/text = "Both Sides"
 popup/item_0/id = 0
-popup/item_1/text = "Left Side Only"
+popup/item_1/text = "Right Side Only"
 popup/item_1/id = 1
-popup/item_2/text = "Right Side Only"
+popup/item_2/text = "Left Side Only"
 popup/item_2/id = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1256480749]

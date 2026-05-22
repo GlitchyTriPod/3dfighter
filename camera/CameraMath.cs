@@ -45,14 +45,26 @@ public partial class CameraMath : GodotObject
 
     }
 
-    public static FixedVector3 GetCameraRefPosition(long distance, FixedVector3 position, long angle)
+    public static Array<FixedVector3> GetCameraRefPosition(FixedVector3 p1Position, FixedVector3 p2Position)
     {
-        FixedVector3 ret = new FixedVector3(
+        long distance = GetDistanceClamped(p1Position, p2Position);       
+        FixedVector3 newPosition = GetCameraTargetPosition(p1Position, p2Position);
+        FixedVector3 angle = GetCameraTargetRotation(p1Position, newPosition);
+
+        FixedVector3 newRef = new FixedVector3(
             -FixedInt.Lerp(FixedInt.FromInt(4), FixedInt.FromInt(11), FixedInt.Div(distance - 900, 1800)),
-            position.y + FixedInt.FromFloat(0.25f),
+            newPosition.y + FixedInt.FromFloat(0.25f),
             0
         );
-        return ret.Rotated(angle) + position;
+
+        Array<FixedVector3> ret = [
+            newPosition,
+            angle,
+            newRef.Rotated(angle.y) + newPosition
+
+        ];
+
+        return ret;
     }
 
     public static bool NeedsSideSwap(FixedVector3 inside, FixedVector3 cameraTarget, FixedVector3 cameraPos)
@@ -75,7 +87,8 @@ public partial class CameraMath : GodotObject
         FixedVector3 cameraPosition, 
         FixedVector3 cameraTarget, 
         float smoothingSpeed,
-        float tickTime)
+        float tickTime
+    )
     {
         long sSpeed = FixedInt.FromFloat(smoothingSpeed);
         long tTime = FixedInt.FromFloat(tickTime);

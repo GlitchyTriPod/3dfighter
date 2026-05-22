@@ -35,5 +35,5 @@ func _ready() -> void:
 		self.game_camera.player_2 = c
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _process(_delta):
-# 	pass
+func _process(_delta: float) -> void:
+	StageGarbageCollection.CollectGarbage()

@@ -21,14 +21,14 @@ var player_2: Fighter
 var p1_screen_pos: Vector2 = Vector2()
 var p2_screen_pos: Vector2 = Vector2()
 
-var fixed_position: FixedVector3 = FixedVector3.new():
-	set(val):
-		fixed_position = val
-		self.set_global_position(FixedVector3.ToVec3(val))
-var fixed_rotation: FixedVector3 = FixedVector3.new():
-	set(val):
-		fixed_rotation = val
-		self.set_global_rotation(FixedVector3.ToVec3(val))
+var fixed_position: FixedVector3 = FixedVector3.new()
+	# set(val):
+	# 	fixed_position = val
+	# 	self.set_global_position(FixedVector3.ToVec3(val))
+var fixed_rotation: FixedVector3 = FixedVector3.new()
+	# set(val):
+	# 	fixed_rotation = val
+	# 	self.set_global_rotation(FixedVector3.ToVec3(val))
 
 var camera_fixed_position: FixedVector3 = FixedVector3.new():
 	set(val):
@@ -54,7 +54,7 @@ func _network_preprocess(_input: Variant) -> void: # may need to shove off to c#
 	if self.default_pos == 0:
 		self.p1_screen_pos = self.p1_camera.unproject_position( # < NEEDS to change. not deterministic
 			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
-			)
+		)
 		if self.p1_screen_pos.x > 0.5:
 			self.p2_screen_pos.x = self.p1_screen_pos.x - 0.5
 		else:
@@ -62,37 +62,53 @@ func _network_preprocess(_input: Variant) -> void: # may need to shove off to c#
 	else:
 		self.p2_screen_pos = self.p2_camera.unproject_position(
 			FixedVector3.ToVec3(self.player_1.collision_body.fixed_position)
-			)		
+		)		
 		if self.p2_screen_pos.x > 0.5:
 			self.p1_screen_pos.x = self.p2_screen_pos.x - 0.5
 		else:
 			self.p1_screen_pos.x = self.p2_screen_pos.x + 0.5
 
-	var dist: int = CameraMath.GetDistanceClamped(
-		self.player_1.collision_body.fixed_position,
-		self.player_2.collision_body.fixed_position
-	)
+	# var dist: int = CameraMath.GetDistanceClamped(
+	# 	self.player_1.collision_body.fixed_position,
+	# 	self.player_2.collision_body.fixed_position
+	# )
 
-	if self.swap_sides == -1:
-		dist = -dist
+	# if self.swap_sides == -FixedIntGDConstant.FIXED_ONE:
+	# 	dist = -dist
 	
-	self.fixed_position = CameraMath.GetCameraTargetPosition(
+	# self.fixed_position = CameraMath.GetCameraTargetPosition(
+	# 	self.player_1.collision_body.fixed_position,
+	# 	self.player_2.collision_body.fixed_position
+	# )
+
+	# # rotate self to look at player 1
+	# self.fixed_rotation = CameraMath.GetCameraTargetRotation(
+	# 	self.player_1.collision_body.fixed_position,
+	# 	self.fixed_position
+	# )
+	
+	var values: Array[FixedVector3] = CameraMath.GetCameraRefPosition(
 		self.player_1.collision_body.fixed_position,
 		self.player_2.collision_body.fixed_position
-	)
+	) 
 
-	# rotate self to look at player 1
-	self.fixed_rotation = CameraMath.GetCameraTargetRotation(
-		self.player_1.collision_body.fixed_position,
-		self.fixed_position
-	)
+	self.fixed_position = values[0]
+	self.fixed_rotation = values[1]
+	self.cam_ref = values[2]
+
+	# self.cam_ref = CameraMath.GetCameraRefPosition(
+	# 	self.player_1.collision_body.fixed_position,
+	# 	self.player_2.collision_body.fixed_position, 
+	# 	self.fixed_position, 
+	# 	self.fixed_rotation.y
+	# )
 
 	# check if cam_ref needs to be swapped
-	if CameraMath.NeedsSideSwap(self.fixed_position, self.cam_ref, self.camera_fixed_position):
-		self.swap_sides = -self.swap_sides
+	# if CameraMath.NeedsSideSwap(self.fixed_position, self.cam_ref, self.camera_fixed_position):
+	# 	self.swap_sides = -self.swap_sides
 
 	# assign positions to reference nodes
-	self.cam_ref = CameraMath.GetCameraRefPosition(dist, self.fixed_position, self.fixed_rotation.y)
+	# self.cam_ref = CameraMath.GetCameraRefPosition(dist, self.fixed_position, self.fixed_rotation.y)
 
 	self.camera_fixed_position = CameraMath.LerpCameraPosition(
 		self.camera_fixed_position, 
@@ -102,7 +118,7 @@ func _network_preprocess(_input: Variant) -> void: # may need to shove off to c#
 	)
 
 func _process(_delta: float) -> void:	
-	var target: Vector3 = Vector3(self.global_position)
+	var target: Vector3 = FixedVector3.ToVec3(self.fixed_position) #self.global_position
 	target.y += 0.75
 	self.p1_camera.look_at(target)
 	self.p2_camera.look_at(target)

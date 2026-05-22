@@ -10,7 +10,7 @@ using FatalException.FEMath;
 
 [Tool]
 [GlobalClass]
-public partial class FixedVector3 : Resource, IDisposable
+public partial class FixedVector3 : RefCounted
 {
 	[Export]
 	public long x { get; set; }
