@@ -185,6 +185,7 @@ body_part = 1
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_neck" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="18" unique_id=223379092]
+unique_name_in_owner = true
 transform = Transform3D(0.9999095, 5.8986926e-10, 0.013451936, -0.00056098355, 0.9991301, 0.04169899, -0.013440234, -0.041702762, 0.9990396, -1.2551515e-10, 1.6275126, -0.06396695)
 bone_name = "neck.x"
 bone_idx = 56
@@ -542,6 +543,25 @@ shape_owner = NodePath("../../../..")
 body_part = 10
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="rig_deform/Skeleton3D" index="35" unique_id=2029136636]
+unique_name_in_owner = true
+target_node = NodePath("../../../LookAtTesting")
+bone_name = "head.x"
+bone = 1
+relative = true
+origin_from = 1
+origin_bone_name = "neck.x"
+origin_bone = 56
+duration = 0.276
+transition_type = 4
+ease_type = 1
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 2.3898792
+primary_damp_threshold = 0.46
+secondary_limit_angle = 0.92205745
+secondary_damp_threshold = 1.0
+
 [node name="AnimationPlayer" parent="." index="1" unique_id=1714828021]
 active = false
 autoplay = &"AnimLibrary_Hugh/hugh_idle_standing"
@@ -589,3 +609,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0982058, 0)
 billboard = 1
 text = "false"
 outline_size = 7
+
+[node name="LookAtTesting" type="Marker3D" parent="." index="8" unique_id=1785134193]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120796144, 1.3346678, 1.6674017)
+gizmo_extents = 0.23

@@ -34,6 +34,8 @@ func _ready() -> void:
 		self.fighter_message_bus.player_2 = c
 		self.game_camera.player_2 = c
 
+	self.fighter_message_bus.assign_fighter_look_at_targets()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	StageGarbageCollection.CollectGarbage()

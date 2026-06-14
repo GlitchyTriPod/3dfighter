@@ -110,11 +110,11 @@ text = "XX Frames"
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="UseDeterministicBlending" type="CheckBox" parent="MarginContainer/VBoxContainer" unique_id=727869116]
+[node name="LookAtEnemy" type="CheckBox" parent="MarginContainer/VBoxContainer" unique_id=727869116]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Use Deterministic Blending (may fix some animation errors)"
+text = "Model Looks at Opponent"
 
 [node name="InputContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2004017987]
 layout_mode = 2

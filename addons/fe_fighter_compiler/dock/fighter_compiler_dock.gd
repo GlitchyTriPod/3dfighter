@@ -135,7 +135,7 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1, paren
 			)
 			break
 
-	item.get_node("%UseDeterministicBlending").button_pressed = data.use_deterministic_blending if data.get("use_deterministic_blending") != null else false
+	item.get_node("%LookAtEnemy").button_pressed = data.look_at_enemy if data.get("look_at_enemy") != null else false
 
 	#directional input sequence
 	for i: int in data.input_di_map.size():
@@ -404,7 +404,7 @@ func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 	anim_data.is_reference = item.is_reference
 
 	anim_data.animation_name = StringName(item.get_animation_name())
-	anim_data.use_deterministic_blending = item.get_node("%UseDeterministicBlending").button_pressed
+	anim_data.look_at_enemy = item.get_node("%LookAtEnemy").button_pressed
 
 	anim_data.add_inputs_arr(item.get_input_map())
 

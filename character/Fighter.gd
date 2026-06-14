@@ -71,10 +71,13 @@ var screen_position: int:
 			.get_char_position(self.player)
 
 @onready var collision_body: FEFighterCollisionBody = %CollisionBody
+@onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
+
+@onready var look_at_node: LookAtModifier3D = %LookAtModifier3D
+# var look_at_target: NodePath
+var look_at_enemy: bool = false
 
 var input_interpreter: InputInterpreter = InputInterpreter.new()
-
-@onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
 
 var current_anim_id: StringName = &"_0" # Movelist item, NOT animation name
 var anim_fallback_id: StringName = &"_0"
@@ -122,6 +125,7 @@ func _init() -> void:
 func _ready() -> void:
 	if !Engine.is_editor_hint():
 		%AddonSpheres.queue_free()
+		%LookAtTesting.queue_free()
 
 		for nde: Node in get_tree().get_nodes_in_group(&"SkeletonHurtbox"):
 			nde.queue_free()
@@ -141,6 +145,8 @@ func _ready() -> void:
 		self.collision_body.top_level = true
 
 		self.movelist.create_and_sort_move_list_arr()
+
+		# self.look_at_target = self.message_bus.get_oppo_look_at_target(self) 
 
 		get_window().focus_entered.connect(self._on_window_focus_entered)
 		get_window().focus_exited.connect(self._on_window_focus_exited)
@@ -172,6 +178,13 @@ func _process(_delta: float) -> void:
 			self.anim_player.advance(1.0 / 60)
 
 	else:
+		self.look_at_node.active = self.look_at_enemy
+		# if self.look_at_enemy:
+		# 	self.look_at_node.active = true
+		# else:
+		# 	if !self.look_at_node.target_node.is_empty():
+		# 		self.look_at_node.target_node = NodePath()
+
 		self.position = self.collision_body.global_position - self.collision_body_offset
 		self.rotation.y = self.collision_body.global_rotation.y
 
@@ -400,6 +413,7 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
 	var current_move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
+	self.look_at_enemy = current_move.look_at_enemy
 
 	# if attack has been blocked, check if current attack has unique on-block animation, then override.
 	if attack_blocked && current_move.has_block_recovery:

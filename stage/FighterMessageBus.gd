@@ -27,9 +27,18 @@ func get_oppo_states(player: Fighter) -> PackedStringArray:
 	return self.player_1.states
 
 func get_oppo_hitboxes(player: Fighter) -> Array:
-	if player == self.player_1:
+	if player == self.player_1: 
 		return self.player_2.misc_hitbox_pool
 	return self.player_1.misc_hitbox_pool
+
+func get_oppo_look_at_target(player: Fighter) -> NodePath:
+	if player == self.player_1:
+		return self.player_2.get_node("%bone_neck").get_path()
+	return self.player_1.get_node("%bone_neck").get_path()
+
+func assign_fighter_look_at_targets() -> void:
+	self.player_1.look_at_node.target_node = self.player_2.get_node("%bone_neck").get_path()
+	self.player_2.look_at_node.target_node = self.player_1.get_node("%bone_neck").get_path()
 
 func get_oppo_collision_body(player: Fighter) -> FEFighterCollisionBody:
 	var oppo: Fighter
@@ -66,4 +75,4 @@ func get_oppo_fixed_rotation(player: Fighter) -> FixedVector3:
 		else FixedVector3.new()
 
 func get_char_position(player: int) -> int:
-	return self.game_camera.get_char_position(player)	
+	return self.game_camera.get_char_position(player)
