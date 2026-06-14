@@ -1,8 +1,8 @@
 extends "res://addons/delta_rollback/MessageSerializer.gd"
 
 const input_path_mapping: Dictionary = {
-	"/root/TestingRollbackEnetConnection/SubViewportContainer/SubViewport/Stage/Chars/atro4": 1,
-	"/root/TestingRollbackEnetConnection/SubViewportContainer/SubViewport/Stage/Chars/atro5": 2
+	"/root/TestingRollbackEnetConnection/SubViewportContainer/SubViewport/Stage/Chars/atro": 1,
+	"/root/TestingRollbackEnetConnection/SubViewportContainer/SubViewport/Stage/Chars/hugh": 2
 }
 
 enum HEADER_FLAGS {

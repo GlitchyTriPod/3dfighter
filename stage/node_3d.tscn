@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://cry6gxvxi3ga7" path="res://shader/ps1_post.gdshader" id="4_8xacr"]
 [ext_resource type="PackedScene" uid="uid://dip4omawevgwd" path="res://camera/GameCamera.tscn" id="7_6gy14"]
 [ext_resource type="PackedScene" uid="uid://2p8kswkoorj4" path="res://character/test_newrig/Char_testnewrig.tscn" id="7_gxuj5"]
+[ext_resource type="PackedScene" uid="uid://csjg7pafgqx5l" path="res://character/test_hugh/Char_testhugh.tscn" id="8_18csp"]
 [ext_resource type="Script" uid="uid://bmwn8pw6uiryr" path="res://addons/camera.gd" id="9_cqpjc"]
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1pahf"]
@@ -59,11 +60,11 @@ surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 [node name="Chars" type="Node3D" parent="." unique_id=419843519]
 unique_name_in_owner = true
 
-[node name="atro4" parent="Chars" unique_id=291528455 instance=ExtResource("7_gxuj5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09746885, 0, -1.2985727)
+[node name="atro" parent="Chars" unique_id=1359553451 instance=ExtResource("7_gxuj5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8317108e-08, 0, -1.4568878)
 
-[node name="atro5" parent="Chars" unique_id=1884374165 instance=ExtResource("7_gxuj5")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.06753281, 0, 1.2452707)
+[node name="hugh" parent="Chars" unique_id=1837297210 instance=ExtResource("8_18csp")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.09746922, 0, 1.3849661)
 player = 1
 
 [node name="debugCamera" type="Camera3D" parent="." unique_id=902002015]

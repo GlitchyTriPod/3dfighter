@@ -21,15 +21,19 @@ func _process(_delta: float) -> void:
     if !Engine.is_editor_hint():
         self.debug_shape_custom_color = Color.GREEN
 
+# TODO: change this to work off of default sphere radius instead of current one
 func is_on_floor(floor_height: int) -> bool:
     var rem: int = self.fixed_position.y - self.fixed_sphere_radius
     return rem <= floor_height
+
 
 func fixed_look_at(
     target: FixedVector3,
     invert: bool = false,
     lerp_rotation: bool = false, 
     delta: int = 0) -> void:
+    # for some reason the alignment gets strange when origin and target are not on same y position.
+    # even forcing an even y-pos doesnt fix it. weird.
     var forward: FixedVector3 
     if invert:
         forward = FixedVector3.Sub(self.fixed_position, target)

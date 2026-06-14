@@ -147,7 +147,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
-		%DebugLabel.text = self.buffer_anim_id
+		%DebugLabel.text = str(self.anim_player.deterministic)
 
 	if Engine.is_editor_hint():
 		if self.anim_player.current_animation.is_empty():
@@ -173,7 +173,7 @@ func _process(_delta: float) -> void:
 
 	else:
 		self.position = self.collision_body.global_position - self.collision_body_offset
-		self.rotation = self.collision_body.global_rotation
+		self.rotation.y = self.collision_body.global_rotation.y
 
 ### METHODS ###
 
@@ -408,7 +408,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != &"":
 		var move: FighterAnimationData = self.movelist.get_from_id(self.stun_reason.stun_id)
-		self.set_animation_order(move)
+		self.set_animation_order(move, current_move)
 		self.process_root_motion(delta, self.stun_reason.stun_pushback, self.stun_reason.stun_pushback_angle)
 		self.reset_stun_reason()
 		return
@@ -445,7 +445,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 
 		# if animation player and move animation does not match, fall back to recovery move
 		if current_move.animation_name != self.anim_player.current_animation:
-			self.set_animation_order(self.movelist.get_from_ref_name(current_move.recovery_ref))
+			self.set_animation_order(self.movelist.get_from_ref_name(current_move.recovery_ref), current_move)
 		self.process_root_motion(delta)
 		return
 
@@ -465,11 +465,11 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	if next_move != null && \
 		next_move.animation_name != self.anim_player.current_animation && \
 		!self.is_current_input_ignored(inp):
-		self.set_animation_order(next_move)
+		self.set_animation_order(next_move, current_move)
 
 	self.process_root_motion(delta)
 
-func set_animation_order(atk_data: FighterAnimationData) -> void:
+func set_animation_order(atk_data: FighterAnimationData, _current_move: FighterAnimationData) -> void:
 	if !atk_data.recovery_ref.is_empty():
 		self.anim_player.clear_queue()
 
@@ -483,6 +483,7 @@ func set_animation_order(atk_data: FighterAnimationData) -> void:
 		self.anim_fallback_id = self.movelist.get_move_id(recovery_move)
 
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
+
 	self.anim_player.play(atk_data.animation_name)
 	self.anim_player.seek(0)
 	

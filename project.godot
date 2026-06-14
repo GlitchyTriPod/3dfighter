@@ -190,7 +190,6 @@ rollback/classes/message_serializer="uid://b8ahiut0y2ub"
 2d/run_on_separate_thread=true
 3d/run_on_separate_thread=true
 common/max_physics_steps_per_frame=1
-3d/default_gravity=642252.0
 
 [rendering]
 
@@ -242,3 +241,7 @@ vertex_snap_intensity={
 "type": "int",
 "value": 2
 }
+
+[threading]
+
+worker_pool/default_gravity=642252.0

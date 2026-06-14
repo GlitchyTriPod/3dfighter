@@ -20,6 +20,7 @@ enum BUTTON_FLAGS {
 @export_storage var animation_name: StringName = &""
 
 @export_storage var animation_length: int
+@export_storage var use_deterministic_blending: bool = false
 
 @export_storage var required_state: PackedStringArray = [] # todo: split before saving, save as Array[StringName]
 @export_storage var prohibit_state: PackedStringArray = []
