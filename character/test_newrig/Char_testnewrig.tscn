@@ -533,7 +533,7 @@ animation_hurtbox_data = ExtResource("5_3jbgv")
 animation_library = ExtResource("7_18r77")
 
 [node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(2003099866) index="0" unique_id=1290619033]
-bones/37/rotation = Quaternion(0.5255708, -0.5142261, -0.41031274, 0.5394353)
+bones/37/rotation = Quaternion(0.5255708, -0.5142261, -0.41031268, 0.5394353)
 
 [node name="bone_head" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="0" unique_id=1031546076]
 transform = Transform3D(1, 0, -6.810031e-05, 0, 1, 0, 6.810031e-05, 0, 1, 0, 1.6999872, -0.07959953)
@@ -914,6 +914,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="LookAtModifier3D" type="LookAtModifier3D" parent="rig_deform/Skeleton3D" index="32" unique_id=573662550]
 unique_name_in_owner = true
+active = false
 target_node = NodePath("../../../LookAtTesting")
 bone_name = "head.x"
 bone = 1
@@ -972,7 +973,6 @@ active = false
 [node name="DebugLabel" type="Label3D" parent="." index="7" unique_id=407016320]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0982058, 0)
-visible = false
 billboard = 1
 text = "false"
 outline_size = 7

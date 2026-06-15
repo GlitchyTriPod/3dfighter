@@ -545,6 +545,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="LookAtModifier3D" type="LookAtModifier3D" parent="rig_deform/Skeleton3D" index="35" unique_id=2029136636]
 unique_name_in_owner = true
+active = false
 target_node = NodePath("../../../LookAtTesting")
 bone_name = "head.x"
 bone = 1
@@ -570,7 +571,6 @@ autoplay = &"AnimLibrary_Hugh/hugh_idle_standing"
 unique_name_in_owner = true
 deterministic = true
 root_motion_track = NodePath("rig_deform/Skeleton3D:c_pos")
-callback_mode_process = 2
 libraries/ = SubResource("AnimationLibrary_aurxg")
 libraries/AnimLibrary_Hugh = ExtResource("2_vhmeu")
 libraries/def_animations = ExtResource("3_rchkb")
@@ -606,6 +606,7 @@ unique_name_in_owner = true
 [node name="DebugLabel" type="Label3D" parent="." index="7" unique_id=286495785]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0982058, 0)
+visible = false
 billboard = 1
 text = "false"
 outline_size = 7

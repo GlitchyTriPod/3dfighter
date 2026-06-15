@@ -146,14 +146,12 @@ func _ready() -> void:
 
 		self.movelist.create_and_sort_move_list_arr()
 
-		# self.look_at_target = self.message_bus.get_oppo_look_at_target(self) 
-
 		get_window().focus_entered.connect(self._on_window_focus_entered)
 		get_window().focus_exited.connect(self._on_window_focus_exited)
 
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
-		%DebugLabel.text = str(self.anim_player.deterministic)
+		%DebugLabel.text = str(self.current_anim_id)
 
 	if Engine.is_editor_hint():
 		if self.anim_player.current_animation.is_empty():
@@ -179,11 +177,6 @@ func _process(_delta: float) -> void:
 
 	else:
 		self.look_at_node.active = self.look_at_enemy
-		# if self.look_at_enemy:
-		# 	self.look_at_node.active = true
-		# else:
-		# 	if !self.look_at_node.target_node.is_empty():
-		# 		self.look_at_node.target_node = NodePath()
 
 		self.position = self.collision_body.global_position - self.collision_body_offset
 		self.rotation.y = self.collision_body.global_rotation.y
@@ -544,7 +537,7 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 	if inputs[0][&"button"] != 0 &&  \
 		(inputs[0][&'frame_start'] != SyncManager.current_tick || \
 		inputs[0][&'button'] <= inputs[1][&'button']):
-		return self.movelist.get_from_id(&"_0")
+		return current_move
 
 	if current_move.extension_possible(self.anim_player.current_animation_position, check_buffer):
 		var new_move: FighterAnimationData = self.movelist.get_from_input(
@@ -558,7 +551,7 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 			if self.buffer_anim_id != &"":
 				return self.movelist.get_from_id(self.buffer_anim_id)
 			return current_move
-		return new_move
+		return new_move	
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position, check_buffer)
 
 func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: int = 999) -> Variant:
