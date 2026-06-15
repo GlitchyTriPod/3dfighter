@@ -5,6 +5,182 @@
 [resource]
 script = ExtResource("1_l05oi")
 dict = Dictionary[StringName, Variant]({
+&"AnimLibrary_Hugh/atro_atk_2k": {
+"0": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"1": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"10": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"11": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"12": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"13": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"14": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"15": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"16": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"17": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"18": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"19": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"2": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"20": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"21": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"22": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"23": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"24": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"25": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"26": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"27": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"28": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"29": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"3": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"30": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"31": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"32": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"33": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"34": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"35": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"36": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"37": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"38": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"39": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"4": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"40": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"41": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"42": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"43": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"44": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"45": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"46": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"47": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"5": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"6": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"7": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"8": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+,
+"9": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":192)
+
+},
+&"AnimLibrary_Hugh/atro_atk_3p": {
+"0": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"1": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":411)
+,
+"10": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":2992)
+,
+"11": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":2705)
+,
+"12": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":2304)
+,
+"13": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":1788)
+,
+"14": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":1156)
+,
+"15": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":411)
+,
+"16": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"17": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"18": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"19": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"2": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":1156)
+,
+"20": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"21": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"22": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"23": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"24": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"25": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"26": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"27": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"28": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"29": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"3": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":1788)
+,
+"30": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"31": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"32": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"33": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"34": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"35": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"36": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"37": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+,
+"4": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":2304)
+,
+"5": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":2705)
+,
+"6": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":2992)
+,
+"7": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":3164)
+,
+"8": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":3222)
+,
+"9": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":3164)
+
+},
 &"AnimLibrary_Hugh/hugh_ground_wakeup_g": {
 "0": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
 ,
@@ -447,6 +623,10 @@ dict = Dictionary[StringName, Variant]({
 "98": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
 ,
 "99": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
+
+},
+&"RESET": {
+"0": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":0)
 
 },
 &"def_animations/def_atk_2p": {

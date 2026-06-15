@@ -42,7 +42,7 @@ func bake_velocity_process() -> void:
     if %CheckBakeHitboxes.button_pressed:
         self.fighter._hurtbox_bake_mode = true
 
-    self.anim_player.play(self.anim_player.get_animation_list().get(1))
+    self.anim_player.current_animation = self.anim_player.get_animation_list().get(0) #.play(self.anim_player.get_animation_list().get(1))
     self.anim_player.seek(0, true)
 
 func update_progress_label(anim_name: String = "") -> void:

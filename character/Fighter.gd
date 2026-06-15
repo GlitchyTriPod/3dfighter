@@ -98,8 +98,8 @@ var is_focused: bool = false
 
 var is_online: bool = false
 
-@export_storage var _velocity_bake_mode: bool = false
-@export_storage var _hurtbox_bake_mode: bool = false
+@export var _velocity_bake_mode: bool = false
+@export var _hurtbox_bake_mode: bool = false
 
 signal record_velocity_data(velocity: FixedVector3, animation_name: StringName, frame: int)
 signal record_hurtbox_data(hurtboxes: Array, animation_name: StringName, frame: int)

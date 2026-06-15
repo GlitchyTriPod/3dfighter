@@ -91,7 +91,7 @@ func attach_to_fighter_scene() -> void:
 	%MoveListContainer.visible = true
 
 func add_movelist_item(data: FighterAnimationData = null, index: int = -1, parent_item: MoveListItem = null) -> void:
-	if data.get('is_extension_only') != null && data.is_extension_only && parent_item == null:
+	if data != null && data.is_extension_only && parent_item == null:
 		return
 
 	var item: MoveListItem = self.move_list_item.instantiate()

@@ -532,10 +532,7 @@ animation_velocity_data = ExtResource("4_dicru")
 animation_hurtbox_data = ExtResource("5_3jbgv")
 animation_library = ExtResource("7_18r77")
 
-[node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(2003099866) index="0" unique_id=1290619033]
-bones/37/rotation = Quaternion(0.5255708, -0.5142261, -0.41031268, 0.5394353)
-
-[node name="bone_head" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="0" unique_id=1031546076]
+[node name="bone_head" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="0" unique_id=1031546076]
 transform = Transform3D(1, 0, -6.810031e-05, 0, 1, 0, 6.810031e-05, 0, 1, 0, 1.6999872, -0.07959953)
 bone_name = "head.x"
 bone_idx = 1
@@ -553,7 +550,7 @@ shape_owner = NodePath("../../../..")
 body_part = 1
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_neck" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="1" unique_id=668274601]
+[node name="bone_neck" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="1" unique_id=668274601]
 unique_name_in_owner = true
 transform = Transform3D(0.9999095, -2.0383073e-10, 0.013451941, -0.001912206, 0.9898449, 0.14213808, -0.013315336, -0.14215094, 0.98975545, 4.440892e-16, 1.5911318, -0.063966885)
 bone_name = "neck.x"
@@ -572,7 +569,7 @@ shape_owner = NodePath("../../../..")
 body_part = 1
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_spine" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="2" unique_id=1428032114]
+[node name="bone_spine" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="2" unique_id=1428032114]
 transform = Transform3D(0.9999782, 4.4669157e-11, -0.0066025527, 0.00096172304, 0.98933476, 0.14565608, 0.006532136, -0.14565927, 0.9893132, 2.220446e-16, 1.3573117, -0.02954167)
 bone_name = "spine_01.x"
 bone_idx = 48
@@ -590,7 +587,7 @@ shape_owner = NodePath("../../../..")
 body_part = 2
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_hip" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="3" unique_id=772776440]
+[node name="bone_hip" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="3" unique_id=772776440]
 transform = Transform3D(1, 0, 7.152557e-06, 0, -0.99999976, 0, 7.152557e-06, 0, -1, 5.551115e-17, 1.3573117, -0.009390037)
 bone_name = "root.x"
 bone_idx = 41
@@ -608,7 +605,7 @@ shape_owner = NodePath("../../../..")
 body_part = 3
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_shoulder_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="4" unique_id=639309570]
+[node name="bone_shoulder_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="4" unique_id=639309570]
 transform = Transform3D(0.26266834, -0.96488607, 0.0005060138, -0.0019263029, 5.9604645e-08, 0.9999982, -0.9648843, -0.26266885, -0.0018587112, -0.05274083, 1.5378789, 0.008666105)
 bone_name = "shoulder.r"
 bone_idx = 50
@@ -626,7 +623,7 @@ shape_owner = NodePath("../../../..")
 body_part = 5
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_shoulder_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="5" unique_id=1236046162]
+[node name="bone_shoulder_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="5" unique_id=1236046162]
 transform = Transform3D(0.2626681, 0.96488625, -0.00050580484, 0.0019261241, -1.192093e-07, 0.9999982, 0.96488434, -0.26266867, -0.0018584728, 0.05274083, 1.5378789, 0.008666105)
 bone_name = "shoulder.l"
 bone_idx = 52
@@ -644,7 +641,7 @@ shape_owner = NodePath("../../../..")
 body_part = 4
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_arm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="6" unique_id=204441422]
+[node name="bone_arm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="6" unique_id=204441422]
 transform = Transform3D(0.061565157, -0.49920323, -0.864295, -0.0021253524, -0.8660012, 0.5000373, -0.99810076, -0.028947948, -0.054376423, -0.28498307, 1.4094719, -0.038698733)
 bone_name = "arm_stretch.r"
 bone_idx = 11
@@ -662,7 +659,7 @@ shape_owner = NodePath("../../../..")
 body_part = 5
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_arm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="7" unique_id=1140362118]
+[node name="bone_arm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="7" unique_id=1140362118]
 transform = Transform3D(0.061565157, 0.49920323, 0.864295, 0.0021253524, -0.8660012, 0.5000373, 0.99810076, -0.028947948, -0.054376423, 0.28498307, 1.4094719, -0.038698733)
 bone_name = "arm_stretch.l"
 bone_idx = 10
@@ -680,7 +677,7 @@ shape_owner = NodePath("../../../..")
 body_part = 4
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_forearm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="8" unique_id=1904548600]
+[node name="bone_forearm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="8" unique_id=1904548600]
 transform = Transform3D(0.018362403, -0.5026501, -0.86429507, -0.076667905, -0.8626033, 0.50003755, -0.9968877, 0.057081755, -0.05437655, -0.35900283, 1.2810649, -0.042991012)
 bone_name = "forearm_stretch.r"
 bone_idx = 14
@@ -698,7 +695,7 @@ shape_owner = NodePath("../../../..")
 body_part = 5
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_forearm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="9" unique_id=1985206856]
+[node name="bone_forearm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="9" unique_id=1985206856]
 transform = Transform3D(0.018362403, 0.5026501, 0.86429507, 0.076667905, -0.8626033, 0.50003755, 0.9968877, 0.057081755, -0.05437655, 0.35900283, 1.2810649, -0.042991012)
 bone_name = "forearm_stretch.l"
 bone_idx = 12
@@ -716,7 +713,7 @@ shape_owner = NodePath("../../../..")
 body_part = 4
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_hand_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="10" unique_id=1212985217]
+[node name="bone_hand_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="10" unique_id=1212985217]
 transform = Transform3D(-0.13483298, -0.6281786, -0.7662973, 0.10313892, -0.7780559, 0.6196702, -0.98548585, 0.0045169587, 0.16969724, -0.4741175, 1.0835153, -0.029918343)
 bone_name = "hand.r"
 bone_idx = 28
@@ -734,7 +731,7 @@ shape_owner = NodePath("../../../..")
 body_part = 7
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_hand_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="11" unique_id=1810520882]
+[node name="bone_hand_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="11" unique_id=1810520882]
 transform = Transform3D(-0.13483298, 0.6281786, 0.7662973, -0.10313892, -0.7780559, 0.6196702, 0.98548585, 0.0045169587, 0.16969724, 0.4741175, 1.0835153, -0.029918343)
 bone_name = "hand.l"
 bone_idx = 16
@@ -752,7 +749,7 @@ shape_owner = NodePath("../../../..")
 body_part = 6
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_thigh_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="12" unique_id=719220218]
+[node name="bone_thigh_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="12" unique_id=719220218]
 transform = Transform3D(0.028263964, -0.02401816, -0.9993136, -0.04904186, -0.9985406, 0.022612598, -0.9983971, 0.04836897, -0.029400604, -0.10207939, 1.121922, -0.009390037)
 bone_name = "thigh_twist.r"
 bone_idx = 47
@@ -783,7 +780,7 @@ shape_owner = NodePath("../../../..")
 body_part = 9
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_thigh_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="13" unique_id=421955303]
+[node name="bone_thigh_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="13" unique_id=421955303]
 transform = Transform3D(0.028263789, 0.024018152, 0.9993136, 0.04904186, -0.9985406, 0.022612598, 0.9983971, 0.04836898, -0.029400429, 0.10207939, 1.121922, -0.009390037)
 bone_name = "thigh_twist.l"
 bone_idx = 44
@@ -814,7 +811,7 @@ shape_owner = NodePath("../../../..")
 body_part = 8
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_leg_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="14" unique_id=680538976]
+[node name="bone_leg_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="14" unique_id=680538976]
 transform = Transform3D(0.029600263, -0.022349685, -0.9993121, 0.008573711, -0.9997076, 0.022612454, -0.99952507, -0.00923717, -0.029399876, -0.11319458, 0.65981233, 0.0129944235)
 bone_name = "leg_stretch.r"
 bone_idx = 6
@@ -845,7 +842,7 @@ shape_owner = NodePath("../../../..")
 body_part = 6
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_leg_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="15" unique_id=929923625]
+[node name="bone_leg_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="15" unique_id=929923625]
 transform = Transform3D(0.029600263, 0.022349685, 0.9993121, -0.008573711, -0.9997076, 0.022612454, 0.99952507, -0.00923717, -0.029399876, 0.11319458, 0.65981233, 0.0129944235)
 bone_name = "leg_stretch.l"
 bone_idx = 4
@@ -876,7 +873,7 @@ shape_owner = NodePath("../../../..")
 body_part = 8
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_foot_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="16" unique_id=1666405884]
+[node name="bone_foot_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="16" unique_id=1666405884]
 transform = Transform3D(-0.9999925, 0.0033830525, 0.001916315, 1.4795223e-06, -0.492536, 0.87029237, 0.003888097, 0.8702859, 0.4925322, -0.12573597, 0.09883187, 0.007811008)
 bone_name = "foot.r"
 bone_idx = 45
@@ -894,7 +891,7 @@ shape_owner = NodePath("../../../..")
 body_part = 11
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="bone_foot_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="17" unique_id=1312365284]
+[node name="bone_foot_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="17" unique_id=1312365284]
 transform = Transform3D(-0.9999925, -0.0033830325, -0.0019161057, -1.3072276e-06, -0.492536, 0.87029237, -0.0038879763, 0.8702859, 0.4925322, 0.12573597, 0.09883187, 0.007811008)
 bone_name = "foot.l"
 bone_idx = 42
@@ -912,7 +909,7 @@ shape_owner = NodePath("../../../..")
 body_part = 10
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
-[node name="LookAtModifier3D" type="LookAtModifier3D" parent="rig_deform/Skeleton3D" index="32" unique_id=573662550]
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="rig_deform/Skeleton3D" parent_id_path=PackedInt32Array(1290619033) index="32" unique_id=573662550]
 unique_name_in_owner = true
 active = false
 target_node = NodePath("../../../LookAtTesting")
@@ -973,6 +970,7 @@ active = false
 [node name="DebugLabel" type="Label3D" parent="." index="7" unique_id=407016320]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0982058, 0)
+visible = false
 billboard = 1
 text = "false"
 outline_size = 7

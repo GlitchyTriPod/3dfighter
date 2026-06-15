@@ -39,12 +39,12 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "animations": {
-"ground_wakeup_g_BAKED": {
+"idle_standing_BAKED": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://models/animations/hugh/hugh_ground_wakeup_g.res",
+"save_to_file/fallback_path": "res://models/animations/hugh/hugh_idle_standing.res",
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "uid://d1ea6g43vqus3",
-"settings/loop_mode": 0,
+"save_to_file/path": "uid://cbxjk4adfvpw",
+"settings/loop_mode": 1,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
 "slice_1/name": "",
