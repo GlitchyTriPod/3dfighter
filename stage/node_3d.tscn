@@ -42,6 +42,51 @@ material = SubResource("StandardMaterial3D_sbvmg")
 [node name="Stage" type="Node3D" unique_id=1275674766]
 physics_interpolation_mode = 2
 script = ExtResource("1_u2wdh")
+stage_bounds = Array[Dictionary]([Dictionary[StringName, Variant]({
+&"end": {
+&"x": -393216,
+&"z": -786432
+},
+&"start": {
+&"x": -393216,
+&"z": 786432
+},
+&"x_positive": true,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 2113536,
+&"z": -786432
+},
+&"start": {
+&"x": -393216,
+&"z": -786432
+},
+&"x_positive": true,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 2113536,
+&"z": 786432
+},
+&"start": {
+&"x": 2113536,
+&"z": -786432
+},
+&"x_positive": false,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": -393216,
+&"z": 786432
+},
+&"start": {
+&"x": 2113536,
+&"z": 786432
+},
+&"x_positive": true,
+&"z_positive": false
+})])
 
 [node name="InputListener" type="Node" parent="." unique_id=177585175 groups=["network_sync"]]
 script = ExtResource("2_a83cb")
@@ -88,28 +133,72 @@ player = 1
 visible = false
 script = ExtResource("9_cqpjc")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=754994321]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9.034046, 0)
+
+[node name="StageBounds" type="CollisionPolygon3D" parent="StaticBody3D" unique_id=301056802]
+unique_name_in_owner = true
+depth = 18.56
+polygon = PackedVector2Array(-6, 12, -6, -12, 32.25, -12, 32.25, 12)
+debug_color = Color(1, 0.7833333, 0, 1)
+
 [node name="walls" type="Node" parent="." unique_id=1265710321]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="walls" unique_id=1775873844]
-transform = Transform3D(6.2016993, 0, 0, 0, -4.371139e-08, 6.2016993, 0, -1, -2.7108487e-07, 0, 6.227264, 12.040108)
+transform = Transform3D(6.2016993, 0, 0, 0, -4.371139e-08, 6.2016993, 0, -1, -2.7108487e-07, 0, 5.1035485, 12.040108)
+mesh = SubResource("PlaneMesh_7qbm1")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="walls" unique_id=978193824]
+transform = Transform3D(6.2016993, 0, 0, 0, -4.371139e-08, 6.2016993, 0, -1, -2.7108487e-07, 12.182522, 5.1035485, 12.040108)
+mesh = SubResource("PlaneMesh_7qbm1")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="walls" unique_id=296553043]
+transform = Transform3D(6.2016993, 0, 0, 0, -4.371139e-08, 6.2016993, 0, -1, -2.7108487e-07, 24.350876, 5.1035485, 12.040108)
 mesh = SubResource("PlaneMesh_7qbm1")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="walls" unique_id=225778806]
-transform = Transform3D(-6.201699, 8.742277e-08, 2.3698993e-14, 0, -4.371139e-08, 6.201699, 5.4216974e-07, 1, 2.7108493e-07, 0, 6.227264, -12.028753)
+transform = Transform3D(-6.201699, 8.742277e-08, 2.3698993e-14, 0, -4.371139e-08, 6.201699, 5.4216974e-07, 1, 2.7108493e-07, 0, 5.1035485, -12.028753)
+mesh = SubResource("PlaneMesh_7qbm1")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="walls" unique_id=98191211]
+transform = Transform3D(-6.201699, 8.742277e-08, 2.3698993e-14, 0, -4.371139e-08, 6.201699, 5.4216974e-07, 1, 2.7108493e-07, 12.398306, 5.1035485, -12.028753)
+mesh = SubResource("PlaneMesh_7qbm1")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="walls" unique_id=1490882118]
+transform = Transform3D(-6.201699, 8.742277e-08, 2.3698993e-14, 0, -4.371139e-08, 6.201699, 5.4216974e-07, 1, 2.7108493e-07, 24.561874, 5.1035485, -12.028753)
 mesh = SubResource("PlaneMesh_7qbm1")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="walls" unique_id=1872449590]
-transform = Transform3D(-2.7108487e-07, 1, 0, 2.7108487e-07, -3.5527137e-15, 6.2016993, 6.2016993, 4.371139e-08, -2.7108487e-07, -6.0697527, 6.227263, 6.284446)
+transform = Transform3D(-2.7108487e-07, 1, 0, 2.7108487e-07, -3.5527137e-15, 6.2016993, 6.2016993, 4.371139e-08, -2.7108487e-07, -6.0697527, 5.1035476, 6.284446)
 mesh = SubResource("PlaneMesh_7qbm1")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="walls" unique_id=18113574]
-transform = Transform3D(-2.7108487e-07, 1, 0, 2.7108487e-07, -3.5527137e-15, 6.2016993, 6.2016993, 4.371139e-08, -2.7108487e-07, -6.0697527, 6.227263, -6.0878534)
+transform = Transform3D(-2.7108487e-07, 1, 0, 2.7108487e-07, -3.5527137e-15, 6.2016993, 6.2016993, 4.371139e-08, -2.7108487e-07, -6.0697527, 5.1035476, -6.0878534)
 mesh = SubResource("PlaneMesh_7qbm1")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="walls" unique_id=754994321]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9.034046, 0)
+[node name="Debug" type="Node" parent="." unique_id=1525088396]
+unique_name_in_owner = true
 
-[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="walls/StaticBody3D" unique_id=301056802]
-depth = 18.56
-polygon = PackedVector2Array(-6.07, 11.845, -6.055, -12.005, 32.22, -12.015, 32.275, 12.02)
-debug_color = Color(0.91, 0, 0.7280002, 1)
+[node name="@RayCast3D@71886" type="RayCast3D" parent="Debug" unique_id=970398967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
+target_position = Vector3(3, 0, 0)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@RayCast3D@71887" type="RayCast3D" parent="Debug" unique_id=1771771230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.125, 2, -12)
+target_position = Vector3(0, 0, 3)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@RayCast3D@71888" type="RayCast3D" parent="Debug" unique_id=1651045113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.25, 2, 0)
+target_position = Vector3(-3, 0, 0)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@RayCast3D@71889" type="RayCast3D" parent="Debug" unique_id=1613357633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.125, 2, 12)
+target_position = Vector3(0, 0, -3)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
