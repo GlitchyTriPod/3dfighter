@@ -13,6 +13,8 @@ class_name Stage
 @export_tool_button("Generate Stage Bounds") var stage_bounds_button: Callable = generate_stage_bounds
 @export var stage_bounds: Array[Dictionary]
 @export_tool_button("Update Bound Normals Display") var bound_normals_button: Callable = update_stage_bound_normals
+@export_storage var stage_wall_detection_areas: Array[Dictionary]
+@export_tool_button("Update Wall Detection Areas") var wall_detection_button: Callable = update_wall_detection_areas
 
 var fighter_message_bus: FighterMessageBus = FighterMessageBus.new()
 
@@ -51,6 +53,32 @@ func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
 		StageGarbageCollection.CollectGarbage()
 		return
+
+# ============ GAME FUNCTIONS =================
+
+# Checks the player location against the stage's wall areas, and returns the combined normal
+func get_player_wall_influence(player_loc: FixedVector3) -> FixedVector3:
+	var combined_normals: Array[FixedVector3] = []
+
+	for entry: Dictionary[StringName, Variant] in self.stage_wall_detection_areas:
+		if CollisionMath.IsInsidePolygon(player_loc, entry[&'extents'] as Array[FixedVector3]):
+			combined_normals.append(entry[&'normal'])
+
+		if combined_normals.size() >= 2:
+			break
+
+	if combined_normals.is_empty():
+		return FixedVector3.new()
+	elif combined_normals.size() == 1:
+		return combined_normals[0]
+
+	var normal_accum: FixedVector3
+	for i: int in range(1, combined_normals.size()):
+		if i == 1:
+			normal_accum = combined_normals[0]
+		normal_accum = combined_normals[i].Cross(normal_accum)
+	
+	return normal_accum.Normalized()
 
 
 
@@ -109,4 +137,72 @@ func update_stage_bound_normals() -> void:
 			ray.target_position.z = -absf(ray.target_position.z)
 
 		%Debug.add_child(ray)
+
+		var index: int = self.stage_bounds.find(entry)
+
+		var label: Label3D = Label3D.new()
+
+		label.text = str(index)
+		label.position.y = 1
+		label.scale *= 10
+		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		label.no_depth_test = true
+		ray.add_child(label)
+
 		ray.owner = EditorInterface.get_edited_scene_root()
+		label.owner = EditorInterface.get_edited_scene_root()
+
+func update_wall_detection_areas() -> void:
+	var toaster: EditorToaster = EditorInterface.get_editor_toaster()
+	if self.stage_bounds.size() != self.stage_wall_detection_areas.size() && !self.stage_wall_detection_areas.is_empty():
+		toaster.push_toast("Number of Wall Areas does not match number of Stage Bounds.", EditorToaster.SEVERITY_ERROR)
+		return
+
+	self.stage_wall_detection_areas.clear()
+
+	var wall_detection_areas: Array[Node] = get_tree().get_nodes_in_group(&"StageWallDetectionAreas")
+	wall_detection_areas.sort_custom(
+		func(a: CollisionPolygon3D, b: CollisionPolygon3D) -> bool:
+			return int(a.name) > int(b.name)
+	)
+
+	for idx: int in wall_detection_areas.size():
+		var area: CollisionPolygon3D = wall_detection_areas[idx]
+
+		var wall_bound: Dictionary = self.stage_bounds[idx]
+		var normal: Vector3 = Vector3()
+
+		normal.x = FixedInt.ToFloat(wall_bound[&"end"][&"z"]) - FixedInt.ToFloat(wall_bound[&"start"][&"z"])
+		normal.y = 0.0 
+		normal.z = FixedInt.ToFloat(wall_bound[&"end"][&"x"]) - FixedInt.ToFloat(wall_bound[&"start"][&"x"])
+
+		if wall_bound[&"x_positive"]:
+			normal.x = absf(normal.x)
+		else:
+			normal.x = -absf(normal.x)
+		if wall_bound[&"z_positive"]:
+			normal.z = absf(normal.z)
+		else:
+			normal.z = -absf(normal.z)
+		
+		var entry: Dictionary[StringName, Variant] = {
+			&"wall_id": idx,
+			&"extents": [
+				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[0].x), 0, FixedInt.FromFloat(area.polygon[0].y)),
+				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[1].x), 0, FixedInt.FromFloat(area.polygon[1].y)),
+				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[2].x), 0, FixedInt.FromFloat(area.polygon[2].y)),
+				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[3].x), 0, FixedInt.FromFloat(area.polygon[3].y))
+				# { &"x": FixedInt.FromFloat(area.polygon[1].x), &"z": FixedInt.FromFloat(area.polygon[1].y) },
+				# { &"x": FixedInt.FromFloat(area.polygon[2].x), &"z": FixedInt.FromFloat(area.polygon[2].y) },
+				# { &"x": FixedInt.FromFloat(area.polygon[3].x), &"z": FixedInt.FromFloat(area.polygon[3].y) }
+			],
+			&"normal": FixedVector3.NewFromVec3(normal)
+			# 	{
+			# 	&"x": FixedInt.FromFloat(normal.x),
+			# 	&"z": FixedInt.FromFloat(normal.z)
+			# }
+		}
+
+		self.stage_wall_detection_areas.append(entry)
+	
+	toaster.push_toast("Wall Detection Areas saved!")

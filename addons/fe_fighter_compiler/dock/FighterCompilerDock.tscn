@@ -38,6 +38,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 allow_reselect = true
+search_bar_enabled = true
 
 [node name="SeekBack" type="Button" parent="MainView/AnimationControls" unique_id=1414775378]
 unique_name_in_owner = true

@@ -109,6 +109,7 @@ text = "XX Frames"
 [node name="MoveAnimationOption" type="OptionButton" parent="MarginContainer/VBoxContainer" unique_id=719206318]
 unique_name_in_owner = true
 layout_mode = 2
+search_bar_enabled = true
 
 [node name="LookAtEnemy" type="CheckBox" parent="MarginContainer/VBoxContainer" unique_id=727869116]
 unique_name_in_owner = true
@@ -372,6 +373,7 @@ text = "Recovers to: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+search_bar_enabled = true
 
 [node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1567512433]
 layout_mode = 2
@@ -388,6 +390,7 @@ text = "On Block [Opp]: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+search_bar_enabled = true
 
 [node name="MarginContainer9" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=434224328]
 layout_mode = 2
@@ -409,6 +412,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
+search_bar_enabled = true
 
 [node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=405285444]
 layout_mode = 2
@@ -425,6 +429,7 @@ text = "On Hit [Opp]: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+search_bar_enabled = true
 
 [node name="MarginContainer7" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1321911684]
 layout_mode = 2
@@ -446,6 +451,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
+search_bar_enabled = true
 
 [node name="MarginContainer8" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=2125250220]
 layout_mode = 2
@@ -462,6 +468,7 @@ text = "On Back Hit [Opp]: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+search_bar_enabled = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer" unique_id=1921473228]
 layout_mode = 2
@@ -483,6 +490,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
+search_bar_enabled = true
 
 [node name="MarginContainer8" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=163600547]
 layout_mode = 2
@@ -504,6 +512,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
+search_bar_enabled = true
 
 [node name="MarginContainer9" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1986810296]
 layout_mode = 2
@@ -525,6 +534,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
+search_bar_enabled = true
 
 [node name="MarginContainer10" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=909437311]
 layout_mode = 2
@@ -541,6 +551,7 @@ text = "  On Air Hit: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+search_bar_enabled = true
 
 [node name="MarginContainer12" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=379576270]
 layout_mode = 2
@@ -557,6 +568,7 @@ text = "  On Ground Hit: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+search_bar_enabled = true
 
 [node name="MarginContainer11" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=244572703]
 layout_mode = 2

@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="3dFighter"
 run/main_scene="uid://cwmug0477s5fu"
-config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
+config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 

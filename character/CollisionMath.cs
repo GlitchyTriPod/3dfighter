@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FatalException.FEMath;
 using Godot;
+using Godot.Collections;
 
 [GlobalClass]
 public partial class CollisionMath : GodotObject
@@ -76,5 +77,33 @@ public partial class CollisionMath : GodotObject
             return true;
         }
         return false;
+    }
+
+    public static bool IsInsidePolygon(FixedVector3 loc, FixedVector3[] extents)
+    {
+        bool initValue = false;
+        for (int i = 0; i < extents.Length; i++)
+        {  
+            FixedVector3 start = extents[i];
+            FixedVector3 end = extents[i + 1 >= extents.Length ? 0 : i + 1];
+
+            if (i == 0)
+            {                
+                initValue = IsLeftOrOnLine(loc, start, end);
+                continue;
+            }
+
+            if (IsLeftOrOnLine(loc, start, end) != initValue)
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    private static bool IsLeftOrOnLine(FixedVector3 loc, FixedVector3 start, FixedVector3 end)
+    {
+        return (loc.z - start.z) * (end.x - start.x) - (loc.x - start.x) * (end.z - start.z) >= 0;
     }
 }

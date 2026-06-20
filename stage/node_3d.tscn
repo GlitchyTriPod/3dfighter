@@ -87,6 +87,83 @@ stage_bounds = Array[Dictionary]([Dictionary[StringName, Variant]({
 &"x_positive": true,
 &"z_positive": false
 })])
+stage_wall_detection_areas = Array[Dictionary]([Dictionary[StringName, Variant]({
+&"extents": [{
+&"x": -393216,
+&"z": 655360
+}, {
+&"x": 2113536,
+&"z": 655360
+}, {
+&"x": 2113536,
+&"z": 786432
+}, {
+&"x": -393216,
+&"z": 786432
+}],
+&"normal": {
+&"x": 1572864,
+&"z": 0
+},
+&"wall_id": 0
+}), Dictionary[StringName, Variant]({
+&"extents": [{
+&"x": 1982464,
+&"z": 786432
+}, {
+&"x": 2113536,
+&"z": 786432
+}, {
+&"x": 2113536,
+&"z": -786432
+}, {
+&"x": 1982464,
+&"z": -786432
+}],
+&"normal": {
+&"x": 0,
+&"z": 2506752
+},
+&"wall_id": 1
+}), Dictionary[StringName, Variant]({
+&"extents": [{
+&"x": -393216,
+&"z": -786432
+}, {
+&"x": 2113536,
+&"z": -786432
+}, {
+&"x": 2113536,
+&"z": -655360
+}, {
+&"x": -393216,
+&"z": -655360
+}],
+&"normal": {
+&"x": -1572864,
+&"z": 0
+},
+&"wall_id": 2
+}), Dictionary[StringName, Variant]({
+&"extents": [{
+&"x": -393216,
+&"z": 786432
+}, {
+&"x": -262144,
+&"z": 786432
+}, {
+&"x": -262144,
+&"z": -786432
+}, {
+&"x": -393216,
+&"z": -786432
+}],
+&"normal": {
+&"x": 0,
+&"z": -2506752
+},
+&"wall_id": 3
+})])
 
 [node name="InputListener" type="Node" parent="." unique_id=177585175 groups=["network_sync"]]
 script = ExtResource("2_a83cb")
@@ -133,15 +210,6 @@ player = 1
 visible = false
 script = ExtResource("9_cqpjc")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=754994321]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9.034046, 0)
-
-[node name="StageBounds" type="CollisionPolygon3D" parent="StaticBody3D" unique_id=301056802]
-unique_name_in_owner = true
-depth = 18.56
-polygon = PackedVector2Array(-6, 12, -6, -12, 32.25, -12, 32.25, 12)
-debug_color = Color(1, 0.7833333, 0, 1)
-
 [node name="walls" type="Node" parent="." unique_id=1265710321]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="walls" unique_id=1775873844]
@@ -176,29 +244,90 @@ mesh = SubResource("PlaneMesh_7qbm1")
 transform = Transform3D(-2.7108487e-07, 1, 0, 2.7108487e-07, -3.5527137e-15, 6.2016993, 6.2016993, 4.371139e-08, -2.7108487e-07, -6.0697527, 5.1035476, -6.0878534)
 mesh = SubResource("PlaneMesh_7qbm1")
 
-[node name="Debug" type="Node" parent="." unique_id=1525088396]
+[node name="StageCollision" type="Node" parent="." unique_id=1617267699]
+
+[node name="StageBoundsBox" type="StaticBody3D" parent="StageCollision" unique_id=754994321]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9.034046, 0)
+
+[node name="StageBounds" type="CollisionPolygon3D" parent="StageCollision/StageBoundsBox" unique_id=301056802]
+unique_name_in_owner = true
+depth = 18.56
+polygon = PackedVector2Array(-6, 12, -6, -12, 32.25, -12, 32.25, 12)
+debug_color = Color(1, 0.7833333, 0, 1)
+
+[node name="WallDetectionAreas" type="StaticBody3D" parent="StageCollision" unique_id=1803922570]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 5.7166004, 0)
+collision_layer = 0
+collision_mask = 0
+input_ray_pickable = false
+
+[node name="0" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=1201233793 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(-6, 12, -4, 12, -4, -12, -6, -12)
+debug_color = Color(0.63000005, 0, 0.7, 1)
+
+[node name="1" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=1407901244 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(-6, -12, 32.25, -12, 32.25, -10, -6, -10)
+debug_color = Color(0.7, 0, 0.011666489, 1)
+
+[node name="2" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=710804314 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(30.25, 12, 32.25, 12, 32.25, -12, 30.25, -12)
+debug_color = Color(0.63000005, 0, 0.7, 1)
+
+[node name="3" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=900832971 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(-6, 10, 32.25, 10, 32.25, 12, -6, 12)
+debug_color = Color(0, 0.7, 0.175, 1)
+
+[node name="Debug" type="Node" parent="StageCollision" unique_id=1525088396]
 unique_name_in_owner = true
 
-[node name="@RayCast3D@71886" type="RayCast3D" parent="Debug" unique_id=970398967]
+[node name="@RayCast3D@27682" type="RayCast3D" parent="StageCollision/Debug" unique_id=1285868948]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
 target_position = Vector3(3, 0, 0)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@RayCast3D@71887" type="RayCast3D" parent="Debug" unique_id=1771771230]
+[node name="@Label3D@27683" type="Label3D" parent="StageCollision/Debug/@RayCast3D@27682" unique_id=201196661]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "0"
+
+[node name="@RayCast3D@27684" type="RayCast3D" parent="StageCollision/Debug" unique_id=2054264279]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.125, 2, -12)
 target_position = Vector3(0, 0, 3)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@RayCast3D@71888" type="RayCast3D" parent="Debug" unique_id=1651045113]
+[node name="@Label3D@27685" type="Label3D" parent="StageCollision/Debug/@RayCast3D@27684" unique_id=414262992]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "1"
+
+[node name="@RayCast3D@27686" type="RayCast3D" parent="StageCollision/Debug" unique_id=1756297255]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.25, 2, 0)
 target_position = Vector3(-3, 0, 0)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@RayCast3D@71889" type="RayCast3D" parent="Debug" unique_id=1613357633]
+[node name="@Label3D@27687" type="Label3D" parent="StageCollision/Debug/@RayCast3D@27686" unique_id=1574868419]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "2"
+
+[node name="@RayCast3D@27688" type="RayCast3D" parent="StageCollision/Debug" unique_id=1377942583]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.125, 2, 12)
 target_position = Vector3(0, 0, -3)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
+
+[node name="@Label3D@27689" type="Label3D" parent="StageCollision/Debug/@RayCast3D@27688" unique_id=1294210531]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "3"
