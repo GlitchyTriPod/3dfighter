@@ -34,6 +34,7 @@ func _ready() -> void:
 	# 	self.post_processing_node.visible = true
 
 	self.fighter_message_bus.game_camera = self.game_camera
+	self.fighter_message_bus.stage_bounds = self.stage_bounds
 
 	for c: Fighter in char_container.get_children():
 		# c.stage = self
@@ -56,31 +57,55 @@ func _process(_delta: float) -> void:
 
 # ============ GAME FUNCTIONS =================
 
-# Checks the player location against the stage's wall areas, and returns the combined normal
-func get_player_wall_influence(player_loc: FixedVector3) -> FixedVector3:
-	var combined_normals: Array[FixedVector3] = []
+# Checks the player location against the stage's wall areas, and returns the wall ids & combined normal
+func get_player_wall_influence(p1_loc: FixedVector3, p2_loc: FixedVector3) -> Dictionary[StringName, Variant]:
+	var p1_combined_normals: Array[FixedVector3] = []
+	var p1_wall_ids: PackedInt64Array = []
+	var p2_combined_normals: Array[FixedVector3] = []
+	var p2_wall_ids: PackedInt64Array = []
 
 	for entry: Dictionary[StringName, Variant] in self.stage_wall_detection_areas:
-		if CollisionMath.IsInsidePolygon(player_loc, entry[&'extents'] as Array[FixedVector3]):
-			combined_normals.append(entry[&'normal'])
 
-		if combined_normals.size() >= 2:
+		var vals: Array[bool] = CollisionMath.IsInsidePolygon(p1_loc, p2_loc, entry[&"extents"])
+
+		if vals[0]:
+			p1_combined_normals.append(entry[&"normal"])
+			p1_wall_ids.append(entry[&"wall_id"])
+
+		if vals[1]:
+			p2_combined_normals.append(entry[&"normal"])
+			p2_wall_ids.append(entry[&"wall_id"])
+
+		if p1_combined_normals.size() >= 2 && p2_combined_normals.size() >= 2:
 			break
+	
+	return {
+		&"p1": combine_wall_data(p1_combined_normals, p1_wall_ids),
+		&"p2": combine_wall_data(p2_combined_normals, p2_wall_ids),
+	}
 
+func combine_wall_data(combined_normals: Array[FixedVector3], wall_ids: PackedInt64Array) -> Dictionary[StringName, Variant]:
 	if combined_normals.is_empty():
-		return FixedVector3.new()
-	elif combined_normals.size() == 1:
-		return combined_normals[0]
+		return {
+			&"wall_ids": wall_ids,
+			&"normal": FixedVector3.new()
+		}
+	if combined_normals.size() == 1:
+		return {
+			&"wall_ids": wall_ids,
+			&"normal": combined_normals[0]
+		}
 
 	var normal_accum: FixedVector3
 	for i: int in range(1, combined_normals.size()):
 		if i == 1:
 			normal_accum = combined_normals[0]
-		normal_accum = combined_normals[i].Cross(normal_accum)
+		normal_accum = FixedVector3.Add(normal_accum, combined_normals[i]).Normalized()
 	
-	return normal_accum.Normalized()
-
-
+	return {
+		&"wall_ids": wall_ids,
+		&"normal": normal_accum
+	}
 
 # ============ EDITOR FUNCTIONS ===============
 
@@ -172,35 +197,28 @@ func update_wall_detection_areas() -> void:
 		var wall_bound: Dictionary = self.stage_bounds[idx]
 		var normal: Vector3 = Vector3()
 
-		normal.x = FixedInt.ToFloat(wall_bound[&"end"][&"z"]) - FixedInt.ToFloat(wall_bound[&"start"][&"z"])
+		normal.x = FixedInt.ToFloat(wall_bound[&"end"][&"x"]) - FixedInt.ToFloat(wall_bound[&"start"][&"x"])
 		normal.y = 0.0 
-		normal.z = FixedInt.ToFloat(wall_bound[&"end"][&"x"]) - FixedInt.ToFloat(wall_bound[&"start"][&"x"])
+		normal.z = FixedInt.ToFloat(wall_bound[&"end"][&"z"]) - FixedInt.ToFloat(wall_bound[&"start"][&"z"])
 
 		if wall_bound[&"x_positive"]:
-			normal.x = absf(normal.x)
-		else:
 			normal.x = -absf(normal.x)
-		if wall_bound[&"z_positive"]:
-			normal.z = absf(normal.z)
 		else:
+			normal.x = absf(normal.x)
+		if wall_bound[&"z_positive"]:
 			normal.z = -absf(normal.z)
+		else:
+			normal.z = absf(normal.z)
 		
 		var entry: Dictionary[StringName, Variant] = {
-			&"wall_id": idx,
+			&"wall_id": int(area.name),
 			&"extents": [
 				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[0].x), 0, FixedInt.FromFloat(area.polygon[0].y)),
 				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[1].x), 0, FixedInt.FromFloat(area.polygon[1].y)),
 				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[2].x), 0, FixedInt.FromFloat(area.polygon[2].y)),
 				FixedVector3.NewFromInt(FixedInt.FromFloat(area.polygon[3].x), 0, FixedInt.FromFloat(area.polygon[3].y))
-				# { &"x": FixedInt.FromFloat(area.polygon[1].x), &"z": FixedInt.FromFloat(area.polygon[1].y) },
-				# { &"x": FixedInt.FromFloat(area.polygon[2].x), &"z": FixedInt.FromFloat(area.polygon[2].y) },
-				# { &"x": FixedInt.FromFloat(area.polygon[3].x), &"z": FixedInt.FromFloat(area.polygon[3].y) }
 			],
-			&"normal": FixedVector3.NewFromVec3(normal)
-			# 	{
-			# 	&"x": FixedInt.FromFloat(normal.x),
-			# 	&"z": FixedInt.FromFloat(normal.z)
-			# }
+			&"normal": FixedVector3.NewFromVec3(normal).Normalized()
 		}
 
 		self.stage_wall_detection_areas.append(entry)

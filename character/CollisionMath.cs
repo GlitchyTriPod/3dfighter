@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using FatalException.FEMath;
@@ -79,31 +80,48 @@ public partial class CollisionMath : GodotObject
         return false;
     }
 
-    public static bool IsInsidePolygon(FixedVector3 loc, FixedVector3[] extents)
+    public static Array<bool> IsInsidePolygon(FixedVector3 p1_loc, FixedVector3 p2_loc, FixedVector3[] extents)
     {
-        bool initValue = false;
+        bool ValueP1 = false;
+        bool ValueP2 = false;
+
         for (int i = 0; i < extents.Length; i++)
         {  
             FixedVector3 start = extents[i];
             FixedVector3 end = extents[i + 1 >= extents.Length ? 0 : i + 1];
 
-            if (i == 0)
-            {                
-                initValue = IsLeftOrOnLine(loc, start, end);
-                continue;
+            if (((end.z > p1_loc.z) != (start.z > p1_loc.z) ) &&
+                (p1_loc.x < FixedInt.Div(FixedInt.Mul(start.x - end.x, p1_loc.z - end.z), start.z - end.z) + end.x))
+            {
+                ValueP1 = !ValueP1;
             }
 
-            if (IsLeftOrOnLine(loc, start, end) != initValue)
+            if (((end.z > p2_loc.z) != (start.z > p2_loc.z)) &&
+                (p2_loc.x < FixedInt.Div(FixedInt.Mul(start.x - end.x, p2_loc.z - end.z), start.z - end.z) + end.x))
             {
-                return false;
+                ValueP2 = !ValueP2;
             }
+            
         }
-        
-        return true;
+        return [ValueP1, ValueP2];
     }
 
     private static bool IsLeftOrOnLine(FixedVector3 loc, FixedVector3 start, FixedVector3 end)
     {
-        return (loc.z - start.z) * (end.x - start.x) - (loc.x - start.x) * (end.z - start.z) >= 0;
+        return FixedInt.Mul(loc.x - start.x, end.z - start.z) - FixedInt.Mul(loc.z - start.z, end.x - start.x) >= 0;
+    }
+
+    public static long CalculateWallPushback(long startX, long startZ, long endX, long endZ, FixedVector3 loc, long radius)
+    {
+        FixedVector3 start = new FixedVector3(startX, loc.y, startZ);
+        FixedVector3 end = new FixedVector3(endX, loc.y, endZ);
+
+        FixedVector3 AB = end - start;
+        FixedVector3 AC = loc - start;
+
+        FixedVector3 AD = FixedVector3.Mul(AB, FixedInt.Div(AB.Dot2D(AC), AB.Dot2D(AB)));
+        FixedVector3 D = start + AD;
+
+        return loc.DistanceSquaredTo(D);
     }
 }

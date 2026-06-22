@@ -14,8 +14,26 @@ var is_online_match : bool = false
 func _network_preprocess(_input: Dictionary) -> void:
 	var stage: Stage = self.get_parent()
 
-	self.player_1.wall_normal = stage.get_player_wall_influence(self.player_1.collision_body.fixed_position)
-	self.player_2.wall_normal = stage.get_player_wall_influence(self.player_2.collision_body.fixed_position)
+	var wall_data: Dictionary[StringName, Variant] = \
+		stage.get_player_wall_influence(
+			self.player_1.collision_body.fixed_position,
+			self.player_2.collision_body.fixed_position
+		)
+
+	self.player_1.wall_ids = wall_data[&"p1"][&"wall_ids"]
+	self.player_1.wall_normal = wall_data[&"p1"][&"normal"]
+	self.player_2.wall_ids = wall_data[&"p2"][&"wall_ids"]
+	self.player_2.wall_normal = wall_data[&"p2"][&"normal"]
+
+	# var p1_wall_data: Dictionary[StringName, Variant] = \
+	# 	stage.get_player_wall_influence(self.player_1.collision_body.fixed_position)
+	# self.player_1.wall_normal = p1_wall_data[&'normal']
+	# self.player_1.wall_ids = p1_wall_data[&'wall_ids']
+
+	# var p2_wall_data: Dictionary[StringName, Variant] = \
+	# 	stage.get_player_wall_influence(self.player_2.collision_body.fixed_position)
+	# self.player_2.wall_normal = p2_wall_data[&'normal']
+	# self.player_2.wall_ids = p2_wall_data[&'wall_ids']
 	
 
 # Called every network tick.
@@ -43,4 +61,3 @@ func _network_process(_input: Dictionary) -> void:
 	#advance player animations based on inputs & game state
 	self.player_1.process_movement(self._delta_int, p2_blocked)
 	self.player_2.process_movement(self._delta_int, p1_blocked)
-

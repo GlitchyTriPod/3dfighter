@@ -288,6 +288,23 @@ public partial class FixedVector3 : RefCounted
 
 		return euler;
 	}
+
+	public static FixedVector3 Project2D(FixedVector3 a, FixedVector3 b)
+	{	// project a onto b
+		// formula: b(dot(a,b)/(|b|^2))
+		long abdot = a.Dot2D(b);
+		long blensq = b.Dot2D(b);
+
+		long temp = FixedInt.Div(abdot, blensq);
+		
+		return new FixedVector3(FixedInt.Mul(b.x, temp), 0, FixedInt.Mul(b.z, temp));
+	}
+
+	public static long Hypot2(FixedVector3 a, FixedVector3 b)
+	{
+		return (a - b).Dot2D(a - b);
+	}
+
 	#endregion
 
 	#region  METHODS
@@ -317,6 +334,15 @@ public partial class FixedVector3 : RefCounted
 			FixedInt.Mul(this.x, vec2.y) - FixedInt.Mul(this.y, vec2.x)
 		);
 	}
+
+	// public FixedVector3 Cross2D(FixedVector3 vec2)
+	// {
+	// 	return new FixedVector3(
+	// 		FixedInt.Mul(this.y, vec2.z) - FixedInt.Mul(this.z, vec2.y),
+	// 		0, // FixedInt.Mul(this.z, vec2.x) - FixedInt.Mul(this.x, vec2.z),
+	// 		FixedInt.Mul(this.x, vec2.y) - FixedInt.Mul(this.y, vec2.x)
+	// 	);
+	// }
 
 	public long Length()
 	{

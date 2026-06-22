@@ -5,6 +5,8 @@ var player_1 : Fighter
 var player_2 : Fighter
 var game_camera : GameCamera
 
+var stage_bounds: Array[Dictionary] = []
+
 func get_oppo_current_animation_data(player: Fighter, id: StringName) -> FighterAnimationData:
 	var oppo: Fighter
 	if player == self.player_1:
@@ -76,3 +78,9 @@ func get_oppo_fixed_rotation(player: Fighter) -> FixedVector3:
 
 func get_char_position(player: int) -> int:
 	return self.game_camera.get_char_position(player)
+
+func get_stage_bounds(wall_ids: PackedInt64Array) -> Array[Dictionary]:
+	var ret: Array[Dictionary] = []
+	for i: int in wall_ids:
+		ret.append(self.stage_bounds[i])
+	return ret

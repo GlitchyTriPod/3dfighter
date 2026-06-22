@@ -101,8 +101,10 @@ var is_online: bool = false
 @export var _velocity_bake_mode: bool = false
 @export var _hurtbox_bake_mode: bool = false
 
+# Pushback direction of walls close to Fighter
 # should only be set by the InputListener
 var wall_normal: FixedVector3
+var wall_ids: PackedInt64Array = []
 
 signal record_velocity_data(velocity: FixedVector3, animation_name: StringName, frame: int)
 signal record_hurtbox_data(hurtboxes: Array, animation_name: StringName, frame: int)
@@ -439,7 +441,6 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 							self.buffer_anim_id = self.movelist.get_move_id(new_move)
 				else:
 					self.buffer_anim_id = self.movelist.get_move_id(new_move)
-			pass
 
 		elif self.states.has("input_buffer"):
 			var new_move: FighterAnimationData = self.get_move_from_input(current_move, true)
@@ -618,15 +619,42 @@ func collide_and_slide(delta: int) -> void:
 
 	if overlap > 0:
 		var change: FixedVector3 = CollisionMath.CalculateCollisionPushback(
-			self.collision_body.get_look_at(oppo_collision_body.fixed_position).y, overlap
+			self.collision_body.get_look_at(oppo_collision_body.fixed_position).y, 
+			overlap
 		)
 
 		new_position.x -= change.x
 		# # new_position.y -= change.y 
 		new_position.z -= change.z
 
-	# TODO: Collision with walls
+	# Collision with walls
+	if !self.wall_ids.is_empty():
+		# check if player intersects with walls -- if yes, get pushback dist.
+		var pushback_dist: int = 0
+		var bounds: Array[Dictionary] = self.message_bus.get_stage_bounds(self.wall_ids)
+		for bound: Dictionary in bounds:
+			var calc_pushback: int = CollisionMath.CalculateWallPushback(
+				bound[&"start"][&"x"],
+				bound[&"start"][&"z"],
+				bound[&"end"][&"x"],
+				bound[&"end"][&"z"],
+				self.collision_body.fixed_position,
+				self.collision_body.fixed_sphere_radius
+			)
+			if calc_pushback > pushback_dist:
+				pushback_dist = calc_pushback
 
+		print(str(pushback_dist) + " " + str(self.collision_body.fixed_sphere_radius))
+		# if push needed, add wall_normal * pushback to new_position
+		if pushback_dist > 0 && pushback_dist < self.collision_body.fixed_sphere_radius:
+			new_position = FixedVector3.Add(
+				new_position, 
+				FixedVector3.Mul(
+					self.wall_normal, 
+					FixedInt.Mul(FixedInt.Sqrt64(self.collision_body.fixed_sphere_radius - pushback_dist), FixedInt.FromFloat(0.25))
+				)
+			)
+			
 	self.collision_body.fixed_position = new_position
 
 	if self.is_tracking_opponent() || self.stun_reason.stun_align: 
