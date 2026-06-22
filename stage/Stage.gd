@@ -69,6 +69,7 @@ func get_player_wall_influence(p1_loc: FixedVector3, p2_loc: FixedVector3) -> Di
 		var vals: Array[bool] = CollisionMath.IsInsidePolygon(p1_loc, p2_loc, entry[&"extents"])
 
 		if vals[0]:
+			# print("wall id: " + str(entry[&"wall_id"]) + " normal: X-" + str(entry[&"normal"].x) + " Z-" + str(entry[&"normal"].z))
 			p1_combined_normals.append(entry[&"normal"])
 			p1_wall_ids.append(entry[&"wall_id"])
 
@@ -85,12 +86,13 @@ func get_player_wall_influence(p1_loc: FixedVector3, p2_loc: FixedVector3) -> Di
 	}
 
 func combine_wall_data(combined_normals: Array[FixedVector3], wall_ids: PackedInt64Array) -> Dictionary[StringName, Variant]:
-	if combined_normals.is_empty():
+	if wall_ids.is_empty():
 		return {
 			&"wall_ids": wall_ids,
 			&"normal": FixedVector3.new()
 		}
-	if combined_normals.size() == 1:
+	if wall_ids.size() == 1:
+		# print("wall id: " + str(wall_ids[0]) + " normal: X-" + str(combined_normals[0].x) + " Z-" + str(combined_normals[0].z))
 		return {
 			&"wall_ids": wall_ids,
 			&"normal": combined_normals[0]
@@ -179,36 +181,28 @@ func update_stage_bound_normals() -> void:
 
 func update_wall_detection_areas() -> void:
 	var toaster: EditorToaster = EditorInterface.get_editor_toaster()
-	if self.stage_bounds.size() != self.stage_wall_detection_areas.size() && !self.stage_wall_detection_areas.is_empty():
-		toaster.push_toast("Number of Wall Areas does not match number of Stage Bounds.", EditorToaster.SEVERITY_ERROR)
-		return
 
 	self.stage_wall_detection_areas.clear()
 
 	var wall_detection_areas: Array[Node] = get_tree().get_nodes_in_group(&"StageWallDetectionAreas")
-	wall_detection_areas.sort_custom(
-		func(a: CollisionPolygon3D, b: CollisionPolygon3D) -> bool:
-			return int(a.name) > int(b.name)
-	)
+	for area: CollisionPolygon3D in wall_detection_areas:
+		# var area: CollisionPolygon3D = wall_detection_areas[idx]
 
-	for idx: int in wall_detection_areas.size():
-		var area: CollisionPolygon3D = wall_detection_areas[idx]
-
-		var wall_bound: Dictionary = self.stage_bounds[idx]
+		var wall_bound: Dictionary = self.stage_bounds[int(area.name)]
 		var normal: Vector3 = Vector3()
 
-		normal.x = FixedInt.ToFloat(wall_bound[&"end"][&"x"]) - FixedInt.ToFloat(wall_bound[&"start"][&"x"])
+		normal.x = FixedInt.ToFloat(wall_bound[&"end"][&"z"]) - FixedInt.ToFloat(wall_bound[&"start"][&"z"])
 		normal.y = 0.0 
-		normal.z = FixedInt.ToFloat(wall_bound[&"end"][&"z"]) - FixedInt.ToFloat(wall_bound[&"start"][&"z"])
+		normal.z = FixedInt.ToFloat(wall_bound[&"end"][&"x"]) - FixedInt.ToFloat(wall_bound[&"start"][&"x"])
 
 		if wall_bound[&"x_positive"]:
-			normal.x = -absf(normal.x)
-		else:
 			normal.x = absf(normal.x)
-		if wall_bound[&"z_positive"]:
-			normal.z = -absf(normal.z)
 		else:
+			normal.x = -absf(normal.x)
+		if wall_bound[&"z_positive"]:
 			normal.z = absf(normal.z)
+		else:
+			normal.z = -absf(normal.z)
 		
 		var entry: Dictionary[StringName, Variant] = {
 			&"wall_id": int(area.name),

@@ -644,15 +644,14 @@ func collide_and_slide(delta: int) -> void:
 			if calc_pushback > pushback_dist:
 				pushback_dist = calc_pushback
 
-		print(str(pushback_dist) + " " + str(self.collision_body.fixed_sphere_radius))
 		# if push needed, add wall_normal * pushback to new_position
 		if pushback_dist > 0 && pushback_dist < self.collision_body.fixed_sphere_radius:
-			new_position = FixedVector3.Add(
-				new_position, 
-				FixedVector3.Mul(
-					self.wall_normal, 
-					FixedInt.Mul(FixedInt.Sqrt64(self.collision_body.fixed_sphere_radius - pushback_dist), FixedInt.FromFloat(0.25))
-				)
+			pass
+			new_position = CollisionMath.CalculateWallPushbackPosition(
+				self.wall_normal,
+				new_position,
+				self.collision_body.fixed_sphere_radius,
+				pushback_dist
 			)
 			
 	self.collision_body.fixed_position = new_position

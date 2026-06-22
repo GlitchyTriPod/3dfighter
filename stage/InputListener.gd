@@ -23,18 +23,7 @@ func _network_preprocess(_input: Dictionary) -> void:
 	self.player_1.wall_ids = wall_data[&"p1"][&"wall_ids"]
 	self.player_1.wall_normal = wall_data[&"p1"][&"normal"]
 	self.player_2.wall_ids = wall_data[&"p2"][&"wall_ids"]
-	self.player_2.wall_normal = wall_data[&"p2"][&"normal"]
-
-	# var p1_wall_data: Dictionary[StringName, Variant] = \
-	# 	stage.get_player_wall_influence(self.player_1.collision_body.fixed_position)
-	# self.player_1.wall_normal = p1_wall_data[&'normal']
-	# self.player_1.wall_ids = p1_wall_data[&'wall_ids']
-
-	# var p2_wall_data: Dictionary[StringName, Variant] = \
-	# 	stage.get_player_wall_influence(self.player_2.collision_body.fixed_position)
-	# self.player_2.wall_normal = p2_wall_data[&'normal']
-	# self.player_2.wall_ids = p2_wall_data[&'wall_ids']
-	
+	self.player_2.wall_normal = wall_data[&"p2"][&"normal"]	
 
 # Called every network tick.
 func _network_process(_input: Dictionary) -> void:

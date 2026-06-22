@@ -48,13 +48,13 @@ WOW IT NEEDED A LOT NMORE THAN THAT LOL
 DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 6. more animations
-	- launchers, juggles, bounds, wall stuns, knockdowns. throws
+	- launchers, juggles, bounds, wall stuns, -knockdowns- (DONE). throws
 
-7. Wall collisions, oki, & combo system
+7. -Wall collisions- (DONE), -oki- (DONE), & combo system
 
 IF ALL OF THIS WORKS, FULL SPEED AHEAD ON ASSET CREATION.
 
-
+8. gonna need a win/loss state huh? add some damage values and health bars idiot
 
 
 NOTE TO SELF: break out DI cases in Fighter.gd check_animation_from_input()

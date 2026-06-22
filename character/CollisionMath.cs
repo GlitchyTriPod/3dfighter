@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.Swift;
 using System.Threading.Tasks;
 using FatalException.FEMath;
 using Godot;
@@ -123,5 +124,26 @@ public partial class CollisionMath : GodotObject
         FixedVector3 D = start + AD;
 
         return loc.DistanceSquaredTo(D);
+    }
+
+    public static FixedVector3 CalculateWallPushbackPosition(
+        FixedVector3 wallNormal,
+        FixedVector3 newPos, 
+        long radius, 
+        long pushbackDist)
+    {
+        long pushbackCoeff = radius - pushbackDist;
+
+        return newPos + FixedVector3.Mul(
+            FixedVector3.Div(wallNormal, FixedInt.FromInt(256)),
+            FixedInt.Mul(
+                FixedInt.Sqrt64(pushbackCoeff),
+                FixedInt.Lerp(
+                    FixedInt.FromInt(20),
+                    FixedInt.FromInt(50),
+                    FixedInt.Div(pushbackCoeff, radius)
+                )
+            )
+        );
     }
 }

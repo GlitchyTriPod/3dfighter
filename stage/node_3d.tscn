@@ -45,84 +45,244 @@ script = ExtResource("1_u2wdh")
 stage_bounds = Array[Dictionary]([Dictionary[StringName, Variant]({
 &"end": {
 &"x": -393216,
-&"z": -786432
+&"z": -720896
 },
 &"start": {
 &"x": -393216,
-&"z": 786432
+&"z": 753664
 },
 &"x_positive": true,
 &"z_positive": true
 }), Dictionary[StringName, Variant]({
 &"end": {
-&"x": 2113536,
+&"x": -327680,
 &"z": -786432
 },
 &"start": {
 &"x": -393216,
+&"z": -720896
+},
+&"x_positive": true,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 1201274,
+&"z": -786432
+},
+&"start": {
+&"x": -327680,
 &"z": -786432
 },
 &"x_positive": true,
 &"z_positive": true
 }), Dictionary[StringName, Variant]({
 &"end": {
-&"x": 2113536,
+&"x": 1222246,
+&"z": -802816
+},
+&"start": {
+&"x": 1201274,
+&"z": -786432
+},
+&"x_positive": true,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 1222246,
+&"z": -1556480
+},
+&"start": {
+&"x": 1222246,
+&"z": -802816
+},
+&"x_positive": true,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 1277952,
+&"z": -1599078
+},
+&"start": {
+&"x": 1222246,
+&"z": -1556480
+},
+&"x_positive": true,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 1966080,
+&"z": -1599078
+},
+&"start": {
+&"x": 1277952,
+&"z": -1599078
+},
+&"x_positive": true,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 2025062,
+&"z": -1533542
+},
+&"start": {
+&"x": 1966080,
+&"z": -1599078
+},
+&"x_positive": false,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 2025062,
+&"z": 720896
+},
+&"start": {
+&"x": 2025062,
+&"z": -1533542
+},
+&"x_positive": false,
+&"z_positive": true
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": 1966080,
 &"z": 786432
 },
 &"start": {
-&"x": 2113536,
-&"z": -786432
+&"x": 2025062,
+&"z": 720896
 },
 &"x_positive": false,
 &"z_positive": false
 }), Dictionary[StringName, Variant]({
 &"end": {
-&"x": -393216,
+&"x": -360448,
 &"z": 786432
 },
 &"start": {
-&"x": 2113536,
+&"x": 1966080,
 &"z": 786432
 },
-&"x_positive": false,
+&"x_positive": true,
+&"z_positive": false
+}), Dictionary[StringName, Variant]({
+&"end": {
+&"x": -393216,
+&"z": 753664
+},
+&"start": {
+&"x": -360448,
+&"z": 786432
+},
+&"x_positive": true,
 &"z_positive": false
 })])
 stage_wall_detection_areas = Array[Dictionary]([Dictionary[StringName, Variant]({
-&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-393216,"y":0,"z":720896)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":720896)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":851968)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-393216,"y":0,"z":851968)
-],
-&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":-16777216)
-,
-&"wall_id": 3
-}), Dictionary[StringName, Variant]({
-&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1982464,"y":0,"z":786432)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":786432)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":-786432)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1982464,"y":0,"z":-786432)
-],
-&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-16777216,"y":0,"z":0)
-,
-&"wall_id": 2
-}), Dictionary[StringName, Variant]({
-&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-393216,"y":0,"z":-851968)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":-851968)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":-720896)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-393216,"y":0,"z":-720896)
-],
-&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":16777216)
-,
-&"wall_id": 1
-}), Dictionary[StringName, Variant]({
-&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-458752,"y":0,"z":786432)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-327680,"y":0,"z":786432)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-327680,"y":0,"z":-786432)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-458752,"y":0,"z":-786432)
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-460849,"y":0,"z":856143)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-338594,"y":0,"z":692478)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-327680,"y":0,"z":-655360)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-458752,"y":0,"z":-851968)
 ],
 &"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":16777216,"y":0,"z":0)
 ,
 &"wall_id": 0
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-458752,"y":0,"z":-851968)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-327680,"y":0,"z":-786432)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-262144,"y":0,"z":-720896)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-327680,"y":0,"z":-655360)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11864550,"y":0,"z":11864550)
+,
+&"wall_id": 1
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-458752,"y":0,"z":-851968)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1189146,"y":0,"z":-856011)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1224522,"y":0,"z":-656040)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-194544,"y":0,"z":-655802)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":16778554)
+,
+&"wall_id": 2
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1179648,"y":0,"z":-851968)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1201274,"y":0,"z":-786432)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1212416,"y":0,"z":-720896)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1294336,"y":0,"z":-786432)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10424677,"y":0,"z":13343893)
+,
+&"wall_id": 3
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1162620,"y":0,"z":-817241)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1294336,"y":0,"z":-786432)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1294336,"y":0,"z":-1507328)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1179648,"y":0,"z":-1640038)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":16777216,"y":0,"z":0)
+,
+&"wall_id": 4
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1277952,"y":0,"z":-1599078)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1334241,"y":0,"z":-1543629)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1291920,"y":0,"z":-1491839)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1222246,"y":0,"z":-1556480)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10226016,"y":0,"z":13372704)
+,
+&"wall_id": 5
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2115331,"y":0,"z":-1689485)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1898665,"y":0,"z":-1548311)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1338897,"y":0,"z":-1544031)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1178974,"y":0,"z":-1642792)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":16777216)
+,
+&"wall_id": 6
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1966626,"y":0,"z":-1600383)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1898876,"y":0,"z":-1549523)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1966171,"y":0,"z":-1478051)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2024809,"y":0,"z":-1533102)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-12485370,"y":0,"z":11236756)
+,
+&"wall_id": 7
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1978976,"y":0,"z":674303)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2114236,"y":0,"z":873382)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2114161,"y":0,"z":-1690318)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1967216,"y":0,"z":-1481561)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-16777975,"y":0,"z":0)
+,
+&"wall_id": 8
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1978976,"y":0,"z":674303)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2025552,"y":0,"z":720328)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2114236,"y":0,"z":873382)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1966424,"y":0,"z":786195)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-12485370,"y":0,"z":-11236756)
+,
+&"wall_id": 9
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-304435,"y":0,"z":730426)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":720896)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":851968)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-460466,"y":0,"z":854124)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":-16777216)
+,
+&"wall_id": 10
+}), Dictionary[StringName, Variant]({
+&"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-304435,"y":0,"z":730426)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-337052,"y":0,"z":690777)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-393188,"y":0,"z":753600)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-460466,"y":0,"z":854124)
+],
+&"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11864550,"y":0,"z":-11864550)
+,
+&"wall_id": 11
 })])
 
 [node name="InputListener" type="Node" parent="." unique_id=177585175 groups=["network_sync"]]
@@ -193,7 +353,15 @@ transform = Transform3D(-6.201699, 8.742277e-08, 2.3698993e-14, 0, -4.371139e-08
 mesh = SubResource("PlaneMesh_7qbm1")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="walls" unique_id=1490882118]
-transform = Transform3D(-6.201699, 8.742277e-08, 2.3698993e-14, 0, -4.371139e-08, 6.201699, 5.4216974e-07, 1, 2.7108493e-07, 24.561874, 5.1035485, -12.028753)
+transform = Transform3D(8.132546e-07, 1, 2.710849e-07, 1.9261737e-21, -4.3711385e-08, 6.201699, 6.201699, -1.3113416e-07, 8.517229e-15, 18.59101, 5.1035485, -18.233826)
+mesh = SubResource("PlaneMesh_7qbm1")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="walls" unique_id=682208796]
+transform = Transform3D(-6.201699, 8.742277e-08, 1.6661307e-15, 2.188913e-21, -4.371138e-08, 6.201699, 5.421697e-07, 1, 2.7108487e-07, 24.759464, 5.1035485, -24.48409)
+mesh = SubResource("PlaneMesh_7qbm1")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="walls" unique_id=812454913]
+transform = Transform3D(-2.710848e-07, -1, -2.7108487e-07, 4.8154344e-21, -4.371138e-08, 6.201699, -6.201699, 4.371139e-08, -1.0183361e-14, 30.948244, 5.1035485, -18.349785)
 mesh = SubResource("PlaneMesh_7qbm1")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="walls" unique_id=1872449590]
@@ -212,7 +380,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9
 [node name="StageBounds" type="CollisionPolygon3D" parent="StageCollision/StageBoundsBox" unique_id=301056802]
 unique_name_in_owner = true
 depth = 18.56
-polygon = PackedVector2Array(-6, 12, -6, -12, 32.25, -12, 32.25, 12)
+polygon = PackedVector2Array(-6, 11.5, -6, -11, -5, -12, 18.33, -12, 18.65, -12.25, 18.65, -23.75, 19.5, -24.4, 30, -24.4, 30.9, -23.4, 30.9, 11, 30, 12, -5.5, 12)
 debug_color = Color(1, 0.7833333, 0, 1)
 
 [node name="WallDetectionAreas" type="StaticBody3D" parent="StageCollision" unique_id=1803922570]
@@ -223,71 +391,207 @@ input_ray_pickable = false
 
 [node name="0" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=1201233793 groups=["StageWallDetectionAreas"]]
 depth = 11.325
-polygon = PackedVector2Array(-7, 12, -5, 12, -5, -12, -7, -12)
+polygon = PackedVector2Array(-7.0320125, 13.063705, -5.166547, 10.566383, -5, -10, -7, -13)
 debug_color = Color(0.63000005, 0, 0.7, 1)
 
 [node name="1" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=1407901244 groups=["StageWallDetectionAreas"]]
 depth = 11.325
-polygon = PackedVector2Array(-6, -13, 32.25, -13, 32.25, -11, -6, -11)
+polygon = PackedVector2Array(-7, -13, -5, -12, -4, -11, -5, -10, -6, -11)
 debug_color = Color(0.7, 0, 0.011666489, 1)
 
-[node name="2" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=710804314 groups=["StageWallDetectionAreas"]]
+[node name="2" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=619906500 groups=["StageWallDetectionAreas"]]
 depth = 11.325
-polygon = PackedVector2Array(30.25, 12, 32.25, 12, 32.25, -12, 30.25, -12)
+polygon = PackedVector2Array(-7, -13, 18.144928, -13.061692, 18.684729, -10.010389, -2.9685178, -10.006747)
+debug_color = Color(0.17849998, 0.85, 0.21207494, 1)
+
+[node name="3" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=273394138 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(18, -13, 18.33, -12, 18.5, -11, 19.75, -12, 18.65, -12.25)
+debug_color = Color(0.85, 0.17849998, 0.1896915, 1)
+
+[node name="4" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=1730977128 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(17.74018, -12.470115, 19.75, -12, 19.75, -23, 18, -25.025)
+debug_color = Color(0.78787273, 0.11663429, 0.7050011, 1)
+
+[node name="5" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=1419604175 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(19.5, -24.4, 20.358913, -23.553923, 19.713142, -22.763659, 18.65, -23.75, 18, -25.025)
+debug_color = Color(0.88, 0.026399974, 0.040626448, 1)
+
+[node name="6" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=1648551960 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(32.277393, -25.779501, 28.97134, -23.625359, 20.42996, -23.560051, 17.989716, -25.067017)
+debug_color = Color(0, 1, 0.3333335, 1)
+
+[node name="7" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=476616 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(30.00834, -24.41991, 28.974556, -23.643856, 30.001396, -22.553272, 30.896133, -23.393286, 32.38598, -25.848177)
+debug_color = Color(1, 0, 0.016666412, 1)
+
+[node name="8" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=710804314 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(30.196781, 10.289051, 32.26068, 13.326761, 32.259537, -25.792213, 30.017336, -22.606833)
 debug_color = Color(0.63000005, 0, 0.7, 1)
 
-[node name="3" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=900832971 groups=["StageWallDetectionAreas"]]
+[node name="9" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=659197189 groups=["StageWallDetectionAreas"]]
 depth = 11.325
-polygon = PackedVector2Array(-6, 11, 32.25, 11, 32.25, 13, -6, 13)
+polygon = PackedVector2Array(30.196781, 10.289051, 30.907473, 10.991341, 32.26068, 13.326761, 30.005249, 11.996393, 29.192728, 11.004508)
+debug_color = Color(0.9498164, 0.0007238143, 0.02361776, 1)
+
+[node name="10" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=900832971 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(-4.645313, 11.145425, 32.25, 11, 32.25, 13, -7.0261593, 13.032901)
 debug_color = Color(0, 0.7, 0.175, 1)
+
+[node name="11" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=64216534 groups=["StageWallDetectionAreas"]]
+depth = 11.325
+polygon = PackedVector2Array(-4.645313, 11.145425, -5.1430187, 10.540424, -5.9995866, 11.499028, -7.0261593, 13.032901, -5.493203, 11.999789)
+debug_color = Color(0.8547817, 0.00019878, 0.018402696, 1)
 
 [node name="Debug" type="Node" parent="StageCollision" unique_id=1525088396]
 unique_name_in_owner = true
 
-[node name="@RayCast3D@53081" type="RayCast3D" parent="StageCollision/Debug" unique_id=1502743327]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0)
+[node name="@RayCast3D@197642" type="RayCast3D" parent="StageCollision/Debug" unique_id=439897032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0.25)
 target_position = Vector3(3, 0, 0)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@53082" type="Label3D" parent="StageCollision/Debug/@RayCast3D@53081" unique_id=1216512481]
+[node name="@Label3D@197643" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197642" unique_id=20134437]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "0"
 
-[node name="@RayCast3D@53083" type="RayCast3D" parent="StageCollision/Debug" unique_id=7928281]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.125, 2, -12)
-target_position = Vector3(0, 0, 3)
+[node name="@RayCast3D@197644" type="RayCast3D" parent="StageCollision/Debug" unique_id=288474791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2, -11.5)
+target_position = Vector3(2.1213202, 0, 2.1213202)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@53084" type="Label3D" parent="StageCollision/Debug/@RayCast3D@53083" unique_id=1280396559]
+[node name="@Label3D@197645" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197644" unique_id=1251176017]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "1"
 
-[node name="@RayCast3D@53085" type="RayCast3D" parent="StageCollision/Debug" unique_id=1553042838]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.25, 2, 0)
-target_position = Vector3(-3, 0, 0)
+[node name="@RayCast3D@197646" type="RayCast3D" parent="StageCollision/Debug" unique_id=753613998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6649933, 2, -12)
+target_position = Vector3(0, 0, 3)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@53086" type="Label3D" parent="StageCollision/Debug/@RayCast3D@53085" unique_id=377107598]
+[node name="@Label3D@197647" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197646" unique_id=670656475]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "2"
 
-[node name="@RayCast3D@53087" type="RayCast3D" parent="StageCollision/Debug" unique_id=1413080744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.125, 2, 12)
-target_position = Vector3(0, 0, -3)
+[node name="@RayCast3D@197648" type="RayCast3D" parent="StageCollision/Debug" unique_id=1536530490]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.48999, 2, -12.125)
+target_position = Vector3(1.846906, 0, 2.3640938)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@53088" type="Label3D" parent="StageCollision/Debug/@RayCast3D@53087" unique_id=2458455]
+[node name="@Label3D@197649" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197648" unique_id=693816198]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "3"
+
+[node name="@RayCast3D@197650" type="RayCast3D" parent="StageCollision/Debug" unique_id=1764744144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.649994, 2, -18)
+target_position = Vector3(3, 0, 0)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197651" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197650" unique_id=390152758]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "4"
+
+[node name="@RayCast3D@197652" type="RayCast3D" parent="StageCollision/Debug" unique_id=1999297980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.074997, 2, -24.074997)
+target_position = Vector3(1.8223312, 0, 2.383088)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197653" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197652" unique_id=1463923313]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "5"
+
+[node name="@RayCast3D@197654" type="RayCast3D" parent="StageCollision/Debug" unique_id=1629763388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.75, 2, -24.399994)
+target_position = Vector3(0, 0, 3)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197655" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197654" unique_id=1396941874]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "6"
+
+[node name="@RayCast3D@197656" type="RayCast3D" parent="StageCollision/Debug" unique_id=243181223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.449997, 2, -23.899994)
+target_position = Vector3(-2.2298894, 0, 2.0068867)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197657" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197656" unique_id=378581579]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "7"
+
+[node name="@RayCast3D@197658" type="RayCast3D" parent="StageCollision/Debug" unique_id=258733387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.899994, 2, -6.199997)
+target_position = Vector3(-3, 0, 0)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197659" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197658" unique_id=507286841]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "8"
+
+[node name="@RayCast3D@197660" type="RayCast3D" parent="StageCollision/Debug" unique_id=1754615885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.449997, 2, 11.5)
+target_position = Vector3(-2.2298894, 0, -2.0068867)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197661" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197660" unique_id=1501820097]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "9"
+
+[node name="@RayCast3D@197662" type="RayCast3D" parent="StageCollision/Debug" unique_id=2011115116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.25, 2, 12)
+target_position = Vector3(0, 0, -3)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197663" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197662" unique_id=375090134]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "10"
+
+[node name="@RayCast3D@197664" type="RayCast3D" parent="StageCollision/Debug" unique_id=247908917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75, 2, 11.75)
+target_position = Vector3(2.1213202, 0, -2.1213202)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+debug_shape_thickness = 10
+
+[node name="@Label3D@197665" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197664" unique_id=1813916602]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
+billboard = 1
+no_depth_test = true
+text = "11"
