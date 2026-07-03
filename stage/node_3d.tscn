@@ -319,11 +319,11 @@ surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 [node name="Chars" type="Node3D" parent="." unique_id=419843519]
 unique_name_in_owner = true
 
-[node name="atro" parent="Chars" unique_id=1359553451 instance=ExtResource("7_gxuj5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8317108e-08, 0, -1.1890668)
-
 [node name="hugh" parent="Chars" unique_id=1755414608 instance=ExtResource("8_18csp")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.09746945, 0, 1.1019843)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09746945, 0, -1.1733196)
+
+[node name="atro" parent="Chars" unique_id=1359553451 instance=ExtResource("7_gxuj5")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.8317108e-08, 0, 1.0427996)
 player = 1
 
 [node name="debugCamera" type="Camera3D" parent="." unique_id=902002015]
@@ -376,6 +376,7 @@ mesh = SubResource("PlaneMesh_7qbm1")
 
 [node name="StageBoundsBox" type="StaticBody3D" parent="StageCollision" unique_id=754994321]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9.034046, 0)
+visible = false
 
 [node name="StageBounds" type="CollisionPolygon3D" parent="StageCollision/StageBoundsBox" unique_id=301056802]
 unique_name_in_owner = true
@@ -452,145 +453,145 @@ debug_color = Color(0.8547817, 0.00019878, 0.018402696, 1)
 [node name="Debug" type="Node" parent="StageCollision" unique_id=1525088396]
 unique_name_in_owner = true
 
-[node name="@RayCast3D@197642" type="RayCast3D" parent="StageCollision/Debug" unique_id=439897032]
+[node name="@RayCast3D@267777" type="RayCast3D" parent="StageCollision/Debug" unique_id=1550075487]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 0.25)
 target_position = Vector3(3, 0, 0)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197643" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197642" unique_id=20134437]
+[node name="@Label3D@267778" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267777" unique_id=222219402]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "0"
 
-[node name="@RayCast3D@197644" type="RayCast3D" parent="StageCollision/Debug" unique_id=288474791]
+[node name="@RayCast3D@267779" type="RayCast3D" parent="StageCollision/Debug" unique_id=1223576587]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2, -11.5)
 target_position = Vector3(2.1213202, 0, 2.1213202)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197645" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197644" unique_id=1251176017]
+[node name="@Label3D@267780" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267779" unique_id=943214125]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "1"
 
-[node name="@RayCast3D@197646" type="RayCast3D" parent="StageCollision/Debug" unique_id=753613998]
+[node name="@RayCast3D@267781" type="RayCast3D" parent="StageCollision/Debug" unique_id=162827462]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6649933, 2, -12)
 target_position = Vector3(0, 0, 3)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197647" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197646" unique_id=670656475]
+[node name="@Label3D@267782" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267781" unique_id=1748420311]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "2"
 
-[node name="@RayCast3D@197648" type="RayCast3D" parent="StageCollision/Debug" unique_id=1536530490]
+[node name="@RayCast3D@267783" type="RayCast3D" parent="StageCollision/Debug" unique_id=1268850865]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.48999, 2, -12.125)
 target_position = Vector3(1.846906, 0, 2.3640938)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197649" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197648" unique_id=693816198]
+[node name="@Label3D@267784" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267783" unique_id=423766636]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "3"
 
-[node name="@RayCast3D@197650" type="RayCast3D" parent="StageCollision/Debug" unique_id=1764744144]
+[node name="@RayCast3D@267785" type="RayCast3D" parent="StageCollision/Debug" unique_id=1847117666]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.649994, 2, -18)
 target_position = Vector3(3, 0, 0)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197651" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197650" unique_id=390152758]
+[node name="@Label3D@267786" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267785" unique_id=1096008876]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "4"
 
-[node name="@RayCast3D@197652" type="RayCast3D" parent="StageCollision/Debug" unique_id=1999297980]
+[node name="@RayCast3D@267787" type="RayCast3D" parent="StageCollision/Debug" unique_id=745505933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.074997, 2, -24.074997)
 target_position = Vector3(1.8223312, 0, 2.383088)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197653" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197652" unique_id=1463923313]
+[node name="@Label3D@267788" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267787" unique_id=507383657]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "5"
 
-[node name="@RayCast3D@197654" type="RayCast3D" parent="StageCollision/Debug" unique_id=1629763388]
+[node name="@RayCast3D@267789" type="RayCast3D" parent="StageCollision/Debug" unique_id=1741832554]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.75, 2, -24.399994)
 target_position = Vector3(0, 0, 3)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197655" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197654" unique_id=1396941874]
+[node name="@Label3D@267790" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267789" unique_id=1232358668]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "6"
 
-[node name="@RayCast3D@197656" type="RayCast3D" parent="StageCollision/Debug" unique_id=243181223]
+[node name="@RayCast3D@267791" type="RayCast3D" parent="StageCollision/Debug" unique_id=889280188]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.449997, 2, -23.899994)
 target_position = Vector3(-2.2298894, 0, 2.0068867)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197657" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197656" unique_id=378581579]
+[node name="@Label3D@267792" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267791" unique_id=1296485493]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "7"
 
-[node name="@RayCast3D@197658" type="RayCast3D" parent="StageCollision/Debug" unique_id=258733387]
+[node name="@RayCast3D@267793" type="RayCast3D" parent="StageCollision/Debug" unique_id=1571846876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.899994, 2, -6.199997)
 target_position = Vector3(-3, 0, 0)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197659" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197658" unique_id=507286841]
+[node name="@Label3D@267794" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267793" unique_id=1251210903]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "8"
 
-[node name="@RayCast3D@197660" type="RayCast3D" parent="StageCollision/Debug" unique_id=1754615885]
+[node name="@RayCast3D@267795" type="RayCast3D" parent="StageCollision/Debug" unique_id=1804419436]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.449997, 2, 11.5)
 target_position = Vector3(-2.2298894, 0, -2.0068867)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197661" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197660" unique_id=1501820097]
+[node name="@Label3D@267796" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267795" unique_id=997278111]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "9"
 
-[node name="@RayCast3D@197662" type="RayCast3D" parent="StageCollision/Debug" unique_id=2011115116]
+[node name="@RayCast3D@267797" type="RayCast3D" parent="StageCollision/Debug" unique_id=801504789]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.25, 2, 12)
 target_position = Vector3(0, 0, -3)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197663" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197662" unique_id=375090134]
+[node name="@Label3D@267798" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267797" unique_id=367737769]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true
 text = "10"
 
-[node name="@RayCast3D@197664" type="RayCast3D" parent="StageCollision/Debug" unique_id=247908917]
+[node name="@RayCast3D@267799" type="RayCast3D" parent="StageCollision/Debug" unique_id=1913686134]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75, 2, 11.75)
 target_position = Vector3(2.1213202, 0, -2.1213202)
 debug_shape_custom_color = Color(1, 0, 1, 1)
 debug_shape_thickness = 10
 
-[node name="@Label3D@197665" type="Label3D" parent="StageCollision/Debug/@RayCast3D@197664" unique_id=1813916602]
+[node name="@Label3D@267800" type="Label3D" parent="StageCollision/Debug/@RayCast3D@267799" unique_id=1376275440]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 1, 0)
 billboard = 1
 no_depth_test = true

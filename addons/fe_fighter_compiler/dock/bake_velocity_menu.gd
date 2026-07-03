@@ -37,7 +37,7 @@ func bake_velocity_process() -> void:
     self.anim_player.current_animation_changed.connect(self._on_anim_player_current_animation_changed)
     self.anim_player.animation_finished.connect(self._on_anim_player_animation_finished.bind(velocity_data, hurtbox_data))
 
-    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+    self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_IDLE
     self.fighter._velocity_bake_mode = true
     if %CheckBakeHitboxes.button_pressed:
         self.fighter._hurtbox_bake_mode = true
