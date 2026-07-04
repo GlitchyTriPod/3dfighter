@@ -140,7 +140,7 @@ public partial class CollisionMath : GodotObject
                 FixedInt.Sqrt64(pushbackCoeff),
                 FixedInt.Lerp(
                     FixedInt.FromInt(20),
-                    FixedInt.FromInt(50),
+                    FixedInt.FromInt(80),
                     FixedInt.Div(pushbackCoeff, radius)
                 )
             )

@@ -152,5 +152,9 @@ func has_valid_states(move: FighterAnimationData, player_states: PackedStringArr
 	for state: String in move.required_state:
 		if player_states.has(state):
 			match_count += 1
+			continue
+		
+		if bufferable && player_states.has(&"crouching") && state == &"rising_calc":
+			match_count += 1
 
 	return match_count >= move.required_state.size()

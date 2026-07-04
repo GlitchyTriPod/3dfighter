@@ -59,6 +59,7 @@ IF ALL OF THIS WORKS, FULL SPEED AHEAD ON ASSET CREATION.
 
 NOTE TO SELF: break out DI cases in Fighter.gd check_animation_from_input()
 	extra char stances may require cases to be extended/overridden
+	> did it/not needed
 
 ==================== OLD ===============================
 

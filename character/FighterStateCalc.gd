@@ -3,10 +3,14 @@ class_name FighterStateCalc
 
 const BACK_TURNED_CALC: StringName = &"back_turned_calc"
 const FIX_BLENDING_CALC: StringName = &"fix_blending_calc"
+const CROUCHING: StringName = &"crouching"
+const CROUCHING_CALC: StringName = &"crouching_calc"
+const RISING_CALC: StringName = &"rising_calc"
 
 static var methods: Array[Callable] = [
     calc_backturn_state,
-    calc_blending_fix,
+    # calc_blending_fix,
+    calc_rising_state,
 ]
 
 static func calc_backturn_state(me: Fighter) -> void:
@@ -27,6 +31,8 @@ static func calc_backturn_state(me: Fighter) -> void:
     if me.state_data.has(BACK_TURNED_CALC):
         me.state_data.erase(BACK_TURNED_CALC)
 
+
+# unneeded, thanks gd 4.7
 static func calc_blending_fix(me: Fighter) -> void:
     if me.states.has(&"fix_blending"):
         if !me.state_data.has(FIX_BLENDING_CALC):
@@ -44,3 +50,40 @@ static func calc_blending_fix(me: Fighter) -> void:
         return
 
     me.anim_player.deterministic = false
+
+static func calc_rising_state(me: Fighter) -> void:
+    if me.states.has(CROUCHING):
+        # player should not have rising state & crouching state simultaneously
+        if me.states.has(RISING_CALC) || me.state_data.has(RISING_CALC):
+            me.states.erase(RISING_CALC)
+            me.state_data.erase(RISING_CALC)
+
+        # print("crouching!!!")
+
+        if me.state_data.has(CROUCHING_CALC):
+            me.state_data[CROUCHING_CALC] += 1
+        else:
+            me.state_data.get_or_add(CROUCHING_CALC, 1)
+
+        return
+    
+    if me.states.has(RISING_CALC):
+        # player should not have rising state & crouching state simultaneously
+        if me.state_data.has(CROUCHING_CALC):
+            me.state_data.erase(CROUCHING_CALC)
+
+        me.state_data[RISING_CALC] -= 1
+
+        if me.state_data[RISING_CALC] <= 0:
+            me.states.erase(RISING_CALC)
+            me.state_data.erase(RISING_CALC)
+
+    # player has exited crouching state
+    if me.state_data.has(CROUCHING_CALC) && !me.states.has(CROUCHING):
+
+        # player has been in crouch long enough to get rising status
+        if me.state_data[CROUCHING_CALC] >= 8:
+            me.states.append(RISING_CALC)
+            me.state_data[RISING_CALC] = 6 
+        
+        me.state_data.erase(CROUCHING_CALC)

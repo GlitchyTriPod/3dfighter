@@ -267,8 +267,8 @@ stage_wall_detection_areas = Array[Dictionary]([Dictionary[StringName, Variant](
 &"wall_id": 9
 }), Dictionary[StringName, Variant]({
 &"extents": [Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-304435,"y":0,"z":730426)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":720896)
-, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2113536,"y":0,"z":851968)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1913978,"y":0,"z":720896)
+, Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2112553,"y":0,"z":873922)
 , Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-460466,"y":0,"z":854124)
 ],
 &"normal": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":0,"y":0,"z":-16777216)
@@ -319,11 +319,11 @@ surface_material_override/0 = SubResource("ShaderMaterial_g0dyy")
 [node name="Chars" type="Node3D" parent="." unique_id=419843519]
 unique_name_in_owner = true
 
-[node name="hugh" parent="Chars" unique_id=1755414608 instance=ExtResource("8_18csp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09746945, 0, -1.1733196)
-
 [node name="atro" parent="Chars" unique_id=1359553451 instance=ExtResource("7_gxuj5")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.8317108e-08, 0, 1.0427996)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8317108e-08, 0, -1.0316947)
+
+[node name="hugh" parent="Chars" unique_id=1755414608 instance=ExtResource("8_18csp")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.09746945, 0, 1.2326579)
 player = 1
 
 [node name="debugCamera" type="Camera3D" parent="." unique_id=902002015]
@@ -442,7 +442,7 @@ debug_color = Color(0.9498164, 0.0007238143, 0.02361776, 1)
 
 [node name="10" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=900832971 groups=["StageWallDetectionAreas"]]
 depth = 11.325
-polygon = PackedVector2Array(-4.645313, 11.145425, 32.25, 11, 32.25, 13, -7.0261593, 13.032901)
+polygon = PackedVector2Array(-4.645313, 11.145425, 29.205, 11, 32.235, 13.335, -7.0261593, 13.032901)
 debug_color = Color(0, 0.7, 0.175, 1)
 
 [node name="11" type="CollisionPolygon3D" parent="StageCollision/WallDetectionAreas" unique_id=64216534 groups=["StageWallDetectionAreas"]]

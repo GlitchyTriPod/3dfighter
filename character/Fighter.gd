@@ -156,7 +156,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
-		%DebugLabel.text = str(self.current_anim_id)
+		%DebugLabel.text = str(self.states.has(&"crouching"))
 
 	if Engine.is_editor_hint():
 		if self.anim_player.current_animation.is_empty():
@@ -178,6 +178,7 @@ func _process(_delta: float) -> void:
 			)
 
 		if self._velocity_bake_mode || self._hurtbox_bake_mode:
+			pass
 			self.anim_player.advance(1.0 / 60)
 
 	else:
