@@ -40,6 +40,7 @@ var stun_reason: Dictionary[StringName, Variant] = {
 	&"stun_id": "", # holds the id of the stun animation to be played
 	&"stun_pushback": 0, # holds the pushback force of the incoming attack
 	&"stun_pushback_angle": 0, # holds the angle of pushback 
+	&"stun_launch_force": 0, # vertical force of incoming attack
 	&"stun_align": false, # realigns fighter with opponent on hit if needed
 }
 
@@ -179,6 +180,7 @@ func _process(_delta: float) -> void:
 
 		if self._velocity_bake_mode || self._hurtbox_bake_mode:
 			pass
+			print("advancing animation...")
 			self.anim_player.advance(1.0 / 60)
 
 	else:
@@ -195,6 +197,7 @@ func reset_stun_reason() -> void:
 	self.stun_reason.set(&"stun_id", &"")
 	self.stun_reason.set(&"stun_pushback", 0)
 	self.stun_reason.set(&"stun_pushback_angle", 0)
+	self.stun_reason.set(&"stun_launch_force", 0)
 	self.stun_reason.set(&"stun_align", false)
 
 # checks the current animation id, sets player state based on currently playing animation
@@ -398,6 +401,12 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_ground_hit
 
+		elif self.states.has("airborne"):
+			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.air_hit_animation)
+			if enemy_anim_data.pushback_angle_on_hit:
+				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
+
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
 			if enemy_anim_data.pushback_angle_on_hit:
@@ -408,6 +417,7 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
 	self.stun_reason.stun_align = enemy_anim_data.face_attacker_on_hit
+	self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
 
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
@@ -422,7 +432,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	if self.stun_reason.stun_id != &"":
 		var move: FighterAnimationData = self.movelist.get_from_id(self.stun_reason.stun_id)
 		self.set_animation_order(move, current_move)
-		self.process_root_motion(delta, self.stun_reason.stun_pushback, self.stun_reason.stun_pushback_angle)
+		self.process_root_motion(delta, self.stun_reason.stun_pushback, self.stun_reason.stun_pushback_angle, self.stun_reason.stun_launch_force)
 		self.reset_stun_reason()
 		return
 
@@ -559,7 +569,11 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 		return new_move	
 	return self.movelist.get_from_input(inputs, self.states, self.screen_position, check_buffer)
 
-func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: int = 999) -> Variant:
+func process_root_motion(
+	delta: int, 
+	pushback_force: int = -1, 
+	pushback_angle: int = 999,
+	launch_force: int = -1) -> Variant:
 
 	#### for use INSIDE editor only ####
 	if Engine.is_editor_hint():
@@ -568,7 +582,14 @@ func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: i
 		return frame_velocity
 	#####################################
 
-	var vel_rot: FixedVector3 = self.get_root_motion().Rotated(
+	var vel_rot: FixedVector3 
+	
+	if launch_force != -1:
+		vel_rot = CollisionMath.CalculateLaunchVelocity(launch_force, 0) # TODO: add launch angle, already some support (untested)
+	elif self.states.has("juggle"):
+		vel_rot = self.collision_body.velocity
+	else:
+		vel_rot = self.get_root_motion().Rotated(
 		self.collision_body.fixed_rotation.y
 	)
 
@@ -591,6 +612,9 @@ func process_root_motion(delta: int, pushback_force: int = -1, pushback_angle: i
 			vel_rot,
 			self.message_bus.get_oppo_fixed_rotation(self).y
 		)
+	
+	if self.states.has("juggle") && !self.collision_body.is_on_floor(self.floor_height):
+		self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
 
 	collide_and_slide(delta)
 

@@ -7,3 +7,5 @@ const FIXED_TWO: int = 131072
 const FIXED_PI: int = 205887
 const FIXED_TAU: int = 411774
 const FIXED_PI_DIV_2: int = 102943
+
+const FIXED_GRAVITY: int = 642253 # ~9.8 units

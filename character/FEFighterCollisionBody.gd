@@ -21,9 +21,9 @@ func _process(_delta: float) -> void:
     if !Engine.is_editor_hint():
         self.debug_shape_custom_color = Color.GREEN
 
-# TODO: change this to work off of default sphere radius instead of current one
+
 func is_on_floor(floor_height: int) -> bool:
-    var rem: int = self.fixed_position.y - self.fixed_sphere_radius
+    var rem: int = self.fixed_position.y - FixedIntGDConstant.FIXED_HALF #self.fixed_sphere_radius
     return rem <= floor_height
 
 

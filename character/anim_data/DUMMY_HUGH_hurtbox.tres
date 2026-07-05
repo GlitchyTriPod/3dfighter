@@ -9,133 +9,133 @@ dict = Dictionary[StringName, Variant]({
 "0": [{
 &"body_part": 1,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-723,"y":106860,"z":-1156)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2096,"y":9448,"z":-43221)
 ,
 &"radius": 13153
 }, {
 &"body_part": 1,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-810,"y":98007,"z":-5360)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1337,"y":5237,"z":-35070)
 ,
 &"radius": 7956
 }, {
 &"body_part": 2,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-612,"y":82407,"z":-7261)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":671,"y":5696,"z":-19374)
 ,
 &"radius": 19574
 }, {
 &"body_part": 3,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1644,"y":62620,"z":-12755)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
 ,
 &"radius": 17023
 }, {
 &"body_part": 5,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17231,"y":87176,"z":-16775)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17491,"y":5651,"z":-29574)
 ,
 &"radius": 10259
 }, {
 &"body_part": 4,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":14857,"y":89980,"z":2643)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19179,"y":2783,"z":-27747)
 ,
 &"radius": 10259
 }, {
 &"body_part": 5,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18789,"y":85712,"z":-527)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19161,"y":7869,"z":-15413)
 ,
 &"radius": 9397
 }, {
 &"body_part": 4,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":13801,"y":81203,"z":12232)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19884,"y":7420,"z":-14518)
 ,
 &"radius": 9397
 }, {
 &"body_part": 5,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-16065,"y":86345,"z":9656)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21406,"y":14709,"z":-6756)
 ,
 &"radius": 8192
 }, {
 &"body_part": 4,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11052,"y":84411,"z":18382)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21486,"y":17396,"z":-6565)
 ,
 &"radius": 8192
 }, {
 &"body_part": 7,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8563,"y":90915,"z":16982)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22530,"y":25362,"z":-2760)
 ,
 &"radius": 7630
 }, {
 &"body_part": 6,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":5706,"y":94306,"z":18757)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21562,"y":28003,"z":-2773)
 ,
 &"radius": 7630
 }, {
 &"body_part": 9,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7659,"y":53966,"z":-13290)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6321,"y":8190,"z":9294)
 ,
 &"radius": 11933
 }, {
 &"body_part": 9,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-12259,"y":40056,"z":-10612)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6775,"y":7398,"z":24160)
 ,
 &"radius": 11933
 }, {
 &"body_part": 8,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":6900,"y":55841,"z":298)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7724,"y":15725,"z":7268)
 ,
 &"radius": 11933
 }, {
 &"body_part": 8,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10347,"y":46592,"z":11452)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10324,"y":22051,"z":20499)
 ,
 &"radius": 11933
 }, {
 &"body_part": 9,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-13529,"y":27627,"z":-15660)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7229,"y":2171,"z":38000)
 ,
 &"radius": 11933
 }, {
 &"body_part": 9,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-12633,"y":16185,"z":-25153)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7526,"y":-5480,"z":50775)
 ,
 &"radius": 11933
 }, {
 &"body_part": 8,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":13617,"y":33637,"z":17261)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11896,"y":22797,"z":35292)
 ,
 &"radius": 11933
 }, {
 &"body_part": 8,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":16146,"y":19036,"z":18765)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12435,"y":19759,"z":49863)
 ,
 &"radius": 11933
 }, {
 &"body_part": 11,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-15954,"y":5495,"z":-28570)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-7515,"z":65629)
 ,
 &"radius": 13208
 }, {
 &"body_part": 10,
 &"is_hitbox": false,
-&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":18103,"y":5780,"z":24930)
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":22257,"z":61557)
 ,
 &"radius": 13208
 }],
@@ -226693,6 +226693,3998 @@ dict = Dictionary[StringName, Variant]({
 &"body_part": 10,
 &"is_hitbox": false,
 &"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":18103,"y":5779,"z":24396)
+,
+&"radius": 13208
+}]
+},
+&"def_hit_animations/def_air_juggle_1": {
+"0": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2096,"y":9448,"z":-43221)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1337,"y":5237,"z":-35070)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":671,"y":5696,"z":-19374)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17491,"y":5651,"z":-29574)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19179,"y":2783,"z":-27747)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19161,"y":7869,"z":-15413)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19884,"y":7420,"z":-14518)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21406,"y":14709,"z":-6756)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21486,"y":17396,"z":-6565)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22530,"y":25362,"z":-2760)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21562,"y":28003,"z":-2773)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6321,"y":8190,"z":9294)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6775,"y":7398,"z":24160)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7724,"y":15725,"z":7268)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10324,"y":22051,"z":20499)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7229,"y":2171,"z":38000)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7526,"y":-5480,"z":50775)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11896,"y":22797,"z":35292)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12435,"y":19759,"z":49863)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-7515,"z":65629)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":22257,"z":61557)
+,
+&"radius": 13208
+}],
+"1": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2101,"y":9507,"z":-43201)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1340,"y":5269,"z":-35066)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":671,"y":5702,"z":-19371)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17489,"y":5671,"z":-29572)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19181,"y":2802,"z":-27744)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19182,"y":7964,"z":-15437)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19837,"y":7259,"z":-14435)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21476,"y":14840,"z":-6746)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21320,"y":17183,"z":-6545)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22636,"y":25476,"z":-2709)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21295,"y":27835,"z":-2884)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6323,"y":8370,"z":9309)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6779,"y":7860,"z":24188)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7718,"y":15729,"z":7267)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10307,"y":22062,"z":20497)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7232,"y":2753,"z":38029)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7527,"y":-4889,"z":50809)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11880,"y":22830,"z":35292)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12427,"y":19823,"z":49869)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-6910,"z":65663)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":22348,"z":61580)
+,
+&"radius": 13208
+}],
+"10": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2279,"y":11674,"z":-41925)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1426,"y":6181,"z":-34820)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":679,"y":5818,"z":-19309)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17458,"y":6003,"z":-29551)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19211,"y":3128,"z":-27708)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18965,"y":9522,"z":-15559)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19589,"y":7504,"z":-14251)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21367,"y":16753,"z":-6160)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20207,"y":17628,"z":-7778)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22555,"y":26991,"z":-1166)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19173,"y":28757,"z":-6357)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6318,"y":9696,"z":9315)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6764,"y":11266,"z":24119)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7409,"y":15767,"z":7283)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9519,"y":22172,"z":20563)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7218,"y":8165,"z":38549)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7522,"y":2418,"z":52286)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11127,"y":24259,"z":35490)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12070,"y":23292,"z":50323)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":2283,"z":67579)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12958,"y":27532,"z":62901)
+,
+&"radius": 13208
+}],
+"11": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2298,"y":11911,"z":-41761)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1436,"y":6289,"z":-34787)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":680,"y":5831,"z":-19302)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17454,"y":6045,"z":-29547)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19214,"y":3169,"z":-27702)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18925,"y":9675,"z":-15567)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19654,"y":7791,"z":-14364)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21316,"y":16931,"z":-6096)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20365,"y":18054,"z":-7983)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22492,"y":27122,"z":-1001)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19362,"y":29204,"z":-6664)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6317,"y":9771,"z":9310)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6760,"y":11458,"z":24101)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7379,"y":15743,"z":7299)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9443,"y":22110,"z":20604)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7214,"y":8577,"z":38605)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7520,"y":3109,"z":52455)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11046,"y":24362,"z":35539)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12028,"y":23669,"z":50384)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":3241,"z":67798)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12957,"y":28125,"z":63052)
+,
+&"radius": 13208
+}],
+"12": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2313,"y":12110,"z":-41618)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1443,"y":6369,"z":-34759)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":681,"y":5843,"z":-19295)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17451,"y":6072,"z":-29547)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19217,"y":3196,"z":-27700)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18889,"y":9801,"z":-15573)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19811,"y":8293,"z":-14620)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21269,"y":17076,"z":-6041)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20810,"y":18808,"z":-8236)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22432,"y":27227,"z":-861)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19996,"y":29964,"z":-6821)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6315,"y":9819,"z":9306)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6756,"y":11581,"z":24089)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7354,"y":15715,"z":7316)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9378,"y":22039,"z":20648)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7211,"y":8884,"z":38655)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7518,"y":3663,"z":52601)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10984,"y":24427,"z":35589)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11998,"y":23975,"z":50442)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":4031,"z":67984)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12957,"y":28629,"z":63182)
+,
+&"radius": 13208
+}],
+"13": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2324,"y":12263,"z":-41505)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1449,"y":6438,"z":-34736)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":682,"y":5850,"z":-19291)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17449,"y":6097,"z":-29544)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19219,"y":3221,"z":-27696)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18859,"y":9896,"z":-15576)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19991,"y":8890,"z":-14968)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21228,"y":17185,"z":-5998)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21361,"y":19683,"z":-8519)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22380,"y":27304,"z":-754)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20814,"y":30817,"z":-6871)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6314,"y":9844,"z":9304)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6753,"y":11645,"z":24082)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7335,"y":15688,"z":7332)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9328,"y":21970,"z":20688)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7208,"y":9087,"z":38698)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7517,"y":4063,"z":52716)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10936,"y":24464,"z":35634)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11975,"y":24207,"z":50490)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":4616,"z":68129)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12957,"y":29021,"z":63283)
+,
+&"radius": 13208
+}],
+"14": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2330,"y":12342,"z":-41434)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1454,"y":6492,"z":-34721)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":682,"y":5858,"z":-19287)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17447,"y":6122,"z":-29541)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19221,"y":3245,"z":-27692)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18844,"y":9940,"z":-15578)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20060,"y":9164,"z":-15133)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21199,"y":17252,"z":-5971)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21575,"y":20076,"z":-8675)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22343,"y":27352,"z":-686)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21131,"y":31197,"z":-6950)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6313,"y":9848,"z":9304)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6751,"y":11656,"z":24081)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7323,"y":15669,"z":7343)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9297,"y":21921,"z":20716)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7207,"y":9182,"z":38730)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7517,"y":4287,"z":52793)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10905,"y":24485,"z":35665)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11960,"y":24355,"z":50521)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":4974,"z":68223)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12956,"y":29273,"z":63347)
+,
+&"radius": 13208
+}],
+"15": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2334,"y":12395,"z":-41405)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1453,"y":6475,"z":-34722)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":682,"y":5854,"z":-19289)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17448,"y":6108,"z":-29543)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19220,"y":3231,"z":-27695)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18834,"y":9971,"z":-15577)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20072,"y":9210,"z":-15163)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21197,"y":17249,"z":-5970)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21619,"y":20173,"z":-8721)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22339,"y":27349,"z":-687)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21195,"y":31293,"z":-6989)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6313,"y":9852,"z":9303)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6749,"y":11667,"z":24080)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7323,"y":15669,"z":7343)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9297,"y":21921,"z":20716)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7205,"y":9224,"z":38740)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7516,"y":4375,"z":52819)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10909,"y":24514,"z":35663)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11969,"y":24430,"z":50519)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":5089,"z":68262)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12956,"y":29273,"z":63347)
+,
+&"radius": 13208
+}],
+"16": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2330,"y":12342,"z":-41434)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1451,"y":6458,"z":-34723)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":682,"y":5850,"z":-19291)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17449,"y":6093,"z":-29546)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19219,"y":3217,"z":-27698)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18841,"y":9930,"z":-15574)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20083,"y":9244,"z":-15188)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21194,"y":17245,"z":-5970)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21654,"y":20188,"z":-8706)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22335,"y":27346,"z":-688)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21257,"y":31299,"z":-6922)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6313,"y":9877,"z":9301)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6750,"y":11731,"z":24073)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7323,"y":15669,"z":7343)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9297,"y":21921,"z":20716)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7206,"y":9283,"z":38721)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7516,"y":4400,"z":52789)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10905,"y":24485,"z":35665)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11960,"y":24355,"z":50521)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":5086,"z":68223)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12956,"y":29273,"z":63347)
+,
+&"radius": 13208
+}],
+"17": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2324,"y":12263,"z":-41505)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1447,"y":6415,"z":-34738)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":682,"y":5846,"z":-19293)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17451,"y":6079,"z":-29548)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19217,"y":3202,"z":-27701)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18853,"y":9873,"z":-15566)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20117,"y":9317,"z":-15256)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21208,"y":17154,"z":-5995)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21788,"y":20283,"z":-8680)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22349,"y":27280,"z":-761)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21491,"y":31364,"z":-6721)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6314,"y":9934,"z":9296)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6753,"y":11875,"z":24057)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7335,"y":15688,"z":7332)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9328,"y":21970,"z":20688)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7208,"y":9399,"z":38673)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7517,"y":4416,"z":52705)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10936,"y":24465,"z":35634)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11975,"y":24207,"z":50490)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":5004,"z":68129)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12957,"y":29021,"z":63283)
+,
+&"radius": 13208
+}],
+"18": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2313,"y":12110,"z":-41618)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1442,"y":6358,"z":-34760)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":681,"y":5843,"z":-19295)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17452,"y":6064,"z":-29551)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19216,"y":3188,"z":-27704)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18875,"y":9749,"z":-15551)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20183,"y":9519,"z":-15423)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21224,"y":17007,"z":-6035)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22060,"y":20541,"z":-8677)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22362,"y":27170,"z":-877)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21961,"y":31553,"z":-6386)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6316,"y":9917,"z":9298)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6757,"y":11833,"z":24061)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7354,"y":15715,"z":7316)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9378,"y":22039,"z":20648)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7211,"y":9224,"z":38628)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7519,"y":4046,"z":52589)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10984,"y":24427,"z":35589)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11998,"y":23975,"z":50442)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":4449,"z":67984)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12957,"y":28629,"z":63182)
+,
+&"radius": 13208
+}],
+"19": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2298,"y":11911,"z":-41761)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1436,"y":6289,"z":-34787)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":680,"y":5831,"z":-19302)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17454,"y":6045,"z":-29547)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19214,"y":3169,"z":-27702)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18901,"y":9585,"z":-15530)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20227,"y":9646,"z":-15545)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21238,"y":16809,"z":-6085)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22268,"y":20682,"z":-8623)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22370,"y":27023,"z":-1028)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22343,"y":31613,"z":-6004)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6317,"y":9778,"z":9309)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6760,"y":11476,"z":24099)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7379,"y":15743,"z":7299)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9443,"y":22110,"z":20604)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7214,"y":8601,"z":38603)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7520,"y":3136,"z":52454)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11046,"y":24362,"z":35539)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12028,"y":23669,"z":50384)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":3271,"z":67798)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12957,"y":28125,"z":63052)
+,
+&"radius": 13208
+}],
+"2": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2109,"y":9601,"z":-43145)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1345,"y":5320,"z":-35056)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":671,"y":5707,"z":-19368)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17487,"y":5691,"z":-29570)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19183,"y":2822,"z":-27741)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19190,"y":8087,"z":-15457)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19791,"y":7136,"z":-14363)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21523,"y":15002,"z":-6717)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21150,"y":17026,"z":-6573)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22709,"y":25613,"z":-2616)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21008,"y":27736,"z":-3094)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6324,"y":8539,"z":9321)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6781,"y":8296,"z":24206)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7700,"y":15740,"z":7264)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10261,"y":22091,"z":20490)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7234,"y":3335,"z":38070)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7528,"y":-4241,"z":50889)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11835,"y":22923,"z":35294)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12406,"y":20004,"z":49888)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-6192,"z":65758)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":22605,"z":61645)
+,
+&"radius": 13208
+}],
+"20": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2279,"y":11674,"z":-41925)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1426,"y":6181,"z":-34820)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":679,"y":5818,"z":-19309)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17458,"y":6003,"z":-29551)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19211,"y":3128,"z":-27708)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18929,"y":9392,"z":-15506)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20233,"y":9594,"z":-15544)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21250,"y":16576,"z":-6146)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22338,"y":20579,"z":-8472)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22375,"y":26845,"z":-1206)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22504,"y":31451,"z":-5619)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6318,"y":9643,"z":9318)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6764,"y":11131,"z":24131)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7409,"y":15767,"z":7283)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9519,"y":22172,"z":20563)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7218,"y":7987,"z":38561)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7522,"y":2223,"z":52291)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11127,"y":24259,"z":35490)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12070,"y":23292,"z":50323)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":2074,"z":67579)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12958,"y":27532,"z":62901)
+,
+&"radius": 13208
+}],
+"21": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2259,"y":11409,"z":-42104)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1415,"y":6066,"z":-34856)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":678,"y":5802,"z":-19318)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17462,"y":5960,"z":-29554)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19207,"y":3086,"z":-27712)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18960,"y":9183,"z":-15483)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20222,"y":9447,"z":-15479)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21265,"y":16323,"z":-6216)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22342,"y":20347,"z":-8267)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22383,"y":26651,"z":-1402)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22562,"y":31170,"z":-5222)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6320,"y":9530,"z":9324)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6768,"y":10840,"z":24154)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7444,"y":15787,"z":7269)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9607,"y":22222,"z":20526)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7222,"y":7440,"z":38505)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7523,"y":1381,"z":52107)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11204,"y":24143,"z":35438)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12103,"y":22884,"z":50251)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":948,"z":67336)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12958,"y":26875,"z":62732)
+,
+&"radius": 13208
+}],
+"22": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2236,"y":11124,"z":-42287)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1403,"y":5942,"z":-34891)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":677,"y":5786,"z":-19326)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17466,"y":5913,"z":-29558)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19203,"y":3040,"z":-27718)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-18992,"y":8971,"z":-15464)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20200,"y":9249,"z":-15384)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21284,"y":16066,"z":-6293)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22312,"y":20047,"z":-8035)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22398,"y":26451,"z":-1609)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22566,"y":30825,"z":-4814)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6321,"y":9428,"z":9329)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6772,"y":10579,"z":24171)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7481,"y":15798,"z":7259)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9702,"y":22250,"z":20498)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7225,"y":6938,"z":38438)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7525,"y":591,"z":51909)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11299,"y":23976,"z":35402)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12150,"y":22420,"z":50190)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-120,"z":67079)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":26179,"z":62554)
+,
+&"radius": 13208
+}],
+"23": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2212,"y":10829,"z":-42469)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1392,"y":5815,"z":-34927)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":676,"y":5770,"z":-19335)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17470,"y":5866,"z":-29561)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19198,"y":2994,"z":-27723)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19026,"y":8765,"z":-15450)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20173,"y":9023,"z":-15275)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21309,"y":15815,"z":-6373)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22260,"y":19709,"z":-7791)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22423,"y":26255,"z":-1818)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22537,"y":30442,"z":-4408)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6323,"y":9331,"z":9332)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6776,"y":10329,"z":24186)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7520,"y":15801,"z":7253)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9802,"y":22255,"z":20480)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7229,"y":6458,"z":38367)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7526,"y":-161,"z":51706)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11393,"y":23812,"z":35363)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12193,"y":21966,"z":50120)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-1144,"z":66816)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":25470,"z":62373)
+,
+&"radius": 13208
+}],
+"24": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2188,"y":10535,"z":-42642)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1380,"y":5690,"z":-34961)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":675,"y":5754,"z":-19343)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17475,"y":5819,"z":-29564)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19194,"y":2948,"z":-27729)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19059,"y":8572,"z":-15441)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20140,"y":8784,"z":-15159)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21338,"y":15579,"z":-6454)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22191,"y":19353,"z":-7548)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22457,"y":26069,"z":-2021)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22480,"y":30042,"z":-4015)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6324,"y":9229,"z":9334)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6779,"y":10068,"z":24198)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7560,"y":15797,"z":7251)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9906,"y":22244,"z":20470)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7232,"y":5975,"z":38297)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7527,"y":-898,"z":51507)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11492,"y":23622,"z":35335)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12241,"y":21499,"z":50058)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-2133,"z":66558)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":24772,"z":62195)
+,
+&"radius": 13208
+}],
+"25": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2165,"y":10254,"z":-42801)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1369,"y":5573,"z":-34991)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":674,"y":5739,"z":-19352)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17479,"y":5777,"z":-29566)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19190,"y":2906,"z":-27733)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19091,"y":8395,"z":-15435)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20102,"y":8539,"z":-15044)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21369,"y":15364,"z":-6532)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22105,"y":18990,"z":-7317)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22493,"y":25897,"z":-2212)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22400,"y":29639,"z":-3651)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6325,"y":9116,"z":9335)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6782,"y":9779,"z":24208)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7600,"y":15786,"z":7252)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10008,"y":22215,"z":20469)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7234,"y":5475,"z":38230)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7528,"y":-1626,"z":51319)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11591,"y":23424,"z":35316)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12289,"y":21049,"z":50003)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-3091,"z":66314)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":24110,"z":62026)
+,
+&"radius": 13208
+}],
+"26": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2143,"y":9996,"z":-42941)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1358,"y":5463,"z":-35018)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":673,"y":5725,"z":-19359)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17483,"y":5735,"z":-29570)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19187,"y":2865,"z":-27738)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19120,"y":8238,"z":-15432)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20064,"y":8294,"z":-14928)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21397,"y":15172,"z":-6604)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22011,"y":18631,"z":-7101)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22528,"y":25743,"z":-2384)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22293,"y":29245,"z":-3330)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6325,"y":8988,"z":9335)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6783,"y":9449,"z":24215)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7638,"y":15771,"z":7255)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10105,"y":22175,"z":20474)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7236,"y":4942,"z":38170)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7529,"y":-2357,"z":51149)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11685,"y":23234,"z":35304)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12333,"y":20637,"z":49956)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-4023,"z":66092)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":23512,"z":61874)
+,
+&"radius": 13208
+}],
+"27": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2124,"y":9775,"z":-43057)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1350,"y":5380,"z":-35039)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":672,"y":5713,"z":-19365)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17485,"y":5707,"z":-29569)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19184,"y":2838,"z":-27739)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19143,"y":8104,"z":-15429)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20022,"y":8055,"z":-14818)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21418,"y":15007,"z":-6666)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21902,"y":18285,"z":-6912)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22555,"y":25610,"z":-2531)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":22160,"y":28873,"z":-3066)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6325,"y":8838,"z":9333)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6784,"y":9064,"z":24218)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7672,"y":15755,"z":7259)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10191,"y":22131,"z":20482)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7236,"y":4362,"z":38117)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7529,"y":-3099,"z":51003)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11768,"y":23062,"z":35297)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12374,"y":20282,"z":49917)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-4930,"z":65904)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":23001,"z":61745)
+,
+&"radius": 13208
+}],
+"28": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2109,"y":9601,"z":-43145)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1344,"y":5309,"z":-35056)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":671,"y":5706,"z":-19369)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17488,"y":5682,"z":-29572)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19182,"y":2813,"z":-27743)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19159,"y":7996,"z":-15426)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19977,"y":7826,"z":-14712)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21430,"y":14873,"z":-6714)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21778,"y":17958,"z":-6755)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22569,"y":25500,"z":-2647)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21996,"y":28535,"z":-2876)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6325,"y":8660,"z":9327)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6783,"y":8607,"z":24213)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7700,"y":15740,"z":7264)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10261,"y":22091,"z":20490)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7236,"y":3720,"z":38072)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7529,"y":-3860,"z":50889)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11835,"y":22923,"z":35294)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12406,"y":20004,"z":49888)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-5814,"z":65757)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":22605,"z":61645)
+,
+&"radius": 13208
+}],
+"29": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2101,"y":9507,"z":-43201)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1338,"y":5253,"z":-35067)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":671,"y":5698,"z":-19373)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17490,"y":5657,"z":-29574)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19180,"y":2789,"z":-27746)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19162,"y":7929,"z":-15420)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19931,"y":7613,"z":-14612)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21427,"y":14772,"z":-6745)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21640,"y":17659,"z":-6637)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22562,"y":25416,"z":-2726)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":21798,"y":28242,"z":-2773)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6324,"y":8446,"z":9315)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6780,"y":8057,"z":24197)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7718,"y":15729,"z":7267)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10307,"y":22062,"z":20497)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7234,"y":2996,"z":38035)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7528,"y":-4651,"z":50812)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11880,"y":22830,"z":35292)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12427,"y":19823,"z":49869)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-6676,"z":65663)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":22348,"z":61580)
+,
+&"radius": 13208
+}],
+"3": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2124,"y":9775,"z":-43057)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1351,"y":5385,"z":-35039)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":672,"y":5713,"z":-19365)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17485,"y":5711,"z":-29567)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19184,"y":2842,"z":-27737)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19186,"y":8233,"z":-15474)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19746,"y":7050,"z":-14303)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21548,"y":15189,"z":-6671)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20978,"y":16924,"z":-6643)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22752,"y":25769,"z":-2488)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20708,"y":27700,"z":-3388)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6324,"y":8705,"z":9328)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6782,"y":8721,"z":24215)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7672,"y":15755,"z":7259)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10191,"y":22131,"z":20482)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7234,"y":3934,"z":38119)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7528,"y":-3529,"z":51004)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11768,"y":23062,"z":35297)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12374,"y":20282,"z":49917)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-5363,"z":65904)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":23001,"z":61745)
+,
+&"radius": 13208
+}],
+"4": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2143,"y":9996,"z":-42941)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1358,"y":5463,"z":-35018)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":673,"y":5725,"z":-19359)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17483,"y":5735,"z":-29570)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19187,"y":2865,"z":-27738)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19172,"y":8399,"z":-15489)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19705,"y":7017,"z":-14259)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21556,"y":15397,"z":-6612)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20807,"y":16872,"z":-6749)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22771,"y":25939,"z":-2330)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20403,"y":27716,"z":-3748)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6324,"y":8867,"z":9333)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6781,"y":9138,"z":24218)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7638,"y":15771,"z":7255)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10105,"y":22175,"z":20474)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7234,"y":4550,"z":38177)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7528,"y":-2756,"z":51152)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11685,"y":23234,"z":35304)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12333,"y":20637,"z":49956)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-4428,"z":66092)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12960,"y":23512,"z":61874)
+,
+&"radius": 13208
+}],
+"5": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2165,"y":10254,"z":-42801)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1369,"y":5573,"z":-34991)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":674,"y":5739,"z":-19352)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17479,"y":5777,"z":-29566)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19190,"y":2906,"z":-27733)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19150,"y":8579,"z":-15502)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19665,"y":6991,"z":-14216)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21549,"y":15621,"z":-6543)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20643,"y":16871,"z":-6883)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22768,"y":26119,"z":-2151)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20103,"y":27782,"z":-4160)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6324,"y":9027,"z":9335)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6780,"y":9549,"z":24213)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7600,"y":15786,"z":7252)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":10008,"y":22215,"z":20469)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7233,"y":5184,"z":38239)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7528,"y":-1926,"z":51322)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11591,"y":23424,"z":35316)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12289,"y":21049,"z":50003)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-3398,"z":66313)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":24110,"z":62026)
+,
+&"radius": 13208
+}],
+"6": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2188,"y":10535,"z":-42642)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1380,"y":5690,"z":-34961)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":675,"y":5754,"z":-19344)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17475,"y":5819,"z":-29564)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19194,"y":2948,"z":-27729)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19121,"y":8770,"z":-15515)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19631,"y":7031,"z":-14195)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21530,"y":15855,"z":-6468)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20490,"y":16917,"z":-7039)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22749,"y":26305,"z":-1957)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19817,"y":27888,"z":-4605)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6323,"y":9184,"z":9335)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6778,"y":9953,"z":24202)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7560,"y":15797,"z":7251)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9906,"y":22244,"z":20470)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7231,"y":5829,"z":38303)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7527,"y":-1050,"z":51509)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11492,"y":23622,"z":35335)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12241,"y":21499,"z":50058)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-2290,"z":66558)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":24772,"z":62195)
+,
+&"radius": 13208
+}],
+"7": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2212,"y":10829,"z":-42469)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1392,"y":5815,"z":-34927)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":676,"y":5770,"z":-19335)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17470,"y":5866,"z":-29561)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19198,"y":2994,"z":-27723)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19085,"y":8966,"z":-15527)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19599,"y":7078,"z":-14176)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21499,"y":16093,"z":-6389)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20356,"y":17009,"z":-7211)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22715,"y":26491,"z":-1753)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19558,"y":28034,"z":-5067)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6323,"y":9335,"z":9332)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6776,"y":10340,"z":24185)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7520,"y":15801,"z":7253)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9802,"y":22255,"z":20480)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7229,"y":6471,"z":38367)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7526,"y":-148,"z":51706)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11393,"y":23812,"z":35363)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12193,"y":21966,"z":50120)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":-1130,"z":66816)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":25470,"z":62373)
+,
+&"radius": 13208
+}],
+"8": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2236,"y":11124,"z":-42287)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1403,"y":5942,"z":-34891)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":677,"y":5786,"z":-19326)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17466,"y":5913,"z":-29558)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19203,"y":3040,"z":-27718)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19047,"y":9161,"z":-15539)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19578,"y":7176,"z":-14177)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21461,"y":16326,"z":-6309)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20250,"y":17150,"z":-7395)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22670,"y":26670,"z":-1549)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19343,"y":28219,"z":-5528)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6321,"y":9474,"z":9327)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6772,"y":10697,"z":24164)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7481,"y":15798,"z":7259)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9702,"y":22250,"z":20498)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7226,"y":7091,"z":38430)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7525,"y":753,"z":51905)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11299,"y":23976,"z":35402)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12150,"y":22420,"z":50190)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8715,"y":48,"z":67078)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12959,"y":26179,"z":62554)
+,
+&"radius": 13208
+}],
+"9": [{
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":2259,"y":11409,"z":-42104)
+,
+&"radius": 13153
+}, {
+&"body_part": 1,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":1415,"y":6066,"z":-34856)
+,
+&"radius": 7956
+}, {
+&"body_part": 2,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":678,"y":5802,"z":-19318)
+,
+&"radius": 19574
+}, {
+&"body_part": 3,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":648,"y":7972,"z":273)
+,
+&"radius": 17023
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-17462,"y":5960,"z":-29554)
+,
+&"radius": 10259
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19207,"y":3086,"z":-27712)
+,
+&"radius": 10259
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-19006,"y":9349,"z":-15550)
+,
+&"radius": 9397
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19571,"y":7313,"z":-14198)
+,
+&"radius": 9397
+}, {
+&"body_part": 5,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-21416,"y":16549,"z":-6232)
+,
+&"radius": 8192
+}, {
+&"body_part": 4,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":20191,"y":17348,"z":-7584)
+,
+&"radius": 8192
+}, {
+&"body_part": 7,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-22615,"y":26839,"z":-1351)
+,
+&"radius": 7630
+}, {
+&"body_part": 6,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":19199,"y":28451,"z":-5966)
+,
+&"radius": 7630
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6320,"y":9596,"z":9321)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-6769,"y":11009,"z":24141)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":7444,"y":15787,"z":7269)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":9607,"y":22222,"z":20526)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7222,"y":7662,"z":38491)
+,
+&"radius": 11933
+}, {
+&"body_part": 9,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-7523,"y":1620,"z":52101)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":11204,"y":24143,"z":35438)
+,
+&"radius": 11933
+}, {
+&"body_part": 8,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12103,"y":22884,"z":50251)
+,
+&"radius": 11933
+}, {
+&"body_part": 11,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":-8716,"y":1202,"z":67336)
+,
+&"radius": 13208
+}, {
+&"body_part": 10,
+&"is_hitbox": false,
+&"position": Object(RefCounted,"script":Resource("res://classes/FixedVector3.cs"),"x":12958,"y":26875,"z":62732)
 ,
 &"radius": 13208
 }]
