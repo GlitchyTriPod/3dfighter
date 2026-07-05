@@ -31,14 +31,24 @@ func fixed_look_at(
     target: FixedVector3,
     invert: bool = false,
     lerp_rotation: bool = false, 
-    delta: int = 0) -> void:
+    delta: int = 0,
+    use_zero_y: bool = false) -> void:
+
     # for some reason the alignment gets strange when origin and target are not on same y position.
-    # even forcing an even y-pos doesnt fix it. weird.
+    var zero_y_pos: FixedVector3 = FixedVector3.NewFromInt(self.fixed_position.x, 0, self.fixed_position.z)
+    var zero_y_target: FixedVector3 = FixedVector3.NewFromInt(target.x, 0, target.z)
+
     var forward: FixedVector3 
     if invert:
-        forward = FixedVector3.Sub(self.fixed_position, target)
+        if use_zero_y:
+            forward = FixedVector3.Sub(zero_y_pos, zero_y_target)
+        else:
+            forward = FixedVector3.Sub(self.fixed_position, target)
     else:
-        forward = FixedVector3.Sub(target, self.fixed_position)
+        if use_zero_y:
+            forward = FixedVector3.Sub(zero_y_target, zero_y_pos)
+        else:
+            forward = FixedVector3.Sub(target, self.fixed_position)
 
     var final_rotation: FixedVector3 = FixedVector3.BasisGetEuler(forward, true)
     
@@ -57,7 +67,10 @@ func fixed_look_at(
         self.fixed_rotation.z = FixedIntGDConstant.FIXED_ZERO
 
 func get_look_at(target: FixedVector3) -> FixedVector3:
-    var forward: FixedVector3 = FixedVector3.Sub(target, self.fixed_position)
+    var zero_y_pos: FixedVector3 = FixedVector3.NewFromInt(self.fixed_position.x, 0, self.fixed_position.z)
+    var zero_y_target: FixedVector3 = FixedVector3.NewFromInt(target.x, 0, target.z)
+    # var forward: FixedVector3 = FixedVector3.Sub(target, self.fixed_position)
+    var forward: FixedVector3 = FixedVector3.Sub(zero_y_target, zero_y_pos)
     return FixedVector3.BasisGetEuler(forward, true)
 
 func _save_state() -> Dictionary:

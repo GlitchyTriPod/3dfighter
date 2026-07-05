@@ -586,12 +586,14 @@ func process_root_motion(
 	
 	if launch_force != -1:
 		vel_rot = CollisionMath.CalculateLaunchVelocity(launch_force, 0) # TODO: add launch angle, already some support (untested)
-	elif self.states.has("juggle"):
-		vel_rot = self.collision_body.velocity
+	
 	else:
 		vel_rot = self.get_root_motion().Rotated(
 		self.collision_body.fixed_rotation.y
 	)
+
+	if self.states.has("juggle"):
+		vel_rot = self.collision_body.velocity
 
 	# apply the pushback angle
 	if pushback_angle != 999:
@@ -613,7 +615,7 @@ func process_root_motion(
 			self.message_bus.get_oppo_fixed_rotation(self).y
 		)
 	
-	if self.states.has("juggle") && !self.collision_body.is_on_floor(self.floor_height):
+	if !self.collision_body.is_on_floor(self.floor_height):
 		self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
 
 	collide_and_slide(delta)
@@ -686,7 +688,8 @@ func collide_and_slide(delta: int) -> void:
 			oppo_collision_body.fixed_position,
 			self.states.has("inverse_track_opp"),
 			self.states.has("lerp_rotation"),
-			delta
+			delta,
+			true
 		)
 
 func is_tracking_opponent() -> bool:
