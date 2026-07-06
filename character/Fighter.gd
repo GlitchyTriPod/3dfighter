@@ -403,9 +403,11 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 
 		elif self.states.has("airborne"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.air_hit_animation)
-			if enemy_anim_data.pushback_angle_on_hit:
-				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
-			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
+			self.stun_reason.stun_pushback = 0
+			self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+			# if enemy_anim_data.pushback_angle_on_hit:
+			# 	self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+			# self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
 
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
@@ -417,7 +419,9 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
 	self.stun_reason.stun_align = enemy_anim_data.face_attacker_on_hit
-	self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+
+	if self.stun_reason.stun_launch_force != 0:
+		self.stun_reason.stun_pushback = 0
 
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
@@ -434,6 +438,13 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		self.set_animation_order(move, current_move)
 		self.process_root_motion(delta, self.stun_reason.stun_pushback, self.stun_reason.stun_pushback_angle, self.stun_reason.stun_launch_force)
 		self.reset_stun_reason()
+		return
+
+	# check if fighter is being juggled, and has hit the floor
+	if self.states.has("juggle") && self.is_on_ground:
+		var move: FighterAnimationData = self.movelist.get_from_ref_name(&"Ref/ground_hit_1")
+		self.set_animation_order(move, current_move)
+		self.process_root_motion(delta)
 		return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
@@ -589,34 +600,37 @@ func process_root_motion(
 	
 	else:
 		vel_rot = self.get_root_motion().Rotated(
-		self.collision_body.fixed_rotation.y
-	)
+			self.collision_body.fixed_rotation.y
+		)
 
 	if self.states.has("juggle"):
 		vel_rot = self.collision_body.velocity
 
-	# apply the pushback angle
-	if pushback_angle != 999:
-		self.collision_body.pushback_angle = pushback_angle	
+	else:
+		# apply the pushback angle
+		if pushback_angle != 999:
+			self.collision_body.pushback_angle = pushback_angle	
 
-	# add pushback velocity to vel_rot
-	if pushback_force != -1 && self.collision_body.pushback_force == 0:
-		self.collision_body.pushback_force = pushback_force
+		# add pushback velocity to vel_rot
+		if pushback_force != -1 && self.collision_body.pushback_force == 0:
+			self.collision_body.pushback_force = pushback_force
 
-	self.collision_body.pushback_force = CollisionMath.CalculatePushback(
-		self.collision_body.pushback_force, self.anim_player.current_animation_position
-	)
-
-	self.collision_body.velocity = CollisionMath.CalculateVelocity(
-			delta,
-			self.collision_body.pushback_force,
-			self.collision_body.pushback_angle,
-			vel_rot,
-			self.message_bus.get_oppo_fixed_rotation(self).y
+		self.collision_body.pushback_force = CollisionMath.CalculatePushback(
+			self.collision_body.pushback_force, self.anim_player.current_animation_position
 		)
-	
-	if !self.collision_body.is_on_floor(self.floor_height):
+
+		self.collision_body.velocity = CollisionMath.CalculateVelocity(
+				delta,
+				self.collision_body.pushback_force,
+				self.collision_body.pushback_angle,
+				vel_rot,
+				self.message_bus.get_oppo_fixed_rotation(self).y
+			)
+		
+	if !self.is_on_ground:
 		self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
+	elif self.collision_body.velocity.y < 0:
+		self.collision_body.velocity.y = 0
 
 	collide_and_slide(delta)
 
@@ -673,13 +687,16 @@ func collide_and_slide(delta: int) -> void:
 
 		# if push needed, add wall_normal * pushback to new_position
 		if pushback_dist > 0 && pushback_dist < self.collision_body.fixed_sphere_radius:
-			pass
 			new_position = CollisionMath.CalculateWallPushbackPosition(
 				self.wall_normal,
 				new_position,
 				self.collision_body.fixed_sphere_radius,
 				pushback_dist
 			)
+	
+	# snap to floor if lower than allowed
+	if new_position.y - FixedIntGDConstant.FIXED_HALF < self.floor_height:
+		new_position.y = FixedIntGDConstant.FIXED_HALF
 			
 	self.collision_body.fixed_position = new_position
 
