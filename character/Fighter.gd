@@ -414,14 +414,15 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 			if enemy_anim_data.pushback_angle_on_hit:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
+			self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
 
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
 	self.stun_reason.stun_align = enemy_anim_data.face_attacker_on_hit
 
-	if self.stun_reason.stun_launch_force != 0:
-		self.stun_reason.stun_pushback = 0
+	# if self.stun_reason.stun_launch_force != 0:
+	# 	self.stun_reason.stun_pushback = 0
 
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
@@ -442,7 +443,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 
 	# check if fighter is being juggled, and has hit the floor
 	if self.states.has("juggle") && self.is_on_ground:
-		var move: FighterAnimationData = self.movelist.get_from_ref_name(&"Ref/ground_hit_1")
+		var move: FighterAnimationData = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
 		self.set_animation_order(move, current_move)
 		self.process_root_motion(delta)
 		return
@@ -479,7 +480,9 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		# if animation player and move animation does not match, fall back to recovery move
 		if current_move.animation_name != self.anim_player.current_animation:
 			self.set_animation_order(self.movelist.get_from_ref_name(current_move.recovery_ref), current_move)
+
 		self.process_root_motion(delta)
+
 		return
 
 	var inp: Array[Dictionary] = self.input_interpreter.read_input()
@@ -518,7 +521,6 @@ func set_animation_order(atk_data: FighterAnimationData, _current_move: FighterA
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
 
 	self.anim_player.play(atk_data.animation_name)
-	self.anim_player.seek(0)
 	
 func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 	if current_input[0].button != 0:
@@ -557,13 +559,13 @@ func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 
 func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool = false) -> FighterAnimationData:
 	var inputs: Array[Dictionary] = self.input_interpreter.read_input(10)
+	var ignore_button: bool = false
 
 	# only register new button presses
-	# currently this prevents all movement when a button is held; needs to change
 	if inputs[0][&"button"] != 0 &&  \
-		(inputs[0][&'frame_start'] != SyncManager.current_tick || \
+		(inputs[0][&'frame_start'] < SyncManager.current_tick || \
 		inputs[0][&'button'] <= inputs[1][&'button']):
-		return current_move
+		ignore_button = true
 
 	if current_move.extension_possible(self.anim_player.current_animation_position, check_buffer):
 		var new_move: FighterAnimationData = self.movelist.get_from_input(
@@ -571,14 +573,15 @@ func get_move_from_input(current_move: FighterAnimationData, check_buffer: bool 
 			self.states, 
 			self.screen_position, 
 			check_buffer, 
-			current_move.extensions
+			ignore_button,
+			current_move.extensions,
 		)
 		if new_move.move_name == &"idle":
 			if self.buffer_anim_id != &"":
 				return self.movelist.get_from_id(self.buffer_anim_id)
 			return current_move
 		return new_move	
-	return self.movelist.get_from_input(inputs, self.states, self.screen_position, check_buffer)
+	return self.movelist.get_from_input(inputs, self.states, self.screen_position, check_buffer, ignore_button)
 
 func process_root_motion(
 	delta: int, 

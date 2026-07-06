@@ -72,7 +72,8 @@ func get_from_input(inputs: Array[Dictionary],
 	player_states: PackedStringArray, 
 	screen_position: int,
 	bufferable: bool = false,
-	extensions: Array[FighterAnimationData] = []
+	ignore_button: bool = false,
+	extensions: Array[FighterAnimationData] = [],
 	) -> FighterAnimationData:
 
 	if inputs[0][&"di"] == 7:
@@ -90,7 +91,7 @@ func get_from_input(inputs: Array[Dictionary],
 			# move associated with the current di
 			(move.input_di_map.size() == 1 && move.input_di_map[0] == 0))  && \
 
-			self.is_valid_button_press(move.input_button, inputs[0][&"button"]) && \
+			self.is_valid_button_press(move.input_button, inputs[0][&"button"] if !ignore_button else 0) && \
 			(move.side_context == 0 || screen_position == move.side_context) && \
 			(self.has_valid_states(move, player_states, bufferable)):
 
@@ -149,12 +150,12 @@ func has_valid_states(move: FighterAnimationData, player_states: PackedStringArr
 			return false
 
 	var match_count: int = 0
-	for state: String in move.required_state:
+	for state: StringName in move.required_state:
 		if player_states.has(state):
 			match_count += 1
 			continue
 		
-		if bufferable && player_states.has(&"crouching") && state == &"rising_calc":
+		if bufferable && state == &"rising_calc" && player_states.has("crouching"):
 			match_count += 1
 
 	return match_count >= move.required_state.size()
