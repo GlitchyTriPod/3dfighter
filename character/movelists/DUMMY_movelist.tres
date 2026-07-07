@@ -1274,8 +1274,8 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 pushback_force = 4587
-launch_force = 13107
-launch_direction = 5715
+launch_force = 9830
+launch_direction = 51435
 pushback_mod_on_hit = -4587
 pushback_mod_on_counter = -4587
 

@@ -150,7 +150,7 @@ public partial class CollisionMath : GodotObject
     public static FixedVector3 CalculateLaunchVelocity(long launchForce, long angle)
     {
         FixedVector3 xz = new FixedVector3(launchForce, 0, 0)
-            .Rotated(FixedInt.Deg2Rads(angle));
+            .Rotated(angle);
 
         return new FixedVector3(xz.y, xz.x, xz.z);
     }

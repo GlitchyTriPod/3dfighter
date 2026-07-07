@@ -8,4 +8,4 @@ const FIXED_PI: int = 205887
 const FIXED_TAU: int = 411774
 const FIXED_PI_DIV_2: int = 102943
 
-const FIXED_GRAVITY: int =  32768 #98304 # ~1.5 units
+const FIXED_GRAVITY: int =  16394 #98304 # ~1.5 units
