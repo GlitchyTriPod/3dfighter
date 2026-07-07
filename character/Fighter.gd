@@ -179,8 +179,6 @@ func _process(_delta: float) -> void:
 			)
 
 		if self._velocity_bake_mode || self._hurtbox_bake_mode:
-			pass
-			print("advancing animation...")
 			self.anim_player.advance(1.0 / 60)
 
 	else:
@@ -322,11 +320,7 @@ func process_hitbox_intersection() -> bool:
 				hitbox.fixed_position.Rotated(
 					enemy_rotation.y
 				),
-				FixedVector3.NewFromInt(
-					enemy_position.x,
-					0,
-					enemy_position.z
-				)
+				enemy_position
 			)
 
 		for hurtbox: FECollisionData in self.misc_hurtbox_pool:
@@ -338,11 +332,7 @@ func process_hitbox_intersection() -> bool:
 					hurtbox.fixed_position.Rotated(
 						self.collision_body.fixed_rotation.y
 					),
-					FixedVector3.NewFromInt(
-						self.collision_body.fixed_position.x,
-						0,
-						self.collision_body.fixed_position.z
-					)
+					self.collision_body.fixed_position
 				)
 			
 			if hurtbox.fixed_is_overlapping_with(hitbox) > 0:
@@ -378,6 +368,8 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 
 	self.stun_reason.stun_pushback = enemy_anim_data.pushback_force
 
+	print("hit detected?")
+
 	if blocked:
 		if self.states.has("crouching") && enemy_anim_data.has_crouch_block_property:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.crouch_block_animation)
@@ -403,11 +395,11 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 
 		elif self.states.has("airborne"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.air_hit_animation)
-			self.stun_reason.stun_pushback = 0
+			# self.stun_reason.stun_pushback = 0
 			self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
 			# if enemy_anim_data.pushback_angle_on_hit:
 			# 	self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
-			# self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
+			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
 
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
@@ -436,17 +428,22 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	# check if fighter needs to be placed in a stun animation
 	if self.stun_reason.stun_id != &"":
 		var move: FighterAnimationData = self.movelist.get_from_id(self.stun_reason.stun_id)
+		if self.states.has("juggle") && self.stun_reason.stun_launch_force == 0:
+			self.stun_reason.stun_launch_force = FixedInt.FromInt(5)
+			# print("manually set launch force!!! " + str(self.stun_reason.stun_launch_force))
+
 		self.set_animation_order(move, current_move)
 		self.process_root_motion(delta, self.stun_reason.stun_pushback, self.stun_reason.stun_pushback_angle, self.stun_reason.stun_launch_force)
 		self.reset_stun_reason()
 		return
 
 	# check if fighter is being juggled, and has hit the floor
-	if self.states.has("juggle") && self.is_on_ground:
-		var move: FighterAnimationData = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
-		self.set_animation_order(move, current_move)
-		self.process_root_motion(delta)
-		return
+	if self.states.has("juggle"):
+		if self.is_on_ground:
+			var move: FighterAnimationData = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
+			self.set_animation_order(move, current_move)
+			self.process_root_motion(delta)
+			return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
 	if (!self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun")) && \
@@ -596,20 +593,17 @@ func process_root_motion(
 		return frame_velocity
 	#####################################
 
-	var vel_rot: FixedVector3 
+	var vel_rot: FixedVector3 = FixedVector3.new()
 	
 	if launch_force != -1:
 		vel_rot = CollisionMath.CalculateLaunchVelocity(launch_force, 0) # TODO: add launch angle, already some support (untested)
-	
+
 	else:
 		vel_rot = self.get_root_motion().Rotated(
 			self.collision_body.fixed_rotation.y
 		)
 
-	if self.states.has("juggle"):
-		vel_rot = self.collision_body.velocity
-
-	else:
+	if !self.states.has("juggle"):
 		# apply the pushback angle
 		if pushback_angle != 999:
 			self.collision_body.pushback_angle = pushback_angle	
@@ -623,15 +617,27 @@ func process_root_motion(
 		)
 
 		self.collision_body.velocity = CollisionMath.CalculateVelocity(
-				delta,
-				self.collision_body.pushback_force,
-				self.collision_body.pushback_angle,
-				vel_rot,
-				self.message_bus.get_oppo_fixed_rotation(self).y
-			)
+			delta,
+			self.collision_body.pushback_force,
+			self.collision_body.pushback_angle,
+			vel_rot,
+			self.message_bus.get_oppo_fixed_rotation(self).y
+		)
 		
 	if !self.is_on_ground:
-		self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
+		print("Setting y velocity: " + str(self.collision_body.velocity.y))
+		# self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
+		self.collision_body.velocity.y = clampi(
+			self.collision_body.velocity.y - FixedIntGDConstant.FIXED_GRAVITY, 
+			-FixedInt.FromInt(7),
+			INT64_MAX
+		)
+
+		if launch_force != -1 && launch_force > self.collision_body.velocity.y:
+			self.collision_body.velocity.y = launch_force
+
+		print("Y velocity set: " + str(self.collision_body.velocity.y))
+
 	elif self.collision_body.velocity.y < 0:
 		self.collision_body.velocity.y = 0
 

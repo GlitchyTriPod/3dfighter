@@ -2242,6 +2242,60 @@ player_states = Dictionary[StringName, Dictionary]({
 
 [sub_resource type="Resource" id="Resource_b64cq"]
 script = ExtResource("1_vjnbc")
+move_name = &"juggle_ground_land"
+move_type = 3
+is_reference = true
+input_di_map = PackedInt32Array(0)
+animation_name = &"def_hit_animations/def_ground_hit_1"
+required_state = PackedStringArray("grounded")
+prohibit_state = PackedStringArray()
+no_input = true
+non_attack = true
+non_bufferable = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/ground_faceup"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 0
+},
+&"grounded": {
+&"end": 999,
+&"start": 0
+},
+&"input_buffer": {
+&"end": 999,
+&"start": 26
+},
+&"recovery_ignore_input_NEUTRAL": {
+&"end": 999,
+&"start": 0
+}
+})
+
+[sub_resource type="Resource" id="Resource_p5qg8"]
+script = ExtResource("1_vjnbc")
 move_name = &"air_juggle_1"
 move_type = 3
 is_reference = true
@@ -2290,7 +2344,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_p5qg8"]
+[sub_resource type="Resource" id="Resource_5lodf"]
 script = ExtResource("1_vjnbc")
 move_name = &"hit_knd_1"
 move_type = 3
@@ -2343,7 +2397,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_5lodf"]
+[sub_resource type="Resource" id="Resource_auy14"]
 script = ExtResource("1_vjnbc")
 move_name = &"hit_air_1"
 move_type = 3
@@ -2391,7 +2445,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_auy14"]
+[sub_resource type="Resource" id="Resource_cnuuw"]
 script = ExtResource("1_vjnbc")
 move_name = &"hit_l_1"
 move_type = 3
@@ -2436,7 +2490,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_cnuuw"]
+[sub_resource type="Resource" id="Resource_c26xm"]
 script = ExtResource("1_vjnbc")
 move_name = &"hit_m_1"
 move_type = 3
@@ -2481,7 +2535,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_c26xm"]
+[sub_resource type="Resource" id="Resource_y4cvs"]
 script = ExtResource("1_vjnbc")
 move_name = &"hit_m_3"
 move_type = 3
@@ -2526,7 +2580,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_y4cvs"]
+[sub_resource type="Resource" id="Resource_77v0l"]
 script = ExtResource("1_vjnbc")
 move_name = &"hit_h_1"
 move_type = 3
@@ -2571,7 +2625,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_77v0l"]
+[sub_resource type="Resource" id="Resource_0707i"]
 script = ExtResource("1_vjnbc")
 move_name = &"ground_hit_2"
 move_type = 3
@@ -2616,7 +2670,7 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
-[sub_resource type="Resource" id="Resource_0707i"]
+[sub_resource type="Resource" id="Resource_ulgjk"]
 script = ExtResource("1_vjnbc")
 move_name = &"ground_hit_1"
 move_type = 3
@@ -2651,55 +2705,6 @@ hurtbox_data = Dictionary[StringName, Variant]({
 }
 })
 player_states = Dictionary[StringName, Dictionary]({
-&"grounded": {
-&"end": 999,
-&"start": 0
-},
-&"input_buffer": {
-&"end": 999,
-&"start": 26
-}
-})
-
-[sub_resource type="Resource" id="Resource_ulgjk"]
-script = ExtResource("1_vjnbc")
-move_name = &"juggle_ground_land"
-move_type = 3
-is_reference = true
-input_di_map = PackedInt32Array(0)
-animation_name = &"def_hit_animations/def_ground_hit_1"
-required_state = PackedStringArray("grounded")
-prohibit_state = PackedStringArray()
-no_input = true
-non_attack = true
-non_bufferable = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 0
-},
 &"grounded": {
 &"end": 999,
 &"start": 0
