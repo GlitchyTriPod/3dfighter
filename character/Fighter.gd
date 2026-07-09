@@ -401,6 +401,8 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 
 		else:
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
+			self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+			self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
 			if enemy_anim_data.pushback_angle_on_hit:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
@@ -428,16 +430,19 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		var move: FighterAnimationData = self.movelist.get_from_id(self.stun_reason.stun_id)
 		if self.states.has("juggle"):
 			if self.stun_reason.stun_launch_force == 0:
-				self.stun_reason.stun_launch_force = FixedInt.FromInt(5)
-			if self.stun_reason.stun_pushback < FixedIntGDConstant.FIXED_ONE:
-				self.stun_reason.stun_pushback = FixedInt.FromInt(2)
+				self.stun_reason.stun_launch_force = clampi(
+					self.stun_reason.stun_launch_force,
+					FixedInt.FromInt(13),
+					INT64_MAX
+				)
 
 		self.set_animation_order(move, current_move)
 		self.process_root_motion(
 			delta, 
 			self.stun_reason.stun_pushback, 
 			self.stun_reason.stun_pushback_angle, 
-			self.stun_reason.stun_launch_force
+			self.stun_reason.stun_launch_force,
+			self.stun_reason.stun_launch_angle
 		)
 		self.reset_stun_reason()
 		return
@@ -604,13 +609,16 @@ func process_root_motion(
 	if launch_force != -1:
 		vel_rot = CollisionMath.CalculateLaunchVelocity(launch_force, launch_angle) \
 			.Rotated(
-				self.collision_body.fixed_rotation.y
+				self.collision_body.get_look_at(self.message_bus.get_oppo_collision_body(self).fixed_position).y
 			)
-
 	else:
 		vel_rot = self.get_root_motion().Rotated(
 			self.collision_body.fixed_rotation.y
 		)
+
+	if self.states.has("juggle") || !self.is_on_ground:
+		vel_rot = FixedVector3.Add(vel_rot, self.collision_body.velocity)
+
 	
 	# apply the pushback angle
 	if pushback_angle != 999:
@@ -621,7 +629,9 @@ func process_root_motion(
 		self.collision_body.pushback_force = pushback_force
 
 	self.collision_body.pushback_force = CollisionMath.CalculatePushback(
-		self.collision_body.pushback_force, self.anim_player.current_animation_position
+		self.collision_body.pushback_force, 
+		self.anim_player.current_animation_position, 
+		self.anim_player.current_animation_length
 	)
 
 	var final_vel: FixedVector3 = CollisionMath.CalculateVelocity(
@@ -635,17 +645,18 @@ func process_root_motion(
 	if !self.states.has("juggle"):
 		self.collision_body.velocity = final_vel
 		
-	if !self.is_on_ground:
+	if !self.is_on_ground: 
 		self.collision_body.velocity.y = clampi(
 			self.collision_body.velocity.y - FixedIntGDConstant.FIXED_GRAVITY, 
-			-FixedInt.FromInt(7),
+			INT64_MIN, #-FixedInt.FromInt(7),
 			INT64_MAX
 		)
 
-		if launch_force != -1 && launch_force > self.collision_body.velocity.y:
-			self.collision_body.velocity.y = vel_rot.y
+		if launch_force != -1 && final_vel.y > self.collision_body.velocity.y:
+			self.collision_body.velocity.y = FixedInt.Div(final_vel.y, FixedInt.FromInt(256))
 			self.collision_body.velocity.x += FixedInt.Div(final_vel.x, FixedInt.FromInt(256))
 			self.collision_body.velocity.z += FixedInt.Div(final_vel.z, FixedInt.FromInt(256))
+
 
 	elif self.collision_body.velocity.y < 0:
 		self.collision_body.velocity.y = 0
@@ -713,8 +724,8 @@ func collide_and_slide(delta: int) -> void:
 			)
 	
 	# snap to floor if lower than allowed
-	if new_position.y - FixedIntGDConstant.FIXED_HALF < self.floor_height:
-		new_position.y = FixedIntGDConstant.FIXED_HALF
+	if new_position.y - self.collision_body.fixed_sphere_radius < self.floor_height:
+		new_position.y = self.collision_body.fixed_sphere_radius
 			
 	self.collision_body.fixed_position = new_position
 

@@ -133,9 +133,8 @@ bones/30/rotation = Quaternion(-0.01166848, -0.10284388, 0.731729, 0.6736912)
 bones/31/rotation = Quaternion(-0.05073508, -0.0020387617, 0.45381844, 0.8896463)
 bones/34/rotation = Quaternion(-0.24340266, 0.11193176, 0.61992025, 0.737513)
 bones/35/rotation = Quaternion(-0.02483847, -0.021945138, 0.53051716, 0.84702605)
-bones/37/rotation = Quaternion(0.5255708, -0.514226, -0.4103127, 0.5394353)
+bones/37/rotation = Quaternion(0.52557075, -0.5142259, -0.41031277, 0.53943545)
 bones/39/rotation = Quaternion(0.2574684, 0.089553826, 0.55191296, 0.78808767)
-bones/40/position = Vector3(0, 0, -0.2784667)
 bones/40/rotation = Quaternion(6.1817246e-08, 0.7071068, 0.7071068, 6.1817246e-08)
 bones/41/position = Vector3(-8.2089674e-10, 1.3994371, -0.009390098)
 bones/41/rotation = Quaternion(1, 2.7105054e-20, -5.416066e-06, 4.371139e-08)
@@ -192,7 +191,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_neck" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="18" unique_id=223379092]
 unique_name_in_owner = true
-transform = Transform3D(0.9999095, 5.8986926e-10, 0.013451935, -0.00056098343, 0.9991301, 0.04169899, -0.013440233, -0.041702762, 0.9990396, -1.2551515e-10, 1.3490459, -0.06396695)
+transform = Transform3D(0.9999095, 5.8986926e-10, 0.013451935, -0.00056098343, 0.9991301, 0.04169899, -0.013440233, -0.041702762, 0.9990396, -1.2551515e-10, 1.6275126, -0.06396695)
 bone_name = "neck.x"
 bone_idx = 57
 
@@ -210,7 +209,7 @@ body_part = 1
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_spine" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="19" unique_id=1069629717]
-transform = Transform3D(0.9999781, -1.0733103e-10, -0.0066025537, 0.0009854123, 0.9887999, 0.14924388, 0.0065286052, -0.14924714, 0.98877823, 2.8350366e-10, 1.1209701, -0.029541688)
+transform = Transform3D(0.9999781, -1.0733103e-10, -0.0066025537, 0.0009854123, 0.9887999, 0.14924388, 0.0065286052, -0.14924714, 0.98877823, 2.8350366e-10, 1.3994368, -0.029541688)
 bone_name = "spine_01.x"
 bone_idx = 55
 
@@ -228,7 +227,7 @@ body_part = 2
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_hip" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="20" unique_id=924270855]
-transform = Transform3D(1, 4.658448e-13, -1.07447095e-05, -4.7348746e-13, -1, -8.742278e-08, -1.07447095e-05, 8.742278e-08, -1, 1.1768364e-14, 1.1209704, -0.009390098)
+transform = Transform3D(1, 4.658448e-13, -1.07447095e-05, -4.7348746e-13, -1, -8.742278e-08, -1.07447095e-05, 8.742278e-08, -1, 1.1768364e-14, 1.3994371, -0.009390098)
 bone_name = "root.x"
 bone_idx = 41
 
@@ -246,7 +245,7 @@ body_part = 3
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_shoulder_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="21" unique_id=788341912]
-transform = Transform3D(0.19444689, -0.9808071, 0.01440841, -0.001421243, 0.014407038, 0.99989516, -0.980912, -0.19444694, 0.0014075054, -0.052740797, 1.3508826, 0.008666041)
+transform = Transform3D(0.19444689, -0.9808071, 0.01440841, -0.001421243, 0.014407038, 0.99989516, -0.980912, -0.19444694, 0.0014075054, -0.052740797, 1.6293494, 0.008666041)
 bone_name = "shoulder.r"
 bone_idx = 58
 
@@ -264,7 +263,7 @@ body_part = 5
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_shoulder_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="22" unique_id=1483980219]
-transform = Transform3D(0.19444683, 0.9808073, -0.01440832, 0.0014214218, 0.0144069195, 0.9998953, 0.9809121, -0.19444701, 0.0014071452, 0.05274087, 1.3508826, 0.008666015)
+transform = Transform3D(0.19444683, 0.9808073, -0.01440832, 0.0014214218, 0.0144069195, 0.9998953, 0.9809121, -0.19444701, 0.0014071452, 0.05274087, 1.6293494, 0.008666015)
 bone_name = "shoulder.l"
 bone_idx = 60
 
@@ -390,7 +389,7 @@ body_part = 6
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_thigh_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="29" unique_id=106626399]
-transform = Transform3D(0.04613303, -0.02516173, -0.99862057, -0.05179816, -0.9983984, 0.022763308, -0.99759203, 0.05067643, -0.047362633, -0.14037518, 0.8223927, -0.009390084)
+transform = Transform3D(0.04613303, -0.02516173, -0.99862057, -0.05179816, -0.9983984, 0.022763308, -0.99759203, 0.05067643, -0.047362633, -0.14037518, 1.1008594, -0.009390084)
 bone_name = "thigh_twist.r"
 bone_idx = 54
 
@@ -421,7 +420,7 @@ body_part = 9
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_thigh_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="30" unique_id=108404753]
-transform = Transform3D(0.046132978, 0.025161702, 0.99862033, 0.051798016, -0.9983984, 0.02276329, 0.99759203, 0.050676297, -0.04736257, 0.14037517, 0.82239246, -0.009390082)
+transform = Transform3D(0.046132978, 0.025161702, 0.99862033, 0.051798016, -0.9983984, 0.02276329, 0.99759203, 0.050676297, -0.04736257, 0.14037517, 1.1008592, -0.009390082)
 bone_name = "thigh_twist.l"
 bone_idx = 51
 
@@ -514,7 +513,7 @@ body_part = 8
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_foot_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="33" unique_id=818602571]
-transform = Transform3D(-0.99999523, 0.0026669034, 0.001564092, 0.0004059797, -0.38824758, 0.921555, 0.0030649535, 0.9215511, 0.38824475, -0.16403174, -0.17963487, 0.007811054)
+transform = Transform3D(-0.99999523, 0.0026669034, 0.001564092, 0.0004059797, -0.38824758, 0.921555, 0.0030649535, 0.9215511, 0.38824475, -0.16403174, 0.098831825, 0.007811054)
 bone_name = "foot.r"
 bone_idx = 52
 
@@ -532,7 +531,7 @@ body_part = 11
 metadata/_custom_type_script = "uid://devworm8bt0ih"
 
 [node name="bone_foot_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="34" unique_id=1897517982]
-transform = Transform3D(-0.9999951, -0.0026669926, -0.001564044, -0.00040590134, -0.38824734, 0.92155504, -0.0030650168, 0.92155117, 0.38824457, 0.16403174, -0.17963487, 0.007810992)
+transform = Transform3D(-0.9999951, -0.0026669926, -0.001564044, -0.00040590134, -0.38824734, 0.92155504, -0.0030650168, 0.92155117, 0.38824457, 0.16403174, 0.09883183, 0.007810992)
 bone_name = "foot.l"
 bone_idx = 49
 
@@ -725,7 +724,7 @@ settings/5/collisions/0 = NodePath("SpringBoneCollisionSphere3D")
 settings/5/collisions/1 = NodePath("SpringBoneCollisionSphere3D2")
 
 [node name="SpringBoneCollisionSphere3D" type="SpringBoneCollisionCapsule3D" parent="rig_deform/Skeleton3D/SpringBoneSimulator3D" index="0" unique_id=1762823759]
-transform = Transform3D(0.04613303, -0.02516173, -0.99862057, -0.05179816, -0.9983984, 0.022763308, -0.99759203, 0.05067643, -0.047362633, -0.14704303, 0.5578172, 0.0040391684)
+transform = Transform3D(0.04613303, -0.02516173, -0.99862057, -0.05179816, -0.9983984, 0.022763308, -0.99759203, 0.05067643, -0.047362633, -0.14704303, 0.8362839, 0.0040391684)
 bone_name = "thigh_twist.r"
 bone = 54
 position_offset = Vector3(0, 0.265, 0)
@@ -734,7 +733,7 @@ radius = 0.116
 height = 0.627
 
 [node name="SpringBoneCollisionSphere3D2" type="SpringBoneCollisionCapsule3D" parent="rig_deform/Skeleton3D/SpringBoneSimulator3D" index="1" unique_id=318425397]
-transform = Transform3D(0.046132978, 0.025161702, 0.99862033, 0.051798016, -0.9983984, 0.02276329, 0.99759203, 0.050676297, -0.04736257, 0.14704302, 0.5578169, 0.004039134)
+transform = Transform3D(0.046132978, 0.025161702, 0.99862033, 0.051798016, -0.9983984, 0.02276329, 0.99759203, 0.050676297, -0.04736257, 0.14704302, 0.8362836, 0.004039134)
 bone_name = "thigh_twist.l"
 bone = 51
 position_offset = Vector3(0, 0.265, 0)
@@ -762,7 +761,7 @@ metadata/_custom_type_script = "uid://7pefdhcr1asv"
 
 [node name="CollisionBody" type="ShapeCast3D" parent="." index="3" unique_id=1547457895]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51364154, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6322879, 0)
 shape = SubResource("SphereShape3D_a5i7q")
 target_position = Vector3(0, 0, 0)
 collision_mask = 0

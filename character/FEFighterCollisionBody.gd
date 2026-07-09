@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 
 
 func is_on_floor(floor_height: int) -> bool:
-    var rem: int = self.fixed_position.y - FixedIntGDConstant.FIXED_HALF #self.fixed_sphere_radius
+    var rem: int = self.fixed_position.y - self.fixed_sphere_radius
     return rem <= floor_height
 
 

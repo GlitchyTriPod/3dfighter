@@ -13,7 +13,7 @@ public partial class CollisionMath : GodotObject
 {
     public CollisionMath() {}
 
-    public static long CalculatePushback(long pushbackForce, float animPosition)
+    public static long CalculatePushback(long pushbackForce, float animPosition, float animLength)
     {
         return FixedInt.Lerp(
             pushbackForce,
@@ -21,7 +21,7 @@ public partial class CollisionMath : GodotObject
             Math.Clamp(
                 FixedInt.Div(
                     FixedInt.FromFloat(animPosition),
-                    FixedInt.FIXED_HALF
+                    FixedInt.FromFloat(animLength)
                 ),
                 0,
                 FixedInt.FIXED_ONE
