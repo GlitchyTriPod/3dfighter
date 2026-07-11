@@ -103,435 +103,6 @@ player_states = Dictionary[StringName, Dictionary]({
 })
 side_context = 1
 
-[sub_resource type="Resource" id="Resource_cb3ny"]
-script = ExtResource("1_3esc5")
-move_name = &"walk_l_LEFT"
-is_reference = true
-input_di_map = PackedInt32Array(1)
-animation_name = &"def_animations/def_walk_l"
-required_state = PackedStringArray("step_left")
-prohibit_state = PackedStringArray("grounded")
-hold_input = true
-non_attack = true
-non_bufferable = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/idle"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 0
-},
-&"left_movement": {
-&"end": 999,
-&"start": 0
-},
-&"recovery_ignore_input_UP": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-side_context = 2
-
-[sub_resource type="Resource" id="Resource_08nhi"]
-script = ExtResource("1_3esc5")
-move_name = &"walk_l_RIGHT"
-is_reference = true
-input_di_map = PackedInt32Array(5)
-animation_name = &"def_animations/def_walk_l"
-required_state = PackedStringArray("step_left")
-prohibit_state = PackedStringArray("grounded")
-hold_input = true
-non_attack = true
-non_bufferable = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/idle"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 0
-},
-&"left_movement": {
-&"end": 999,
-&"start": 0
-},
-&"recovery_ignore_input_DOWN": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-side_context = 1
-
-[sub_resource type="Resource" id="Resource_kgg6k"]
-script = ExtResource("1_3esc5")
-move_name = &"walk_r_LEFT"
-is_reference = true
-input_di_map = PackedInt32Array(5)
-animation_name = &"def_animations/def_walk_r"
-required_state = PackedStringArray("step_right")
-prohibit_state = PackedStringArray("grounded")
-hold_input = true
-non_attack = true
-non_bufferable = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/idle"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 0
-},
-&"recovery_ignore_input_DOWN": {
-&"end": 999,
-&"start": 0
-},
-&"right_movement": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-side_context = 2
-
-[sub_resource type="Resource" id="Resource_xk686"]
-script = ExtResource("1_3esc5")
-move_name = &"step_r_LEFT"
-input_di_map = PackedInt32Array(5, 0)
-animation_name = &"def_animations/def_step_r"
-required_state = PackedStringArray()
-prohibit_state = PackedStringArray("grounded")
-non_attack = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/idle"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 5
-},
-&"recovery_ignore_input_NEUTRAL": {
-&"end": 999,
-&"start": 5
-},
-&"right_movement": {
-&"end": 999,
-&"start": 0
-},
-&"step_right": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-side_context = 2
-
-[sub_resource type="Resource" id="Resource_hjo88"]
-script = ExtResource("1_3esc5")
-move_name = &"step_l_RIGHT"
-input_di_map = PackedInt32Array(5, 0)
-animation_name = &"def_animations/def_step_l"
-required_state = PackedStringArray()
-prohibit_state = PackedStringArray("grounded")
-non_attack = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/idle"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 5
-},
-&"left_movement": {
-&"end": 999,
-&"start": 0
-},
-&"recovery_ignore_input_NEUTRAL": {
-&"end": 999,
-&"start": 5
-},
-&"step_left": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-side_context = 1
-
-[sub_resource type="Resource" id="Resource_2yxrc"]
-script = ExtResource("1_3esc5")
-move_name = &"walk_b"
-input_di_map = PackedInt32Array(7)
-animation_name = &"def_animations/def_walk_b"
-required_state = PackedStringArray()
-prohibit_state = PackedStringArray("grounded")
-non_attack = true
-non_bufferable = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/idle"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 0
-},
-&"guard_high": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-
-[sub_resource type="Resource" id="Resource_p0c22"]
-script = ExtResource("1_3esc5")
-move_name = &"walk_r_RIGHT"
-is_reference = true
-input_di_map = PackedInt32Array(1)
-animation_name = &"def_animations/def_walk_r"
-required_state = PackedStringArray("step_right")
-prohibit_state = PackedStringArray("grounded")
-hold_input = true
-non_attack = true
-non_bufferable = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/idle"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 0
-},
-&"recovery_ignore_input_UP": {
-&"end": 999,
-&"start": 0
-},
-&"right_movement": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-side_context = 1
-
-[sub_resource type="Resource" id="Resource_3o56v"]
-script = ExtResource("1_3esc5")
-move_name = &"run_f"
-is_reference = true
-input_di_map = PackedInt32Array(0, 3)
-animation_name = &"def_animations/def_run_f"
-required_state = PackedStringArray("f_dash")
-prohibit_state = PackedStringArray("grounded")
-non_attack = true
-non_bufferable = true
-recovery_hit = &"def_animations/def_atk_2p"
-recovery_ch = &"def_animations/def_atk_2p"
-recovery_block = &"def_animations/def_atk_2p"
-recovery_ref = &"Ref/run_f"
-hit_animation = &"def_hit_animations/def_hit_h1"
-block_animation = &"def_block_animations/def_block_h_1"
-crouch_block_animation = &"def_block_animations/def_block_h_1"
-counter_animation = &"def_hit_animations/def_hit_h1"
-air_hit_animation = &"def_hit_animations/def_hit_h1"
-ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
-back_hit_animation = &"def_hit_animations/def_hit_h1"
-hitbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-hurtbox_data = Dictionary[StringName, Variant]({
-&"frame_range": {
-&"end": -1,
-&"start": -1
-}
-})
-player_states = Dictionary[StringName, Dictionary]({
-&"actionable": {
-&"end": 999,
-&"start": 0
-},
-&"recovery_ignore_input_FORWARD": {
-&"end": 999,
-&"start": 0
-},
-&"recovery_ignore_input_NEUTRAL": {
-&"end": 999,
-&"start": 0
-},
-&"running": {
-&"end": 999,
-&"start": 0
-},
-&"track_opp": {
-&"end": 999,
-&"start": 0
-}
-})
-
 [sub_resource type="Resource" id="Resource_sqnrw"]
 script = ExtResource("1_3esc5")
 move_name = &"walk_f"
@@ -1092,6 +663,60 @@ extension_buffer_start = 1
 extension_execute_start = 12
 extension_execute_end = 13
 extensions = Array[ExtResource("1_3esc5")]([SubResource("Resource_12wqm")])
+
+[sub_resource type="Resource" id="Resource_cb3ny"]
+script = ExtResource("1_3esc5")
+move_name = &"walk_l_LEFT"
+is_reference = true
+input_di_map = PackedInt32Array(1)
+animation_name = &"def_animations/def_walk_l"
+required_state = PackedStringArray("step_left")
+prohibit_state = PackedStringArray("grounded")
+hold_input = true
+non_attack = true
+non_bufferable = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/idle"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 0
+},
+&"left_movement": {
+&"end": 999,
+&"start": 0
+},
+&"recovery_ignore_input_UP": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
+}
+})
+side_context = 2
 
 [sub_resource type="Resource" id="Resource_cpqky"]
 script = ExtResource("1_3esc5")
@@ -1896,6 +1521,60 @@ player_states = Dictionary[StringName, Dictionary]({
 })
 side_context = 2
 
+[sub_resource type="Resource" id="Resource_08nhi"]
+script = ExtResource("1_3esc5")
+move_name = &"walk_l_RIGHT"
+is_reference = true
+input_di_map = PackedInt32Array(5)
+animation_name = &"def_animations/def_walk_l"
+required_state = PackedStringArray("step_left")
+prohibit_state = PackedStringArray("grounded")
+hold_input = true
+non_attack = true
+non_bufferable = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/idle"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 0
+},
+&"left_movement": {
+&"end": 999,
+&"start": 0
+},
+&"recovery_ignore_input_DOWN": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
+}
+})
+side_context = 1
+
 [sub_resource type="Resource" id="Resource_0ivfs"]
 script = ExtResource("1_3esc5")
 move_name = &"ground_roll_r_LEFT_BACK"
@@ -2591,6 +2270,60 @@ player_states = Dictionary[StringName, Dictionary]({
 })
 pushback_force = 1310
 
+[sub_resource type="Resource" id="Resource_kgg6k"]
+script = ExtResource("1_3esc5")
+move_name = &"walk_r_LEFT"
+is_reference = true
+input_di_map = PackedInt32Array(5)
+animation_name = &"def_animations/def_walk_r"
+required_state = PackedStringArray("step_right")
+prohibit_state = PackedStringArray("grounded")
+hold_input = true
+non_attack = true
+non_bufferable = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/idle"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 0
+},
+&"recovery_ignore_input_DOWN": {
+&"end": 999,
+&"start": 0
+},
+&"right_movement": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
+}
+})
+side_context = 2
+
 [sub_resource type="Resource" id="Resource_1ej0k"]
 script = ExtResource("1_3esc5")
 move_name = &"ground_pk"
@@ -3096,6 +2829,61 @@ player_states = Dictionary[StringName, Dictionary]({
 }
 })
 
+[sub_resource type="Resource" id="Resource_xk686"]
+script = ExtResource("1_3esc5")
+move_name = &"step_r_LEFT"
+input_di_map = PackedInt32Array(5, 0)
+animation_name = &"def_animations/def_step_r"
+required_state = PackedStringArray()
+prohibit_state = PackedStringArray("grounded")
+non_attack = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/idle"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 5
+},
+&"recovery_ignore_input_NEUTRAL": {
+&"end": 999,
+&"start": 5
+},
+&"right_movement": {
+&"end": 999,
+&"start": 0
+},
+&"step_right": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
+}
+})
+side_context = 2
+
 [sub_resource type="Resource" id="Resource_q7fdo"]
 script = ExtResource("1_3esc5")
 move_name = &"juggle_ground_land"
@@ -3340,6 +3128,218 @@ player_states = Dictionary[StringName, Dictionary]({
 &"input_buffer": {
 &"end": 999,
 &"start": 64
+}
+})
+
+[sub_resource type="Resource" id="Resource_hjo88"]
+script = ExtResource("1_3esc5")
+move_name = &"step_l_RIGHT"
+input_di_map = PackedInt32Array(5, 0)
+animation_name = &"def_animations/def_step_l"
+required_state = PackedStringArray()
+prohibit_state = PackedStringArray("grounded")
+non_attack = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/idle"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 5
+},
+&"left_movement": {
+&"end": 999,
+&"start": 0
+},
+&"recovery_ignore_input_NEUTRAL": {
+&"end": 999,
+&"start": 5
+},
+&"step_left": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
+}
+})
+side_context = 1
+
+[sub_resource type="Resource" id="Resource_2yxrc"]
+script = ExtResource("1_3esc5")
+move_name = &"walk_b"
+input_di_map = PackedInt32Array(7)
+animation_name = &"def_animations/def_walk_b"
+required_state = PackedStringArray()
+prohibit_state = PackedStringArray("grounded")
+non_attack = true
+non_bufferable = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/idle"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 0
+},
+&"guard_high": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
+}
+})
+
+[sub_resource type="Resource" id="Resource_p0c22"]
+script = ExtResource("1_3esc5")
+move_name = &"walk_r_RIGHT"
+is_reference = true
+input_di_map = PackedInt32Array(1)
+animation_name = &"def_animations/def_walk_r"
+required_state = PackedStringArray("step_right")
+prohibit_state = PackedStringArray("grounded")
+hold_input = true
+non_attack = true
+non_bufferable = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/idle"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 0
+},
+&"recovery_ignore_input_UP": {
+&"end": 999,
+&"start": 0
+},
+&"right_movement": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
+}
+})
+side_context = 1
+
+[sub_resource type="Resource" id="Resource_3o56v"]
+script = ExtResource("1_3esc5")
+move_name = &"run_f"
+is_reference = true
+input_di_map = PackedInt32Array(0, 3)
+animation_name = &"def_animations/def_run_f"
+required_state = PackedStringArray("f_dash")
+prohibit_state = PackedStringArray("grounded")
+non_attack = true
+non_bufferable = true
+recovery_hit = &"def_animations/def_atk_2p"
+recovery_ch = &"def_animations/def_atk_2p"
+recovery_block = &"def_animations/def_atk_2p"
+recovery_ref = &"Ref/run_f"
+hit_animation = &"def_hit_animations/def_hit_h1"
+block_animation = &"def_block_animations/def_block_h_1"
+crouch_block_animation = &"def_block_animations/def_block_h_1"
+counter_animation = &"def_hit_animations/def_hit_h1"
+air_hit_animation = &"def_hit_animations/def_hit_h1"
+ground_hit_animation = &"def_hit_animations/def_ground_hit_1"
+back_hit_animation = &"def_hit_animations/def_hit_h1"
+hitbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+hurtbox_data = Dictionary[StringName, Variant]({
+&"frame_range": {
+&"end": -1,
+&"start": -1
+}
+})
+player_states = Dictionary[StringName, Dictionary]({
+&"actionable": {
+&"end": 999,
+&"start": 0
+},
+&"recovery_ignore_input_FORWARD": {
+&"end": 999,
+&"start": 0
+},
+&"recovery_ignore_input_NEUTRAL": {
+&"end": 999,
+&"start": 0
+},
+&"running": {
+&"end": 999,
+&"start": 0
+},
+&"track_opp": {
+&"end": 999,
+&"start": 0
 }
 })
 

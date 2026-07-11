@@ -9,7 +9,7 @@ const DummyNetworkAdapter = preload("res://addons/delta_rollback/DummyNetworkAda
 @onready var message_label: Label = $CanvasLayer/MessageLabel
 @onready var sync_lost_label: Label = $CanvasLayer/SyncLostLabel
 
-@onready var stage: Stage = %Stage
+@onready var stage: Stage = %MatchUI.get_node("%Stage")
 
 const LOG_FILE_DIRECTORY: String = "user://detailed_logs"
 

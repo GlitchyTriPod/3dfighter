@@ -76,6 +76,7 @@ var screen_position: int:
 @onready var anim_player: NetworkAnimationPlayer = %NetworkAnimationPlayer
 
 @onready var look_at_node: LookAtModifier3D = %LookAtModifier3D
+
 # var look_at_target: NodePath
 var look_at_enemy: bool = false
 

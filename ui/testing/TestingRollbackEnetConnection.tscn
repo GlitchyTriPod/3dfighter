@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hqmc820u2nut" path="res://ui/testing/testing_rollback_enet_connection.gd" id="1_yrsqn"]
 [ext_resource type="PackedScene" uid="uid://3nasqljy0y06" path="res://stage/node_3d.tscn" id="2_jmqwy"]
+[ext_resource type="PackedScene" uid="uid://bbbhore3lsp1i" path="res://ui/MatchUI.tscn" id="3_6vw46"]
 
 [node name="TestingRollbackEnetConnection" type="Node" unique_id=1675538452]
 script = ExtResource("1_yrsqn")
@@ -112,6 +113,7 @@ grow_horizontal = 0
 text = "Regaining sync..."
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=421656880]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -125,9 +127,11 @@ scaling_3d_mode = 5
 canvas_item_default_texture_filter = 0
 audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Stage" parent="SubViewportContainer/SubViewport" unique_id=1266887352 instance=ExtResource("2_jmqwy")]
+
+[node name="MatchUI" parent="." unique_id=1033733978 instance=ExtResource("3_6vw46")]
 unique_name_in_owner = true
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/LocalButton" to="." method="_on_local_button_pressed"]

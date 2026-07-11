@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbbhore3lsp1i"]
+[gd_scene format=3 uid="uid://bbbhore3lsp1i"]
 
 [ext_resource type="PackedScene" uid="uid://dnkyecls7oil6" path="res://ui/parts/InputHistoryDisplay.tscn" id="1_8vvsn"]
 [ext_resource type="Script" uid="uid://da3y6o8610pc0" path="res://ui/MatchUI.gd" id="1_m40do"]
@@ -11,7 +11,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_dpbyj"]
 gradient = SubResource("Gradient_h0dl0")
 
-[node name="MatchUI" type="Control"]
+[node name="MatchUI" type="Control" unique_id=1133140208]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +22,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_m40do")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1154108472]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,15 +31,15 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1224052629]
 handle_input_locally = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="Stage" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_olrry")]
+[node name="Stage" parent="SubViewportContainer/SubViewport" unique_id=2060684022 instance=ExtResource("2_olrry")]
 unique_name_in_owner = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=164780914]
 modulate = Color(1, 1, 1, 0.372549)
 layout_mode = 1
 anchors_preset = 15
@@ -49,224 +49,166 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_dpbyj")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1935680010]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.22222222
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.2222222
+offset_top = 160.0
+offset_bottom = -160.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Left" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Left" type="VBoxContainer" parent="HBoxContainer" unique_id=1019765140]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Header" type="HBoxContainer" parent="HBoxContainer/Left"]
+[node name="Header" type="HBoxContainer" parent="HBoxContainer/Left" unique_id=861278868]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Left"]
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Left" unique_id=1062567385]
 layout_mode = 2
 
-[node name="InputHistoryDisplay" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay" parent="HBoxContainer/Left/VBox" unique_id=1524247644 instance=ExtResource("1_8vvsn")]
 visible = false
 layout_mode = 2
 
-[node name="InputHistoryDisplay2" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay2" parent="HBoxContainer/Left/VBox" unique_id=1415021015 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay3" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay3" parent="HBoxContainer/Left/VBox" unique_id=583588691 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay4" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay4" parent="HBoxContainer/Left/VBox" unique_id=738794496 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay5" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay5" parent="HBoxContainer/Left/VBox" unique_id=1097390288 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay6" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay6" parent="HBoxContainer/Left/VBox" unique_id=1908748879 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay7" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay7" parent="HBoxContainer/Left/VBox" unique_id=851890738 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay8" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay8" parent="HBoxContainer/Left/VBox" unique_id=1359990612 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay9" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay9" parent="HBoxContainer/Left/VBox" unique_id=1197010588 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay10" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay10" parent="HBoxContainer/Left/VBox" unique_id=1188418290 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay11" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay11" parent="HBoxContainer/Left/VBox" unique_id=195127494 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay12" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay12" parent="HBoxContainer/Left/VBox" unique_id=1859885342 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay13" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay13" parent="HBoxContainer/Left/VBox" unique_id=617897836 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay14" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay14" parent="HBoxContainer/Left/VBox" unique_id=411145903 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay15" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay15" parent="HBoxContainer/Left/VBox" unique_id=1032877909 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay16" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay16" parent="HBoxContainer/Left/VBox" unique_id=491189378 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay17" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay17" parent="HBoxContainer/Left/VBox" unique_id=237241623 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay18" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay18" parent="HBoxContainer/Left/VBox" unique_id=396372742 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 
-[node name="InputHistoryDisplay19" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay20" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay21" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay22" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay23" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay24" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay25" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay26" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="InputHistoryDisplay27" parent="HBoxContainer/Left/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-
-[node name="Right" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Right" type="VBoxContainer" parent="HBoxContainer" unique_id=1464446944]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Header" type="HBoxContainer" parent="HBoxContainer/Right"]
+[node name="Header" type="HBoxContainer" parent="HBoxContainer/Right" unique_id=2098505271]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Right"]
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/Right" unique_id=783201141]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="InputHistoryDisplay" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay" parent="HBoxContainer/Right/VBox" unique_id=996857546 instance=ExtResource("1_8vvsn")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay2" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay2" parent="HBoxContainer/Right/VBox" unique_id=426278145 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay3" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay3" parent="HBoxContainer/Right/VBox" unique_id=1904763272 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay4" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay4" parent="HBoxContainer/Right/VBox" unique_id=875042805 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay5" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay5" parent="HBoxContainer/Right/VBox" unique_id=68987223 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay6" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay6" parent="HBoxContainer/Right/VBox" unique_id=446222365 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay7" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay7" parent="HBoxContainer/Right/VBox" unique_id=121115469 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay8" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay8" parent="HBoxContainer/Right/VBox" unique_id=657452944 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay9" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay9" parent="HBoxContainer/Right/VBox" unique_id=649046352 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay10" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay10" parent="HBoxContainer/Right/VBox" unique_id=319452936 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay11" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay11" parent="HBoxContainer/Right/VBox" unique_id=714279007 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay12" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay12" parent="HBoxContainer/Right/VBox" unique_id=1623115090 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay13" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay13" parent="HBoxContainer/Right/VBox" unique_id=1085847666 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay14" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay14" parent="HBoxContainer/Right/VBox" unique_id=1206064221 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay15" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay15" parent="HBoxContainer/Right/VBox" unique_id=1506114455 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay16" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay16" parent="HBoxContainer/Right/VBox" unique_id=1072958848 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay17" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay17" parent="HBoxContainer/Right/VBox" unique_id=1293609405 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="InputHistoryDisplay18" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay19" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay20" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay21" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay22" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay23" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay24" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay25" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay26" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="InputHistoryDisplay27" parent="HBoxContainer/Right/VBox" instance=ExtResource("1_8vvsn")]
+[node name="InputHistoryDisplay18" parent="HBoxContainer/Right/VBox" unique_id=1170326384 instance=ExtResource("1_8vvsn")]
 layout_mode = 2
 size_flags_horizontal = 8

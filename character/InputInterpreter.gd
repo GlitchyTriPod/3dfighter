@@ -61,6 +61,7 @@ func interpret_input(input: Dictionary, screen_position: int) -> void:
 			&"di": ret_di,
 			&"button": input.get(&"input_button"), 
 			&"frame_start": SyncManager.current_tick,
+			&"frame_count": 0,
 			&"screen_pos": screen_position
 		}
 
@@ -70,6 +71,7 @@ func interpret_input(input: Dictionary, screen_position: int) -> void:
 		return
 
 	if current_input[&"frame_start"] <= last_input[&"frame_start"]:
+		last_input[&"frame_count"] = SyncManager.current_tick - last_input[&"frame_start"]
 		return
 	
 	if current_input[&"di"] != last_input[&"di"] || current_input[&"button"] != last_input[&"button"]:
