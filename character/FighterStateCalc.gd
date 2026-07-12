@@ -9,9 +9,21 @@ const RISING_CALC: StringName = &"rising_calc"
 
 static var methods: Array[Callable] = [
     calc_backturn_state,
-    # calc_blending_fix,
     calc_rising_state,
+    calc_count_stun_frames,
 ]
+
+static func calc_count_stun_frames(me: Fighter) -> void:
+    if !me.stun_reason.stun_name.is_empty():
+        if me.state_data.has(&"stun_frame_count"):
+            me.state_data[&"stun_frame_count"] += 1
+        else:
+            me.state_data.get_or_add(&"stun_frame_count", 1)
+    
+    if me.state_data.has(&"stun_frame_count") && me.state_data[&"stun_frame_count"] >= 5:
+        me.stun_reason.stun_name = ""
+        me.state_data.erase(&"stun_frame_count")
+        
 
 static func calc_backturn_state(me: Fighter) -> void:
     var oppo_collision_body: FEFighterCollisionBody = me.message_bus.get_oppo_collision_body(me)
@@ -30,26 +42,6 @@ static func calc_backturn_state(me: Fighter) -> void:
         me.states.erase(BACK_TURNED_CALC)
     if me.state_data.has(BACK_TURNED_CALC):
         me.state_data.erase(BACK_TURNED_CALC)
-
-
-# unneeded, thanks gd 4.7
-static func calc_blending_fix(me: Fighter) -> void:
-    if me.states.has(&"fix_blending"):
-        if !me.state_data.has(FIX_BLENDING_CALC):
-            me.state_data.get_or_add(FIX_BLENDING_CALC, 30)
-        else:
-            me.state_data.set(FIX_BLENDING_CALC, 30)
-        me.anim_player.deterministic = true
-        return
-    
-    if me.state_data.has(FIX_BLENDING_CALC):
-        me.state_data[FIX_BLENDING_CALC] -= 1
-        if me.state_data[FIX_BLENDING_CALC] <= 0:
-            me.state_data.erase(FIX_BLENDING_CALC)
-        me.anim_player.deterministic = true
-        return
-
-    me.anim_player.deterministic = false
 
 static func calc_rising_state(me: Fighter) -> void:
     if me.states.has(CROUCHING):

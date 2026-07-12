@@ -78,7 +78,8 @@ func _on_fighter_record_hurtbox_data(data: Array, anim_name: StringName, frame: 
             &"radius": shape.fixed_sphere_radius,
             &"body_part": shape.body_part,
             &"position": FixedVector3.FromVec3(shape.global_position),
-            &"is_hitbox": shape.is_hitbox
+            &"is_hitbox": shape.is_hitbox,
+            &"animation_name": shape.hitbox_attack_name
         })
     
     hurtbox_data[anim_name][str(frame)] = data_min

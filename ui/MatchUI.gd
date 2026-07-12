@@ -14,6 +14,7 @@ func _ready() -> void:
 		self.p1_def_side = 1
 		self.p2_def_side = 0
 	
+	self.player_2.update_combo_counter.connect(_update_combo_counter)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -39,3 +40,18 @@ func display_input_history(data: Array, player: int) -> void:
 			break
 		
 		box[i].input_val = data[(data.size()-1) - i]
+
+
+################################################
+
+func _update_combo_counter(count: int) -> void:
+	if count <= 1:
+		return
+		
+	%ComboCounter.text = "%d Hits!" % count
+	%ComboCounter.visible = true
+
+	%Timer.start(2.5)
+
+func _on_timer_timeout() -> void:
+	%ComboCounter.visible = false

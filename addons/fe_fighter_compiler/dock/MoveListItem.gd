@@ -162,6 +162,8 @@ func get_hitbox_data(is_hurtbox := false) -> Dictionary[StringName, Variant]:
 
 			var data: Dictionary = {}
 
+			data[&"animation_name"] = self.move_name
+
 			data[&"is_hitbox"] = !box.is_hurtbox
 			data[&"radius"] = box.sphere_radius
 			data[&"position"] = FixedVector3.NewFromInt(

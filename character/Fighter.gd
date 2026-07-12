@@ -111,6 +111,7 @@ var wall_ids: PackedInt64Array = []
 
 signal record_velocity_data(velocity: FixedVector3, animation_name: StringName, frame: int)
 signal record_hurtbox_data(hurtboxes: Array, animation_name: StringName, frame: int)
+signal update_combo_counter(hit_count: int)
 
 ### LIFE CYCLE ###
 func _init() -> void:
@@ -192,7 +193,8 @@ func _process(_delta: float) -> void:
 ### METHODS ###
 
 func reset_stun_reason() -> void:
-	self.stun_reason.set(&"stun_name", "")
+	if !self.states.has("hit_stun"):
+		self.stun_reason.set(&"stun_name", "")
 	self.stun_reason.set(&"stun_hit", -1)
 	self.stun_reason.set(&"stun_id", &"")
 	self.stun_reason.set(&"stun_pushback", 0)
@@ -232,6 +234,9 @@ func process_animation_data() -> void:
 				continue
 			self.states.append(state)
 	
+	if !self.states.has("hit_stun") && self.state_data.has(&"combo"):
+		self.state_data.erase(&"combo")
+
 # checks current game state, applies
 func process_calculated_states() -> void:
 	for method: Callable in self.state_calc_functions.methods:
@@ -298,10 +303,11 @@ func process_hitbox_intersection() -> bool:
 	var enemy_position: FixedVector3 = self.message_bus.get_oppo_fixed_position(self)
 	var enemy_rotation: FixedVector3 = self.message_bus.get_oppo_fixed_rotation(self)
 
+
 	for hitbox: FECollisionData in enemy_hitboxes:
 		if !hitbox.enabled || \
-			((hitbox.hitbox_attack_index == self.stun_reason.stun_hit && \
-			self.stun_reason.stun_hit != -1 && \
+			# ((self.stun_reason.stun_hit != -1 && \
+			((!self.stun_reason.stun_name.is_empty() && \
 			hitbox.hitbox_attack_name == self.stun_reason.stun_name)): 
 			continue
 		
@@ -382,6 +388,17 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 		self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_block
 
 	else:
+		# register hit with combo counter
+		if !self.states.has("hit_stun"):
+			self.states.append("hit_stun")
+
+		if self.state_data.has(&"combo"):
+			self.state_data[&"combo"] += 1
+		else:
+			self.state_data.get_or_add(&"combo", 1)
+		self.update_combo_counter.emit(self.state_data[&"combo"])
+
+
 		if self.states.has("counterable"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)			
 			if enemy_anim_data.pushback_angle_on_counter:
@@ -413,10 +430,7 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 	self.stun_reason.stun_name = animation_name
 	self.stun_reason.stun_id = stun_move
 	self.stun_reason.stun_align = enemy_anim_data.face_attacker_on_hit
-
-	# if self.stun_reason.stun_launch_force != 0:
-	# 	self.stun_reason.stun_pushback = 0
-
+		
 # processes movement for player
 func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
 	var current_move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
@@ -433,7 +447,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 			if self.stun_reason.stun_launch_force == 0:
 				self.stun_reason.stun_launch_force = clampi(
 					self.stun_reason.stun_launch_force,
-					FixedInt.FromInt(13),
+					FixedInt.FromInt(25),
 					INT64_MAX
 				)
 
@@ -445,7 +459,6 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 			self.stun_reason.stun_launch_force,
 			self.stun_reason.stun_launch_angle
 		)
-		self.reset_stun_reason()
 		return
 
 	# check if fighter is being juggled, and has hit the floor
@@ -778,6 +791,7 @@ func _network_preprocess(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
 
 func _network_postprocess(_input: Dictionary) -> void:
+	self.reset_stun_reason()
 	FECollisionData.pool_return_arr(self.misc_hitbox_pool)
 	FECollisionData.pool_return_arr(self.misc_hurtbox_pool)
 	self.misc_hitbox_pool.clear()
