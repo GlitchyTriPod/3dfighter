@@ -344,6 +344,15 @@ public partial class FixedVector3 : RefCounted
 	// 	);
 	// }
 
+	public long Magnitude2D()
+	{
+		return FixedInt.Sqrt64(
+			FixedInt.Mul(this.x, this.x) +
+			// FixedInt.Mul(this.y, this.y) +
+			FixedInt.Mul(this.z, this.z)
+		);
+	}
+
 	public long Length()
 	{
 		long lengthSqrd = this.LengthSquared();
@@ -496,5 +505,12 @@ public partial class FixedVector3 : RefCounted
 	{
 		return FixedInt.Atan2(this.Cross(target).Length(), this.Dot(target));
 	}
+
+	public FixedVector3 ClampMagnitude2D(long min, long max)
+	{
+		long targetMag = Math.Clamp(Magnitude2D(), min, max);
+		return Mul(new FixedVector3(x, 0, z).Normalized(), targetMag);
+	}
+
 	#endregion
 }

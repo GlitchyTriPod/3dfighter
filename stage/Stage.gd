@@ -30,9 +30,6 @@ func _ready() -> void:
 
 	%Debug.queue_free()
 
-	# if self.post_processing_node != null:
-	# 	self.post_processing_node.visible = true
-
 	self.fighter_message_bus.game_camera = self.game_camera
 	self.fighter_message_bus.stage_bounds = self.stage_bounds
 

@@ -234,8 +234,8 @@ func process_animation_data() -> void:
 				continue
 			self.states.append(state)
 	
-	if !self.states.has("hit_stun") && self.state_data.has(&"combo"):
-		self.state_data.erase(&"combo")
+	if !self.states.has("hit_stun") && self.state_data.has(&"combo_count"):
+		self.state_data.erase(&"combo_count")
 
 # checks current game state, applies
 func process_calculated_states() -> void:
@@ -392,11 +392,11 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 		if !self.states.has("hit_stun"):
 			self.states.append("hit_stun")
 
-		if self.state_data.has(&"combo"):
-			self.state_data[&"combo"] += 1
+		if self.state_data.has(&"combo_count"):
+			self.state_data[&"combo_count"] += 1
 		else:
-			self.state_data.get_or_add(&"combo", 1)
-		self.update_combo_counter.emit(self.state_data[&"combo"])
+			self.state_data.get_or_add(&"combo_count", 1)
+		self.update_combo_counter.emit(self.state_data[&"combo_count"])
 
 
 		if self.states.has("counterable"):
@@ -447,7 +447,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 			if self.stun_reason.stun_launch_force == 0:
 				self.stun_reason.stun_launch_force = clampi(
 					self.stun_reason.stun_launch_force,
-					FixedInt.FromInt(25),
+					FixedInt.FromInt(30),
 					INT64_MAX
 				)
 
@@ -668,8 +668,15 @@ func process_root_motion(
 
 		if launch_force != -1 && final_vel.y > self.collision_body.velocity.y:
 			self.collision_body.velocity.y = FixedInt.Div(final_vel.y, FixedInt.FromInt(256))
-			self.collision_body.velocity.x += FixedInt.Div(final_vel.x, FixedInt.FromInt(256))
-			self.collision_body.velocity.z += FixedInt.Div(final_vel.z, FixedInt.FromInt(256))
+
+			# clamp horizontal velocity based on combo count
+			var clamped: FixedVector3 = final_vel.ClampMagnitude2D(
+				20000 + (self.state_data[&"combo_count"] * 1000) if self.state_data.has(&"combo_count") else 0, 
+				INT64_MAX)
+			# print(str(clamped.Magnitude2D()))
+
+			self.collision_body.velocity.x += FixedInt.Div(clamped.x, FixedInt.FromInt(256))
+			self.collision_body.velocity.z += FixedInt.Div(clamped.z, FixedInt.FromInt(256))
 
 
 	elif self.collision_body.velocity.y < 0:
