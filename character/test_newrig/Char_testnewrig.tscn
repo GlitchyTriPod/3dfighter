@@ -525,9 +525,6 @@ _data = {
 &"RESET": SubResource("Animation_un811")
 }
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_un811"]
-radius = 0.27999878
-
 [node name="atro" unique_id=1359553451 groups=["network_sync"] instance=ExtResource("1_ogo0r")]
 script = ExtResource("2_tfe8g")
 movelist = ExtResource("3_qhtrm")
@@ -535,13 +532,52 @@ animation_velocity_data = ExtResource("4_dicru")
 animation_hurtbox_data = ExtResource("5_3jbgv")
 animation_library = ExtResource("7_18r77")
 
-[node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(2091820739) index="0" unique_id=1603554731]
-bones/37/rotation = Quaternion(0.5255708, -0.5142259, -0.41031277, 0.5394354)
+[node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(1468576192) index="0" unique_id=1430210933]
+bones/0/rotation = Quaternion(0, 0.70710677, 0.70710677, 0)
+bones/1/rotation = Quaternion(-0.34181336, -0.36489034, 0.63058513, 0.59361696)
+bones/2/rotation = Quaternion(-0.34181336, 0.36489034, -0.63058513, 0.59361696)
+bones/3/rotation = Quaternion(-0.32577536, -0.37927783, 0.60442495, 0.62023324)
+bones/4/rotation = Quaternion(-9.3603546e-08, 0.11188392, -1.03092805e-08, 0.9937213)
+bones/5/rotation = Quaternion(-0.32577536, 0.37927783, -0.60442495, 0.62023324)
+bones/6/rotation = Quaternion(-9.3603546e-08, -0.11188392, 1.03092805e-08, 0.9937213)
+bones/7/rotation = Quaternion(-0.35729745, -0.25000685, 0.6083421, 0.6631403)
+bones/9/rotation = Quaternion(-0.2620928, 0.055511776, -0.057036508, 0.961755)
+bones/10/rotation = Quaternion(-0.010071444, 0.03157728, -0.021171357, 0.99922633)
+bones/13/rotation = Quaternion(0.06070341, 0.08383346, -0.086403556, 0.99086905)
+bones/14/rotation = Quaternion(-0.044785548, 0.023930006, -0.020999825, 0.9984892)
+bones/18/rotation = Quaternion(-0.043142945, -0.052487083, -0.12127526, 0.99029094)
+bones/19/rotation = Quaternion(-0.35729745, 0.25000685, -0.6083421, 0.6631403)
+bones/21/rotation = Quaternion(-0.2620928, -0.055511776, 0.057036508, 0.961755)
+bones/22/rotation = Quaternion(-0.010071444, -0.03157728, 0.021171357, 0.99922633)
+bones/25/rotation = Quaternion(0.06070341, -0.08383346, 0.086403556, 0.99086905)
+bones/26/rotation = Quaternion(-0.044785548, -0.023930006, 0.020999825, 0.9984892)
+bones/30/rotation = Quaternion(-0.043142945, 0.052487083, 0.12127526, 0.99029094)
+bones/31/rotation = Quaternion(2.4077093e-05, 0.70710677, 0.70710677, 2.4077093e-05)
+bones/34/rotation = Quaternion(-0.48913816, -0.49943733, 0.51513344, 0.4959272)
+bones/35/rotation = Quaternion(-1.5061234e-08, 5.2750704e-10, -1.2645616e-08, 1)
+bones/36/rotation = Quaternion(0.48913816, -0.49943733, 0.51513344, -0.4959272)
+bones/37/rotation = Quaternion(-1.5061234e-08, -5.2750704e-10, 1.2645616e-08, 1)
+bones/39/rotation = Quaternion(0.70390755, 0.17805193, 0.6614491, -0.18787454)
+bones/40/rotation = Quaternion(0.7039075, -0.1780519, -0.66144913, -0.18787453)
+bones/41/rotation = Quaternion(-0.0016796438, 0.5037173, 0.8638664, 0.0009786375)
+bones/42/position = Vector3(-3.568367e-08, 0.17301957, 3.765684e-09)
+bones/42/rotation = Quaternion(5.955247e-06, 0.9888987, 0.14859118, 4.0863204e-05)
+bones/43/rotation = Quaternion(0.0016798148, 0.5037173, 0.8638664, -0.0009786375)
+bones/44/rotation = Quaternion(-5.9323966e-06, 0.9888987, 0.14859118, -4.098104e-05)
+bones/45/rotation = Quaternion(-0.071255, 0.0067090685, -0.00047927749, 0.99743545)
+bones/46/rotation = Quaternion(1, 0, 3.532567e-06, 0)
+bones/47/rotation = Quaternion(-0.5622559, -0.42988086, -0.42879874, 0.5614289)
+bones/48/rotation = Quaternion(-0.562256, 0.42988098, 0.42879868, 0.56142896)
+bones/49/rotation = Quaternion(-0.073024206, -0.003292437, 0.00024107889, 0.9973247)
+bones/50/rotation = Quaternion(0.7169737, 0.025475135, 0.6965767, 0.00898095)
+bones/51/rotation = Quaternion(0.7169737, -0.025475135, -0.6965767, 0.00898095)
+bones/52/rotation = Quaternion(-0.47454068, -0.5133273, 0.5006263, 0.510568)
+bones/53/rotation = Quaternion(-0.47454068, 0.5133273, -0.5006263, 0.510568)
 
 [node name="bone_head" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="0" unique_id=1031546076]
 transform = Transform3D(1, 0, -6.810031e-05, 0, 1, 0, 6.810031e-05, 0, 1, 0, 1.6999872, -0.07959953)
 bone_name = "head.x"
-bone_idx = 1
+bone_idx = 31
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_head" index="0" unique_id=48007536 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8794345e-06, 0.07817662, 0.042282254)
@@ -560,7 +596,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 unique_name_in_owner = true
 transform = Transform3D(0.9999095, -2.0383073e-10, 0.013451941, -0.001912206, 0.9898449, 0.14213808, -0.013315336, -0.14215094, 0.98975545, 4.440892e-16, 1.5911318, -0.063966885)
 bone_name = "neck.x"
-bone_idx = 49
+bone_idx = 45
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_neck" index="0" unique_id=902084506 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1, -0.00048977765, 0.040272713, 0.03640616)
@@ -578,7 +614,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_spine" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="2" unique_id=1428032114]
 transform = Transform3D(0.9999782, 4.4669157e-11, -0.0066025527, 0.00096172304, 0.98933476, 0.14565608, 0.006532136, -0.14565927, 0.9893132, 2.220446e-16, 1.3573117, -0.02954167)
 bone_name = "spine_01.x"
-bone_idx = 48
+bone_idx = 49
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_spine" index="0" unique_id=1731917932 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1.0000006, 1.1641532e-10, 4.656613e-10, 5.820766e-10, 1.0000006, 5.9604645e-08, -4.656613e-10, 2.9802322e-08, 1.0000006, 0.00023053761, 0.059177518, 0.034915686)
@@ -596,7 +632,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_hip" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="3" unique_id=772776440]
 transform = Transform3D(1, 0, 7.152557e-06, 0, -0.99999976, 0, 7.152557e-06, 0, -1, 5.551115e-17, 1.3573117, -0.009390037)
 bone_name = "root.x"
-bone_idx = 41
+bone_idx = 46
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_hip" index="0" unique_id=1546866112 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22398579, 0)
@@ -614,7 +650,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_shoulder_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="4" unique_id=639309570]
 transform = Transform3D(0.26266834, -0.96488607, 0.0005060138, -0.0019263029, 5.9604645e-08, 0.9999982, -0.9648843, -0.26266885, -0.0018587112, -0.05274083, 1.5378789, 0.008666105)
 bone_name = "shoulder.r"
-bone_idx = 50
+bone_idx = 48
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_shoulder_r" index="0" unique_id=1634992534 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 4.656613e-10, 1.1641532e-10, 1, -0.018493105, 0.16199932, -3.5643578e-05)
@@ -632,7 +668,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_shoulder_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="5" unique_id=1236046162]
 transform = Transform3D(0.2626681, 0.96488625, -0.00050580484, 0.0019261241, -1.192093e-07, 0.9999982, 0.96488434, -0.26266867, -0.0018584728, 0.05274083, 1.5378789, 0.008666105)
 bone_name = "shoulder.l"
-bone_idx = 52
+bone_idx = 47
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_shoulder_l" index="0" unique_id=1151672426 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 0, -2.3283064e-10, 0, 1, 5.820766e-11, 5.820766e-10, 1.1641532e-10, 1, 0.017574947, 0.16439313, -0.000104904175)
@@ -650,7 +686,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_arm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="6" unique_id=204441422]
 transform = Transform3D(0.061565157, -0.49920323, -0.864295, -0.0021253524, -0.8660012, 0.5000373, -0.99810076, -0.028947948, -0.054376423, -0.28498307, 1.4094719, -0.038698733)
 bone_name = "arm_stretch.r"
-bone_idx = 11
+bone_idx = 2
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_arm_r" index="0" unique_id=1737512250 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 3.7252903e-09, 0, -3.7252903e-09, 1.0000004, 1.6647391e-08, 0, 4.877802e-08, 1, -0.019371623, 0.05661881, 0.00037127733)
@@ -668,7 +704,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_arm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="7" unique_id=1140362118]
 transform = Transform3D(0.061565157, 0.49920323, 0.864295, 0.0021253524, -0.8660012, 0.5000373, 0.99810076, -0.028947948, -0.054376423, 0.28498307, 1.4094719, -0.038698733)
 bone_name = "arm_stretch.l"
-bone_idx = 10
+bone_idx = 1
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_arm_l" index="0" unique_id=1925223494 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 1.8626451e-09, 0, -1.8626451e-09, 1.0000004, 1.6647391e-08, 3.7252903e-09, 4.877802e-08, 1, 0.01772456, 0.055543065, -0.0016497374)
@@ -686,7 +722,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_forearm_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="8" unique_id=1904548600]
 transform = Transform3D(0.018362403, -0.5026501, -0.86429507, -0.076667905, -0.8626033, 0.50003755, -0.9968877, 0.057081755, -0.05437655, -0.35900283, 1.2810649, -0.042991012)
 bone_name = "forearm_stretch.r"
-bone_idx = 14
+bone_idx = 5
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_forearm_r" index="0" unique_id=730411997 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 8.940697e-08, -4.4703484e-08, 2.9802322e-08, 1, -2.6077032e-08, 3.7252903e-09, 5.355105e-09, 1, -0.016722776, 0.087367415, -0.0061341524)
@@ -704,7 +740,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_forearm_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="9" unique_id=1985206856]
 transform = Transform3D(0.018362403, 0.5026501, 0.86429507, 0.076667905, -0.8626033, 0.50003755, 0.9968877, 0.057081755, -0.05437655, 0.35900283, 1.2810649, -0.042991012)
 bone_name = "forearm_stretch.l"
-bone_idx = 12
+bone_idx = 3
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_forearm_l" index="0" unique_id=455105121 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 6.7055225e-08, -3.3527613e-08, 2.6077032e-08, 1, -3.0500814e-08, 3.7252903e-09, -3.259629e-09, 1, 0.013838895, 0.09613919, -0.0039337277)
@@ -722,7 +758,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_hand_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="10" unique_id=1212985217]
 transform = Transform3D(-0.13483298, -0.6281786, -0.7662973, 0.10313892, -0.7780559, 0.6196702, -0.98548585, 0.0045169587, 0.16969724, -0.4741175, 1.0835153, -0.029918343)
 bone_name = "hand.r"
-bone_idx = 28
+bone_idx = 19
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_hand_r" index="0" unique_id=1616965204 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, -3.4924597e-08, 0, 4.656613e-10, 1, 2.089655e-08, 0, 5.122274e-09, 1, -0.015978858, 0.09630802, 0.020099401)
@@ -740,7 +776,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_hand_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="11" unique_id=1810520882]
 transform = Transform3D(-0.13483298, 0.6281786, 0.7662973, -0.10313892, -0.7780559, 0.6196702, 0.98548585, 0.0045169587, 0.16969724, 0.4741175, 1.0835153, -0.029918343)
 bone_name = "hand.l"
-bone_idx = 16
+bone_idx = 7
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_hand_l" index="0" unique_id=1539007519 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, -2.2817403e-08, 0, -4.656613e-10, 1, 2.089655e-08, 0, -4.831236e-09, 1, 0.014026567, 0.09644544, 0.025266409)
@@ -758,7 +794,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_thigh_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="12" unique_id=719220218]
 transform = Transform3D(0.028263964, -0.02401816, -0.9993136, -0.04904186, -0.9985406, 0.022612598, -0.9983971, 0.04836897, -0.029400604, -0.10207939, 1.121922, -0.009390037)
 bone_name = "thigh_twist.r"
-bone_idx = 47
+bone_idx = 51
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_thigh_r" index="0" unique_id=1758152479 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 3.7252903e-09, 9.313226e-09, -3.7252903e-09, 0.9999997, 9.080395e-09, 1.8626451e-08, 1.3969839e-09, 1, 0.0070172586, 0.14287853, -0.003235601)
@@ -789,7 +825,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_thigh_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="13" unique_id=421955303]
 transform = Transform3D(0.028263789, 0.024018152, 0.9993136, 0.04904186, -0.9985406, 0.022612598, 0.9983971, 0.04836898, -0.029400429, 0.10207939, 1.121922, -0.009390037)
 bone_name = "thigh_twist.l"
-bone_idx = 44
+bone_idx = 50
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_thigh_l" index="0" unique_id=294931224 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, -3.7252903e-09, -3.7252903e-09, 3.7252903e-09, 0.99999964, 1.0244548e-08, 0, -5.122274e-09, 1, -0.008083276, 0.14154887, -0.002427414)
@@ -820,7 +856,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_leg_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="14" unique_id=680538976]
 transform = Transform3D(0.029600263, -0.022349685, -0.9993121, 0.008573711, -0.9997076, 0.022612454, -0.99952507, -0.00923717, -0.029399876, -0.11319458, 0.65981233, 0.0129944235)
 bone_name = "leg_stretch.r"
-bone_idx = 6
+bone_idx = 36
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_leg_r" index="0" unique_id=2082757745 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 0, 1.1175871e-08, 0, 0.99999964, -7.566996e-10, 0, 7.2759576e-10, 1, 0.01506107, 0.16143, 0.009670019)
@@ -851,7 +887,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_leg_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="15" unique_id=929923625]
 transform = Transform3D(0.029600263, 0.022349685, 0.9993121, -0.008573711, -0.9997076, 0.022612454, 0.99952507, -0.00923717, -0.029399876, 0.11319458, 0.65981233, 0.0129944235)
 bone_name = "leg_stretch.l"
-bone_idx = 4
+bone_idx = 34
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_leg_l" index="0" unique_id=756104409 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 9.313226e-10, 9.313226e-09, 0, 0.9999996, -9.604264e-10, 0, 6.9849193e-10, 1, -0.014843762, 0.16170639, 0.010549635)
@@ -882,7 +918,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_foot_r" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="16" unique_id=1666405884]
 transform = Transform3D(-0.9999925, 0.0033830525, 0.001916315, 1.4795223e-06, -0.492536, 0.87029237, 0.003888097, 0.8702859, 0.4925322, -0.12573597, 0.09883187, 0.007811008)
 bone_name = "foot.r"
-bone_idx = 45
+bone_idx = 43
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_foot_r" index="0" unique_id=1549687074 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 2.0954758e-09, 0, -9.313226e-10, 1, -2.9802322e-08, 1.2805685e-09, 5.9604645e-08, 1.0000002, 0.00025442243, 0.071830675, 0.005956903)
@@ -900,7 +936,7 @@ metadata/_custom_type_script = "uid://devworm8bt0ih"
 [node name="bone_foot_l" type="BoneAttachment3D" parent="rig_deform/Skeleton3D" index="17" unique_id=1312365284]
 transform = Transform3D(-0.9999925, -0.0033830325, -0.0019161057, -1.3072276e-06, -0.492536, 0.87029237, -0.0038879763, 0.8702859, 0.4925322, 0.12573597, 0.09883187, 0.007811008)
 bone_name = "foot.l"
-bone_idx = 42
+bone_idx = 41
 
 [node name="FECollisionShape" type="ShapeCast3D" parent="rig_deform/Skeleton3D/bone_foot_l" index="0" unique_id=1391998750 groups=["SkeletonHurtbox"]]
 transform = Transform3D(1, 1.6298145e-09, 0, -6.9849193e-10, 1, -2.9802322e-08, 8.1490725e-10, 5.9604645e-08, 1.0000002, 0.00025436282, 0.07183065, 0.005956903)
@@ -920,7 +956,7 @@ unique_name_in_owner = true
 active = false
 target_node = NodePath("../../../LookAtTesting")
 bone_name = "head.x"
-bone = 1
+bone = 31
 relative = true
 origin_offset = Vector3(0, 0, 0.31)
 duration = 0.276
@@ -969,20 +1005,7 @@ metadata/_custom_type_script = "uid://7pefdhcr1asv"
 [node name="AddonSpheres" type="Node3D" parent="." index="5" unique_id=2037840044]
 unique_name_in_owner = true
 
-[node name="hit_[0]1PA" type="ShapeCast3D" parent="AddonSpheres" index="0" unique_id=515428135]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02999878, 1.1699982, 0.7799988)
-shape = SubResource("SphereShape3D_un811")
-target_position = Vector3(0, 0, 0)
-collision_mask = 0
-collide_with_bodies = false
-debug_shape_custom_color = Color(1, 1, 0, 1)
-script = ExtResource("3_hgcb2")
-fixed_sphere_radius = 18350
-
-[node name="AnimationPlayer" parent="." index="6" unique_id=295172887]
-active = false
-
-[node name="DebugLabel" type="Label3D" parent="." index="7" unique_id=407016320]
+[node name="DebugLabel" type="Label3D" parent="." index="6" unique_id=407016320]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0982058, 0)
 visible = false
@@ -990,6 +1013,9 @@ billboard = 1
 text = "false"
 outline_size = 7
 
-[node name="LookAtTesting" type="Marker3D" parent="." index="8" unique_id=309399472]
+[node name="LookAtTesting" type="Marker3D" parent="." index="7" unique_id=309399472]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0240997, 1.7098925)
+
+[node name="AnimationPlayer" parent="." index="8" unique_id=1534358357]
+active = false

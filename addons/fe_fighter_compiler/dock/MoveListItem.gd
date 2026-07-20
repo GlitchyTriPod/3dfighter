@@ -328,6 +328,8 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 	var hurtboxes: Array = %HurtboxGrid.get_children()
 	for i: int in hurtboxes.size():
 		var hurtbox: HitboxButton = hurtboxes[i]
+		if !(hurtbox.frame_start <= frame && frame < hurtbox.frame_end):
+			continue
 		var new_sphere: FECollisionShape = FECollisionShape.new()
 		
 		EditorInterface.get_edited_scene_root().get_node("AddonSpheres") \
@@ -342,7 +344,7 @@ func _on_dock_animation_frame_changed(frame: float) -> void:
 		)
 		new_sphere.debug_shape_custom_color = Color.WHITE
 
-		new_sphere.name = "hurt_[%d]%s" % [i, self.move_name]
+		new_sphere.name = "hurt_[%d]%s_" % [i, self.move_name]
 
 func _on_move_animation_option_item_selected(index: int) -> void:
 	self.animation_changed.emit(%MoveAnimationOption.get_item_text(index))
@@ -386,7 +388,7 @@ func _on_non_attack_toggled(toggled_on: bool) -> void:
 	%OnGroundHitOption.disabled = toggled_on
 	%TargetFaceAttackerHit.disabled = toggled_on
 	%AddHitbox.disabled = toggled_on
-	%AddHurtbox.disabled = toggled_on
+	# %AddHurtbox.disabled = toggled_on
 	%PushbackForce.editable = !toggled_on
 	%PushbackDirection.editable = !toggled_on
 	%LaunchForce.editable = !toggled_on
@@ -396,8 +398,11 @@ func _on_non_attack_toggled(toggled_on: bool) -> void:
 	%PushbackForceModOnGroundHit.editable = !toggled_on
 	%PushbackForceModOnBlock.editable = !toggled_on
 	%ApplyPushbackAngleOnBlock.disabled = toggled_on
+	%ApplyPushbackAngleOnCounter.disabled = toggled_on
 	%ApplyPushbackAngleOnGroundHit.disabled = toggled_on
 	%ApplyPushbackAngleOnHit.disabled = toggled_on
+	%ApplyLaunchForceOnHit.disabled = toggled_on
+	%ApplyLaunchForceOnCounter.disabled = toggled_on
 
 func _on_move_up_button_button_up() -> void:
 	get_parent().move_child(self, clampi(self.get_index() - 1, 0, 10000))

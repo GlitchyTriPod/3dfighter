@@ -84,6 +84,9 @@ enum BUTTON_FLAGS {
 @export_storage var pushback_angle_on_ground_hit: bool = true
 @export_storage var pushback_angle_on_block: bool = true
 
+@export_storage var launch_force_on_hit: bool = true
+@export_storage var launch_force_on_counter: bool = true
+
 @export_storage var extension_buffer_start: int = -1
 @export_storage var extension_execute_start: int = -1
 @export_storage var extension_execute_end: int = -1

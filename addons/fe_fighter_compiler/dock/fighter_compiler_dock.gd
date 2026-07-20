@@ -272,6 +272,9 @@ func add_movelist_item(data: FighterAnimationData = null, index: int = -1, paren
 	item.get_node("%ApplyPushbackAngleOnGroundHit").button_pressed = data.pushback_angle_on_ground_hit if data.get("pushback_angle_on_ground_hit") != null else true
 	item.get_node("%ApplyPushbackAngleOnBlock").button_pressed = data.pushback_angle_on_block if data.get("pushback_angle_on_block") != null else true
 
+	item.get_node("%ApplyLaunchForceOnHit").button_pressed = data.launch_force_on_hit if data.get("launch_force_on_hit") != null else true
+	item.get_node("%ApplyLaunchForceOnCounter").button_pressed = data.launch_force_on_counter if data.get("launch_force_on_counter") != null else true
+
 	item.get_node("%ExtensionBufferStart").value = data.extension_buffer_start if data.get("extension_buffer_start") != null else -1
 	item.get_node("%ExtensionExecuteStart").value = data.extension_execute_start if data.get("extension_execute_start") != null else -1
 	item.get_node("%ExtensionExecuteEnd").value = data.extension_execute_end if data.get("extension_execute_end") != null else -1
@@ -464,6 +467,9 @@ func compile_MoveListItem(item: MoveListItem) -> FighterAnimationData:
 	anim_data.pushback_angle_on_ground_hit = item.get_node("%ApplyPushbackAngleOnGroundHit").button_pressed
 	anim_data.pushback_angle_on_block = item.get_node("%ApplyPushbackAngleOnBlock").button_pressed
 
+	anim_data.launch_force_on_hit = item.get_node("%ApplyLaunchForceOnHit").button_pressed
+	anim_data.launch_force_on_counter = item.get_node("%ApplyLaunchForceOnCounter").button_pressed
+
 	anim_data.extension_buffer_start = item.get_node("%ExtensionBufferStart").value
 	anim_data.extension_execute_start = item.get_node("%ExtensionExecuteStart").value
 	anim_data.extension_execute_end = item.get_node("%ExtensionExecuteEnd").value
@@ -526,13 +532,14 @@ func _on_seek_forward_button_up() -> void:
 
 	self.animation_frame_changed.emit(seek_position * 60)
 
-	await get_tree().create_timer(0.001).timeout
+	await get_tree().create_timer(0.00001).timeout
 
 	self.anim_player.play(curr_anim)
 	self.anim_player.seek(
 		seek_position,
 		true
 	)
+	# self.anim_player.advance(seek_position)
 
 func _on_seek_back_button_up() -> void:
 	if self.anim_player.current_animation_position <= 0:
@@ -543,7 +550,7 @@ func _on_seek_back_button_up() -> void:
 
 	self.animation_frame_changed.emit(seek_position * 60)
 
-	await get_tree().create_timer(0.001).timeout
+	await get_tree().create_timer(0.00001).timeout
 
 	self.anim_player.play(curr_anim)
 	self.anim_player.seek(

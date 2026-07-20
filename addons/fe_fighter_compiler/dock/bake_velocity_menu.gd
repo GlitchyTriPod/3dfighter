@@ -38,13 +38,14 @@ func bake_velocity_process() -> void:
     self.anim_player.animation_finished.connect(self._on_anim_player_animation_finished.bind(velocity_data, hurtbox_data))
 
     self.anim_player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+
+    self.anim_player.current_animation = self.anim_player.get_animation_list().get(0) #.play(self.anim_player.get_animation_list().get(1))
+    self.anim_player.seek(0, true)
+    # self.anim_player.play(self.anim_player.get_animation_list().get(0))
+
     self.fighter._velocity_bake_mode = true
     if %CheckBakeHitboxes.button_pressed:
         self.fighter._hurtbox_bake_mode = true
-
-    # self.anim_player.current_animation = self.anim_player.get_animation_list().get(0) #.play(self.anim_player.get_animation_list().get(1))
-    # self.anim_player.seek(0, true)
-    self.anim_player.play(self.anim_player.get_animation_list().get(0))
 
 func update_progress_label(anim_name: String = "") -> void:
     var anim_list: PackedStringArray = self.anim_player.get_animation_list()

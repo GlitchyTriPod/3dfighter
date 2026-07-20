@@ -856,6 +856,44 @@ layout_mode = 2
 size_flags_horizontal = 3
 step = 0.001
 
+[node name="LaunchForceOptions" type="FoldableContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3" unique_id=2084397618]
+unique_name_in_owner = true
+layout_mode = 2
+folded = true
+title = "Launch Force Options"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3/LaunchForceOptions" unique_id=1960241618]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3/LaunchForceOptions/VBoxContainer" unique_id=1844707947]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3/LaunchForceOptions/VBoxContainer/HBoxContainer" unique_id=2123176676]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Apply on hit"
+
+[node name="ApplyLaunchForceOnHit" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3/LaunchForceOptions/VBoxContainer/HBoxContainer" unique_id=1721778837]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+button_pressed = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3/LaunchForceOptions/VBoxContainer" unique_id=1473971964]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3/LaunchForceOptions/VBoxContainer/HBoxContainer4" unique_id=85983876]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Apply on Counter hit"
+
+[node name="ApplyLaunchForceOnCounter" type="CheckBox" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs/VBoxContainer3/LaunchForceOptions/VBoxContainer/HBoxContainer4" unique_id=1824913643]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+button_pressed = true
+
 [node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VBoxContainer/MoveData/VBoxContainer/Pushback_defs" unique_id=677323174]
 layout_mode = 2
 size_flags_horizontal = 3

@@ -97,7 +97,8 @@ var _debug_hitbox_pool: Array
 var _debug_hurtbox_pool: Array
 ##############################
 
-var is_focused: bool = false
+# var is_focused: bool = false
+var neutral_guard_active: bool = true
 
 var is_online: bool = false
 
@@ -349,13 +350,13 @@ func process_hitbox_intersection() -> bool:
 				var blocked: bool = false
 
 				if !self.states.has("back_turned_calc"): # cannot block attacks from behind
-					if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) && \
+					if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) if self.neutral_guard_active else false && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.HIGH || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
 						blocked = true
-					if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) && \
+					if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) if self.neutral_guard_active else false && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.LOW || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
@@ -401,6 +402,10 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 
 		if self.states.has("counterable"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)			
+			if enemy_anim_data.launch_force_on_hit || enemy_anim_data.launch_force_on_counter:
+				self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+				self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
+
 			if enemy_anim_data.pushback_angle_on_counter:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_counter
@@ -413,8 +418,9 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 
 		elif self.states.has("airborne"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.air_hit_animation)
-			self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
-			self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
+			if enemy_anim_data.launch_force_on_hit:
+				self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+				self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
 
 		else:
@@ -447,7 +453,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 			if self.stun_reason.stun_launch_force == 0:
 				self.stun_reason.stun_launch_force = clampi(
 					self.stun_reason.stun_launch_force,
-					FixedInt.FromInt(30),
+					FixedInt.FromInt(27),
 					INT64_MAX
 				)
 
@@ -660,19 +666,21 @@ func process_root_motion(
 		self.collision_body.velocity = final_vel
 		
 	if !self.is_on_ground: 
-		self.collision_body.velocity.y = clampi(
-			self.collision_body.velocity.y - FixedIntGDConstant.FIXED_GRAVITY, 
-			INT64_MIN, #-FixedInt.FromInt(7),
-			INT64_MAX
-		)
+		self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
 
 		if launch_force != -1 && final_vel.y > self.collision_body.velocity.y:
-			self.collision_body.velocity.y = FixedInt.Div(final_vel.y, FixedInt.FromInt(256))
+			self.collision_body.velocity.y = clampi(
+				FixedInt.Div(final_vel.y, FixedInt.FromInt(256)),
+				INT64_MIN,
+				310000
+			)
+			print(self.collision_body.velocity.y)
 
 			# clamp horizontal velocity based on combo count
 			var clamped: FixedVector3 = final_vel.ClampMagnitude2D(
 				20000 + (self.state_data[&"combo_count"] * 1000) if self.state_data.has(&"combo_count") else 0, 
-				INT64_MAX)
+				INT64_MAX
+			)
 			# print(str(clamped.Magnitude2D()))
 
 			self.collision_body.velocity.x += FixedInt.Div(clamped.x, FixedInt.FromInt(256))
@@ -789,10 +797,12 @@ func get_debug_unused_hurtbox() -> Variant:
 ### LISTENERS ###
 
 func _on_window_focus_entered() -> void:
-	self.is_focused = true
+	# self.is_focused = true
+	pass
 
 func _on_window_focus_exited() -> void:
-	self.is_focused = false
+	# self.is_focused = false
+	pass
 
 func _network_preprocess(input: Dictionary) -> void:
 	self.input_interpreter.interpret_input(input, self.screen_position)
@@ -816,8 +826,8 @@ func _get_local_input() -> Dictionary:
 		&"input_button": 0
 	}
 
-	if !self.is_focused:		
-		return player_input
+	# if !self.is_focused:		
+	# 	return player_input
 
 	if Input.is_action_pressed(PLAYER_INPUT_PUNCH):
 		player_input[&"input_button"] |= BUTTON_FLAGS.P

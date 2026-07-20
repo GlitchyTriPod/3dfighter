@@ -19,6 +19,7 @@ class_name Stage
 var fighter_message_bus: FighterMessageBus = FighterMessageBus.new()
 
 var is_online_match: bool = false
+var allow_neutral_guard: bool = false
 
 var player_1_peer_id: int
 var player_2_peer_id: int
@@ -35,6 +36,7 @@ func _ready() -> void:
 
 	for c: Fighter in char_container.get_children():
 		# c.stage = self
+		c.neutral_guard_active = self.allow_neutral_guard
 		c.message_bus = self.fighter_message_bus
 		c.floor_height = self.floor_height
 		if c.player == 1:

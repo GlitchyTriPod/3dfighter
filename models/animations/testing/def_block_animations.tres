@@ -1,13 +1,17 @@
 [gd_resource type="AnimationLibrary" format=3 uid="uid://cviv8qqhngumm"]
 
-[ext_resource type="Animation" uid="uid://30qrxflrkp8w" path="res://models/animations/testing/def_block_h_1.res" id="1_7g6ks"]
-[ext_resource type="Animation" uid="uid://cun77n1diyoge" path="res://models/animations/testing/def_block_l_1.res" id="2_6xoda"]
-[ext_resource type="Animation" uid="uid://bpxsmikswfhmq" path="res://models/animations/testing/def_block_m_1.res" id="3_5ejhe"]
+[ext_resource type="Animation" uid="uid://tvi0dsbhmut4" path="res://models/animations/testing/def_block_h_15.res" id="2_qbvlh"]
+[ext_resource type="Animation" uid="uid://xetdk5xod4xq" path="res://models/animations/testing/def_block_l_20.res" id="4_m8oab"]
+[ext_resource type="Animation" uid="uid://3gillibvoqv6" path="res://models/animations/testing/def_block_m_15.res" id="6_gjaer"]
+[ext_resource type="Animation" uid="uid://dmsomsfemd76u" path="res://models/animations/testing/def_block_m_25.res" id="7_x2oaf"]
+[ext_resource type="Animation" uid="uid://c6hsoa65b7xxl" path="res://models/animations/testing/def_block_m_35.res" id="8_0ui61"]
 
 [resource]
 resource_name = "def_block_animations"
 _data = {
-&"def_block_h_1": ExtResource("1_7g6ks"),
-&"def_block_l_1": ExtResource("2_6xoda"),
-&"def_block_m_1": ExtResource("3_5ejhe")
+&"def_block_h_15": ExtResource("2_qbvlh"),
+&"def_block_l_20": ExtResource("4_m8oab"),
+&"def_block_m_15": ExtResource("6_gjaer"),
+&"def_block_m_25": ExtResource("7_x2oaf"),
+&"def_block_m_35": ExtResource("8_0ui61")
 }
