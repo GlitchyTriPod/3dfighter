@@ -35,7 +35,6 @@ func _ready() -> void:
 	self.fighter_message_bus.stage_bounds = self.stage_bounds
 
 	for c: Fighter in char_container.get_children():
-		# c.stage = self
 		c.neutral_guard_active = self.allow_neutral_guard
 		c.message_bus = self.fighter_message_bus
 		c.floor_height = self.floor_height

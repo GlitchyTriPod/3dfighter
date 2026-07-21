@@ -6,11 +6,13 @@ const FIX_BLENDING_CALC: StringName = &"fix_blending_calc"
 const CROUCHING: StringName = &"crouching"
 const CROUCHING_CALC: StringName = &"crouching_calc"
 const RISING_CALC: StringName = &"rising_calc"
+const CALC_COMBO_EXTEND_USED: StringName = &"combo_extend_used_calc"
 
 static var methods: Array[Callable] = [
     calc_backturn_state,
     calc_rising_state,
     calc_count_stun_frames,
+    calc_combo_extension,
 ]
 
 static func calc_count_stun_frames(me: Fighter) -> void:
@@ -79,3 +81,12 @@ static func calc_rising_state(me: Fighter) -> void:
             me.state_data[RISING_CALC] = 6 
         
         me.state_data.erase(CROUCHING_CALC)
+
+static func calc_combo_extension(me: Fighter) -> void:
+    if me.states.has("combo_extend_used"):
+        if !me.state_data.has(CALC_COMBO_EXTEND_USED):
+            me.state_data.get_or_add(CALC_COMBO_EXTEND_USED)
+    
+    if me.states.has("actionable") && me.state_data.has(CALC_COMBO_EXTEND_USED):
+        me.state_data.erase(CALC_COMBO_EXTEND_USED)
+    

@@ -3018,6 +3018,10 @@ player_states = Dictionary[StringName, Dictionary]({
 &"end": 999,
 &"start": 0
 },
+&"combo_extend_used": {
+&"end": 999,
+&"start": 0
+},
 &"hit_stun": {
 &"end": 999,
 &"start": 0

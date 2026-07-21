@@ -11,7 +11,7 @@ public partial class StageGarbageCollection : GodotObject
 
     public static void CollectGarbage()
     {
-        GC.Collect(1, GCCollectionMode.Forced);
+        GC.Collect(0, GCCollectionMode.Forced);
         GC.WaitForPendingFinalizers();
     }
 }

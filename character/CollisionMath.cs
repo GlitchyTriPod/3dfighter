@@ -112,7 +112,7 @@ public partial class CollisionMath : GodotObject
         return FixedInt.Mul(loc.x - start.x, end.z - start.z) - FixedInt.Mul(loc.z - start.z, end.x - start.x) >= 0;
     }
 
-    public static long CalculateWallPushback(long startX, long startZ, long endX, long endZ, FixedVector3 loc, long radius)
+    public static long CalculateWallPushback(long startX, long startZ, long endX, long endZ, FixedVector3 loc)
     {
         FixedVector3 start = new FixedVector3(startX, loc.y, startZ);
         FixedVector3 end = new FixedVector3(endX, loc.y, endZ);

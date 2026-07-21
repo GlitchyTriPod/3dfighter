@@ -475,7 +475,10 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 	if self.states.has("juggle") && self.is_on_ground:
 		var move: FighterAnimationData
 		if self.states.has("combo_extend"):
-			move = self.movelist.get_from_ref_name(&"Ref/extend_down")
+			move = self.movelist.get_from_ref_name(
+				&"Ref/extend_down" if !self.state_data.has(&"combo_extend_used_calc") || current_move.move_name == &"extend_down"
+					else &"Red/juggle_ground_land"
+			)
 		else:
 			move = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
 		self.set_animation_order(move, current_move)
@@ -686,7 +689,8 @@ func process_root_motion(
 			# clamp horizontal velocity based on combo count
 			var clamped: FixedVector3 = final_vel.ClampMagnitude2D(
 				19000 + (self.state_data[&"combo_count"] * 1000) if self.state_data.has(&"combo_count") else 0, 
-				INT64_MAX
+				# INT64_MAX
+				23000 + (self.state_data[&"combo_count"] * 1000) if self.state_data.has(&"combo_count") else 0
 			)
 
 			self.collision_body.velocity.x += FixedInt.Div(clamped.x, FixedInt.FromInt(256))
@@ -709,7 +713,6 @@ func get_root_motion() -> FixedVector3:
 	return vel
 
 func collide_and_slide(delta: int) -> void:
-
 	var new_position: FixedVector3 = FixedVector3.Add(
 		self.collision_body.fixed_position, 
 		FixedVector3.Mul(
@@ -746,8 +749,7 @@ func collide_and_slide(delta: int) -> void:
 				bound[&"start"][&"z"],
 				bound[&"end"][&"x"],
 				bound[&"end"][&"z"],
-				self.collision_body.fixed_position,
-				self.collision_body.fixed_sphere_radius
+				self.collision_body.fixed_position
 			)
 			if calc_pushback > pushback_dist:
 				pushback_dist = calc_pushback

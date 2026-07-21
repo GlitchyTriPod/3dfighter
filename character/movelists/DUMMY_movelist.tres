@@ -403,7 +403,7 @@ hurtbox_data = Dictionary[StringName, Variant]({
 player_states = Dictionary[StringName, Dictionary]({
 &"actionable": {
 &"end": 999,
-&"start": 5
+&"start": 0
 },
 &"f_dash": {
 &"end": 999,
@@ -2054,7 +2054,7 @@ recovery_ch = &"def_animations/def_atk_2p"
 recovery_block = &"def_animations/def_atk_2p"
 recovery_ref = &"Ref/idle"
 hit_animation = &"def_hit_animations/def_hit_air_1"
-block_animation = &"def_block_animations/def_block_m_25"
+block_animation = &"def_block_animations/def_block_m_15"
 crouch_block_animation = &"def_block_animations/def_block_h_15"
 counter_animation = &"def_hit_animations/def_air_juggle_1"
 air_hit_animation = &"def_hit_animations/def_hit_air_1"
@@ -3926,6 +3926,10 @@ hurtbox_data = Dictionary[StringName, Variant]({
 })
 player_states = Dictionary[StringName, Dictionary]({
 &"airborne": {
+&"end": 999,
+&"start": 0
+},
+&"combo_extend_used": {
 &"end": 999,
 &"start": 0
 },
