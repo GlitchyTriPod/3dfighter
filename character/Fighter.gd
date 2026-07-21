@@ -92,6 +92,10 @@ var collision_body_offset: Vector3
 var misc_hitbox_pool: Array[FECollisionData] = []
 var misc_hurtbox_pool: Array[FECollisionData] = []
 
+var hitbox_data: Array[Dictionary] = []
+var hurtbox_data: Array[Dictionary] = []
+var temp_states: PackedStringArray = []
+
 ### use for debugging only ###
 var _debug_hitbox_pool: Array
 var _debug_hurtbox_pool: Array
@@ -218,7 +222,7 @@ func process_animation_data() -> void:
 		self.anim_player.play(atk.animation_name)
 		self.anim_player.seek(0, true)
 
-	var temp_states: PackedStringArray = []
+	temp_states.clear()
 	for state_name: StringName in self.states:
 		if self.state_data.has(state_name):
 			temp_states.append(state_name)
@@ -253,9 +257,9 @@ func process_animation_hitboxes() -> void:
 
 	#find hitboxes
 	var current_frame: int = floori(self.anim_player.current_animation_position * 60)
-	var hitbox_data: Array[Dictionary] = []
-	var hurtbox_data: Array[Dictionary] = []
-	# var index: int
+	hitbox_data.clear()
+	hurtbox_data.clear()
+
 	if atk.hitbox_data.has(&"shapes"):
 		for h_b: Dictionary in atk.hitbox_data[&"shapes"]:
 			if current_frame < h_b.frame_range.start || current_frame >= h_b.frame_range.end:
@@ -399,18 +403,7 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 			self.state_data.get_or_add(&"combo_count", 1)
 		self.update_combo_counter.emit(self.state_data[&"combo_count"])
 
-
-		if self.states.has("counterable"):
-			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)			
-			if enemy_anim_data.launch_force_on_hit || enemy_anim_data.launch_force_on_counter:
-				self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
-				self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
-
-			if enemy_anim_data.pushback_angle_on_counter:
-				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
-			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_counter
-
-		elif self.states.has("grounded"):
+		if self.states.has("grounded"):
 			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.ground_hit_animation)
 			if enemy_anim_data.pushback_angle_on_ground_hit:
 				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
@@ -424,13 +417,24 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
 
 		else:
-			stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
-			self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
-			self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
-			if enemy_anim_data.pushback_angle_on_hit:
-				self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
-			self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
-			self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+			if self.states.has("counterable") && enemy_anim_data.has_counter_property:
+				stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.counter_animation)			
+				if enemy_anim_data.launch_force_on_hit || enemy_anim_data.launch_force_on_counter:
+					self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+					self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
+
+				if enemy_anim_data.pushback_angle_on_counter:
+					self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+				self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_counter
+
+			else:
+				stun_move = self.movelist.get_default_anim_id_from_name(enemy_anim_data.hit_animation)
+				self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
+				self.stun_reason.stun_launch_angle = enemy_anim_data.launch_direction
+				if enemy_anim_data.pushback_angle_on_hit:
+					self.stun_reason.stun_pushback_angle = enemy_anim_data.pushback_direction
+				self.stun_reason.stun_pushback += enemy_anim_data.pushback_mod_on_hit
+				self.stun_reason.stun_launch_force = enemy_anim_data.launch_force
 
 	self.stun_reason.stun_hit = attack_index
 	self.stun_reason.stun_name = animation_name
@@ -453,7 +457,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 			if self.stun_reason.stun_launch_force == 0:
 				self.stun_reason.stun_launch_force = clampi(
 					self.stun_reason.stun_launch_force,
-					FixedInt.FromInt(27),
+					FixedInt.FromInt(30),
 					INT64_MAX
 				)
 
@@ -468,12 +472,15 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 		return
 
 	# check if fighter is being juggled, and has hit the floor
-	if self.states.has("juggle"):
-		if self.is_on_ground:
-			var move: FighterAnimationData = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
-			self.set_animation_order(move, current_move)
-			self.process_root_motion(delta)
-			return
+	if self.states.has("juggle") && self.is_on_ground:
+		var move: FighterAnimationData
+		if self.states.has("combo_extend"):
+			move = self.movelist.get_from_ref_name(&"Ref/extend_down")
+		else:
+			move = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
+		self.set_animation_order(move, current_move)
+		self.process_root_motion(delta)
+		return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
 	if (!self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun")) && \
@@ -665,27 +672,25 @@ func process_root_motion(
 	if !self.states.has("juggle"):
 		self.collision_body.velocity = final_vel
 		
-	if !self.is_on_ground: 
-		self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
+	if !self.is_on_ground || (self.states.has("combo_extend") && self.is_on_ground): 
+		if !self.is_on_ground:
+			if self.states.has("air_spike"):
+				self.collision_body.velocity.y = -900000 
+			else:
+				self.collision_body.velocity.y -= FixedIntGDConstant.FIXED_GRAVITY
 
-		if launch_force != -1 && final_vel.y > self.collision_body.velocity.y:
-			self.collision_body.velocity.y = clampi(
-				FixedInt.Div(final_vel.y, FixedInt.FromInt(256)),
-				INT64_MIN,
-				310000
-			)
-			print(self.collision_body.velocity.y)
+		if launch_force != -1:
+			if !self.states.has("air_spike"):
+				self.collision_body.velocity.y = 320000
 
 			# clamp horizontal velocity based on combo count
 			var clamped: FixedVector3 = final_vel.ClampMagnitude2D(
-				20000 + (self.state_data[&"combo_count"] * 1000) if self.state_data.has(&"combo_count") else 0, 
+				19000 + (self.state_data[&"combo_count"] * 1000) if self.state_data.has(&"combo_count") else 0, 
 				INT64_MAX
 			)
-			# print(str(clamped.Magnitude2D()))
 
 			self.collision_body.velocity.x += FixedInt.Div(clamped.x, FixedInt.FromInt(256))
 			self.collision_body.velocity.z += FixedInt.Div(clamped.z, FixedInt.FromInt(256))
-
 
 	elif self.collision_body.velocity.y < 0:
 		self.collision_body.velocity.y = 0
@@ -704,9 +709,14 @@ func get_root_motion() -> FixedVector3:
 	return vel
 
 func collide_and_slide(delta: int) -> void:
+
 	var new_position: FixedVector3 = FixedVector3.Add(
 		self.collision_body.fixed_position, 
-		FixedVector3.Mul(self.collision_body.velocity, delta)
+		FixedVector3.Mul(
+			self.collision_body.velocity if !(self.states.has("combo_extend") && self.is_on_ground) 
+				else FixedVector3.NewFromInt(0, self.collision_body.velocity.y, 0), 
+			delta
+		)
 	)
 
 	if Engine.is_editor_hint():
@@ -723,7 +733,6 @@ func collide_and_slide(delta: int) -> void:
 		)
 
 		new_position.x -= change.x
-		# # new_position.y -= change.y 
 		new_position.z -= change.z
 
 	# Collision with walls

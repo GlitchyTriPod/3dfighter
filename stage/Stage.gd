@@ -68,7 +68,6 @@ func get_player_wall_influence(p1_loc: FixedVector3, p2_loc: FixedVector3) -> Di
 		var vals: Array[bool] = CollisionMath.IsInsidePolygon(p1_loc, p2_loc, entry[&"extents"])
 
 		if vals[0]:
-			# print("wall id: " + str(entry[&"wall_id"]) + " normal: X-" + str(entry[&"normal"].x) + " Z-" + str(entry[&"normal"].z))
 			p1_combined_normals.append(entry[&"normal"])
 			p1_wall_ids.append(entry[&"wall_id"])
 
@@ -91,7 +90,6 @@ func combine_wall_data(combined_normals: Array[FixedVector3], wall_ids: PackedIn
 			&"normal": FixedVector3.new()
 		}
 	if wall_ids.size() == 1:
-		# print("wall id: " + str(wall_ids[0]) + " normal: X-" + str(combined_normals[0].x) + " Z-" + str(combined_normals[0].z))
 		return {
 			&"wall_ids": wall_ids,
 			&"normal": combined_normals[0]
