@@ -52,8 +52,6 @@ static func calc_rising_state(me: Fighter) -> void:
             me.states.erase(RISING_CALC)
             me.state_data.erase(RISING_CALC)
 
-        # print("crouching!!!")
-
         if me.state_data.has(CROUCHING_CALC):
             me.state_data[CROUCHING_CALC] += 1
         else:
@@ -61,16 +59,21 @@ static func calc_rising_state(me: Fighter) -> void:
 
         return
     
-    if me.states.has(RISING_CALC):
+    if me.state_data.has(RISING_CALC):
         # player should not have rising state & crouching state simultaneously
         if me.state_data.has(CROUCHING_CALC):
             me.state_data.erase(CROUCHING_CALC)
 
+        if !me.states.has(RISING_CALC):
+            me.states.append(RISING_CALC)
+            
         me.state_data[RISING_CALC] -= 1
 
         if me.state_data[RISING_CALC] <= 0:
             me.states.erase(RISING_CALC)
             me.state_data.erase(RISING_CALC)
+
+        return
 
     # player has exited crouching state
     if me.state_data.has(CROUCHING_CALC) && !me.states.has(CROUCHING):
