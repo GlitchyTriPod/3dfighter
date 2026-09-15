@@ -525,6 +525,15 @@ _data = {
 &"RESET": SubResource("Animation_un811")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_un811"]
+radius = 0.32998657
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2iwfi"]
+radius = 0.27999878
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_shsbt"]
+radius = 0.25
+
 [node name="atro" unique_id=1359553451 groups=["network_sync"] instance=ExtResource("1_ogo0r")]
 script = ExtResource("2_tfe8g")
 movelist = ExtResource("3_qhtrm")
@@ -532,7 +541,7 @@ animation_velocity_data = ExtResource("4_dicru")
 animation_hurtbox_data = ExtResource("5_3jbgv")
 animation_library = ExtResource("7_18r77")
 
-[node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(1996606716) index="0" unique_id=964874270]
+[node name="Skeleton3D" parent="rig_deform" parent_id_path=PackedInt32Array(2122193439) index="0" unique_id=570796202]
 bones/0/rotation = Quaternion(0, 0.70710677, 0.70710677, 0)
 bones/1/rotation = Quaternion(-0.34181336, -0.36489034, 0.63058513, 0.59361696)
 bones/2/rotation = Quaternion(-0.34181336, 0.36489034, -0.63058513, 0.59361696)
@@ -541,6 +550,7 @@ bones/4/rotation = Quaternion(-9.3603546e-08, 0.11188392, -1.03092805e-08, 0.993
 bones/5/rotation = Quaternion(-0.32577536, 0.37927783, -0.60442495, 0.62023324)
 bones/6/rotation = Quaternion(-9.3603546e-08, -0.11188392, 1.03092805e-08, 0.9937213)
 bones/7/rotation = Quaternion(-0.35729745, -0.25000685, 0.6083421, 0.6631403)
+bones/8/rotation = Quaternion(0.29939726, -0.12356928, 0.05892056, 0.9442565)
 bones/9/rotation = Quaternion(-0.2620928, 0.055511776, -0.057036508, 0.961755)
 bones/10/rotation = Quaternion(-0.010071444, 0.03157728, -0.021171357, 0.99922633)
 bones/13/rotation = Quaternion(0.06070341, 0.08383346, -0.086403556, 0.99086905)
@@ -1005,6 +1015,36 @@ metadata/_custom_type_script = "uid://7pefdhcr1asv"
 [node name="AddonSpheres" type="Node3D" parent="." index="5" unique_id=2037840044]
 unique_name_in_owner = true
 
+[node name="hit_[0]wsP+A" type="ShapeCast3D" parent="AddonSpheres" index="0" unique_id=1777257970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9099884, 0.81999207)
+shape = SubResource("SphereShape3D_un811")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 1, 0, 1)
+script = ExtResource("3_hgcb2")
+fixed_sphere_radius = 21626
+
+[node name="hit_[1]wsP+A" type="ShapeCast3D" parent="AddonSpheres" index="1" unique_id=1263150915]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3699951, 0.6299896)
+shape = SubResource("SphereShape3D_2iwfi")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 1, 0, 1)
+script = ExtResource("3_hgcb2")
+fixed_sphere_radius = 18350
+
+[node name="hit_[2]wsP+A" type="ShapeCast3D" parent="AddonSpheres" index="2" unique_id=1934837934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8199921, 0.3899994)
+shape = SubResource("SphereShape3D_shsbt")
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 1, 0, 1)
+script = ExtResource("3_hgcb2")
+fixed_sphere_radius = 16384
+
 [node name="DebugLabel" type="Label3D" parent="." index="6" unique_id=407016320]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0982058, 0)
@@ -1017,5 +1057,5 @@ outline_size = 7
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0240997, 1.7098925)
 
-[node name="AnimationPlayer" parent="." index="8" unique_id=1126366001]
+[node name="AnimationPlayer" parent="." index="8" unique_id=660380899]
 active = false

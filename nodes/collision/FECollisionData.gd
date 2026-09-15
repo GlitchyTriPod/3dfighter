@@ -32,7 +32,7 @@ var body_part: int = BODY_PART.NONE
 var is_hitbox: bool = false
 
 # used to detect individual hit instances in multi-hit moves
-var hitbox_attack_index: int = -1
+var hitbox_attack_index: int = 0
 var hitbox_attack_name: StringName = &""
 var attack_height: int = ATTACK_HEIGHT.HIGH
 

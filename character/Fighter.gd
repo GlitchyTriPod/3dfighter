@@ -165,7 +165,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint():
-		%DebugLabel.text = str(self.states.has(&"crouching"))
+		%DebugLabel.text = str(self.states.has("crouching"))
 
 	if Engine.is_editor_hint():
 		if self.anim_player.current_animation.is_empty():
@@ -200,7 +200,7 @@ func _process(_delta: float) -> void:
 func reset_stun_reason() -> void:
 	if !self.states.has("hit_stun"):
 		self.stun_reason.set(&"stun_name", "")
-	self.stun_reason.set(&"stun_hit", -1)
+		self.stun_reason.set(&"stun_hit", -1)
 	self.stun_reason.set(&"stun_id", &"")
 	self.stun_reason.set(&"stun_pushback", 0)
 	self.stun_reason.set(&"stun_pushback_angle", 0)
@@ -311,11 +311,13 @@ func process_hitbox_intersection() -> bool:
 
 	for hitbox: FECollisionData in enemy_hitboxes:
 		if !hitbox.enabled || \
-			# ((self.stun_reason.stun_hit != -1 && \
-			((!self.stun_reason.stun_name.is_empty() && \
+			((self.stun_reason.stun_hit != -1 && \
+			hitbox.hitbox_attack_index == self.stun_reason.stun_hit) && \
+
+			(!self.stun_reason.stun_name.is_empty() && \
 			hitbox.hitbox_attack_name == self.stun_reason.stun_name)): 
 			continue
-		
+
 		# Check for early break conditions here (high atk vs. crouching opp., etc.)
 		if !hitbox.hits_grounded && self.states.has("grounded"):
 			continue
@@ -461,6 +463,8 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 					INT64_MAX
 				)
 
+		if self.player == 1: 
+			print("setting stun animation!!")
 		self.set_animation_order(move, current_move)
 		self.process_root_motion(
 			delta, 
