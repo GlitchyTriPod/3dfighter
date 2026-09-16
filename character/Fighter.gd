@@ -356,13 +356,13 @@ func process_hitbox_intersection() -> Array[bool]:
 				var blocked: bool = false
 
 				if !self.states.has("back_turned_calc"): # cannot block attacks from behind
-					if (self.states.has("guard_high") || self.states.has("neutral_guard_high")) if self.neutral_guard_active else false && \
+					if (self.states.has("guard_high") || self.states.has("neutral_guard_high") if self.neutral_guard_active else false) && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.HIGH || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
 						blocked = true
-					if (self.states.has("guard_low") || self.states.has("neutral_guard_low")) if self.neutral_guard_active else false && \
+					if (self.states.has("guard_low") || self.states.has("neutral_guard_low") if self.neutral_guard_active else false) && \
 						(hitbox.attack_height == FECollisionData.ATTACK_HEIGHT.LOW || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.MEDIUM_SPECIAL || \
 						hitbox.attack_height ==  FECollisionData.ATTACK_HEIGHT.LOW_SPECIAL):
@@ -445,7 +445,7 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 		
 # processes movement for player
 func process_movement(delta: int, hitbox_intersection: Array[bool] = [false, false]) -> void: # could use some optimizing
-	var is_intersecting: bool = hitbox_intersection[0]
+	# var is_intersecting: bool = hitbox_intersection[0]
 	var attack_blocked: bool = hitbox_intersection[1]
 
 	var current_move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
