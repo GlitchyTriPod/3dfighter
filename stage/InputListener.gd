@@ -44,8 +44,8 @@ func _network_process(_input: Dictionary) -> void:
 	self.player_2.process_animation_hitboxes()
 
 	# check for hit/hurtbox intersections
-	var p1_blocked: bool = self.player_1.process_hitbox_intersection()
-	var p2_blocked: bool = self.player_2.process_hitbox_intersection()
+	var p1_blocked: Array[bool] = self.player_1.process_hitbox_intersection()
+	var p2_blocked: Array[bool] = self.player_2.process_hitbox_intersection()
 
 	#advance player animations based on inputs & game state
 	self.player_1.process_movement(self._delta_int, p2_blocked)

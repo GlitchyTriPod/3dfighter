@@ -46,7 +46,7 @@ func get_oppo_collision_body(player: Fighter) -> FEFighterCollisionBody:
 	var oppo: Fighter
 	if player == self.player_1:
 		oppo = self.player_2
-	else:
+	else: 
 		oppo = self.player_1
 	return oppo.collision_body
 

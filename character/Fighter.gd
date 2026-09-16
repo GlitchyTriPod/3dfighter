@@ -303,7 +303,7 @@ func get_animation_hurtboxes() -> Array:
 	return boxes
 
 # checks if current fighter is intersecting with an enemy hitbox & returns true if intersection was found
-func process_hitbox_intersection() -> bool:
+func process_hitbox_intersection() -> Array[bool]:
 	var enemy_hitboxes: Array = self.message_bus.get_oppo_hitboxes(self)
 	var enemy_position: FixedVector3 = self.message_bus.get_oppo_fixed_position(self)
 	var enemy_rotation: FixedVector3 = self.message_bus.get_oppo_fixed_rotation(self)
@@ -374,8 +374,8 @@ func process_hitbox_intersection() -> bool:
 					self.message_bus.get_oppo_current_animation_id(self),
 					blocked
 				)
-				return blocked
-	return false
+				return [true, blocked]
+	return [false, false]
 
 func process_hit(attack_index: int, animation_name: StringName, animation_id: StringName, blocked: bool = false) -> void:
 	var enemy_anim_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, animation_id)
@@ -444,7 +444,10 @@ func process_hit(attack_index: int, animation_name: StringName, animation_id: St
 	self.stun_reason.stun_align = enemy_anim_data.face_attacker_on_hit
 		
 # processes movement for player
-func process_movement(delta: int, attack_blocked: bool = false) -> void: # could use some optimizing
+func process_movement(delta: int, hitbox_intersection: Array[bool] = [false, false]) -> void: # could use some optimizing
+	var is_intersecting: bool = hitbox_intersection[0]
+	var attack_blocked: bool = hitbox_intersection[1]
+
 	var current_move: FighterAnimationData = self.movelist.get_from_id(self.current_anim_id)
 	self.look_at_enemy = current_move.look_at_enemy
 
@@ -463,9 +466,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 					INT64_MAX
 				)
 
-		if self.player == 1: 
-			print("setting stun animation!!")
-		self.set_animation_order(move, current_move)
+		self.set_animation_order(move, current_move, true)
 		self.process_root_motion(
 			delta, 
 			self.stun_reason.stun_pushback, 
@@ -546,7 +547,7 @@ func process_movement(delta: int, attack_blocked: bool = false) -> void: # could
 
 	self.process_root_motion(delta)
 
-func set_animation_order(atk_data: FighterAnimationData, _current_move: FighterAnimationData) -> void:
+func set_animation_order(atk_data: FighterAnimationData, _current_move: FighterAnimationData, restart_animation: bool = false) -> void:
 	if !atk_data.recovery_ref.is_empty():
 		self.anim_player.clear_queue()
 
@@ -561,8 +562,11 @@ func set_animation_order(atk_data: FighterAnimationData, _current_move: FighterA
 
 	self.current_anim_id = self.movelist.get_move_id(atk_data)
 
+	if restart_animation:
+		self.anim_player.seek(0.0)
+
 	self.anim_player.play(atk_data.animation_name)
-	
+
 func is_current_input_ignored(current_input: Array[Dictionary]) -> bool:
 	if current_input[0].button != 0:
 		return false
