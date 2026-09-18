@@ -63,6 +63,8 @@ var is_on_ground: bool:
 	get:
 		return self.collision_body.is_on_floor(self.floor_height)
 
+var is_on_wall: bool = false
+
 var opponent_position: FixedVector3:
 	get:
 		return self.message_bus.get_oppo_fixed_position(self)
@@ -308,6 +310,8 @@ func process_hitbox_intersection() -> Array[bool]:
 	var enemy_position: FixedVector3 = self.message_bus.get_oppo_fixed_position(self)
 	var enemy_rotation: FixedVector3 = self.message_bus.get_oppo_fixed_rotation(self)
 
+	if self.states.has("invincible"):
+		return [ false, false ]
 
 	for hitbox: FECollisionData in enemy_hitboxes:
 		if !hitbox.enabled || \
@@ -374,8 +378,8 @@ func process_hitbox_intersection() -> Array[bool]:
 					self.message_bus.get_oppo_current_animation_id(self),
 					blocked
 				)
-				return [true, blocked]
-	return [false, false]
+				return [true, blocked ]
+	return [false, false ]
 
 func process_hit(attack_index: int, animation_name: StringName, animation_id: StringName, blocked: bool = false) -> void:
 	var enemy_anim_data: FighterAnimationData = self.message_bus.get_oppo_current_animation_data(self, animation_id)
@@ -476,19 +480,39 @@ func process_movement(delta: int, hitbox_intersection: Array[bool] = [false, fal
 		)
 		return
 
-	# check if fighter is being juggled, and has hit the floor
-	if self.states.has("juggle") && self.is_on_ground:
+	# check if fighter is being juggled
+	if self.states.has("juggle"):
 		var move: FighterAnimationData
-		if self.states.has("combo_extend"):
-			move = self.movelist.get_from_ref_name(
-				&"Ref/extend_down" if !self.state_data.has(&"combo_extend_used_calc") || current_move.move_name == &"extend_down"
-					else &"Red/juggle_ground_land"
-			)
-		else:
-			move = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
-		self.set_animation_order(move, current_move)
-		self.process_root_motion(delta)
-		return
+
+		# player has hit the wall while being juggled
+		if (self.is_on_wall || self.states.has("wall_stun")) && \
+			self.states.has("airborne"):
+
+			# determine angle relative to wall here
+
+			if self.is_on_ground:
+				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_slump_b")
+			else:
+				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_b")
+
+			self.set_animation_order(move, current_move)
+			self.process_root_motion(delta)
+			return
+	
+		# player has hit the ground (ignoring wall influence)
+		if self.is_on_ground:
+			if self.states.has("combo_extend"):
+				move = self.movelist.get_from_ref_name(
+					&"Ref/extend_down" if !self.state_data.has(&"combo_extend_used_calc") || current_move.move_name == &"extend_down"
+						else &"Red/juggle_ground_land"
+				)
+			elif !self.states.has("noland"):
+				move = self.movelist.get_from_ref_name(&"Ref/juggle_ground_land")
+			else:
+				move = current_move
+			self.set_animation_order(move, current_move)
+			self.process_root_motion(delta)
+			return
 
 	# if player is not actionable they cannot cancel current animation; keep playing
 	if (!self.states.has("actionable") || self.states.has("hit_stun") || self.states.has("block_stun")) && \
@@ -764,12 +788,15 @@ func collide_and_slide(delta: int) -> void:
 
 		# if push needed, add wall_normal * pushback to new_position
 		if pushback_dist > 0 && pushback_dist < self.collision_body.fixed_sphere_radius:
+			self.is_on_wall = true
 			new_position = CollisionMath.CalculateWallPushbackPosition(
 				self.wall_normal,
 				new_position,
 				self.collision_body.fixed_sphere_radius,
 				pushback_dist
 			)
+		else:
+			self.is_on_wall = false
 	
 	# snap to floor if lower than allowed
 	if new_position.y - self.collision_body.fixed_sphere_radius < self.floor_height:
@@ -864,7 +891,8 @@ func _save_state() -> Dictionary:
 		"anim_fallback_id": self.anim_fallback_id,
 		"buffer_anim_id": self.buffer_anim_id,
 		# "states": self.states.duplicate(),
-		"state_data": self.state_data.duplicate()
+		"state_data": self.state_data.duplicate(),
+		"is_on_wall": self.is_on_wall
 	}
 
 func _load_state(state: Dictionary) -> void:
@@ -874,3 +902,4 @@ func _load_state(state: Dictionary) -> void:
 	self.buffer_anim_id = state.buffer_anim_id
 	# self.states = state.states.duplicate()
 	self.state_data = state.state_data.duplicate()
+	self.is_on_wall = state.is_on_wall

@@ -19,7 +19,7 @@ class_name Stage
 var fighter_message_bus: FighterMessageBus = FighterMessageBus.new()
 
 var is_online_match: bool = false
-var allow_neutral_guard: bool = true
+var allow_neutral_guard: bool = false
 
 var player_1_peer_id: int
 var player_2_peer_id: int

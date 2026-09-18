@@ -86395,7 +86395,7 @@ _subresources={
 },
 "hit_wall_b_BAKED": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://models/animations/testing/hit_wall_b.res",
+"save_to_file/fallback_path": "res://models/animations/testing/def_hit_wall_b.res",
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "uid://cvvx5t8l4evkl",
 "settings/loop_mode": 0,
@@ -88451,7 +88451,7 @@ _subresources={
 },
 "hit_wall_f_BAKED": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://models/animations/testing/hit_wall_f.res",
+"save_to_file/fallback_path": "res://models/animations/testing/def_hit_wall_f.res",
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "uid://dk3i7bbkdwroy",
 "settings/loop_mode": 0,
@@ -90507,7 +90507,7 @@ _subresources={
 },
 "hit_wall_l_BAKED": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://models/animations/testing/hit_wall_l.res",
+"save_to_file/fallback_path": "res://models/animations/testing/def_hit_wall_l.res",
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "uid://bu4jser7ywnpa",
 "settings/loop_mode": 0,
@@ -92563,7 +92563,7 @@ _subresources={
 },
 "hit_wall_r_BAKED": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://models/animations/testing/hit_wall_r.res",
+"save_to_file/fallback_path": "res://models/animations/testing/def_hit_wall_r.res",
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "uid://ca5kjpebxamny",
 "settings/loop_mode": 0,
@@ -94619,7 +94619,7 @@ _subresources={
 },
 "hit_wall_slump_b_BAKED": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://models/animations/testing/hit_wall_slump_b.res",
+"save_to_file/fallback_path": "res://models/animations/testing/def_hit_wall_slump_b.res",
 "save_to_file/keep_custom_tracks": "",
 "save_to_file/path": "uid://bdl6hmdi2uu7s",
 "settings/loop_mode": 0,
