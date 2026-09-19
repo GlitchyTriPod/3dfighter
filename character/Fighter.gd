@@ -310,7 +310,7 @@ func process_hitbox_intersection() -> Array[bool]:
 	var enemy_position: FixedVector3 = self.message_bus.get_oppo_fixed_position(self)
 	var enemy_rotation: FixedVector3 = self.message_bus.get_oppo_fixed_rotation(self)
 
-	if self.states.has("invincible"):
+	if self.states.has("invincible") || self.states.has("invincible_calc"):
 		return [ false, false ]
 
 	for hitbox: FECollisionData in enemy_hitboxes:
@@ -491,9 +491,14 @@ func process_movement(delta: int, hitbox_intersection: Array[bool] = [false, fal
 			# determine angle relative to wall here
 
 			if self.is_on_ground:
-				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_slump_b")
+				if self.states.has("wall_stop_calc"):
+					move = current_move
+				else:
+					move = self.movelist.get_from_ref_name(&"Ref/hit_wall_slump_b") \
+						if !self.state_data.has(&"preserve_wall_status_calc") || self.states.has("wall_proceed_calc") \
+						else self.movelist.get_from_ref_name(&"Ref/hit_wall_b")
 			else:
-				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_b")
+				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_b") 
 
 			self.set_animation_order(move, current_move)
 			self.process_root_motion(delta)
@@ -678,9 +683,9 @@ func process_root_motion(
 			self.collision_body.fixed_rotation.y
 		)
 
+	# handles most common "juggle" state
 	if self.states.has("juggle") || !self.is_on_ground:
 		vel_rot = FixedVector3.Add(vel_rot, self.collision_body.velocity)
-
 	
 	# apply the pushback angle
 	if pushback_angle != 999:
@@ -707,6 +712,7 @@ func process_root_motion(
 	if !self.states.has("juggle"):
 		self.collision_body.velocity = final_vel
 		
+	# handles ground extension
 	if !self.is_on_ground || (self.states.has("combo_extend") && self.is_on_ground): 
 		if !self.is_on_ground:
 			if self.states.has("air_spike"):
@@ -730,6 +736,24 @@ func process_root_motion(
 
 	elif self.collision_body.velocity.y < 0:
 		self.collision_body.velocity.y = 0
+
+
+	if self.states.has("wall_stun"):
+		self.collision_body.velocity.x = 0
+		self.collision_body.velocity.z = 0
+	
+		if self.collision_body.velocity.y > 0:
+			self.collision_body.velocity.y = clampi(
+				self.collision_body.velocity.y - FixedInt.Mul(
+					FixedIntGDConstant.FIXED_GRAVITY,
+					FixedIntGDConstant.FIXED_ONE
+				), 0, INT64_MAX
+			)
+		else:
+			self.collision_body.velocity.y -= FixedInt.Div(
+				FixedIntGDConstant.FIXED_GRAVITY,
+				FixedInt.FromFloat(500)
+			)
 
 	collide_and_slide(delta)
 
@@ -817,7 +841,8 @@ func is_tracking_opponent() -> bool:
 	var oppo_states: PackedStringArray = self.message_bus.get_oppo_states(self)
 	if self.states.has("track_opp") || self.states.has("inverse_track_opp") || \
 		(self.states.has("track_right") && oppo_states.has("left_movement")) || \
-		(self.states.has("track_left") && oppo_states.has("right_movement")):
+		(self.states.has("track_left") && oppo_states.has("right_movement")) || \
+		(self.states.has("string_track_stun") && oppo_states.has("hit_stun")):
 		return true
 	return false
 
