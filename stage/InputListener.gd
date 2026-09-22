@@ -11,8 +11,10 @@ var is_online_match : bool = false
 
 @onready var _delta_int: int = FixedInt.FromFloat(SyncManager.tick_time)
 
+@onready var stage: Stage = self.get_parent()
+
 func _network_preprocess(_input: Dictionary) -> void:
-	var stage: Stage = self.get_parent()
+	# var stage: Stage = self.get_parent()
 
 	var wall_data: Dictionary[StringName, Variant] = \
 		stage.get_player_wall_influence(

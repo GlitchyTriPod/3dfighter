@@ -137,7 +137,6 @@ func _init() -> void:
 			hitbox.is_hitbox = true
 			self._debug_hitbox_pool.append(hitbox)
 
-
 func _ready() -> void:
 	if !Engine.is_editor_hint():
 		%AddonSpheres.queue_free()
@@ -310,7 +309,7 @@ func process_hitbox_intersection() -> Array[bool]:
 	var enemy_position: FixedVector3 = self.message_bus.get_oppo_fixed_position(self)
 	var enemy_rotation: FixedVector3 = self.message_bus.get_oppo_fixed_rotation(self)
 
-	if self.states.has("invincible") || self.states.has("invincible_calc"):
+	if self.states.has("invincible") || self.state_data.has(&"invincible_calc"):
 		return [ false, false ]
 
 	for hitbox: FECollisionData in enemy_hitboxes:
@@ -487,18 +486,51 @@ func process_movement(delta: int, hitbox_intersection: Array[bool] = [false, fal
 		# player has hit the wall while being juggled
 		if (self.is_on_wall || self.states.has("wall_stun")) && \
 			self.states.has("airborne"):
-
+			
 			# determine angle relative to wall here
+			var wall_angle_diff: int = \
+				FixedInt.Atan2(self.wall_normal.x, self.wall_normal.z) - self.collision_body.fixed_rotation.YRotationCorrected()
 
-			if self.is_on_ground:
-				if self.states.has("wall_stop_calc"):
-					move = current_move
+			if self.player == 1:
+				print(self.wall_normal.x, " ", self.wall_normal.z)
+				print(
+					wall_angle_diff, " ", 
+					self.collision_body.fixed_rotation.YRotationCorrected(), " ", 
+					FixedInt.Atan2(self.wall_normal.x, self.wall_normal.z)
+				)
+
+			# back to wall (leniency of ~45 deg on either side)
+			if (wall_angle_diff > -51472 && wall_angle_diff < 51472 ||
+				wall_angle_diff >= 360303 || wall_angle_diff <= -360303):
+				if self.is_on_ground:
+					if self.states.has("wall_stop_calc"):
+						move = current_move
+					else:
+						move = self.movelist.get_from_ref_name(&"Ref/hit_wall_slump_b") \
+							if !self.state_data.has(&"preserve_wall_status_calc") || self.states.has("wall_proceed_calc") \
+							else self.movelist.get_from_ref_name(&"Ref/hit_wall_b")
 				else:
-					move = self.movelist.get_from_ref_name(&"Ref/hit_wall_slump_b") \
-						if !self.state_data.has(&"preserve_wall_status_calc") || self.states.has("wall_proceed_calc") \
-						else self.movelist.get_from_ref_name(&"Ref/hit_wall_b")
+					move = self.movelist.get_from_ref_name(&"Ref/hit_wall_b")
+
+			# player's right side is to the wall
+			elif (wall_angle_diff >= 51472 && wall_angle_diff < 154415 ||
+				wall_angle_diff <= -257359 && wall_angle_diff > -360303):
+				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_l")
+				# yes i fucked up the labels on the animations
+
+			# player's left side is to the wall
+			elif (wall_angle_diff <= -51472 && wall_angle_diff > -154415 ||
+				wall_angle_diff >= 257359 && wall_angle_diff < 360303):
+				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_r")
+				pass
+
+			# player is facing wall
+			elif (wall_angle_diff <= -154415 || wall_angle_diff >= 154415):
+				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_f")
+				pass
 			else:
-				move = self.movelist.get_from_ref_name(&"Ref/hit_wall_b") 
+				move = current_move
+
 
 			self.set_animation_order(move, current_move)
 			self.process_root_motion(delta)
@@ -737,17 +769,16 @@ func process_root_motion(
 	elif self.collision_body.velocity.y < 0:
 		self.collision_body.velocity.y = 0
 
-
+	# handles wall splat logic
 	if self.states.has("wall_stun"):
 		self.collision_body.velocity.x = 0
 		self.collision_body.velocity.z = 0
 	
 		if self.collision_body.velocity.y > 0:
 			self.collision_body.velocity.y = clampi(
-				self.collision_body.velocity.y - FixedInt.Mul(
-					FixedIntGDConstant.FIXED_GRAVITY,
-					FixedIntGDConstant.FIXED_ONE
-				), 0, INT64_MAX
+				self.collision_body.velocity.y - FixedIntGDConstant.FIXED_GRAVITY, 
+				0, 
+				INT64_MAX
 			)
 		else:
 			self.collision_body.velocity.y -= FixedInt.Div(
@@ -821,6 +852,8 @@ func collide_and_slide(delta: int) -> void:
 			)
 		else:
 			self.is_on_wall = false
+	else:
+		self.is_on_wall = false
 	
 	# snap to floor if lower than allowed
 	if new_position.y - self.collision_body.fixed_sphere_radius < self.floor_height:

@@ -309,6 +309,29 @@ public partial class FixedVector3 : RefCounted
 
 	#region  METHODS
 
+	public long YRotationCorrected()
+	{
+		if (Math.Abs(this.y) > FixedInt.FIXED_PI)
+		{
+			long internalAngle = Math.Abs(this.y) - FixedInt.FIXED_PI;
+			// /*FixedInt.Mul(FixedInt.FIXED_PI, FixedInt.FIXED_TWO)*/ FixedInt.FIXED_PI - Math.Abs(this.y);
+
+			long corr = 180 - internalAngle;
+
+			if (this.y > 0)
+			{
+				return -corr;
+			}
+			else if (this.y < 0)
+			{
+				return corr;
+			}
+			return 0;
+		}
+
+		return this.y;
+	}
+
 	public long Dot(FixedVector3 vec2)
 	{
 		long res = 0;

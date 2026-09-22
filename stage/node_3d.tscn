@@ -376,7 +376,6 @@ mesh = SubResource("PlaneMesh_7qbm1")
 
 [node name="StageBoundsBox" type="StaticBody3D" parent="StageCollision" unique_id=754994321]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 9.034046, 0)
-visible = false
 
 [node name="StageBounds" type="CollisionPolygon3D" parent="StageCollision/StageBoundsBox" unique_id=301056802]
 unique_name_in_owner = true

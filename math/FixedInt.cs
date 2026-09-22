@@ -180,22 +180,22 @@ namespace FatalException.FEMath
             return AtanSanitized(num);
         }
 
-        public static long Atan2(long num1, long num2)
+        public static long Atan2(long inY, long inX)
         {
-            if (num1 == FIXED_ZERO)
+            if (inY == FIXED_ZERO)
             {
-                return num1 < FIXED_ZERO ? FIXED_PI : FIXED_ZERO;
+                return (inX < FIXED_ZERO) ? FIXED_PI : FIXED_ZERO;
             }
 
-            if (num2 == FIXED_ZERO)
+            if (inX == FIXED_ZERO)
             {
-                return num1 > FIXED_ZERO ? FIXED_PI_DIV_2 : -FIXED_PI_DIV_2;
+                return (inY > FIXED_ZERO) ? FIXED_PI_DIV_2 : -FIXED_PI_DIV_2;
             }
 
-            long ret = AtanDiv(num1, num2);
-            if (num2 < FIXED_ZERO)
+            long ret = AtanDiv(inY, inX);
+            if (inX < FIXED_ZERO)
             {
-                return num1 >= FIXED_ZERO ? ret + FIXED_PI : ret - FIXED_PI;
+                return (inY >= FIXED_ZERO) ? ret + FIXED_PI : ret - FIXED_PI;
             }
 
             return ret;
